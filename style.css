@@ -3,7 +3,8 @@
             --bg-color: #131316;
             --text-color: #eeeeee;
             --grid-color: #222222;
-            --font-main: 'Courier New', Courier, monospace;
+            --font-header: 'Courier New', Courier, monospace;
+            --font-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             --spacing-unit: 2rem;
             --highlight: #00ff41; /* Terminal green for status */
         }
@@ -42,6 +43,7 @@
 
         /* --- TYPOGRAPHY --- */
         h1, h2, h3, h4 {
+            font-family: var(--font-header);
             font-weight: 700;
             text-transform: uppercase;
             letter-spacing: -0.05em;
@@ -49,13 +51,13 @@
         }
 
         h1 {
-            font-size: clamp(3rem, 8vw, 6rem);
-            margin-bottom: 2rem;
-            position: relative;
+            font-size: clamp(2.5rem, 7vw, 5rem);
+            margin-bottom: 1.5rem;
+            color: var(--text-color);
         }
 
         h2 {
-            font-size: clamp(2rem, 5vw, 3.5rem);
+            font-size: clamp(1.8rem, 5vw, 3rem);
             margin-bottom: 3rem;
             border-bottom: 2px solid var(--text-color);
             padding-bottom: 1rem;
@@ -63,54 +65,32 @@
         }
 
         h3 {
-            font-size: 1.2rem;
+            font-size: 1.25rem;
             margin-bottom: 1rem;
             text-decoration: underline;
-            overflow-wrap: break-word;
+            text-underline-offset: 4px;
+            text-decoration-thickness: 1px;
         }
         
-        h3 a { text-decoration: none; color: inherit; }
+        h3 a { 
+            text-decoration: none; 
+            color: inherit; 
+            transition: color 0.2s;
+        }
+        
+        h3 a:hover {
+            color: var(--highlight);
+        }
 
         p {
-            max-width: 60ch;
+            max-width: 65ch;
             margin-bottom: 1.5rem;
-            color: #aaa;
-            font-size: 1rem;
+            color: #ccc;
+            font-size: 1.05rem;
         }
 
         a { color: inherit; text-decoration: none; position: relative; }
 
-        /* --- GLITCH EFFECT (With Motion Safety) --- */
-        .glitch-wrapper { display: inline-block; position: relative; }
-        .glitch { position: relative; color: var(--text-color); }
-        
-        /* Only animate if user hasn't requested reduced motion */
-        @media (prefers-reduced-motion: no-preference) {
-            .glitch::before, .glitch::after {
-                content: attr(data-text);
-                position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-                background: var(--bg-color);
-            }
-            .glitch::before {
-                left: 2px; text-shadow: -1px 0 #fff; clip: rect(24px, 550px, 90px, 0);
-                animation: glitch-anim-2 3s infinite linear alternate-reverse;
-            }
-            .glitch::after {
-                left: -2px; text-shadow: -1px 0 #fff; clip: rect(85px, 550px, 140px, 0);
-                animation: glitch-anim 2.5s infinite linear alternate-reverse;
-            }
-        }
-        
-        @keyframes glitch-anim {
-            0% { clip: rect(14px, 9999px, 127px, 0); } 20% { clip: rect(93px, 9999px, 14px, 0); }
-            40% { clip: rect(56px, 9999px, 86px, 0); } 60% { clip: rect(27px, 9999px, 5px, 0); }
-            80% { clip: rect(84px, 9999px, 137px, 0); } 100% { clip: rect(4px, 9999px, 88px, 0); }
-        }
-        @keyframes glitch-anim-2 {
-            0% { clip: rect(65px, 9999px, 119px, 0); } 20% { clip: rect(106px, 9999px, 10px, 0); }
-            40% { clip: rect(31px, 9999px, 86px, 0); } 60% { clip: rect(90px, 9999px, 3px, 0); }
-            80% { clip: rect(12px, 9999px, 107px, 0); } 100% { clip: rect(50px, 9999px, 66px, 0); }
-        }
 
         /* --- LAYOUT UTILITIES --- */
         .container {
@@ -146,10 +126,20 @@
 
         nav ul { list-style: none; display: flex; gap: 2rem; }
         nav a { font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.1em; font-weight: 700; }
-        nav a:hover { background: var(--text-color); color: var(--bg-color); padding: 0 5px; }
+        nav a:hover {background: transparent;  color: var(--highlight);  text-shadow: 0 0 8px rgba(0, 255, 65, 0.4); }
 
-        .resume-btn { border: 2px solid var(--text-color); padding: 0.3rem 1rem; font-weight: bold; }
-        .resume-btn:hover { background: var(--text-color); color: var(--bg-color); }
+        .resume-btn { 
+            border: 2px solid var(--text-color); 
+            padding: 0.3rem 1rem; 
+            font-weight: bold; 
+            transition: all 0.3s ease;
+        }
+        .resume-btn:hover { 
+            border-color: var(--highlight); 
+            color: var(--highlight) !important;
+            background: rgba(0, 255, 65, 0.05);
+            box-shadow: 0 0 10px rgba(0, 255, 65, 0.2);
+        }
 
         /* --- CARDS & BLOG POSTS --- */
         .card, .blog-post {
@@ -158,18 +148,15 @@
             background: var(--bg-color); position: relative;
             display: flex; flex-direction: column;
         }
-        .card:hover, .blog-post:hover {
-            border-color: var(--text-color); background: var(--text-color);
+                .card:hover, .blog-post:hover {
+            border-color: var(--highlight);
             transform: translate(-4px, -4px);
-            box-shadow: 4px 4px 0px var(--bg-color), 4px 4px 0px 2px var(--text-color);
+            box-shadow: 4px 4px 0px var(--bg-color), 4px 4px 0px 2px var(--highlight);
         }
         
-        .card:hover h3, .card:hover p, .card:hover .tag, .card:hover a, 
-        .blog-post:hover h3, .blog-post:hover h3 a, .blog-post:hover p, .blog-post:hover .blog-meta {
-            color: var(--bg-color); border-color: var(--bg-color);
-        }
-        .card:hover .tag { background: var(--bg-color); color: var(--text-color); }
-
+        .card:hover h3, .blog-post:hover h3 a { color: var(--highlight); text-decoration-color: var(--highlight); }
+        .card:hover .project-link { color: var(--highlight); }
+        .card:hover .tag { border-color: var(--highlight); color: var(--highlight); }
         .tags { margin-top: auto; padding-top: 1.5rem; display: flex; flex-wrap: wrap; gap: 0.5rem; }
         .tag {
             font-size: 0.7rem; border: 1px solid var(--grid-color);
