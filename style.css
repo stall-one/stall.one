@@ -291,6 +291,10 @@
             border-color: var(--text-color);
             transform: translate(-4px, -4px);
             box-shadow: 4px 4px 0px var(--bg-color), 4px 4px 0px 2px var(--text-color);
+
+            /* ADD THIS: */
+            z-index: 10;
+            position: relative;
         }
 
         .card:hover h3,
@@ -456,7 +460,7 @@
                 overflow-x: auto;
                 scroll-snap-type: x mandatory;
                 gap: 1rem;
-                padding-bottom: 2rem;
+                padding: 1rem 0.5rem 2rem 1rem
             }
 
             .card,
