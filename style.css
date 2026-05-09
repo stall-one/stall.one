@@ -328,6 +328,14 @@
             color: #888;
         }
 
+        .links {
+            margin-top: auto;
+            padding-top: 1.5rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.8rem;
+        }
+
         .project-link {
             display: inline-block;
             margin-top: 1.5rem;
