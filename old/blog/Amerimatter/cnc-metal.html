@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Amerimatter CNC Metal: Precision Stock · Vol. 1 | stall.one</title>
+  <meta name="description" content="Field notes on americamattercorp/cnc-metal — catalog, Forge cutter, product plates, and print-industrial UI."/>
+  <meta name="robots" content="index, follow"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Oswald:wght@600;700&family=Space+Mono:wght@400;700&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="../../../style.css"/>
+  <script src="../../page-transition.js"></script>
+  <style>
+body.post-cnc{--bg:#f4ece2;--panel:#f4ece2;--fg:#111213;--muted:#333;--accent:#1d2d3d;--line:color-mix(in srgb,#1d2d3d 28%, #f4ece2);
+background:var(--bg);color:var(--fg);font-family:'Work Sans',system-ui,sans-serif}
+body.post-cnc .crt-overlay{opacity:.18}
+body.post-cnc header{background:color-mix(in srgb,var(--bg) 92%, transparent);border-bottom:1px solid var(--line);backdrop-filter:blur(10px)}
+body.post-cnc .brand{background:var(--accent);color:var(--bg);border-radius:.4rem}
+body.post-cnc nav a,body.post-cnc .menu-toggle{color:var(--fg)}
+body.post-cnc footer{color:var(--muted);border-top:1px solid var(--line)}
+body.post-cnc footer a{color:var(--fg)}
+body.post-cnc .container{background:transparent;border-color:transparent;max-width:920px}
+body.post-cnc section{border:0;padding:6rem 0 4.5rem}
+body.post-cnc .post{max-width:860px;margin:0 auto}
+body.post-cnc .kicker{color:var(--accent);font-size:.7rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;margin:0 0 1rem}
+body.post-cnc .hero{margin:0 0 2rem;padding:0 0 1.75rem;border-bottom:1px solid var(--line)}
+body.post-cnc .hero h1{font-size:clamp(1.9rem,5vw,2.9rem);font-weight:800;letter-spacing:-.03em;line-height:1.1;margin:0 0 1.1rem;border:0;text-transform:none;font-family:inherit;color:var(--fg)}
+body.post-cnc .hero h1 em{color:var(--accent);font-style:italic}
+body.post-cnc .lede{color:var(--muted);font-size:1.08rem;line-height:1.65;max-width:52ch;margin:0 0 1.3rem}
+body.post-cnc .lede strong{color:var(--fg)}
+body.post-cnc .chips{display:flex;flex-wrap:wrap;gap:.45rem}
+body.post-cnc .chip{font-size:.68rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--accent);background:color-mix(in srgb,var(--accent) 12%,transparent);border:1px solid color-mix(in srgb,var(--accent) 35%,transparent);border-radius:999px;padding:.35rem .7rem}
+body.post-cnc .grid{display:grid;grid-template-columns:1fr;gap:1.1rem;margin:0 0 1.75rem}
+@media(min-width:720px){body.post-cnc .grid{grid-template-columns:1fr 1fr}body.post-cnc .span-2{grid-column:1/-1}}
+body.post-cnc .card{background:var(--panel);border:1px solid var(--line);border-radius:0;padding:1.4rem 1.5rem}
+body.post-cnc .card h2{font-size:.78rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);margin:0 0 .85rem;border:0;font-family:inherit}
+body.post-cnc .card h2 b{color:var(--fg)}
+body.post-cnc .card p,body.post-cnc .card li{color:var(--muted);font-size:.97rem;line-height:1.6;margin:0 0 .65rem;max-width:none}
+body.post-cnc .card p:last-child{margin:0}
+body.post-cnc .card ul,body.post-cnc .card ol{margin:0 0 0 1.1rem}
+body.post-cnc .card strong{color:var(--fg)}
+body.post-cnc .card a{color:var(--accent);font-weight:700}
+body.post-cnc .card code{color:var(--accent);background:color-mix(in srgb,var(--accent) 12%,transparent);padding:.1em .35em;border-radius:4px;font-size:.88em}
+body.post-cnc pre{background:color-mix(in srgb,var(--fg) 6%,var(--bg));color:var(--muted);border:1px solid var(--line);border-left:3px solid var(--accent);border-radius:calc(0 - 2px);padding:1.1rem 1.2rem;font:0.8rem/1.55 ui-monospace,Menlo,monospace;overflow-x:auto;white-space:pre;margin:.6rem 0 0}
+body.post-cnc table{width:100%;border-collapse:collapse;font-size:.9rem}
+body.post-cnc th,body.post-cnc td{text-align:left;padding:.55rem .45rem;border-bottom:1px solid var(--line);color:var(--muted);vertical-align:top}
+body.post-cnc th{font-size:.65rem;letter-spacing:.08em;text-transform:uppercase}
+body.post-cnc td:first-child{color:var(--fg);font-weight:600}
+body.post-cnc .callout{background:color-mix(in srgb,var(--accent) 10%,var(--bg));border:1px solid var(--line);border-left:3px solid var(--accent);border-radius:0;padding:1.25rem 1.4rem;margin:0 0 1.5rem}
+body.post-cnc .callout strong{display:block;color:var(--accent);font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;margin:0 0 .45rem}
+body.post-cnc .callout p{margin:0;color:var(--fg);line-height:1.6;max-width:none}
+body.post-cnc .nav{display:flex;flex-wrap:wrap;justify-content:space-between;gap:.75rem 1.25rem;margin-top:2.5rem;padding-top:1.5rem;border-top:1px solid var(--line)}
+body.post-cnc .nav a{color:var(--accent);font-weight:700;font-size:.88rem;text-decoration:none}
+body.post-cnc .nav a:hover{text-decoration:underline;text-underline-offset:4px}
+body.post-cnc *{box-shadow:none!important}body.post-cnc .crt-overlay{display:none}
+body.post-cnc header{background:#f4ece2;border-bottom:3px solid #111213}
+body.post-cnc .brand{background:#1d2d3d;color:#f4ece2;border-radius:0;font-family:Oswald,sans-serif;text-transform:uppercase}
+body.post-cnc nav a,body.post-cnc .menu-toggle{color:#111213;font-family:Oswald,sans-serif;text-transform:uppercase;font-weight:600}
+body.post-cnc .hero h1{font-family:Oswald,sans-serif;text-transform:uppercase;letter-spacing:.01em;color:#111213}
+body.post-cnc .lede{font-family:'Libre Baskerville',Georgia,serif;color:#111213;opacity:.92}
+body.post-cnc .kicker{font-family:'Space Mono',monospace;color:#1d2d3d}
+body.post-cnc .card{border:2px solid #111213;border-radius:0;background:#f4ece2}
+body.post-cnc .card h2{font-family:Oswald,sans-serif;color:#111213}
+body.post-cnc .card p,body.post-cnc .card li{font-family:'Libre Baskerville',Georgia,serif;color:#111213;opacity:.92}
+body.post-cnc .chip{font-family:'Space Mono',monospace;background:#1d2d3d;color:#f4ece2;border:2px solid #111213;border-radius:0}
+body.post-cnc .callout{border:2px solid #111213;background:#e8dfd3;border-radius:0}
+body.post-cnc .callout strong{font-family:Oswald,sans-serif;color:#1d2d3d}
+body.post-cnc .callout p{font-family:'Libre Baskerville',Georgia,serif;color:#111213}
+body.post-cnc .nav a{font-family:Oswald,sans-serif;border:2px solid #111213;padding:.45rem .85rem;color:#111213;text-transform:uppercase}
+body.post-cnc .nav a:hover{background:#1d2d3d;color:#f4ece2;text-decoration:none}
+body.post-cnc footer{border-top:2px solid #111213;color:#111213}
+body.post-cnc footer a{color:#111213}
+body.post-cnc .hero{border-bottom:2px solid #111213}
+body.post-cnc .container{border-left:2px solid rgba(17,18,19,.2);border-right:2px solid rgba(17,18,19,.2);background:transparent}
+
+</style>
+</head>
+<body class="post-cnc">
+  <header>
+    <div class="logo-container">
+      <a href="../../" data-page-transition="rtl" class="brand-link" aria-label="Back to home"><span class="brand">STALL.ONE</span></a>
+    </div>
+    <div class="menu-toggle" onclick="toggleMenu()">[MENU]</div>
+    <nav id="navbar">
+      <ul>
+        <li><a href="../../#projects" data-page-transition="rtl" onclick="toggleMenu()">02_WORK</a></li>
+        <li><a href="../" data-page-transition="rtl" onclick="toggleMenu()">04_BLOG</a></li>
+        <li><a href="../../#contact" data-page-transition="rtl" onclick="toggleMenu()">05_CONTACT</a></li>
+      </ul>
+    </nav>
+  </header>
+  <div class="crt-overlay"></div>
+  <main class="container">
+    <section>
+      <article class="post">
+        <div class="kicker">LOG_ID: 2026-07-24 · AMERICAMATTERCORP / CNC-METAL</div>
+        <div class="hero">
+          <h1>CNC-ready metal.<br/>Mill finish. Ship ready.</h1>
+          <p class="lede">Field notes from <strong>americamattercorp/cnc-metal</strong> — a self-contained portfolio
+                        package for precision metal supply: catalog, product plate, Forge cutter, and shop guides under
+                        one print-industrial system.</p>
+          <div class="chips"><span class="chip">4140 Stock</span><span class="chip">Catalog</span><span class="chip">Forge</span><span class="chip">Guides</span></div>
+        </div>
+        <div class="grid">
+          <div class="card"><h2><span class="n">04</span> What it is</h2><p>
+                            A standalone static package for the original product idea: precision metal for CNC shops—
+                            not the services “reindustrialize” landing. Open <code>index.html</code>, walk catalog →
+                            product → forge → guides.
+                        </p><p>
+                            Tagline stays transactional: metal, mill finish, cut-to-order. Specs before slogans.
+                        </p></div>
+<div class="card"><h2><span class="n">05</span> Portfolio arc</h2><ul>
+<li><strong>Brand home</strong> — what we sell (metal, not manifesto)</li>
+<li><strong>Catalog</strong> — categories and SKUs</li>
+<li><strong>Product</strong> — size, price, 3D stock preview</li>
+<li><strong>Forge</strong> — plan cut / nest / kerf before buy</li>
+<li><strong>Guides</strong> — shop literacy for the floor</li>
+</ul></div>
+<div class="card span-2"><h2><span class="n">06</span> Package map</h2><pre class="blog-code"><code><span class="c">// americamattercorp/cnc-metal/</span>
+index.html       <span class="c"># home · stock story · paths</span>
+catalog.html     <span class="c"># alloy plate · mill finish · SKUs</span>
+product.html     <span class="c"># 4140 billet/bar + 3D viewer</span>
+forge.html       <span class="c"># 3D block cutter · kerf · nesting</span>
+guides.html      <span class="c"># newsstand / field notes</span>
+style.css        <span class="h"># all tokens + chrome</span>
+images/          <span class="c"># blocks · plate · guide art</span></code></pre></div>
+<div class="card"><h2><span class="n">07</span> Print rules</h2><ul>
+<li>Headers: bold all-caps sans (Oswald)</li>
+<li>Body: serif or Work Sans — squared, balanced</li>
+<li>Data: Space Mono</li>
+<li>Flat UI — no soft shadows, hard borders</li>
+<li>Vermilion only for danger / material finish</li>
+</ul></div>
+<div class="card"><h2><span class="n">08</span> Tokens</h2><p style="margin-bottom: 0.5rem; font-family: 'Space Mono', monospace; font-size: 0.75rem; opacity: 1;">
+                            Strict limited palette
+                        </p></div>
+        </div>
+        <div class="callout"><strong>Design bias</strong><p>
+                        CNC buyers read catalogs like purchase orders. The UI stays print-flat and order-clear: hard
+                        ink borders, navy as primary, vermilion reserved for alarms and material cues. The Forge is
+                        allowed to be interactive; the chrome is not allowed to be decorative.
+                    </p></div>
+        <div class="card span-2"><h2>Takeaway</h2><p>
+<code>cnc-metal</code> is the original product surface: supply CNC-ready stock with honest
+                        specs and tools to plan the cut before the spindle turns. Independent of the root services
+                        landing—same Amerimatter ink, different job: sell metal, teach the floor, nest the billet.
+                    </p><p>
+                        Run locally: <code>cd cnc-metal &amp;&amp; python3 -m http.server 8765</code>
+</p></div>
+        <nav class="nav" aria-label="Post navigation"><a data-page-transition="rtl" href="../Told/design-systems-ship.html">← Design Systems</a><a data-page-transition="rtl" href="./">All logs</a><a  data-page-transition="ltr" href="../Told/cinematic-scroll.html">Next: Cinematic →</a></nav>
+      </article>
+    </section>
+  </main>
+  <footer>
+    <div class="container" style="border:none;padding-top:2rem;padding-bottom:2rem;display:flex;justify-content:space-between;flex-wrap:wrap;gap:1rem">
+      <div class="social-links">
+        <a href="https://github.com/stall-one">[GITHUB]</a>
+        <a href="https://x.com/gitstallone">[X / TWITTER]</a>
+      </div>
+      <span style="font-size:0.8rem;opacity:0.8">// © 2025 SWEN_S_PECK</span>
+    </div>
+  </footer>
+  <script>function toggleMenu(){document.getElementById("navbar").classList.toggle("open");}</script>
+</body>
+</html>

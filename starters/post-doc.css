@@ -1,0 +1,194 @@
+/**
+ * Shared longform chrome for blog + white paper starters.
+ * Link after style.css. Set tokens on body.post-doc as needed.
+ */
+body.post-doc {
+  --bg: #0c0c0e;
+  --panel: #141418;
+  --fg: #eeeeee;
+  --muted: #9a9aa6;
+  --accent: #eeeeee;
+  --line: color-mix(in srgb, var(--accent) 28%, #141418);
+  background: var(--bg);
+  color: var(--fg);
+}
+
+body.post-doc .crt-overlay { opacity: 0.18; }
+
+body.post-doc header {
+  background: color-mix(in srgb, var(--bg) 92%, transparent);
+  border-bottom: 1px solid var(--line);
+}
+
+body.post-doc .brand {
+  background: #eeeeee;
+  color: #131316;
+}
+
+body.post-doc .container {
+  background: transparent;
+  border-color: transparent;
+  max-width: 920px;
+}
+
+body.post-doc section {
+  border: 0;
+  padding: 6rem 0 4.5rem;
+}
+
+body.post-doc .post {
+  max-width: 860px;
+  margin: 0 auto;
+}
+
+body.post-doc .kicker {
+  color: var(--accent);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin: 0 0 1rem;
+  font-family: var(--font-header, monospace);
+}
+
+body.post-doc h1 {
+  font-size: clamp(1.8rem, 4.5vw, 2.6rem);
+  border: 0;
+  margin: 0 0 1rem;
+  text-transform: none;
+  line-height: 1.15;
+  color: var(--fg);
+}
+
+body.post-doc .lede {
+  color: var(--muted);
+  font-size: 1.1rem;
+  line-height: 1.65;
+  max-width: 58ch;
+  margin: 0 0 1.5rem;
+}
+
+body.post-doc h2 {
+  font-size: 1.15rem;
+  border: 0;
+  margin: 2.25rem 0 0.85rem;
+  color: var(--fg);
+  text-transform: none;
+}
+
+body.post-doc h2::before {
+  content: "// ";
+  color: var(--accent);
+}
+
+body.post-doc p,
+body.post-doc li {
+  color: var(--muted);
+  line-height: 1.65;
+  max-width: 65ch;
+}
+
+body.post-doc ul {
+  margin: 0 0 1.25rem 1.2rem;
+}
+
+body.post-doc li {
+  margin-bottom: 0.45rem;
+}
+
+body.post-doc strong {
+  color: var(--fg);
+}
+
+body.post-doc a {
+  color: var(--accent);
+  font-weight: 700;
+}
+
+body.post-doc .chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  margin: 0 0 1.75rem;
+}
+
+body.post-doc .chip {
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--accent);
+  border: 1px solid color-mix(in srgb, var(--accent) 40%, transparent);
+  padding: 0.3rem 0.65rem;
+  border-radius: 999px;
+  font-family: var(--font-header, monospace);
+}
+
+body.post-doc .callout {
+  border: 2px solid var(--fg);
+  padding: 1.2rem 1.35rem;
+  margin: 1.5rem 0;
+  background: color-mix(in srgb, var(--accent) 6%, transparent);
+}
+
+body.post-doc .callout strong {
+  display: block;
+  color: var(--accent);
+  font-size: 0.72rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 0.4rem;
+  font-family: var(--font-header, monospace);
+}
+
+body.post-doc .callout p {
+  margin: 0;
+  color: var(--fg);
+  max-width: none;
+}
+
+body.post-doc .nav-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem 1.5rem;
+  margin-top: 2.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--line);
+}
+
+body.post-doc .nav-row a {
+  font-weight: 700;
+  font-size: 0.85rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  font-family: var(--font-header, monospace);
+}
+
+body.post-doc .diagram {
+  border: 1px solid var(--line);
+  background: #08080a;
+  padding: 1.15rem;
+  margin: 1.25rem 0 1.5rem;
+  overflow-x: auto;
+  font-family: var(--font-header, monospace);
+  font-size: 0.76rem;
+  line-height: 1.45;
+  color: #9fefb0;
+  white-space: pre;
+}
+
+body.post-doc .docs {
+  border: 2px solid var(--fg);
+  padding: 1.2rem 1.35rem;
+  margin: 1.5rem 0;
+  background: #08080a;
+}
+
+body.post-doc .docs pre {
+  margin: 0.7rem 0 0;
+  font-family: var(--font-header, monospace);
+  font-size: 0.85rem;
+  color: var(--accent);
+  white-space: pre;
+  overflow-x: auto;
+}

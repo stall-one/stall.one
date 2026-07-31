@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>DIY Cultivated Meat: Home Biohacker Experiment | stall.one</title>
+  <meta name="description" content="Educational kitchen-scale cultivated meat protocol — fertilized egg cells, yeast extract + egg white media, konjac scaffold. Not for consumption."/>
+  <meta name="robots" content="index, follow"/>
+  
+  <link rel="stylesheet" href="../../style.css"/>
+  <script src="../../page-transition.js"></script>
+  <style>
+body.post-meat{--bg:#1a0f10;--panel:#241618;--fg:#fce8e8;--muted:#b89898;--accent:#fb7185;--line:color-mix(in srgb,#fb7185 28%, #241618);
+background:var(--bg);color:var(--fg);font-family:system-ui,sans-serif}
+body.post-meat .crt-overlay{opacity:.18}
+body.post-meat header{background:color-mix(in srgb,var(--bg) 92%, transparent);border-bottom:1px solid var(--line);backdrop-filter:blur(10px)}
+body.post-meat .brand{background:var(--accent);color:var(--bg);border-radius:.4rem}
+body.post-meat nav a,body.post-meat .menu-toggle{color:var(--fg)}
+body.post-meat footer{color:var(--muted);border-top:1px solid var(--line)}
+body.post-meat footer a{color:var(--fg)}
+body.post-meat .container{background:transparent;border-color:transparent;max-width:920px}
+body.post-meat section{border:0;padding:6rem 0 4.5rem}
+body.post-meat .post{max-width:860px;margin:0 auto}
+body.post-meat .kicker{color:var(--accent);font-size:.7rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;margin:0 0 1rem}
+body.post-meat .hero{margin:0 0 2rem;padding:0 0 1.75rem;border-bottom:1px solid var(--line)}
+body.post-meat .hero h1{font-size:clamp(1.9rem,5vw,2.9rem);font-weight:800;letter-spacing:-.03em;line-height:1.1;margin:0 0 1.1rem;border:0;text-transform:none;font-family:inherit;color:var(--fg)}
+body.post-meat .hero h1 em{color:var(--accent);font-style:italic}
+body.post-meat .lede{color:var(--muted);font-size:1.08rem;line-height:1.65;max-width:52ch;margin:0 0 1.3rem}
+body.post-meat .lede strong{color:var(--fg)}
+body.post-meat .chips{display:flex;flex-wrap:wrap;gap:.45rem}
+body.post-meat .chip{font-size:.68rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--accent);background:color-mix(in srgb,var(--accent) 12%,transparent);border:1px solid color-mix(in srgb,var(--accent) 35%,transparent);border-radius:999px;padding:.35rem .7rem}
+body.post-meat .grid{display:grid;grid-template-columns:1fr;gap:1.1rem;margin:0 0 1.75rem}
+@media(min-width:720px){body.post-meat .grid{grid-template-columns:1fr 1fr}body.post-meat .span-2{grid-column:1/-1}}
+body.post-meat .card{background:var(--panel);border:1px solid var(--line);border-radius:0.85rem;padding:1.4rem 1.5rem}
+body.post-meat .card h2{font-size:.78rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);margin:0 0 .85rem;border:0;font-family:inherit}
+body.post-meat .card h2 b{color:var(--fg)}
+body.post-meat .card p,body.post-meat .card li{color:var(--muted);font-size:.97rem;line-height:1.6;margin:0 0 .65rem;max-width:none}
+body.post-meat .card p:last-child{margin:0}
+body.post-meat .card ul,body.post-meat .card ol{margin:0 0 0 1.1rem}
+body.post-meat .card strong{color:var(--fg)}
+body.post-meat .card a{color:var(--accent);font-weight:700}
+body.post-meat .card code{color:var(--accent);background:color-mix(in srgb,var(--accent) 12%,transparent);padding:.1em .35em;border-radius:4px;font-size:.88em}
+body.post-meat pre{background:color-mix(in srgb,var(--fg) 6%,var(--bg));color:var(--muted);border:1px solid var(--line);border-left:3px solid var(--accent);border-radius:calc(0.85rem - 2px);padding:1.1rem 1.2rem;font:0.8rem/1.55 ui-monospace,Menlo,monospace;overflow-x:auto;white-space:pre;margin:.6rem 0 0}
+body.post-meat table{width:100%;border-collapse:collapse;font-size:.9rem}
+body.post-meat th,body.post-meat td{text-align:left;padding:.55rem .45rem;border-bottom:1px solid var(--line);color:var(--muted);vertical-align:top}
+body.post-meat th{font-size:.65rem;letter-spacing:.08em;text-transform:uppercase}
+body.post-meat td:first-child{color:var(--fg);font-weight:600}
+body.post-meat .callout{background:color-mix(in srgb,var(--accent) 10%,var(--bg));border:1px solid var(--line);border-left:3px solid var(--accent);border-radius:0.85rem;padding:1.25rem 1.4rem;margin:0 0 1.5rem}
+body.post-meat .callout strong{display:block;color:var(--accent);font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;margin:0 0 .45rem}
+body.post-meat .callout p{margin:0;color:var(--fg);line-height:1.6;max-width:none}
+body.post-meat .nav{display:flex;flex-wrap:wrap;justify-content:space-between;gap:.75rem 1.25rem;margin-top:2.5rem;padding-top:1.5rem;border-top:1px solid var(--line)}
+body.post-meat .nav a{color:var(--accent);font-weight:700;font-size:.88rem;text-decoration:none}
+body.post-meat .nav a:hover{text-decoration:underline;text-underline-offset:4px}
+
+</style>
+</head>
+<body class="post-meat">
+  <header>
+    <div class="logo-container">
+      <a href="../../" data-page-transition="rtl" class="brand-link" aria-label="Back to home"><span class="brand">STALL.ONE</span></a>
+    </div>
+    <div class="menu-toggle" onclick="toggleMenu()">[MENU]</div>
+    <nav id="navbar">
+      <ul>
+        <li><a href="../../#projects" data-page-transition="rtl" onclick="toggleMenu()">02_WORK</a></li>
+        <li><a href="../" data-page-transition="rtl" onclick="toggleMenu()">04_BLOG</a></li>
+        <li><a href="../../#contact" data-page-transition="rtl" onclick="toggleMenu()">05_CONTACT</a></li>
+      </ul>
+    </nav>
+  </header>
+  <div class="crt-overlay"></div>
+  <main class="container">
+    <section>
+      <article class="post">
+        <div class="kicker">LOG_ID: 2026-07-25 · DIYBIO · CELL_CULTURE · EDUCATIONAL</div>
+        <div class="hero">
+          <h1>Growing meat in the kitchen</h1>
+          <p class="lede">A biohacker’s DIY cultivated meat experiment — turning fertilized-egg cells into tissue-like mass using kitchen-adjacent reagents. <strong>Educational only. Do not eat the product.</strong> Inspired by open methods in the Shojinmeat tradition.</p>
+          <div class="chips"><span class="chip">NOT FOR EATING</span><span class="chip">BSL hygiene</span><span class="chip">~$200–500</span><span class="chip">2–3 weeks</span></div>
+        </div>
+        <div class="grid">
+          <div class="card"><h2>01 · Why</h2><ul>
+<li>Curiosity about tissue engineering</li>
+<li>Hands-on cell culture skills</li>
+<li>Touch the future of food at garage scale</li>
+</ul><p><strong>Disclaimer:</strong> experimental / educational. Biosafety practices required. Do not consume.</p></div>
+<div class="card"><h2>02 · Materials</h2><ul>
+<li>Fertilized chicken egg</li>
+<li>Dry ice, small centrifuge, incubator</li>
+<li>Yeast extract, fresh egg whites, konjac powder</li>
+<li>Sterile dishes, pipettes, 70% ethanol, gloves</li>
+</ul></div>
+<div class="card span-2"><h2>03 · Process</h2><ol style="margin:0 0 0 1.1rem;color:var(--muted);font-size:0.95rem;line-height:1.55;">
+<li><strong>Incubate</strong> fertilized egg 10–12 days at 38.5°C, high humidity</li>
+<li><strong>Extract</strong> embryo sterilely; freeze (dry ice), mince, centrifuge cells</li>
+<li><strong>Media</strong> — 1–2% yeast extract + 10–20% egg white; pH ~7.3; sterilize</li>
+<li><strong>Proliferate</strong> in dishes at 38.5°C; swirl daily; growth often 3–7 days</li>
+<li><strong>Scaffold</strong> — konjac gel for 3D structure (not just monolayer)</li>
+<li><strong>Mature &amp; harvest</strong> another 7–10 days → small tissue-like masses</li>
+</ol><p>Timeline ~2–3 weeks. Yield is microscopy-scale, not dinner.</p></div>
+<div class="card"><h2>04 · Safety & troubleshooting</h2><ul>
+<li>Sterility is the #1 boss fight</li>
+<li>Temperature and pH religiously</li>
+<li>Egg white can help as a mild antimicrobial in media</li>
+<li>Dispose as bio-waste</li>
+<li>No growth → egg freshness / pH; cloudy media → contamination, restart</li>
+</ul></div>
+<div class="card"><h2>05 · Next experiments</h2><p>Different media, fish cells, better scaffolds, or more advanced techniques once fundamentals are solid. Industrial cultivated meat is not a kitchen hobby — this is skill-building and curiosity.</p></div>
+        </div>
+        <div class="callout"><strong>Design bias</strong><p>Learn the biology. Never skip sterility. Never eat the experiment.</p></div>
+        <div class="card span-2"><h2>Takeaway</h2><p>The tech that may one day feed cities is already legible enough for careful home practice — with clear ethical and safety bounds.</p></div>
+        <nav class="nav" aria-label="Post navigation"><a data-page-transition="rtl" href="../tech/graphics-command-streaming.html">← Command Streaming</a><a data-page-transition="rtl" href="./">All logs</a><a data-page-transition="ltr" href="../Amerimatter/bioleaching-acidithiobacillus.html">Bioleaching →</a></nav>
+      </article>
+    </section>
+  </main>
+  <footer>
+    <div class="container" style="border:none;padding-top:2rem;padding-bottom:2rem;display:flex;justify-content:space-between;flex-wrap:wrap;gap:1rem">
+      <div class="social-links">
+        <a href="https://github.com/stall-one">[GITHUB]</a>
+        <a href="https://x.com/gitstallone">[X / TWITTER]</a>
+      </div>
+      <span style="font-size:0.8rem;opacity:0.8">// © 2025 SWEN_S_PECK</span>
+    </div>
+  </footer>
+  <script>function toggleMenu(){document.getElementById("navbar").classList.toggle("open");}</script>
+</body>
+</html>

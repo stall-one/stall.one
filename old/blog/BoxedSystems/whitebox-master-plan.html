@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Whitebox Bio-Industrial Platform Master Plan | stall.one</title>
+  <meta name="description" content="Autonomous modular bio-industrial facilities — vision, principles, value prop for food, materials, and alt-protein."/>
+  <meta name="robots" content="index, follow"/>
+  
+  <link rel="stylesheet" href="../../style.css"/>
+  <script src="../../page-transition.js"></script>
+  <style>
+body.post-wbm{--bg:#0a120e;--panel:#121c16;--fg:#e8f5ec;--muted:#8aa896;--accent:#4ade80;--line:color-mix(in srgb,#4ade80 28%, #121c16);
+background:var(--bg);color:var(--fg);font-family:system-ui,sans-serif}
+body.post-wbm .crt-overlay{opacity:.18}
+body.post-wbm header{background:color-mix(in srgb,var(--bg) 92%, transparent);border-bottom:1px solid var(--line);backdrop-filter:blur(10px)}
+body.post-wbm .brand{background:var(--accent);color:var(--bg);border-radius:.4rem}
+body.post-wbm nav a,body.post-wbm .menu-toggle{color:var(--fg)}
+body.post-wbm footer{color:var(--muted);border-top:1px solid var(--line)}
+body.post-wbm footer a{color:var(--fg)}
+body.post-wbm .container{background:transparent;border-color:transparent;max-width:920px}
+body.post-wbm section{border:0;padding:6rem 0 4.5rem}
+body.post-wbm .post{max-width:860px;margin:0 auto}
+body.post-wbm .kicker{color:var(--accent);font-size:.7rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;margin:0 0 1rem}
+body.post-wbm .hero{margin:0 0 2rem;padding:0 0 1.75rem;border-bottom:1px solid var(--line)}
+body.post-wbm .hero h1{font-size:clamp(1.9rem,5vw,2.9rem);font-weight:800;letter-spacing:-.03em;line-height:1.1;margin:0 0 1.1rem;border:0;text-transform:none;font-family:inherit;color:var(--fg)}
+body.post-wbm .hero h1 em{color:var(--accent);font-style:italic}
+body.post-wbm .lede{color:var(--muted);font-size:1.08rem;line-height:1.65;max-width:52ch;margin:0 0 1.3rem}
+body.post-wbm .lede strong{color:var(--fg)}
+body.post-wbm .chips{display:flex;flex-wrap:wrap;gap:.45rem}
+body.post-wbm .chip{font-size:.68rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--accent);background:color-mix(in srgb,var(--accent) 12%,transparent);border:1px solid color-mix(in srgb,var(--accent) 35%,transparent);border-radius:999px;padding:.35rem .7rem}
+body.post-wbm .grid{display:grid;grid-template-columns:1fr;gap:1.1rem;margin:0 0 1.75rem}
+@media(min-width:720px){body.post-wbm .grid{grid-template-columns:1fr 1fr}body.post-wbm .span-2{grid-column:1/-1}}
+body.post-wbm .card{background:var(--panel);border:1px solid var(--line);border-radius:0.85rem;padding:1.4rem 1.5rem}
+body.post-wbm .card h2{font-size:.78rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);margin:0 0 .85rem;border:0;font-family:inherit}
+body.post-wbm .card h2 b{color:var(--fg)}
+body.post-wbm .card p,body.post-wbm .card li{color:var(--muted);font-size:.97rem;line-height:1.6;margin:0 0 .65rem;max-width:none}
+body.post-wbm .card p:last-child{margin:0}
+body.post-wbm .card ul,body.post-wbm .card ol{margin:0 0 0 1.1rem}
+body.post-wbm .card strong{color:var(--fg)}
+body.post-wbm .card a{color:var(--accent);font-weight:700}
+body.post-wbm .card code{color:var(--accent);background:color-mix(in srgb,var(--accent) 12%,transparent);padding:.1em .35em;border-radius:4px;font-size:.88em}
+body.post-wbm pre{background:color-mix(in srgb,var(--fg) 6%,var(--bg));color:var(--muted);border:1px solid var(--line);border-left:3px solid var(--accent);border-radius:calc(0.85rem - 2px);padding:1.1rem 1.2rem;font:0.8rem/1.55 ui-monospace,Menlo,monospace;overflow-x:auto;white-space:pre;margin:.6rem 0 0}
+body.post-wbm table{width:100%;border-collapse:collapse;font-size:.9rem}
+body.post-wbm th,body.post-wbm td{text-align:left;padding:.55rem .45rem;border-bottom:1px solid var(--line);color:var(--muted);vertical-align:top}
+body.post-wbm th{font-size:.65rem;letter-spacing:.08em;text-transform:uppercase}
+body.post-wbm td:first-child{color:var(--fg);font-weight:600}
+body.post-wbm .callout{background:color-mix(in srgb,var(--accent) 10%,var(--bg));border:1px solid var(--line);border-left:3px solid var(--accent);border-radius:0.85rem;padding:1.25rem 1.4rem;margin:0 0 1.5rem}
+body.post-wbm .callout strong{display:block;color:var(--accent);font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;margin:0 0 .45rem}
+body.post-wbm .callout p{margin:0;color:var(--fg);line-height:1.6;max-width:none}
+body.post-wbm .nav{display:flex;flex-wrap:wrap;justify-content:space-between;gap:.75rem 1.25rem;margin-top:2.5rem;padding-top:1.5rem;border-top:1px solid var(--line)}
+body.post-wbm .nav a{color:var(--accent);font-weight:700;font-size:.88rem;text-decoration:none}
+body.post-wbm .nav a:hover{text-decoration:underline;text-underline-offset:4px}
+
+</style>
+</head>
+<body class="post-wbm">
+  <header>
+    <div class="logo-container">
+      <a href="../../" data-page-transition="rtl" class="brand-link" aria-label="Back to home"><span class="brand">STALL.ONE</span></a>
+    </div>
+    <div class="menu-toggle" onclick="toggleMenu()">[MENU]</div>
+    <nav id="navbar">
+      <ul>
+        <li><a href="../../#projects" data-page-transition="rtl" onclick="toggleMenu()">02_WORK</a></li>
+        <li><a href="../" data-page-transition="rtl" onclick="toggleMenu()">04_BLOG</a></li>
+        <li><a href="../../#contact" data-page-transition="rtl" onclick="toggleMenu()">05_CONTACT</a></li>
+      </ul>
+    </nav>
+  </header>
+  <div class="crt-overlay"></div>
+  <main class="container">
+    <section>
+      <article class="post">
+        <div class="kicker">LOG_ID: 2026-07 · WHITEBOX · MASTER PLAN</div>
+        <div class="hero">
+          <h1>Whitebox bio-industrial platform</h1>
+          <p class="lede">Autonomous · Modular · Sustainable. A network of plug-and-play facilities for cultivating biological resources, extracting materials, and processing high-quality products — including alternative proteins — with precision and minimal environmental impact.</p>
+          <div class="chips"><span class="chip">Modular</span><span class="chip">Autonomy</span><span class="chip">Closed-loop</span><span class="chip">Alt-protein</span></div>
+        </div>
+        <div class="grid">
+          <div class="card"><h2>01 · Vision</h2><p>Revolutionize sustainable production via autonomous modular facilities for diverse biological outputs, materials, and specialty chemicals — efficient, precise, low-impact.</p></div>
+<div class="card"><h2>02 · Mission</h2><p>Enable localized, on-demand, resource-efficient production of food, alt-proteins, materials, and chemicals by integrating robotics, AI environmental control, and biology in a scalable Whitebox ecosystem.</p></div>
+<div class="card"><h2>03 · Core principles</h2><ul>
+<li><strong>Sustainability</strong> — closed-loop, renewables, CO₂ valorization, waste-to-value</li>
+<li><strong>Modularity</strong> — plug-and-play modules for rapid deploy and expansion</li>
+<li><strong>Autonomy</strong> — AI, robotics, analytics for self-optimizing ops</li>
+<li><strong>Innovation</strong> — continuous strain and process R&amp;D</li>
+<li><strong>Equity</strong> — licensing and partnerships to democratize access</li>
+</ul></div>
+<div class="card"><h2>04 · Value</h2><ul>
+<li>Lower transport emissions &amp; land use</li>
+<li>Microbial CO₂-to-protein pathways</li>
+<li>Lower capex/opex via modular automation</li>
+<li>Diverse outputs: produce, cultivated meat, biomaterials</li>
+<li>Distributed resilience &amp; sterility control</li>
+</ul></div>
+<div class="card"><h2>05 · Module stack</h2><p>Phase 1 hydroponics prototype → climate, sensing, PAW, fungi, materials (mycelium), cold-chain modules, microbial protein — compose facilities like software packages.</p><p>See: <a data-page-transition="ltr" href="./whitebox-hydroponics.html" style="font-weight:700">hydro BOM</a>, <a data-page-transition="ltr" href="./mycelium-packaging.html" style="font-weight:700">mycelium packaging</a>, <a data-page-transition="ltr" href="./xanthobacter-tagetidis.html" style="font-weight:700">HOB protein</a>.</p></div>
+        </div>
+        <div class="callout"><strong>Thesis</strong><p>Localize production. Modularize biology. Automate the climate and the loop.</p></div>
+        <div class="card span-2"><h2>Takeaway</h2><p>Whitebox is the umbrella: stack modules until a site feeds, packages, and processes with closed loops.</p></div>
+        <nav class="nav" aria-label="Post navigation"><a data-page-transition="rtl" href="../TheEnclave/clear-protein-flavors.html">← Protein Flavors</a><a data-page-transition="rtl" href="./">All logs</a><a data-page-transition="ltr" href="../tech/asset-vs-command-streaming.html">Asset vs Command →</a></nav>
+      </article>
+    </section>
+  </main>
+  <footer>
+    <div class="container" style="border:none;padding-top:2rem;padding-bottom:2rem;display:flex;justify-content:space-between;flex-wrap:wrap;gap:1rem">
+      <div class="social-links">
+        <a href="https://github.com/stall-one">[GITHUB]</a>
+        <a href="https://x.com/gitstallone">[X / TWITTER]</a>
+      </div>
+      <span style="font-size:0.8rem;opacity:0.8">// © 2025 SWEN_S_PECK</span>
+    </div>
+  </footer>
+  <script>function toggleMenu(){document.getElementById("navbar").classList.toggle("open");}</script>
+</body>
+</html>

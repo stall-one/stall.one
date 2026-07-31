@@ -1,0 +1,1034 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ephemeral Key Derivation using WebAuthn | stall.one</title>
+    <meta name="description" content="Ephemeral key derivation using WebAuthn PRF and HKDF with multi-chain support." />
+    <meta name="robots" content="index, follow" />
+    <link rel="stylesheet" href="../../style.css" />
+    <script src="../../page-transition.js"></script>
+    <style>
+      /* Scoped sandbox — mono + cool gray, not site-green flood */
+      .wa-demo {
+        --wa-accent: #eeeeee;
+        --wa-alt: #9aa3b2;
+        --wa-alt2: #c8cdd6;
+        --wa-muted: #888;
+        --wa-panel: #0a0a0c;
+        --wa-line: var(--grid-color);
+        --wa-fg: var(--text-color);
+        --wa-bg: var(--bg-color);
+      }
+
+      .blog-card .wa-cm { color: #7a7a7a; font-style: italic; }
+      .blog-card .wa-kw { color: #e8e8e8; font-weight: 700; }
+      .blog-card .wa-fn { color: #b0b8c4; }
+
+      .wa-demo.blog-card {
+        border-color: var(--grid-color);
+        background: var(--bg-color);
+      }
+      .wa-demo.blog-card:hover {
+        border-color: var(--text-color);
+      }
+
+      .wa-demo-controls {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.75rem;
+        margin: 0 0 1rem;
+      }
+      .wa-demo-row {
+        display: flex;
+        gap: 1rem;
+        align-items: center;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+
+      .wa-btn {
+        background: var(--text-color);
+        color: var(--bg-color);
+        padding: 0.7rem 1.2rem;
+        font-weight: 700;
+        cursor: pointer;
+        border: 2px solid var(--text-color);
+        border-radius: 0;
+        font-family: inherit;
+        font-size: 0.85rem;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        transition: transform 0.15s, background 0.15s, color 0.15s;
+      }
+      .wa-btn:hover:not(:disabled) {
+        background: transparent;
+        color: var(--text-color);
+        transform: translateY(-1px);
+      }
+      .wa-btn:disabled {
+        background: #2a2a2e;
+        color: #777;
+        border-color: #444;
+        cursor: not-allowed;
+      }
+
+      .wa-pin-toggle {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        background: rgba(0, 0, 0, 0.35);
+        padding: 0.5rem 1rem;
+        border: 1px solid var(--wa-line);
+      }
+      .wa-switch { position: relative; display: inline-block; width: 36px; height: 20px; flex-shrink: 0; }
+      .wa-switch input { opacity: 0; width: 0; height: 0; }
+      .wa-slider {
+        position: absolute; cursor: pointer; inset: 0;
+        background: rgba(255, 255, 255, 0.08);
+        transition: 0.3s;
+        border: 1px solid var(--wa-line);
+      }
+      .wa-slider::before {
+        content: "";
+        position: absolute;
+        height: 12px; width: 12px;
+        left: 3px; bottom: 3px;
+        background: var(--wa-muted);
+        transition: 0.3s;
+        border-radius: 50%;
+      }
+      .wa-switch input:checked + .wa-slider {
+        background: rgba(255, 255, 255, 0.12);
+        border-color: #ccc;
+      }
+      .wa-switch input:checked + .wa-slider::before {
+        transform: translateX(16px);
+        background: #eee;
+      }
+      .wa-toggle-label {
+        font-size: 0.72rem;
+        color: var(--wa-muted);
+        font-family: var(--font-header), ui-monospace, monospace;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+      }
+      .wa-switch input:checked ~ .wa-toggle-copy .wa-toggle-label { color: #ddd; }
+      .wa-pin-hint { color: var(--wa-fg); font-size: 0.78em; opacity: 0.75; display: block; margin-top: 0.15rem; }
+
+      .wa-pin-container {
+        display: none;
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
+        background: rgba(0, 0, 0, 0.55);
+        border: 1px solid #444;
+        padding: 1.35rem;
+        width: 100%;
+        max-width: 260px;
+        margin: 0.5rem auto 0;
+      }
+      .wa-pin-container.active { display: flex; animation: wa-fadeIn 0.25s forwards; }
+      .wa-pin-title {
+        font-size: 0.72rem;
+        color: #ccc;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        font-weight: 700;
+      }
+      .wa-pin-display {
+        display: flex;
+        gap: 0.8rem;
+        height: 16px;
+        margin-bottom: 0.35rem;
+        justify-content: center;
+        width: 100%;
+        transition: transform 0.1s;
+      }
+      .wa-pin-dot {
+        width: 14px; height: 14px; border-radius: 50%;
+        border: 2px solid var(--wa-muted);
+        transition: 0.15s;
+      }
+      .wa-pin-dot.filled {
+        background: #eee;
+        border-color: #eee;
+      }
+      .wa-pin-pad {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 0.55rem;
+        width: 100%;
+      }
+      .wa-pin-btn {
+        background: var(--wa-panel);
+        color: var(--wa-fg);
+        border: 1px solid var(--wa-line);
+        padding: 0.75rem 0;
+        font-family: var(--font-header), ui-monospace, monospace;
+        font-size: 1.1rem;
+        cursor: pointer;
+        transition: 0.15s;
+      }
+      .wa-pin-btn:hover {
+        border-color: #888;
+        color: #fff;
+        background: rgba(255, 255, 255, 0.06);
+      }
+      .wa-pin-btn:active { transform: scale(0.96); }
+      .wa-pin-btn.action {
+        font-size: 0.8rem;
+        color: #aaa;
+        font-family: inherit;
+        font-weight: 700;
+      }
+      .wa-pin-btn.action.ok { color: #eee; }
+
+      .wa-pipeline {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin: 1.25rem 0;
+        font-family: var(--font-header), ui-monospace, monospace;
+      }
+      .wa-node {
+        background: rgba(0, 0, 0, 0.55);
+        border: 1px solid var(--wa-line);
+        padding: 1rem;
+        text-align: center;
+        width: min(280px, 100%);
+        position: relative;
+        z-index: 2;
+        transition: border-color 0.25s, box-shadow 0.25s, transform 0.25s;
+      }
+      .wa-node.active {
+        border-color: #bbb;
+        box-shadow: 0 0 14px rgba(255, 255, 255, 0.06);
+        transform: translateY(-2px);
+      }
+      .wa-node.active-alt {
+        border-color: #8a93a3;
+        box-shadow: 0 0 12px rgba(154, 163, 178, 0.1);
+      }
+      .wa-node.active-alt2 {
+        border-color: #c8cdd6;
+        box-shadow: 0 0 12px rgba(200, 205, 214, 0.08);
+      }
+      .wa-pl-title {
+        font-size: 0.68rem;
+        color: var(--wa-muted);
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        margin-bottom: 0.45rem;
+        font-weight: 700;
+      }
+      .wa-node.active .wa-pl-title { color: #eee; }
+      .wa-node.active-alt .wa-pl-title { color: #b0b8c4; }
+      .wa-node.active-alt2 .wa-pl-title { color: #d0d4dc; }
+      .wa-pl-value {
+        font-size: 0.72rem;
+        color: var(--wa-fg);
+        opacity: 0.3;
+        word-break: break-all;
+        min-height: 1.2rem;
+        transition: opacity 0.25s;
+      }
+      .wa-node.active .wa-pl-value,
+      .wa-node.active-alt .wa-pl-value,
+      .wa-node.active-alt2 .wa-pl-value { opacity: 1; }
+      .wa-pl-info {
+        font-size: 0.6rem;
+        color: var(--wa-muted);
+        margin-bottom: 0.45rem;
+        font-family: var(--font-header), monospace;
+      }
+
+      .wa-edge {
+        width: 2px;
+        height: 28px;
+        background: var(--wa-line);
+        position: relative;
+        overflow: hidden;
+      }
+      .wa-edge::after {
+        content: "";
+        position: absolute;
+        top: -100%; left: 0;
+        width: 100%; height: 100%;
+        background: linear-gradient(to bottom, transparent, #ccc, transparent);
+        opacity: 0;
+      }
+      .wa-edge.flowing::after {
+        opacity: 1;
+        animation: wa-flowDown 0.8s infinite linear;
+      }
+
+      .wa-branches {
+        display: flex;
+        justify-content: center;
+        gap: 1.25rem;
+        width: 100%;
+        flex-wrap: wrap;
+        margin-top: -2px;
+      }
+      .wa-branch { display: flex; flex-direction: column; align-items: center; }
+      .wa-split {
+        width: min(320px, 100%);
+        height: 40px;
+        overflow: visible;
+        margin-bottom: -4px;
+      }
+      .wa-split-path {
+        fill: none;
+        stroke: var(--wa-line);
+        stroke-width: 2;
+        transition: stroke 0.3s;
+      }
+      .wa-split-path.flowing-left {
+        stroke: var(--wa-alt);
+        stroke-dasharray: 8;
+        animation: wa-dashL 0.5s infinite linear;
+      }
+      .wa-split-path.flowing-right {
+        stroke: var(--wa-alt2);
+        stroke-dasharray: 8;
+        animation: wa-dashR 0.5s infinite linear;
+      }
+
+      .wa-term {
+        background: #0a0a0f;
+        border: 1px solid var(--wa-line);
+        border-left: 3px solid var(--wa-alt);
+        padding: 1rem;
+        font-family: var(--font-header), ui-monospace, monospace;
+        font-size: 0.82rem;
+        min-height: 160px;
+        max-height: 240px;
+        overflow-y: auto;
+        display: flex;
+        flex-direction: column;
+        box-shadow: inset 0 0 16px rgba(0, 0, 0, 0.7);
+        position: relative;
+      }
+      .wa-term::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: repeating-linear-gradient(
+          0deg, transparent, transparent 2px,
+          rgba(255, 255, 255, 0.02) 2px, rgba(255, 255, 255, 0.02) 4px
+        );
+        pointer-events: none;
+      }
+      .wa-term-line {
+        margin-bottom: 0.28rem;
+        opacity: 0;
+        animation: wa-typeIn 0.12s forwards;
+        color: #999;
+        position: relative;
+        z-index: 1;
+      }
+      .wa-term-line.sys { color: #a8b0bc; }
+      .wa-term-line.auth { color: #c8cdd6; }
+      .wa-term-line.success { color: #eee; font-weight: 700; }
+      .wa-term-line.err { color: #ff6b6b; }
+
+      /* Multi-chain rotator */
+      .wa-rotator {
+        background: #0a0a0f;
+        border: 1px solid var(--wa-line);
+        padding: 1.1rem;
+        margin-top: 0.85rem;
+        font-family: var(--font-header), ui-monospace, monospace;
+        box-shadow: inset 0 0 12px rgba(0, 0, 0, 0.65);
+      }
+      .wa-rs-controls {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 0.9rem;
+        flex-wrap: wrap;
+        gap: 0.85rem;
+        border-bottom: 1px dashed var(--wa-line);
+        padding-bottom: 0.85rem;
+      }
+      .wa-rs-group { display: flex; align-items: center; gap: 0.45rem; }
+      .wa-rs-controls label {
+        font-size: 0.65rem;
+        color: #999;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        font-weight: 700;
+      }
+      .wa-rs-controls select,
+      .wa-rs-controls button {
+        background: var(--wa-bg);
+        color: var(--wa-fg);
+        border: 1px solid var(--wa-line);
+        padding: 0.3rem 0.55rem;
+        font-family: inherit;
+        cursor: pointer;
+      }
+      .wa-rs-controls select:focus,
+      .wa-rs-controls button:hover {
+        border-color: #888;
+        outline: none;
+      }
+      .wa-rs-ver {
+        display: flex;
+        align-items: center;
+        gap: 0.4rem;
+        background: rgba(255, 255, 255, 0.04);
+        padding: 0.15rem;
+      }
+      .wa-rs-ver button {
+        border: none;
+        background: transparent;
+        font-weight: 700;
+        width: 24px;
+        padding: 0.2rem;
+        color: var(--wa-muted);
+      }
+      .wa-rs-ver button:hover { color: var(--wa-fg); background: rgba(255,255,255,0.08); }
+      .wa-rs-ver span {
+        font-weight: 700;
+        width: 3ch;
+        text-align: center;
+        font-size: 0.85rem;
+        color: var(--wa-alt);
+      }
+      .wa-rs-out {
+        background: rgba(0, 0, 0, 0.4);
+        padding: 0.9rem;
+        border-left: 3px solid var(--wa-alt);
+        position: relative;
+        overflow: hidden;
+      }
+      .wa-rs-info {
+        font-size: 0.72rem;
+        color: var(--wa-muted);
+        margin-bottom: 0.7rem;
+        padding-bottom: 0.45rem;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+      }
+      .wa-rs-key {
+        font-size: 0.82rem;
+        color: var(--wa-fg);
+        word-break: break-all;
+        line-height: 1.4;
+        transition: color 0.1s, opacity 0.1s, filter 0.1s;
+      }
+      .wa-rs-key.updating {
+        color: #bbb;
+        opacity: 0.5;
+        filter: blur(2px);
+      }
+
+      /* Soften global green chrome only inside this article */
+      .blog-article .blog-card h2::before,
+      .blog-article .blog-card h3::before {
+        color: #888;
+        opacity: 1;
+      }
+      .blog-article em {
+        color: #ccc;
+      }
+      .blog-article .blog-callout {
+        background: rgba(255, 255, 255, 0.03);
+        border-color: #444;
+      }
+      .blog-article .blog-callout strong {
+        color: #ccc;
+      }
+      .blog-article .blog-card code,
+      .blog-article code {
+        color: #ddd;
+        background: rgba(255, 255, 255, 0.04);
+        border-color: #333;
+      }
+      .blog-article .blog-code,
+      .blog-article .blog-card pre {
+        border-left-color: #666;
+      }
+      .blog-article .blog-card a {
+        color: #ddd;
+      }
+      .blog-article .blog-nav a:hover {
+        color: #fff;
+      }
+
+      @keyframes wa-typeIn {
+        from { opacity: 0; transform: translateX(-4px); }
+        to { opacity: 1; transform: translateX(0); }
+      }
+      @keyframes wa-fadeIn { from { opacity: 0; } to { opacity: 1; } }
+      @keyframes wa-flowDown { 0% { top: -100%; } 100% { top: 100%; } }
+      @keyframes wa-dashL { from { stroke-dashoffset: 16; } to { stroke-dashoffset: 0; } }
+      @keyframes wa-dashR { from { stroke-dashoffset: 0; } to { stroke-dashoffset: 16; } }
+
+      @media (max-width: 600px) {
+        .wa-node { width: 100%; max-width: 280px; }
+        .wa-branches { gap: 0.75rem; }
+      }
+    </style>
+</head>
+<body>
+  <header>
+    <div class="logo-container">
+        <a href="../../" data-page-transition="rtl" class="brand-link" aria-label="Back to home">
+            <span class="brand">STALL.ONE</span>
+        </a>
+    </div>
+    <div class="menu-toggle" onclick="toggleMenu()">[MENU]</div>
+    <nav id="navbar">
+        <ul>
+            <li><a href="../#expertise" data-page-transition="rtl" onclick="toggleMenu()">01_SKILLS</a></li>
+            <li><a href="../#projects" data-page-transition="rtl" onclick="toggleMenu()">02_WORK</a></li>
+            <li><a href="../#certifications" data-page-transition="rtl" onclick="toggleMenu()">03_CERTS</a></li>
+            <li><a href="../blog/" data-page-transition="ltr" onclick="toggleMenu()">04_BLOG</a></li>
+            <li><a href="../#contact" data-page-transition="rtl" onclick="toggleMenu()">05_CONTACT</a></li>
+        </ul>
+    </nav>
+</header>
+    <div class="crt-overlay"></div>
+
+    <main class="container">
+        <section>
+            <article class="blog-article">
+                <div class="blog-kicker">LOG_ID: 2025-08-15 · CRYPTO · WEBAUTHN</div>
+                <div class="blog-hero">
+                    <h1>Ephemeral Key Derivation using WebAuthn</h1>
+                    <p class="blog-lede">
+                        PRF extension + HKDF for keys that exist only while the authenticator cooperates —
+                        with a path to multi-chain wallets that never store seed material on disk.
+                    </p>
+                </div>
+
+                <div class="tags" style="margin-bottom: 2rem; padding-top: 0;">
+                    <span class="tag">WEBAUTHN</span>
+                    <span class="tag">PRF</span>
+                    <span class="tag">HKDF</span>
+                    <span class="tag">STATELESS</span>
+                </div>
+
+                <div class="blog-grid">
+                    <div class="blog-card">
+                        <h2>01 · The problem</h2>
+                        <p>
+                            Seed phrases punish users and concentrate risk. Server custody reintroduces the honeypot.
+                            Passkeys already prove presence and user verification — the missing piece is
+                            <em>deriving</em> material without persisting it.
+                        </p>
+                    </div>
+
+                    <div class="blog-card">
+                        <h2>02 · PRF as root secret</h2>
+                        <p>
+                            The WebAuthn PRF extension returns deterministic pseudo-random output for a given salt,
+                            gated by the same ceremony as a normal assertion. High-entropy seed you never write to
+                            localStorage.
+                        </p>
+                    </div>
+
+                    <div class="blog-card span-2">
+                        <h2>03 · Derive, use, forget</h2>
+                        <pre class="blog-code"><code><span class="wa-cm">// assertion with prf.eval.salt1</span>
+<span class="wa-kw">const</span> prfOut = assertion.getClientExtensionResults().prf.results.first;
+
+<span class="wa-cm">// domain-separated chain keys</span>
+<span class="wa-kw">const</span> evmKey = <span class="wa-fn">hkdf</span>(prfOut, { info: <span class="wa-fn">enc</span>(<span class="wa-cm">"stall.one/evm/v1"</span>) });
+<span class="wa-kw">const</span> solKey = <span class="wa-fn">hkdf</span>(prfOut, { info: <span class="wa-fn">enc</span>(<span class="wa-cm">"stall.one/sol/v1"</span>) });
+
+<span class="wa-cm">// sign → zeroize when session ends</span></code></pre>
+                    </div>
+
+                    <div class="blog-card wa-demo">
+                        <h2>04 · Multi-chain &amp; rotation</h2>
+                        <p>
+                            One ceremony, many domain-separated child keys. Info strings keep EVM and Solana material
+                            non-interchangeable. Rotate by incrementing a version label — no new 24-word mnemonic.
+                        </p>
+                        <div class="wa-rotator">
+                            <div class="wa-rs-controls">
+                                <div class="wa-rs-group">
+                                    <label for="rs-chain">Network</label>
+                                    <select id="rs-chain">
+                                        <option value="evm">EVM</option>
+                                        <option value="sol">Solana</option>
+                                        <option value="btc">Bitcoin</option>
+                                    </select>
+                                </div>
+                                <div class="wa-rs-group">
+                                    <label>Iteration</label>
+                                    <div class="wa-rs-ver">
+                                        <button type="button" id="rs-ver-dec" aria-label="Decrease version">−</button>
+                                        <span id="rs-version">v1</span>
+                                        <button type="button" id="rs-ver-inc" aria-label="Increase version">+</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="wa-rs-out">
+                                <div class="wa-rs-info">
+                                    HKDF info:
+                                    <span class="wa-fn">"stall.one/<span id="rs-display-chain">evm</span>/<span id="rs-display-version">v1</span>"</span>
+                                </div>
+                                <div class="wa-rs-key" id="rs-key-output">0x…</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="blog-card">
+                        <h2>05 · Threat notes</h2>
+                        <ul>
+                            <li>PRF availability is authenticator-dependent</li>
+                            <li>XSS can still abuse a live session</li>
+                            <li>Pair with CSP + short-lived in-memory handles</li>
+                            <li>Better default than seeds in IndexedDB</li>
+                        </ul>
+                    </div>
+
+                    <div class="blog-card span-2 wa-demo" id="demo-card">
+                        <h2>Visual sandbox · cryptographic pipeline</h2>
+                        <p style="margin-bottom: 1.25rem; max-width: 62ch;">
+                            Simulated data flow. The WebAuthn ceremony acts as the root. HKDF expands that single
+                            high-entropy salt into isolated key branches via domain info strings.
+                            Mock keys only — no real authenticator call.
+                        </p>
+
+                        <div class="wa-demo-controls">
+                            <div class="wa-demo-row">
+                                <button type="button" class="wa-btn" id="start-demo">[ AUTHENTICATE &amp; DERIVE ]</button>
+                                <div class="wa-pin-toggle">
+                                    <label class="wa-switch">
+                                        <input type="checkbox" id="pin-toggle" />
+                                        <span class="wa-slider"></span>
+                                    </label>
+                                    <div class="wa-toggle-copy">
+                                        <span class="wa-toggle-label" id="pin-status-label">Client PIN Entropy: OFF</span>
+                                        <span class="wa-pin-hint" id="pin-hint-text" style="display: none;">Any 4 digits works</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="wa-pin-container" id="pin-container">
+                                <div class="wa-pin-title">Enter Client Pass-PIN</div>
+                                <div class="wa-pin-display" id="pin-display">
+                                    <span class="wa-pin-dot"></span>
+                                    <span class="wa-pin-dot"></span>
+                                    <span class="wa-pin-dot"></span>
+                                    <span class="wa-pin-dot"></span>
+                                </div>
+                                <div class="wa-pin-pad">
+                                    <button type="button" class="wa-pin-btn" data-pin="1">1</button>
+                                    <button type="button" class="wa-pin-btn" data-pin="2">2</button>
+                                    <button type="button" class="wa-pin-btn" data-pin="3">3</button>
+                                    <button type="button" class="wa-pin-btn" data-pin="4">4</button>
+                                    <button type="button" class="wa-pin-btn" data-pin="5">5</button>
+                                    <button type="button" class="wa-pin-btn" data-pin="6">6</button>
+                                    <button type="button" class="wa-pin-btn" data-pin="7">7</button>
+                                    <button type="button" class="wa-pin-btn" data-pin="8">8</button>
+                                    <button type="button" class="wa-pin-btn" data-pin="9">9</button>
+                                    <button type="button" class="wa-pin-btn action" id="pin-clr">CLR</button>
+                                    <button type="button" class="wa-pin-btn" data-pin="0">0</button>
+                                    <button type="button" class="wa-pin-btn action ok" id="pin-ok">OK</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="wa-pipeline">
+                            <div class="wa-node" id="node-root">
+                                <div class="wa-pl-title">WebAuthn Authenticator</div>
+                                <div class="wa-pl-value" id="val-root">Awaiting Request…</div>
+                            </div>
+                            <div class="wa-edge" id="edge-1"></div>
+                            <div class="wa-node" id="node-prf">
+                                <div class="wa-pl-title">PRF Master Secret</div>
+                                <div class="wa-pl-value" id="val-prf">0x…………………………………………</div>
+                            </div>
+                            <svg class="wa-split" viewBox="0 0 320 40" aria-hidden="true">
+                                <path d="M 160 0 L 160 15 L 60 15 L 60 40" class="wa-split-path" id="path-left" />
+                                <path d="M 160 0 L 160 15 L 260 15 L 260 40" class="wa-split-path" id="path-right" />
+                            </svg>
+                            <div class="wa-branches">
+                                <div class="wa-branch">
+                                    <div class="wa-node" id="node-evm" style="width: 220px; max-width: 100%;">
+                                        <div class="wa-pl-title">EVM Key</div>
+                                        <div class="wa-pl-info" id="evm-info-string">info: "stall.one/evm/v1"</div>
+                                        <div class="wa-pl-value" id="val-evm">…</div>
+                                    </div>
+                                </div>
+                                <div class="wa-branch">
+                                    <div class="wa-node" id="node-sol" style="width: 220px; max-width: 100%;">
+                                        <div class="wa-pl-title">Solana Key</div>
+                                        <div class="wa-pl-info" id="sol-info-string">info: "stall.one/sol/v1"</div>
+                                        <div class="wa-pl-value" id="val-sol">…</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="wa-term" id="terminal" aria-live="polite">
+                            <div class="wa-term-line sys">&gt; System ready. Click to begin pipeline…</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="blog-callout">
+                    <strong>Design bias</strong>
+                    <p>
+                        Prefer ephemeral derivation over durable seed storage. This is not a silver bullet — it is a
+                        better default for biometric-gated, multi-chain signing without plaintext mnemonics on disk.
+                    </p>
+                </div>
+
+                <div class="blog-card">
+                    <h2>06 · Takeaway</h2>
+                    <p>
+                        WebAuthn PRF + HKDF gives a path to stateless wallets: authenticate, derive, sign, forget.
+                        Live demo:
+                        <a href="https://passkeywallet.vercel.app/" target="_blank" rel="noopener noreferrer">passkeywallet.vercel.app</a>.
+                    </p>
+                    <p style="margin-top: 0.75rem; font-size: 0.85rem; color: #888;">
+                        Note: the live demo is not maintained and may not work.
+                    </p>
+                </div>
+
+                <nav class="blog-nav" aria-label="Post navigation">
+                    <a href="../" data-page-transition="rtl">&lt;&lt; BLOG_INDEX</a>
+                    <a href="https://passkeywallet.vercel.app/" target="_blank" rel="noopener noreferrer">LIVE_DEMO &gt;&gt;</a>
+                    <a href="../../#projects" data-page-transition="rtl">ALL_WORK</a>
+                </nav>
+            </article>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container" style="border:none; padding-top: 2rem; padding-bottom: 2rem; display:flex; justify-content:space-between; flex-wrap:wrap; gap:1rem;">
+            <div class="social-links">
+                <a href="https://github.com/stall-one">[GITHUB]</a>
+                <a href="https://x.com/gitstallone">[X / TWITTER]</a>
+            </div>
+            <span style="font-size: 0.8rem; opacity: 0.8;">// © 2025 SWEN_S_PECK</span>
+        </div>
+    </footer>
+
+    <script>
+    function toggleMenu() {
+      document.getElementById("navbar").classList.toggle("open");
+    }
+
+    // --- Key rotator ---
+    let currentVersion = 1;
+
+    function deterministicMockKey(chain, version) {
+      const str = "root_secret|stall.one/" + chain + "/v" + version;
+      let hash = 0;
+      for (let i = 0; i < str.length; i++) {
+        hash = ((hash << 5) - hash) + str.charCodeAt(i);
+        hash = hash & hash;
+      }
+      let s = Math.abs(hash) || 1;
+      const rand = function () {
+        s = Math.imul(1664525, s) + 1013904223 | 0;
+        return Math.abs(s);
+      };
+      const b58chars = "123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz";
+      if (chain === "evm") {
+        let hex = "";
+        for (let i = 0; i < 40; i++) hex += rand().toString(16)[0];
+        return "0x" + hex;
+      }
+      if (chain === "sol") {
+        let b58 = "";
+        for (let i = 0; i < 44; i++) b58 += b58chars[rand() % b58chars.length];
+        return b58;
+      }
+      let b58 = rand() % 2 === 0 ? "L" : "K";
+      for (let i = 0; i < 51; i++) b58 += b58chars[rand() % b58chars.length];
+      return b58;
+    }
+
+    function updateRotator() {
+      const chain = document.getElementById("rs-chain").value;
+      document.getElementById("rs-version").textContent = "v" + currentVersion;
+      document.getElementById("rs-display-chain").textContent = chain;
+      document.getElementById("rs-display-version").textContent = "v" + currentVersion;
+      const output = document.getElementById("rs-key-output");
+      output.classList.add("updating");
+      setTimeout(function () {
+        output.textContent = deterministicMockKey(chain, currentVersion);
+        output.classList.remove("updating");
+      }, 100);
+    }
+
+    document.getElementById("rs-chain").addEventListener("change", updateRotator);
+    document.getElementById("rs-ver-dec").addEventListener("click", function () {
+      currentVersion = Math.max(1, currentVersion - 1);
+      updateRotator();
+    });
+    document.getElementById("rs-ver-inc").addEventListener("click", function () {
+      currentVersion += 1;
+      updateRotator();
+    });
+    updateRotator();
+
+    // --- Pipeline simulator ---
+    const startBtn = document.getElementById("start-demo");
+    const term = document.getElementById("terminal");
+    const nRoot = document.getElementById("node-root");
+    const vRoot = document.getElementById("val-root");
+    const e1 = document.getElementById("edge-1");
+    const nPrf = document.getElementById("node-prf");
+    const vPrf = document.getElementById("val-prf");
+    const pLeft = document.getElementById("path-left");
+    const pRight = document.getElementById("path-right");
+    const nEvm = document.getElementById("node-evm");
+    const vEvm = document.getElementById("val-evm");
+    const nSol = document.getElementById("node-sol");
+    const vSol = document.getElementById("val-sol");
+    const evmInfoStr = document.getElementById("evm-info-string");
+    const solInfoStr = document.getElementById("sol-info-string");
+    const pinToggle = document.getElementById("pin-toggle");
+    const pinStatusLabel = document.getElementById("pin-status-label");
+    const pinHintText = document.getElementById("pin-hint-text");
+    const pinContainer = document.getElementById("pin-container");
+
+    let currentPin = "";
+    const requiredLength = 4;
+    let authResolve = null;
+
+    pinToggle.addEventListener("change", function (e) {
+      if (e.target.checked) {
+        pinStatusLabel.textContent = "Client PIN Entropy: ON";
+        pinHintText.style.display = "block";
+      } else {
+        pinStatusLabel.textContent = "Client PIN Entropy: OFF";
+        pinHintText.style.display = "none";
+        if (authResolve) {
+          pinContainer.classList.remove("active");
+          const temp = authResolve;
+          authResolve = null;
+          temp(null);
+        }
+      }
+    });
+
+    function updatePinDisplay() {
+      const dots = pinContainer.querySelectorAll(".wa-pin-dot");
+      dots.forEach(function (dot, i) {
+        if (i < currentPin.length) dot.classList.add("filled");
+        else dot.classList.remove("filled");
+      });
+    }
+
+    function enterPin(num) {
+      if (currentPin.length < requiredLength) {
+        currentPin += num;
+        updatePinDisplay();
+        if (currentPin.length === requiredLength) setTimeout(submitPin, 280);
+      }
+    }
+
+    function clearPin() {
+      currentPin = "";
+      updatePinDisplay();
+    }
+
+    function submitPin() {
+      if (currentPin.length === requiredLength && authResolve) {
+        pinContainer.classList.remove("active");
+        const pin = currentPin;
+        authResolve(pin);
+        authResolve = null;
+      } else if (currentPin.length > 0) {
+        const display = document.getElementById("pin-display");
+        display.style.transform = "translateX(-8px)";
+        setTimeout(function () { display.style.transform = "translateX(8px)"; }, 50);
+        setTimeout(function () { display.style.transform = "translateX(-4px)"; }, 100);
+        setTimeout(function () { display.style.transform = "translateX(4px)"; }, 150);
+        setTimeout(function () { display.style.transform = "translateX(0)"; }, 200);
+        clearPin();
+      }
+    }
+
+    pinContainer.querySelectorAll("[data-pin]").forEach(function (btn) {
+      btn.addEventListener("click", function () { enterPin(btn.getAttribute("data-pin")); });
+    });
+    document.getElementById("pin-clr").addEventListener("click", clearPin);
+    document.getElementById("pin-ok").addEventListener("click", submitPin);
+
+    function printTerm(text, className, delay) {
+      className = className || "";
+      delay = delay == null ? 500 : delay;
+      return new Promise(function (resolve) {
+        setTimeout(function () {
+          const line = document.createElement("div");
+          line.className = "wa-term-line " + className;
+          line.textContent = "> " + text;
+          term.appendChild(line);
+          term.scrollTop = term.scrollHeight;
+          resolve();
+        }, delay);
+      });
+    }
+
+    function generatePipelineKey(chain, infoString) {
+      let hash = 0;
+      for (let i = 0; i < infoString.length; i++) {
+        hash = ((hash << 5) - hash) + infoString.charCodeAt(i);
+        hash = hash & hash;
+      }
+      let s = Math.abs(hash) || 12345;
+      const rand = function () {
+        s = Math.imul(1664525, s) + 1013904223 | 0;
+        return Math.abs(s);
+      };
+      if (chain === "evm") {
+        let hex = "";
+        for (let i = 0; i < 40; i++) hex += rand().toString(16)[0];
+        return "0x" + hex;
+      }
+      const chars = "123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz";
+      let b58 = "";
+      for (let i = 0; i < 44; i++) b58 += chars[rand() % chars.length];
+      return b58;
+    }
+
+    function genHex(length) {
+      let out = "";
+      for (let i = 0; i < length; i++) out += Math.floor(Math.random() * 16).toString(16);
+      return out;
+    }
+
+    function scrambleText(element, finalValue, duration) {
+      duration = duration || 800;
+      const chars = "0123456789ABCDEF";
+      let startTime = null;
+      return new Promise(function (resolve) {
+        function update(time) {
+          if (!startTime) startTime = time;
+          const progress = (time - startTime) / duration;
+          if (progress < 1) {
+            let jumbled = "";
+            for (let i = 0; i < finalValue.length; i++) {
+              const ch = finalValue[i];
+              if (ch === "x" || (ch === "0" && i === 0)) jumbled += ch;
+              else jumbled += Math.random() > progress
+                ? chars[Math.floor(Math.random() * chars.length)]
+                : ch;
+            }
+            element.textContent = jumbled;
+            requestAnimationFrame(update);
+          } else {
+            element.textContent = finalValue;
+            resolve();
+          }
+        }
+        requestAnimationFrame(update);
+      });
+    }
+
+    function resetPipeline() {
+      [nRoot, nPrf, nEvm, nSol].forEach(function (n) { n.className = "wa-node"; });
+      e1.className = "wa-edge";
+      pLeft.setAttribute("class", "wa-split-path");
+      pRight.setAttribute("class", "wa-split-path");
+      vRoot.textContent = "Awaiting Request…";
+      vPrf.textContent = "0x…………………………………………";
+      vEvm.textContent = "…";
+      vSol.textContent = "…";
+      evmInfoStr.textContent = 'info: "stall.one/evm/v1"';
+      solInfoStr.textContent = 'info: "stall.one/sol/v1"';
+      term.innerHTML = "";
+    }
+
+    startBtn.addEventListener("click", async function () {
+      startBtn.disabled = true;
+      startBtn.style.display = "none";
+      resetPipeline();
+
+      let activePinEntropy = null;
+
+      await printTerm("navigator.credentials.get({ prf: true })", "sys", 100);
+      nRoot.classList.add("active");
+
+      if (pinToggle.checked) {
+        vRoot.textContent = "Awaiting Client Pass-PIN…";
+        await printTerm("Waiting for Client-provided PIN entropy…", "auth", 400);
+        pinContainer.classList.add("active");
+        clearPin();
+        activePinEntropy = await new Promise(function (resolve) { authResolve = resolve; });
+        vRoot.textContent = "Assertion Validated";
+        if (pinToggle.checked && activePinEntropy) {
+          await printTerm("PIN [" + activePinEntropy + "] captured. Extracting salt…", "success", 100);
+        } else {
+          await printTerm("PIN disabled mid-flight. Biometrics verified.", "sys", 100);
+          activePinEntropy = null;
+        }
+      } else {
+        vRoot.textContent = "Awaiting Biometric Verification…";
+        await printTerm("Biometrics verified (PIN bypass).", "sys", 400);
+        await new Promise(function (r) { setTimeout(r, 600); });
+        vRoot.textContent = "Assertion Validated";
+        await printTerm("Assertion valid. Extracting salt…", "success", 100);
+      }
+
+      e1.classList.add("flowing");
+      await new Promise(function (r) { setTimeout(r, 600); });
+
+      const fakeSalt = "0x" + genHex(64);
+      nPrf.classList.add("active");
+      await scrambleText(vPrf, fakeSalt.substring(0, 20) + "…" + fakeSalt.substring(50));
+      await printTerm("[PRF EXTRACTED] High-entropy root established.", "success", 200);
+      e1.classList.remove("flowing");
+
+      const evmInfo = activePinEntropy
+        ? "stall.one/" + activePinEntropy + "/evm/v1"
+        : "stall.one/evm/v1";
+      const solInfo = activePinEntropy
+        ? "stall.one/" + activePinEntropy + "/sol/v1"
+        : "stall.one/sol/v1";
+      evmInfoStr.textContent = 'info: "' + evmInfo + '"';
+      solInfoStr.textContent = 'info: "' + solInfo + '"';
+
+      await printTerm("Executing HKDF Expansion phase…", "sys", 500);
+      if (activePinEntropy) {
+        await printTerm("Injecting client PIN entropy into HKDF domain separator…", "auth", 200);
+      }
+
+      pLeft.classList.add("flowing-left");
+      pRight.classList.add("flowing-right");
+
+      const p1 = (async function () {
+        await new Promise(function (r) { setTimeout(r, 800); });
+        nEvm.classList.add("active-alt");
+        const key = generatePipelineKey("evm", evmInfo);
+        await scrambleText(vEvm, key);
+        await printTerm("[EVM KEY] Derived successfully.", "success", 0);
+      })();
+
+      const p2 = (async function () {
+        await new Promise(function (r) { setTimeout(r, 1100); });
+        nSol.classList.add("active-alt2");
+        const key = generatePipelineKey("sol", solInfo);
+        await scrambleText(vSol, key.substring(0, 38) + "…");
+        await printTerm("[SOLANA KEY] Derived successfully.", "success", 0);
+      })();
+
+      await Promise.all([p1, p2]);
+
+      pLeft.classList.remove("flowing-left");
+      pRight.classList.remove("flowing-right");
+
+      await printTerm("Zeroizing root PRF memory references…", "auth", 400);
+      await printTerm("Pipeline Complete.", "sys", 400);
+
+      startBtn.style.display = "block";
+      startBtn.disabled = false;
+      startBtn.textContent = "[ RE-RUN PIPELINE ]";
+    });
+    </script>
+</body>
+</html>

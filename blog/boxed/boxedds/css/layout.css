@@ -1,0 +1,158 @@
+/**
+ * Boxed Design System — Layout primitives
+ */
+
+/* Container */
+.bx-container {
+  width: 100%;
+  max-width: var(--bx-container-xl);
+  margin-inline: auto;
+  padding-inline: var(--bx-page-padding);
+}
+.bx-container--sm { max-width: var(--bx-container-sm); }
+.bx-container--md { max-width: var(--bx-container-md); }
+.bx-container--lg { max-width: var(--bx-container-lg); }
+.bx-container--2xl { max-width: var(--bx-container-2xl); }
+.bx-container--full { max-width: none; }
+
+/* Stack — vertical rhythm */
+.bx-stack {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+.bx-stack > * + * {
+  margin-top: var(--bx-stack-gap, var(--bx-space-4));
+}
+.bx-stack--xs { --bx-stack-gap: var(--bx-space-1); }
+.bx-stack--sm { --bx-stack-gap: var(--bx-space-2); }
+.bx-stack--md { --bx-stack-gap: var(--bx-space-4); }
+.bx-stack--lg { --bx-stack-gap: var(--bx-space-6); }
+.bx-stack--xl { --bx-stack-gap: var(--bx-space-8); }
+.bx-stack--2xl { --bx-stack-gap: var(--bx-space-12); }
+
+/* Cluster — horizontal wrap */
+.bx-cluster {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--bx-cluster-gap, var(--bx-space-3));
+}
+.bx-cluster--sm { --bx-cluster-gap: var(--bx-space-2); }
+.bx-cluster--lg { --bx-cluster-gap: var(--bx-space-6); }
+.bx-cluster--between { justify-content: space-between; }
+.bx-cluster--center { justify-content: center; }
+.bx-cluster--end { justify-content: flex-end; }
+.bx-cluster--start { justify-content: flex-start; }
+.bx-cluster--stretch { align-items: stretch; }
+.bx-cluster--baseline { align-items: baseline; }
+
+/* Grid */
+.bx-grid {
+  display: grid;
+  gap: var(--bx-grid-gap, var(--bx-space-4));
+  grid-template-columns: repeat(var(--bx-cols, 1), minmax(0, 1fr));
+}
+.bx-grid--2 { --bx-cols: 2; }
+.bx-grid--3 { --bx-cols: 3; }
+.bx-grid--4 { --bx-cols: 4; }
+.bx-grid--sm { --bx-grid-gap: var(--bx-space-2); }
+.bx-grid--lg { --bx-grid-gap: var(--bx-space-6); }
+.bx-grid--xl { --bx-grid-gap: var(--bx-space-8); }
+
+.bx-grid--auto-fill {
+  grid-template-columns: repeat(auto-fill, minmax(var(--bx-min-col, 16rem), 1fr));
+}
+.bx-grid--auto-fit {
+  grid-template-columns: repeat(auto-fit, minmax(var(--bx-min-col, 16rem), 1fr));
+}
+
+@media (max-width: 767px) {
+  .bx-grid--2,
+  .bx-grid--3,
+  .bx-grid--4 {
+    --bx-cols: 1;
+  }
+}
+@media (min-width: 768px) and (max-width: 1023px) {
+  .bx-grid--3,
+  .bx-grid--4 {
+    --bx-cols: 2;
+  }
+}
+
+/* Split — two-column with optional sticky side */
+.bx-split {
+  display: grid;
+  gap: var(--bx-space-8);
+  grid-template-columns: 1fr;
+}
+@media (min-width: 1024px) {
+  .bx-split {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  }
+  .bx-split--aside {
+    grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
+  }
+  .bx-split--nav {
+    grid-template-columns: var(--bx-sidebar-width) minmax(0, 1fr);
+  }
+}
+
+/* Section spacing */
+.bx-section {
+  padding-block: clamp(3rem, 8vh, 6rem);
+}
+.bx-section--sm {
+  padding-block: clamp(2rem, 4vh, 3rem);
+}
+.bx-section--tight {
+  padding-block: var(--bx-space-8);
+}
+
+/* Center content */
+.bx-center {
+  display: grid;
+  place-items: center;
+}
+
+/* Aspect ratios */
+.bx-aspect {
+  position: relative;
+  width: 100%;
+}
+.bx-aspect::before {
+  content: '';
+  display: block;
+  padding-bottom: calc(100% / (var(--bx-aspect, 16 / 9)));
+}
+.bx-aspect > * {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.bx-aspect--1x1 { --bx-aspect: 1; }
+.bx-aspect--4x3 { --bx-aspect: 4 / 3; }
+.bx-aspect--16x9 { --bx-aspect: 16 / 9; }
+.bx-aspect--21x9 { --bx-aspect: 21 / 9; }
+
+/* Visually hide overflow helpers */
+.bx-truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.bx-line-clamp-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.bx-line-clamp-3 {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}

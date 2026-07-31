@@ -1,0 +1,222 @@
+/**
+ * Boxed Design System — Reset & Base
+ */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+  -webkit-text-size-adjust: 100%;
+  scroll-behavior: smooth;
+  scroll-padding-top: calc(var(--bx-header-height) + var(--bx-space-4));
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+body {
+  min-height: 100vh;
+  font-family: var(--bx-font-sans);
+  font-size: var(--bx-text-md);
+  font-weight: var(--bx-font-weight-regular);
+  line-height: var(--bx-leading-normal);
+  color: var(--bx-fg);
+  background-color: var(--bx-bg);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+img,
+picture,
+video,
+canvas,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+img {
+  height: auto;
+}
+
+input,
+button,
+textarea,
+select {
+  font: inherit;
+  color: inherit;
+}
+
+button {
+  cursor: pointer;
+  background: none;
+  border: none;
+}
+
+a {
+  color: var(--bx-accent);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.15em;
+  transition: color var(--bx-duration-fast) var(--bx-ease-out);
+}
+
+a:hover {
+  color: var(--bx-accent-hover);
+}
+
+ul,
+ol {
+  list-style: none;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+/* Selection */
+::selection {
+  background: var(--bx-selection-bg);
+  color: var(--bx-selection-fg);
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bx-scrollbar-track);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--bx-scrollbar-thumb);
+  border-radius: 0;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--bx-scrollbar-thumb-hover);
+}
+
+/* Focus — hard rectangular ring (no soft glow / rounded halo) */
+:focus {
+  outline: none;
+}
+:focus-visible {
+  outline: 2px solid var(--bx-focus-ring);
+  outline-offset: 2px;
+  border-radius: 0;
+}
+
+/* Typography base */
+h1, h2, h3, h4, h5, h6 {
+  color: var(--bx-fg-strong);
+  font-weight: var(--bx-font-weight-bold);
+  line-height: var(--bx-leading-tight);
+  letter-spacing: var(--bx-tracking-tight);
+}
+
+h1 { font-size: var(--bx-text-5xl); font-weight: var(--bx-font-weight-extrabold); }
+h2 { font-size: var(--bx-text-4xl); }
+h3 { font-size: var(--bx-text-3xl); }
+h4 { font-size: var(--bx-text-2xl); }
+h5 { font-size: var(--bx-text-xl); }
+h6 { font-size: var(--bx-text-lg); }
+
+p {
+  max-width: 70ch;
+}
+
+strong, b {
+  font-weight: var(--bx-font-weight-semibold);
+  color: var(--bx-fg-strong);
+}
+
+small {
+  font-size: var(--bx-text-sm);
+}
+
+code, kbd, samp, pre {
+  font-family: var(--bx-font-mono);
+  font-size: 0.9em;
+}
+
+code {
+  background: var(--bx-code-bg);
+  color: var(--bx-code-fg);
+  padding: 0.1em 0.35em;
+  border-radius: var(--bx-radius-md);
+}
+
+pre {
+  background: var(--bx-code-bg);
+  color: var(--bx-fg);
+  padding: var(--bx-space-4);
+  border-radius: var(--bx-radius-lg);
+  border: var(--bx-border-width) solid var(--bx-border);
+  overflow-x: auto;
+  line-height: var(--bx-leading-relaxed);
+  font-size: var(--bx-text-sm);
+}
+
+pre code {
+  background: none;
+  padding: 0;
+  color: inherit;
+  border-radius: 0;
+}
+
+hr {
+  border: none;
+  border-top: var(--bx-border-width) solid var(--bx-border);
+  margin: var(--bx-space-8) 0;
+}
+
+/* Screen reader only */
+.bx-sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Skip link */
+.bx-skip-link {
+  position: absolute;
+  top: -100%;
+  left: var(--bx-space-4);
+  z-index: var(--bx-z-max);
+  padding: var(--bx-space-2) var(--bx-space-4);
+  background: var(--bx-accent);
+  color: var(--bx-fg-on-brand);
+  font-weight: var(--bx-font-weight-semibold);
+  border-radius: var(--bx-radius-md);
+  text-decoration: none;
+}
+.bx-skip-link:focus {
+  top: var(--bx-space-4);
+}
+
+/* Disabled primitive */
+[disabled],
+.bx-is-disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  pointer-events: none;
+}

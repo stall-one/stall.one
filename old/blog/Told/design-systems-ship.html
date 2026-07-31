@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Design Systems That Ship With the Product | stall.one</title>
+  <meta name="description" content="How we ship product-specific design systems — ClayUI, TaxFort, Boxed, Amerimatter print and cinematic — instead of one universal kit."/>
+  <meta name="robots" content="index, follow"/>
+  
+  <link rel="stylesheet" href="../../../style.css"/>
+  <script src="../../page-transition.js"></script>
+  <style>
+body.post-ds{--bg:#131316;--panel:#0c0c0e;--fg:#eeeeee;--muted:#cccccc;--accent:#00ff41;--line:color-mix(in srgb,#00ff41 28%, #0c0c0e);
+background:var(--bg);color:var(--fg);font-family:system-ui,sans-serif}
+body.post-ds .crt-overlay{opacity:.18}
+body.post-ds header{background:color-mix(in srgb,var(--bg) 92%, transparent);border-bottom:1px solid var(--line);backdrop-filter:blur(10px)}
+body.post-ds .brand{background:var(--accent);color:var(--bg);border-radius:.4rem}
+body.post-ds nav a,body.post-ds .menu-toggle{color:var(--fg)}
+body.post-ds footer{color:var(--muted);border-top:1px solid var(--line)}
+body.post-ds footer a{color:var(--fg)}
+body.post-ds .container{background:transparent;border-color:transparent;max-width:920px}
+body.post-ds section{border:0;padding:6rem 0 4.5rem}
+body.post-ds .post{max-width:860px;margin:0 auto}
+body.post-ds .kicker{color:var(--accent);font-size:.7rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;margin:0 0 1rem}
+body.post-ds .hero{margin:0 0 2rem;padding:0 0 1.75rem;border-bottom:1px solid var(--line)}
+body.post-ds .hero h1{font-size:clamp(1.9rem,5vw,2.9rem);font-weight:800;letter-spacing:-.03em;line-height:1.1;margin:0 0 1.1rem;border:0;text-transform:none;font-family:inherit;color:var(--fg)}
+body.post-ds .hero h1 em{color:var(--accent);font-style:italic}
+body.post-ds .lede{color:var(--muted);font-size:1.08rem;line-height:1.65;max-width:52ch;margin:0 0 1.3rem}
+body.post-ds .lede strong{color:var(--fg)}
+body.post-ds .chips{display:flex;flex-wrap:wrap;gap:.45rem}
+body.post-ds .chip{font-size:.68rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--accent);background:color-mix(in srgb,var(--accent) 12%,transparent);border:1px solid color-mix(in srgb,var(--accent) 35%,transparent);border-radius:999px;padding:.35rem .7rem}
+body.post-ds .grid{display:grid;grid-template-columns:1fr;gap:1.1rem;margin:0 0 1.75rem}
+@media(min-width:720px){body.post-ds .grid{grid-template-columns:1fr 1fr}body.post-ds .span-2{grid-column:1/-1}}
+body.post-ds .card{background:var(--panel);border:1px solid var(--line);border-radius:0.85rem;padding:1.4rem 1.5rem}
+body.post-ds .card h2{font-size:.78rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);margin:0 0 .85rem;border:0;font-family:inherit}
+body.post-ds .card h2 b{color:var(--fg)}
+body.post-ds .card p,body.post-ds .card li{color:var(--muted);font-size:.97rem;line-height:1.6;margin:0 0 .65rem;max-width:none}
+body.post-ds .card p:last-child{margin:0}
+body.post-ds .card ul,body.post-ds .card ol{margin:0 0 0 1.1rem}
+body.post-ds .card strong{color:var(--fg)}
+body.post-ds .card a{color:var(--accent);font-weight:700}
+body.post-ds .card code{color:var(--accent);background:color-mix(in srgb,var(--accent) 12%,transparent);padding:.1em .35em;border-radius:4px;font-size:.88em}
+body.post-ds pre{background:color-mix(in srgb,var(--fg) 6%,var(--bg));color:var(--muted);border:1px solid var(--line);border-left:3px solid var(--accent);border-radius:calc(0.85rem - 2px);padding:1.1rem 1.2rem;font:0.8rem/1.55 ui-monospace,Menlo,monospace;overflow-x:auto;white-space:pre;margin:.6rem 0 0}
+body.post-ds table{width:100%;border-collapse:collapse;font-size:.9rem}
+body.post-ds th,body.post-ds td{text-align:left;padding:.55rem .45rem;border-bottom:1px solid var(--line);color:var(--muted);vertical-align:top}
+body.post-ds th{font-size:.65rem;letter-spacing:.08em;text-transform:uppercase}
+body.post-ds td:first-child{color:var(--fg);font-weight:600}
+body.post-ds .callout{background:color-mix(in srgb,var(--accent) 10%,var(--bg));border:1px solid var(--line);border-left:3px solid var(--accent);border-radius:0.85rem;padding:1.25rem 1.4rem;margin:0 0 1.5rem}
+body.post-ds .callout strong{display:block;color:var(--accent);font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;margin:0 0 .45rem}
+body.post-ds .callout p{margin:0;color:var(--fg);line-height:1.6;max-width:none}
+body.post-ds .nav{display:flex;flex-wrap:wrap;justify-content:space-between;gap:.75rem 1.25rem;margin-top:2.5rem;padding-top:1.5rem;border-top:1px solid var(--line)}
+body.post-ds .nav a{color:var(--accent);font-weight:700;font-size:.88rem;text-decoration:none}
+body.post-ds .nav a:hover{text-decoration:underline;text-underline-offset:4px}
+body.post-ds .crt-overlay{opacity:.5}body.post-ds header{border-bottom:2px solid #eee}body.post-ds .brand{background:#eee;color:#131316;border-radius:0}body.post-ds .hero h1{font-family:'Courier New',monospace;text-transform:uppercase}
+</style>
+</head>
+<body class="post-ds">
+  <header>
+    <div class="logo-container">
+      <a href="../../" data-page-transition="rtl" class="brand-link" aria-label="Back to home"><span class="brand">STALL.ONE</span></a>
+    </div>
+    <div class="menu-toggle" onclick="toggleMenu()">[MENU]</div>
+    <nav id="navbar">
+      <ul>
+        <li><a href="../../#projects" data-page-transition="rtl" onclick="toggleMenu()">02_WORK</a></li>
+        <li><a href="../" data-page-transition="rtl" onclick="toggleMenu()">04_BLOG</a></li>
+        <li><a href="../../#contact" data-page-transition="rtl" onclick="toggleMenu()">05_CONTACT</a></li>
+      </ul>
+    </nav>
+  </header>
+  <div class="crt-overlay"></div>
+  <main class="container">
+    <section>
+      <article class="post">
+        <div class="kicker">LOG_ID: 2026-07-25 · DESIGN · TOKENS · PRODUCT</div>
+        <div class="hero">
+          <h1>Design systems that <span>ship</span> with the product</h1>
+          <p class="lede">We do not maintain one mega-kit for every brand. Each product carries its own visual contract —
+                        living style guide, tokens, and components that match the job.</p>
+          <div class="chips"><span class="chip">Tokens first</span><span class="chip">Zero-build kits</span><span class="chip">Lane separation</span></div>
+        </div>
+        <div class="grid">
+          <div class="card"><h2>01 · Why not one system</h2><p>
+                            TaxFort’s soft purple SaaS, QuickSnaps clay shadows, Amerimatter paper catalogs, and Boxed
+                            hard edges answer different users. Forcing one radius and one primary color dilutes every
+                            product.
+                        </p></div>
+<div class="card"><h2>02 · What “ships” means</h2><p>
+                            A design system in this shop is a runnable folder: tokens CSS, component inventory, and
+                            enough docs to implement without a Figma archaeology expedition. Prefer zero-build HTML/CSS
+                            until a framework earns its keep.
+                        </p></div>
+<div class="card span-2"><h2>03 · Systems in flight</h2><table class="blog-table">
+<thead>
+<tr>
+<th>System</th>
+<th>Job</th>
+<th>Log</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>TaxFort / taxBox</td>
+<td>Light SaaS vaults · Inter · #5A3FFF</td>
+<td><a data-page-transition="ltr" href="../Taxbox/taxbox.html">taxbox</a></td>
+</tr>
+<tr>
+<td>ClayUI</td>
+<td>Soft clay listing ops · Nunito · indigo</td>
+<td><a data-page-transition="ltr" href="../QuickSnaps/quicksnaps.html">quicksnaps</a></td>
+</tr>
+<tr>
+<td>Boxed</td>
+<td>Tech brutalism · radius 0 · teal/yellow</td>
+<td><a data-page-transition="ltr" href="../BoxedSystems/boxed-systems.html">boxed</a></td>
+</tr>
+<tr>
+<td>CNC print</td>
+<td>Paper catalog · Oswald · navy primary</td>
+<td><a data-page-transition="ltr" href="../Amerimatter/cnc-metal.html">cnc-metal</a></td>
+</tr>
+<tr>
+<td>Cinematic</td>
+<td>Void sky · scroll film · WebGPU</td>
+<td><a data-page-transition="ltr" href="./cinematic-scroll.html">cinematic</a></td>
+</tr>
+<tr>
+<td>stall.one</td>
+<td>Terminal portfolio · view transitions</td>
+<td><a data-page-transition="ltr" href="./view-transitions.html">view-transitions</a></td>
+</tr>
+</tbody>
+</table></div>
+<div class="card"><h2>04 · Rules that transfer</h2><ul>
+<li>Tokens before hard-coded hex in components</li>
+<li>Document do / don’t with the same severity as API contracts</li>
+<li>Separate packages when aesthetics conflict</li>
+<li>Blog posts reuse the product tokens so the log feels native</li>
+</ul></div>
+<div class="card"><h2>05 · Tech that supports design</h2><ul>
+<li>MPA view transitions for intentional navigation</li>
+<li>Static HTML kits before React extraction</li>
+<li>Module federation labs where shells grow</li>
+<li>Desktop mounts when the UX lives on the filesystem</li>
+</ul></div>
+        </div>
+        <div class="callout"><strong>Design bias</strong><p>
+                        A design system is not a brand police badge. It is shipping infrastructure for a specific
+                        product. When the product’s job changes (catalog vs film vs vault), clone the kit — don’t dilute
+                        the original.
+                    </p></div>
+        <div class="card span-2"><h2>Takeaway</h2><p>
+                        This blog is intentionally multi-skin: each technical log wears the system it describes. That
+                        is the point of what we are building — product-shaped design, not theme parks of components.
+                    </p></div>
+        <nav class="nav" aria-label="Post navigation"><a data-page-transition="rtl" href="../SnapNGo/snap-on-systems.html">&lt;&lt; Prev: Snap-on</a><a data-page-transition="rtl" href="./">All logs</a><a data-page-transition="ltr" href="./cinematic-scroll.html">Next: Cinematic &gt;&gt;</a></nav>
+      </article>
+    </section>
+  </main>
+  <footer>
+    <div class="container" style="border:none;padding-top:2rem;padding-bottom:2rem;display:flex;justify-content:space-between;flex-wrap:wrap;gap:1rem">
+      <div class="social-links">
+        <a href="https://github.com/stall-one">[GITHUB]</a>
+        <a href="https://x.com/gitstallone">[X / TWITTER]</a>
+      </div>
+      <span style="font-size:0.8rem;opacity:0.8">// © 2025 SWEN_S_PECK</span>
+    </div>
+  </footer>
+  <script>function toggleMenu(){document.getElementById("navbar").classList.toggle("open");}</script>
+</body>
+</html>

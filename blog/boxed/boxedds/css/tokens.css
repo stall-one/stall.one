@@ -1,0 +1,278 @@
+/**
+ * Boxed Design System — Design Tokens
+ * Single source of truth for color, type, space, motion, elevation.
+ * Consume via CSS custom properties. Light/dark via [data-theme].
+ */
+
+:root {
+  /* —— Brand —— */
+  --bx-brand-teal: #5eead4;
+  --bx-brand-teal-hover: #2dd4bf;
+  --bx-brand-teal-muted: rgba(94, 234, 212, 0.15);
+  --bx-brand-yellow: #fcd34d;
+  --bx-brand-yellow-hover: #fbbf24;
+  --bx-brand-yellow-muted: rgba(252, 211, 77, 0.15);
+  --bx-brand-white: #f3f4f6;
+  --bx-brand-ink: #0a0a0a;
+
+  /* —— Neutral scale (shared) —— */
+  --bx-neutral-0: #ffffff;
+  --bx-neutral-50: #fafafa;
+  --bx-neutral-100: #f5f5f5;
+  --bx-neutral-200: #e5e5e5;
+  --bx-neutral-300: #d4d4d4;
+  --bx-neutral-400: #a3a3a3;
+  --bx-neutral-500: #737373;
+  --bx-neutral-600: #525252;
+  --bx-neutral-700: #404040;
+  --bx-neutral-800: #262626;
+  --bx-neutral-900: #171717;
+  --bx-neutral-950: #0a0a0a;
+
+  /* —— Semantic status —— */
+  --bx-success: #34d399;
+  --bx-success-muted: rgba(52, 211, 153, 0.15);
+  --bx-success-fg: #064e3b;
+  --bx-warning: #fbbf24;
+  --bx-warning-muted: rgba(251, 191, 36, 0.15);
+  --bx-warning-fg: #78350f;
+  --bx-danger: #f87171;
+  --bx-danger-muted: rgba(248, 113, 113, 0.15);
+  --bx-danger-fg: #7f1d1d;
+  --bx-info: #60a5fa;
+  --bx-info-muted: rgba(96, 165, 250, 0.15);
+  --bx-info-fg: #1e3a8a;
+
+  /* —— Typography —— */
+  --bx-font-sans: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --bx-font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
+
+  --bx-font-weight-light: 300;
+  --bx-font-weight-regular: 400;
+  --bx-font-weight-medium: 500;
+  --bx-font-weight-semibold: 600;
+  --bx-font-weight-bold: 700;
+  --bx-font-weight-extrabold: 800;
+
+  --bx-text-xs: 0.75rem;      /* 12 */
+  --bx-text-sm: 0.875rem;     /* 14 */
+  --bx-text-md: 1rem;         /* 16 */
+  --bx-text-lg: 1.125rem;     /* 18 */
+  --bx-text-xl: 1.25rem;      /* 20 */
+  --bx-text-2xl: 1.5rem;      /* 24 */
+  --bx-text-3xl: 1.875rem;    /* 30 */
+  --bx-text-4xl: 2.25rem;     /* 36 */
+  --bx-text-5xl: 3rem;        /* 48 */
+  --bx-text-6xl: 3.75rem;     /* 60 */
+  --bx-text-display: clamp(2.5rem, 5vw, 4rem);
+
+  --bx-leading-none: 1;
+  --bx-leading-tight: 1.2;
+  --bx-leading-snug: 1.35;
+  --bx-leading-normal: 1.5;
+  --bx-leading-relaxed: 1.65;
+
+  --bx-tracking-tight: -0.02em;
+  --bx-tracking-normal: 0;
+  --bx-tracking-wide: 0.04em;
+  --bx-tracking-wider: 0.12em;
+  --bx-tracking-kicker: 0.18em;
+
+  /* —— Spacing (4px base) —— */
+  --bx-space-0: 0;
+  --bx-space-px: 1px;
+  --bx-space-0-5: 0.125rem;  /* 2 */
+  --bx-space-1: 0.25rem;     /* 4 */
+  --bx-space-1-5: 0.375rem;  /* 6 */
+  --bx-space-2: 0.5rem;      /* 8 */
+  --bx-space-2-5: 0.625rem;  /* 10 */
+  --bx-space-3: 0.75rem;     /* 12 */
+  --bx-space-4: 1rem;        /* 16 */
+  --bx-space-5: 1.25rem;     /* 20 */
+  --bx-space-6: 1.5rem;      /* 24 */
+  --bx-space-8: 2rem;        /* 32 */
+  --bx-space-10: 2.5rem;     /* 40 */
+  --bx-space-12: 3rem;       /* 48 */
+  --bx-space-16: 4rem;       /* 64 */
+  --bx-space-20: 5rem;       /* 80 */
+  --bx-space-24: 6rem;       /* 96 */
+
+  /* —— Radius (tech brutalism: hard edges only) —— */
+  --bx-radius-none: 0;
+  --bx-radius-sm: 0;
+  --bx-radius-md: 0;
+  --bx-radius-lg: 0;
+  --bx-radius-xl: 0;
+  --bx-radius-2xl: 0;
+  /* Circles only for true indicators (radio, spinner) — not surfaces */
+  --bx-radius-full: 9999px;
+
+  /* —— Borders —— */
+  --bx-border-width: 1px;
+  --bx-border-width-thick: 2px;
+
+  /* —— Elevation (minimal — solid faces over soft chrome) —— */
+  --bx-shadow-xs: none;
+  --bx-shadow-sm: none;
+  --bx-shadow-md: none;
+  --bx-shadow-lg: 0 0 0 1px var(--bx-border-strong);
+  --bx-shadow-xl: 0 0 0 1px var(--bx-border-strong);
+  /* Hard rectangular focus — no soft teal glow ring */
+  --bx-shadow-focus: none;
+
+  /* —— Motion —— */
+  --bx-ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --bx-ease-in-out: cubic-bezier(0.45, 0, 0.55, 1);
+  --bx-ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --bx-duration-instant: 0ms;
+  --bx-duration-fast: 120ms;
+  --bx-duration-normal: 200ms;
+  --bx-duration-slow: 320ms;
+  --bx-duration-slower: 480ms;
+
+  /* —— Z-index scale —— */
+  --bx-z-base: 0;
+  --bx-z-dropdown: 100;
+  --bx-z-sticky: 200;
+  --bx-z-overlay: 300;
+  --bx-z-modal: 400;
+  --bx-z-toast: 500;
+  --bx-z-tooltip: 600;
+  --bx-z-max: 9999;
+
+  /* —— Layout —— */
+  --bx-container-sm: 40rem;   /* 640 */
+  --bx-container-md: 48rem;   /* 768 */
+  --bx-container-lg: 64rem;   /* 1024 */
+  --bx-container-xl: 80rem;   /* 1280 */
+  --bx-container-2xl: 90rem;  /* 1440 */
+  --bx-sidebar-width: 16.5rem;
+  --bx-header-height: 3.75rem;
+  --bx-page-padding: clamp(1rem, 3vw, 2rem);
+
+  /* —— Control sizes —— */
+  --bx-control-h-sm: 2rem;
+  --bx-control-h-md: 2.5rem;
+  --bx-control-h-lg: 3rem;
+  --bx-icon-sm: 1rem;
+  --bx-icon-md: 1.25rem;
+  --bx-icon-lg: 1.5rem;
+
+  /* —— Breakpoints (reference; use media queries) —— */
+  /* sm: 640 | md: 768 | lg: 1024 | xl: 1280 | 2xl: 1536 */
+}
+
+/* ========== Dark theme (default) ========== */
+:root,
+[data-theme='dark'] {
+  color-scheme: dark;
+
+  --bx-bg: var(--bx-neutral-950);
+  --bx-bg-elevated: var(--bx-neutral-900);
+  --bx-bg-sunken: #050505;
+  --bx-bg-muted: var(--bx-neutral-800);
+  --bx-bg-hover: rgba(255, 255, 255, 0.04);
+  --bx-bg-active: rgba(255, 255, 255, 0.08);
+  --bx-bg-overlay: rgba(0, 0, 0, 0.72);
+
+  --bx-surface: var(--bx-neutral-900);
+  --bx-surface-2: #1c1c1c;
+  --bx-surface-3: #222222;
+
+  --bx-fg: var(--bx-neutral-200);
+  --bx-fg-strong: var(--bx-neutral-0);
+  --bx-fg-muted: var(--bx-neutral-400);
+  --bx-fg-subtle: var(--bx-neutral-500);
+  --bx-fg-inverse: var(--bx-neutral-950);
+  --bx-fg-on-brand: var(--bx-neutral-950);
+
+  --bx-border: rgba(255, 255, 255, 0.1);
+  --bx-border-strong: rgba(255, 255, 255, 0.18);
+  --bx-border-muted: rgba(255, 255, 255, 0.06);
+
+  --bx-accent: var(--bx-brand-teal);
+  --bx-accent-hover: var(--bx-brand-teal-hover);
+  --bx-accent-muted: var(--bx-brand-teal-muted);
+  --bx-accent-secondary: var(--bx-brand-yellow);
+
+  --bx-focus-ring: var(--bx-brand-teal);
+  --bx-selection-bg: rgba(94, 234, 212, 0.3);
+  --bx-selection-fg: var(--bx-neutral-0);
+
+  --bx-input-bg: var(--bx-neutral-900);
+  --bx-input-border: rgba(255, 255, 255, 0.12);
+  --bx-input-border-focus: var(--bx-brand-teal);
+  --bx-input-placeholder: var(--bx-neutral-500);
+
+  --bx-scrollbar-track: #121415;
+  --bx-scrollbar-thumb: #333;
+  --bx-scrollbar-thumb-hover: #555;
+
+  --bx-code-bg: #111111;
+  --bx-code-fg: var(--bx-brand-teal);
+}
+
+/* ========== Light theme ========== */
+[data-theme='light'] {
+  color-scheme: light;
+
+  --bx-bg: var(--bx-neutral-50);
+  --bx-bg-elevated: var(--bx-neutral-0);
+  --bx-bg-sunken: var(--bx-neutral-100);
+  --bx-bg-muted: var(--bx-neutral-100);
+  --bx-bg-hover: rgba(0, 0, 0, 0.03);
+  --bx-bg-active: rgba(0, 0, 0, 0.06);
+  --bx-bg-overlay: rgba(10, 10, 10, 0.5);
+
+  --bx-surface: var(--bx-neutral-0);
+  --bx-surface-2: var(--bx-neutral-50);
+  --bx-surface-3: var(--bx-neutral-100);
+
+  --bx-fg: var(--bx-neutral-800);
+  --bx-fg-strong: var(--bx-neutral-950);
+  --bx-fg-muted: var(--bx-neutral-600);
+  --bx-fg-subtle: var(--bx-neutral-500);
+  --bx-fg-inverse: var(--bx-neutral-0);
+  --bx-fg-on-brand: var(--bx-neutral-950);
+
+  --bx-border: rgba(0, 0, 0, 0.1);
+  --bx-border-strong: rgba(0, 0, 0, 0.16);
+  --bx-border-muted: rgba(0, 0, 0, 0.06);
+
+  --bx-accent: #0d9488;
+  --bx-accent-hover: #0f766e;
+  --bx-accent-muted: rgba(13, 148, 136, 0.12);
+  --bx-accent-secondary: #d97706;
+
+  --bx-focus-ring: #0d9488;
+  --bx-selection-bg: rgba(13, 148, 136, 0.2);
+  --bx-selection-fg: var(--bx-neutral-950);
+
+  --bx-shadow-xs: none;
+  --bx-shadow-sm: none;
+  --bx-shadow-md: none;
+  --bx-shadow-lg: 0 0 0 1px var(--bx-border-strong);
+  --bx-shadow-xl: 0 0 0 1px var(--bx-border-strong);
+
+  --bx-input-bg: var(--bx-neutral-0);
+  --bx-input-border: rgba(0, 0, 0, 0.14);
+  --bx-input-border-focus: #0d9488;
+  --bx-input-placeholder: var(--bx-neutral-400);
+
+  --bx-scrollbar-track: var(--bx-neutral-100);
+  --bx-scrollbar-thumb: var(--bx-neutral-300);
+  --bx-scrollbar-thumb-hover: var(--bx-neutral-400);
+
+  --bx-code-bg: var(--bx-neutral-100);
+  --bx-code-fg: #0f766e;
+}
+
+/* Reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --bx-duration-fast: 0ms;
+    --bx-duration-normal: 0ms;
+    --bx-duration-slow: 0ms;
+    --bx-duration-slower: 0ms;
+  }
+}

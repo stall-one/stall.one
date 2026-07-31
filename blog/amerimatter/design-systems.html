@@ -1,0 +1,1050 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Amerimatter Print UI Design System — Navy Primary</title>
+
+    <!-- Google Fonts for Print Aesthetic -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;600;700&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Work+Sans:wght@400;500;600&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="./style.css">
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Tailwind Configuration — matches cnc-metal tokens -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        paper: '#f4ece2',
+                        ink: '#111213',
+                        navy: '#1d2d3d',       // Primary brand accent
+                        primary: '#1d2d3d',
+                        slate: '#8ba0b1',      // Navy-family on dark UI
+                        vermilion: '#df3a23',  // Danger / error / material only
+                    },
+                    fontFamily: {
+                        display: ['"Oswald"', 'sans-serif'],
+                        body: ['"Work Sans"', 'sans-serif'],
+                        mono: ['"Space Mono"', 'monospace'],
+                    },
+                    borderWidth: {
+                        '1': '1px',
+                        '3': '3px',
+                        '6': '6px',
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+
+<body class="font-body bg-paper  text-ink min-h-screen">
+
+    <!-- Top Navigation / Header -->
+    <header class="border-b-6 border-ink bg-paper sticky top-0 z-40">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-end pb-4 pt-6">
+            <div>
+                <h1 class="font-display font-bold text-5xl uppercase leading-none tracking-tight">Amerimatter</h1>
+                <p class="font-mono text-xs uppercase mt-1 tracking-widest font-bold">Print UI Design System / Vol. 1 · Navy primary
+                </p>
+            </div>
+            <div class="hidden md:flex space-x-6 font-display uppercase font-bold text-lg tracking-wide">
+                <a href="#foundations" class="hover:text-navy transition-colors">Foundations</a>
+                <a href="#components" class="hover:text-navy transition-colors">Components</a>
+                <a href="#forms" class="hover:text-navy transition-colors">Forms</a>
+                <a href="#interactive" class="hover:text-navy transition-colors">Interactive</a>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-24">
+
+        <!-- SECTION: FOUNDATIONS -->
+        <section id="foundations">
+            <div class="border-b-3 border-ink mb-8 pb-2 flex justify-between items-baseline">
+                <h2 class="font-display font-bold text-3xl uppercase tracking-wide">01. Foundations</h2>
+                <span class="font-mono text-sm">SEC-FND</span>
+            </div>
+
+            <!-- Color Palette -->
+            <div class="mb-16">
+                <h3 class="font-display font-semibold text-xl uppercase mb-4">Color Palette</h3>
+                <p class="font-body text-sm mb-4 max-w-2xl text-ink/80">
+                    Tokens live in <span class="font-mono text-xs font-bold">cnc-metal/style.css</span>.
+                    <span class="font-mono text-xs font-bold">--primary</span> maps to Navy.
+                    Vermilion is reserved for danger, form errors, and material finishes.
+                </p>
+                <div class="grid grid-cols-2 md:grid-cols-5 gap-0 border-2 border-ink">
+                    <!-- Paper -->
+                    <div class="border-r-2 border-ink last:border-r-0 flex flex-col">
+                        <div class="h-32 bg-paper w-full border-b border-ink/10"></div>
+                        <div class="p-3 border-t-2 border-ink bg-paper">
+                            <p class="font-display font-bold uppercase text-lg leading-none">Paper</p>
+                            <p class="font-mono text-xs mt-1">#F4ECE2</p>
+                            <p class="font-mono text-[10px] uppercase tracking-wider text-slate mt-1">Surface</p>
+                        </div>
+                    </div>
+                    <!-- Ink -->
+                    <div class="border-r-2 border-ink last:border-r-0 flex flex-col">
+                        <div class="h-32 bg-ink w-full"></div>
+                        <div class="p-3 border-t-2 border-ink bg-paper">
+                            <p class="font-display font-bold uppercase text-lg leading-none">Ink</p>
+                            <p class="font-mono text-xs mt-1">#111213</p>
+                            <p class="font-mono text-[10px] uppercase tracking-wider text-slate mt-1">Text / border</p>
+                        </div>
+                    </div>
+                    <!-- Navy — Primary -->
+                    <div class="border-r-2 border-ink last:border-r-0 flex flex-col">
+                        <div class="h-32 bg-navy w-full relative">
+                            <span class="absolute top-2 left-2 font-mono text-[10px] font-bold uppercase tracking-widest bg-paper text-ink border-2 border-ink px-1.5 py-0.5">Primary</span>
+                        </div>
+                        <div class="p-3 border-t-2 border-ink bg-paper">
+                            <p class="font-display font-bold uppercase text-lg leading-none">Navy</p>
+                            <p class="font-mono text-xs mt-1">#1D2D3D</p>
+                            <p class="font-mono text-[10px] uppercase tracking-wider text-navy mt-1">Brand accent</p>
+                        </div>
+                    </div>
+                    <!-- Slate -->
+                    <div class="border-r-2 border-ink last:border-r-0 flex flex-col">
+                        <div class="h-32 bg-slate w-full"></div>
+                        <div class="p-3 border-t-2 border-ink bg-paper">
+                            <p class="font-display font-bold uppercase text-lg leading-none">Slate</p>
+                            <p class="font-mono text-xs mt-1">#8BA0B1</p>
+                            <p class="font-mono text-[10px] uppercase tracking-wider text-slate mt-1">Muted / dark UI</p>
+                        </div>
+                    </div>
+                    <!-- Vermilion — Danger -->
+                    <div class="border-r-2 border-ink last:border-r-0 flex flex-col">
+                        <div class="h-32 bg-vermilion w-full relative">
+                            <span class="absolute top-2 left-2 font-mono text-[10px] font-bold uppercase tracking-widest bg-paper text-ink border-2 border-ink px-1.5 py-0.5">Danger</span>
+                        </div>
+                        <div class="p-3 border-t-2 border-ink bg-paper">
+                            <p class="font-display font-bold uppercase text-lg leading-none">Vermilion</p>
+                            <p class="font-mono text-xs mt-1">#DF3A23</p>
+                            <p class="font-mono text-[10px] uppercase tracking-wider text-vermilion mt-1">Error only</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Typography -->
+            <div>
+                <h3 class="font-display font-semibold text-xl uppercase mb-4">Typography</h3>
+                <div class="border-2 border-ink grid grid-cols-1 md:grid-cols-3">
+
+                    <div class="p-6 border-b-2 md:border-b-0 md:border-r-2 border-ink">
+                        <p class="font-mono text-xs uppercase mb-4 border-b-1 border-ink inline-block">Display / Oswald
+                        </p>
+                        <h1 class="font-display font-bold text-6xl leading-none uppercase mb-2">Poster</h1>
+                        <h2 class="font-display font-bold text-4xl leading-tight uppercase mb-2">Headline Two</h2>
+                        <h3 class="font-display font-semibold text-2xl uppercase">Section Title</h3>
+                    </div>
+
+                    <div class="p-6 border-b-2 md:border-b-0 md:border-r-2 border-ink">
+                        <p class="font-mono text-xs uppercase mb-4 border-b-1 border-ink inline-block">Body / Work Sans
+                        </p>
+                        <p class="font-body text-base leading-relaxed mb-4">Print UI relies on stark contrast and
+                            deliberate spacing. Use this typeface for all standard paragraph text. It reads well at
+                            smaller sizes and maintains an editorial feel.</p>
+                        <p class="font-body font-bold text-sm uppercase tracking-wider">Bold Uppercase Emphasis</p>
+                    </div>
+
+                    <div class="p-6 bg-ink text-paper">
+                        <p class="font-mono text-xs uppercase mb-4 border-b-1 border-paper inline-block text-slate">Data
+                            / Space Mono</p>
+                        <div class="font-mono text-sm space-y-2">
+                            <p>> SYSTEM.INIT()</p>
+                            <p>> LOADING ASSETS...</p>
+                            <p>> STATUS: <span class="text-slate">ONLINE</span></p>
+                            <p class="pt-4 opacity-75">Used for forms, data tables, and technical specs.</p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION: COMPONENTS -->
+        <section id="components">
+            <div class="border-b-3 border-ink mb-8 pb-2 flex justify-between items-baseline">
+                <h2 class="font-display font-bold text-3xl uppercase tracking-wide">02. Components</h2>
+                <span class="font-mono text-sm">SEC-CMP</span>
+            </div>
+
+            <!-- Buttons -->
+            <div class="mb-12">
+                <h3 class="font-display font-semibold text-xl uppercase mb-4">Actions & Buttons</h3>
+                <div class="flex flex-wrap gap-6 items-center p-8 border-2 border-ink bg-white bg-opacity-50">
+                    <!-- Primary -->
+                    <button
+                        class="font-display font-bold uppercase text-lg tracking-wider bg-navy text-paper border-2 border-ink px-8 py-3 hover:bg-ink hover:text-paper transition-colors focus:outline-none focus:ring-4 focus:ring-ink focus:ring-offset-2 focus:ring-offset-paper">
+                        Primary Action
+                    </button>
+                    <!-- Secondary -->
+                    <button
+                        class="font-display font-bold uppercase text-lg tracking-wider bg-paper text-ink border-2 border-ink px-8 py-3 hover:bg-navy hover:text-paper hover:border-navy transition-colors focus:outline-none focus:ring-4 focus:ring-ink focus:ring-offset-2 focus:ring-offset-paper">
+                        Secondary
+                    </button>
+                    <!-- Outline / Ghost -->
+                    <button
+                        class="font-mono font-bold uppercase text-sm tracking-widest text-ink border-b-2 border-ink pb-1 hover:text-navy hover:border-navy transition-colors focus:outline-none">
+                        Text Link ->
+                    </button>
+                    <!-- Disabled -->
+                    <button
+                        class="font-display font-bold uppercase text-lg tracking-wider bg-slate text-ink border-2 border-ink px-8 py-3 opacity-50 cursor-not-allowed">
+                        Disabled
+                    </button>
+                </div>
+            </div>
+
+
+            <!-- Badges & Tags -->
+            <div class="mb-12">
+                <h3 class="font-display font-semibold text-xl uppercase mb-4">Badges & Labels</h3>
+                <div class="flex flex-wrap gap-4">
+                    <span
+                        class="font-mono text-xs font-bold uppercase tracking-widest border-2 border-ink px-3 py-1 bg-ink text-paper">Active</span>
+                    <span
+                        class="font-mono text-xs font-bold uppercase tracking-widest border-2 border-ink px-3 py-1 bg-vermilion text-paper">Warning</span>
+                    <span
+                        class="font-mono text-xs font-bold uppercase tracking-widest border-2 border-ink px-3 py-1 bg-navy text-paper">System</span>
+                    <span
+                        class="font-mono text-xs font-bold uppercase tracking-widest border-2 border-ink px-3 py-1 bg-paper text-ink">Neutral</span>
+                    <span
+                        class="font-mono text-xs font-bold uppercase tracking-widest cut-out-border px-3 py-1 text-ink">Draft</span>
+                </div>
+            </div>
+
+            <!-- Cards / Modules -->
+            <div class="mb-12">
+                <h3 class="font-display font-semibold text-xl uppercase mb-4">Editorial Cards</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+
+                    <!-- Card 1 -->
+                    <article class="border-3 border-ink flex flex-col bg-paper">
+                        <div class="h-48 border-b-3 border-ink pattern-stripes relative">
+                            <div
+                                class="absolute top-4 left-4 bg-paper border-2 border-ink px-2 py-1 font-mono text-xs font-bold">
+                                FIG 1.A</div>
+                        </div>
+                        <div class="p-6 flex-1 flex flex-col">
+                            <span
+                                class="font-mono text-navy text-xs font-bold uppercase tracking-widest mb-2 block">Industry
+                                Report</span>
+                            <h4 class="font-display font-bold text-2xl uppercase leading-tight mb-3">The Future of Flat
+                                Design Systems</h4>
+                            <p class="font-body text-sm mb-6 flex-1">By stripping away artificial depth, shadows, and
+                                gradients, we return to the fundamental principles of layout: typography, color, and
+                                grid.</p>
+                            <button
+                                class="self-start font-mono font-bold text-xs uppercase border-2 border-ink px-4 py-2 hover:bg-ink hover:text-paper transition-colors">Read
+                                Article</button>
+                        </div>
+                    </article>
+
+                    <!-- Card 2 (Image Left layout) -->
+                    <article class="border-3 border-ink flex flex-col sm:flex-row bg-paper">
+                        <div
+                            class="sm:w-1/3 border-b-3 sm:border-b-0 sm:border-r-3 border-ink bg-navy flex items-center justify-center p-6 text-paper">
+                            <!-- Abstract SVG icon replacing image -->
+                            <svg width="64" height="64" viewBox="0 0 64 64" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <rect x="8" y="8" width="48" height="48" stroke="#f4ece2" stroke-width="4" />
+                                <circle cx="32" cy="32" r="12" fill="#8ba0b1" />
+                                <path d="M8 8L56 56" stroke="#f4ece2" stroke-width="4" />
+                            </svg>
+                        </div>
+                        <div class="p-6 sm:w-2/3 flex flex-col justify-center">
+                            <h4 class="font-display font-bold text-xl uppercase leading-tight mb-2">Automated Processes
+                            </h4>
+                            <p class="font-body text-sm mb-4">Standardizing workflows ensures absolute precision across
+                                all manufactured components.</p>
+                            <div class="mt-auto flex justify-between items-center border-t-2 border-ink pt-3">
+                                <span class="font-mono text-xs">V. 2.4.1</span>
+                                <span class="font-mono text-xs font-bold bg-ink text-paper px-2 py-1">PASSED</span>
+                            </div>
+                        </div>
+                    </article>
+
+                </div>
+            </div>
+
+            <!-- Alerts -->
+            <div>
+                <h3 class="font-display font-semibold text-xl uppercase mb-4">Notices & Alerts</h3>
+                <div class="space-y-4">
+                    <!-- Standard Notice -->
+                    <div class="border-2 border-ink bg-paper flex">
+                        <div class="bg-ink w-12 flex items-center justify-center border-r-2 border-ink">
+                            <span class="font-display font-bold text-paper text-xl">i</span>
+                        </div>
+                        <div class="p-4 flex-1">
+                            <p class="font-body text-sm font-bold uppercase tracking-wider mb-1">Standard Notice</p>
+                            <p class="font-body text-sm">System diagnostic complete. All parameters are within normal
+                                operating bounds.</p>
+                        </div>
+                    </div>
+                    <!-- Warning Notice -->
+                    <div class="border-3 border-vermilion bg-[#fff5f4] flex text-vermilion">
+                        <div class="bg-vermilion w-12 flex items-center justify-center border-r-3 border-vermilion">
+                            <span class="font-display font-bold text-paper text-xl">!</span>
+                        </div>
+                        <div class="p-4 flex-1">
+                            <p class="font-body text-sm font-bold uppercase tracking-wider mb-1">Critical Warning</p>
+                            <p class="font-body text-sm">Ink levels depleted in sector 4. Immediate replacement required
+                                to avoid printing halt.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION: FORMS -->
+        <section id="forms">
+            <div class="border-b-3 border-ink mb-8 pb-2 flex justify-between items-baseline">
+                <h2 class="font-display font-bold text-3xl uppercase tracking-wide">03. Forms & Inputs</h2>
+                <span class="font-mono text-sm">SEC-FRM</span>
+            </div>
+
+            <div class="border-2 border-ink p-8 bg-white bg-opacity-50 max-w-3xl mx-auto relative">
+                <!-- Registration marks -->
+                <div class="absolute -top-3 -left-3 w-6 h-6 border-t-2 border-l-2 border-ink"></div>
+                <div class="absolute -top-3 -right-3 w-6 h-6 border-t-2 border-r-2 border-ink"></div>
+                <div class="absolute -bottom-3 -left-3 w-6 h-6 border-b-2 border-l-2 border-ink"></div>
+                <div class="absolute -bottom-3 -right-3 w-6 h-6 border-b-2 border-r-2 border-ink"></div>
+
+                <div class="mb-8 border-b-2 border-ink pb-4">
+                    <h3 class="font-display font-bold text-4xl uppercase">Requisition Form</h3>
+                    <p class="font-mono text-xs uppercase mt-2">Form No. 1925-A | Fill out completely</p>
+                </div>
+
+                <form id="demo-form" class="space-y-6" novalidate onsubmit="handleFormSubmit(event)">
+                    <!-- Text Inputs (Grid) -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="flex flex-col">
+                            <label class="font-mono text-xs font-bold uppercase mb-2">First Name <span
+                                    class="text-vermilion">*</span></label>
+                            <input id="first-name" type="text" required
+                                class="border-2 border-ink bg-transparent p-3 font-body focus:outline-none focus:border-navy focus:bg-paper transition-colors"
+                                placeholder="Enter first name">
+                            <div id="first-name-error" class="error-message">
+                                <span>!</span>
+                                <span>Please fill out this field</span>
+                            </div>
+                        </div>
+                        <div class="flex flex-col">
+                            <label class="font-mono text-xs font-bold uppercase mb-2">Last Name <span
+                                    class="text-vermilion">*</span></label>
+                            <input id="last-name" type="text" required
+                                class="border-2 border-ink bg-transparent p-3 font-body focus:outline-none focus:border-navy focus:bg-paper transition-colors"
+                                placeholder="Enter last name">
+                            <div id="last-name-error" class="error-message">
+                                <span>!</span>
+                                <span>Please fill out this field</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Enhanced Custom Dropdown -->
+                    <div class="flex flex-col">
+                        <label class="font-mono text-xs font-bold uppercase mb-2">Department <span
+                                class="text-vermilion">*</span></label>
+                        <div class="custom-select">
+                            <select id="department" required
+                                class="w-full border-2 border-ink bg-transparent p-3 font-body focus:outline-none focus:border-navy transition-colors">
+                                <option value="">Select Department</option>
+                                <option value="design">Design & Blueprinting</option>
+                                <option value="manufacturing">Manufacturing</option>
+                                <option value="qa">Quality Assurance</option>
+                                <option value="logistics">Logistics</option>
+                            </select>
+                            <div class="select-arrow">
+                                <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg"
+                                    viewBox="0 0 20 20">
+                                    <path
+                                        d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
+                                </svg>
+                            </div>
+                        </div>
+                        <div id="department-error" class="error-message">
+                            <span>!</span>
+                            <span>Please fill out this field</span>
+                        </div>
+                    </div>
+
+                    <!-- Radio & Checkbox -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 pt-4 border-t-2 border-ink border-dashed">
+                        <div>
+                            <label class="font-mono text-xs font-bold uppercase mb-3 block">Priority Level</label>
+                            <div class="space-y-3">
+                                <label class="flex items-center cursor-pointer">
+                                    <input type="radio" name="priority" class="sr-only peer" checked>
+                                    <div
+                                        class="w-5 h-5 border-2 border-ink peer-checked:bg-ink peer-checked:ring-2 peer-checked:ring-offset-2 peer-checked:ring-paper peer-focus:ring-2 peer-focus:ring-ink">
+                                    </div>
+                                    <span class="ml-3 font-body text-sm font-bold uppercase">Standard</span>
+                                </label>
+                                <label class="flex items-center cursor-pointer">
+                                    <input type="radio" name="priority" class="sr-only peer">
+                                    <div
+                                        class="w-5 h-5 border-2 border-ink peer-checked:bg-vermilion peer-checked:border-vermilion peer-checked:ring-2 peer-checked:ring-offset-2 peer-checked:ring-paper peer-focus:ring-2 peer-focus:ring-vermilion">
+                                    </div>
+                                    <span class="ml-3 font-body text-sm font-bold uppercase text-vermilion">Expedited
+                                        (Rush)</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="font-mono text-xs font-bold uppercase mb-3 block">Agreements</label>
+                            <label class="flex items-start cursor-pointer group">
+                                <input type="checkbox" id="agreement" required class="sr-only peer">
+                                <div
+                                    class="w-5 h-5 border-2 border-ink flex-shrink-0 mt-0.5 flex items-center justify-center peer-checked:bg-ink peer-focus:ring-2 peer-focus:ring-offset-2 peer-focus:ring-ink">
+                                    <!-- Custom Check -->
+                                    <svg class="hidden peer-checked:block w-3 h-3 text-paper" fill="none"
+                                        stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="square" stroke-linejoin="miter" stroke-width="4"
+                                            d="M5 13l4 4L19 7"></path>
+                                    </svg>
+                                </div>
+                                <span class="ml-3 font-body text-sm leading-tight">I verify that all information entered
+                                    follows standard protocol and is ready for processing.</span>
+                            </label>
+                            <div id="agreement-error" class="error-message">
+                                <span>!</span>
+                                <span>Please fill out this field</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="pt-6 flex justify-end">
+                        <button type="submit"
+                            class="font-display font-bold uppercase text-xl bg-navy text-paper border-2 border-ink px-10 py-4 hover:bg-ink hover:border-ink transition-colors">
+                            Submit Form
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </section>
+
+
+        <!-- SECTION: INTERACTIVE -->
+        <section id="interactive" class="pb-24">
+            <div class="border-b-3 border-ink mb-8 pb-2 flex justify-between items-baseline">
+                <h2 class="font-display font-bold text-3xl uppercase tracking-wide">04. Interactive</h2>
+                <span class="font-mono text-sm">SEC-INT</span>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- Modal Trigger -->
+                <div class="border-2 border-ink p-8 flex flex-col items-center justify-center bg-paper text-center">
+                    <div
+                        class="w-16 h-16 bg-navy text-paper flex items-center justify-center mb-6 rounded-full border-2 border-ink">
+                        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="square" stroke-linejoin="miter" stroke-width="2"
+                                d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5"></path>
+                        </svg>
+                    </div>
+                    <h3 class="font-display font-bold text-2xl uppercase mb-2">Modal Dialog</h3>
+                    <p class="font-body text-sm mb-6">Interrupts the main flow to present critical information or
+                        require confirmation.</p>
+                    <button onclick="openModal()"
+                        class="font-mono font-bold text-xs uppercase border-2 border-ink px-6 py-2 hover:bg-ink hover:text-paper transition-colors">
+                        Open Modal
+                    </button>
+                </div>
+
+                <!-- Toast Trigger -->
+                <div class="border-2 border-ink p-8 flex flex-col items-center justify-center bg-paper text-center">
+                    <div
+                        class="w-16 h-16 bg-navy text-paper flex items-center justify-center mb-6 rounded-full border-2 border-ink">
+                        <!-- Completed Bell Icon -->
+                        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="square" stroke-linejoin="miter" stroke-width="2"
+                                d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9">
+                            </path>
+                        </svg>
+                    </div>
+                    <h3 class="font-display font-bold text-2xl uppercase mb-2">Toast Notification</h3>
+                    <p class="font-body text-sm mb-6">Brief, temporary messages that appear without interrupting the
+                        user's workflow.</p>
+                    <button onclick="showToast('System diagnostic run completed successfully.')"
+                        class="font-mono font-bold text-xs uppercase border-2 border-ink px-6 py-2 hover:bg-ink hover:text-paper transition-colors">
+                        Trigger Toast
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- catalog-table -->
+        <section id="interactive" class="pb-24">
+            <div class="border-b-3 border-ink mb-8 pb-2 flex justify-between items-baseline">
+                <h2 class="font-display font-bold text-3xl uppercase tracking-wide">05. catalog-table</h2>
+                <span class="font-mono text-sm">SEC-INT</span>
+            </div>
+            <table class="catalog-table">
+                <thead>
+                    <tr>
+                        <th>Item No.</th>
+                        <th>Dimensions (Inches)</th>
+                        <th>Weight</th>
+                        <th>Unit Price</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="col-sku">AM-41-A</td>
+                        <td class="col-dim">4.00 &times; 4.00 &times; 12.00</td>
+                        <td>54.4 lb</td>
+                        <td class="col-price">$84.00</td>
+                        <td>
+                            <button
+                                class="font-display font-bold uppercase text-xs tracking-wider px-4 py-2 bg-navy text-paper border-navy transition-colors focus:outline-none focus:ring-4 focus:ring-ink focus:ring-offset-2 focus:ring-offset-paper"
+                                data-sku="AM-41-A" data-w="4" data-h="4" data-l="12" data-price="84.00"
+                                data-weight="54.4 lb">
+                                Selected
+                            </button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-sku">AM-41-B</td>
+                        <td class="col-dim">2.00 &times; 2.00 &times; 24.00</td>
+                        <td>27.2 lb</td>
+                        <td class="col-price">$45.50</td>
+                        <td> <button
+                                class="font-display font-bold uppercase text-xs tracking-wider bg-paper text-ink border-2 border-ink px-4 py-2 hover:bg-navy hover:text-paper hover:border-navy transition-colors focus:outline-none focus:ring-4 focus:ring-ink focus:ring-offset-2 focus:ring-offset-paper"
+                                data-sku="AM-41-A" data-w="4" data-h="4" data-l="12" data-price="84.00"
+                                data-weight="54.4 lb">
+                                Select
+                            </button></td>
+                    </tr>
+                    <tr>
+                        <td class="col-sku">AM-41-C</td>
+                        <td class="col-dim">1.50 &times; 3.00 &times; 12.00</td>
+                        <td>15.3 lb</td>
+                        <td class="col-price">$28.00</td>
+                        <td><button
+                                class="font-display font-bold uppercase text-xs tracking-wider bg-paper text-ink border-2 border-ink px-4 py-2 hover:bg-navy hover:text-paper hover:border-navy transition-colors focus:outline-none focus:ring-4 focus:ring-ink focus:ring-offset-2 focus:ring-offset-paper"
+                                data-sku="AM-41-A" data-w="4" data-h="4" data-l="12" data-price="84.00"
+                                data-weight="54.4 lb">
+                                Select
+                            </button></td>
+                    </tr>
+                    <tr>
+                        <td class="col-sku">AM-41-D</td>
+                        <td class="col-dim">0.75 &times; 0.75 &times; 36.00</td>
+                        <td>5.7 lb</td>
+                        <td class="col-price">$18.25</td>
+                        <td><button
+                                class="font-display font-bold uppercase text-xs tracking-wider bg-paper text-ink border-2 border-ink px-4 py-2 hover:bg-navy hover:text-paper hover:border-navy transition-colors focus:outline-none focus:ring-4 focus:ring-ink focus:ring-offset-2 focus:ring-offset-paper"
+                                data-sku="AM-41-A" data-w="4" data-h="4" data-l="12" data-price="84.00"
+                                data-weight="54.4 lb">
+                                Select
+                            </button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <!-- product-Cards -->
+        <section id="interactive" class="pb-24">
+            <div class="border-b-3 border-ink mb-8 pb-2 flex justify-between items-baseline">
+                <h2 class="font-display font-bold text-3xl uppercase tracking-wide">06. product-Cards </h2>
+                <span class="font-mono text-sm">SEC-INT</span>
+            </div>
+
+            <!-- Product Grid -->
+            <div class="mb-12">
+                <h3 class="font-display font-semibold text-xl uppercase mb-4">Categories of Metals</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+
+                    <!-- Card 1 -->
+                    <article class="border-3 border-ink flex flex-col bg-paper">
+                        <!-- Image/Pattern Area -->
+                        <div class="h-48 border-b-3 border-ink relative">
+                            <div
+                                class="absolute top-4 left-4 bg-paper border-2 border-ink px-2 py-1 font-mono text-xs font-bold">
+                                Steel
+                            </div>
+                            <img src="images/blocks.png" alt="Copper material category"
+                                class="w-full h-full object-cover opacity-50">
+                        </div>
+
+                        <!-- Content Area -->
+                        <div class="p-6 flex-1 flex flex-col">
+                            <h4 class="font-display font-bold text-2xl uppercase leading-tight mb-3">Steel</h4>
+
+                            <p class="font-body text-sm mb-6 flex-1">
+                                Steel is a metal alloy composed primarily of iron and carbon, with varying amounts of
+                                other elements added to enhance its properties.
+                            </p>
+                            <button
+                                class="w-full font-mono font-bold text-xs uppercase border-2 border-ink px-4 py-2 hover:bg-ink hover:text-paper transition-colors focus:outline-none focus:ring-2 focus:ring-ink focus:ring-offset-2">
+                                View Category
+                            </button>
+                        </div>
+                    </article>
+                </div>
+            </div>
+            <!-- Product Grid -->
+            <div class="mb-12">
+                <h3 class="font-display font-semibold text-xl uppercase mb-4">Product Cards</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <!-- Product 2 (Image Left layout) -->
+                    <article class="border-3 border-ink flex flex-col sm:flex-row bg-paper">
+                        <div
+                            class="sm:w-1/3 border-b-3 sm:border-b-0 sm:border-r-3 border-ink bg-navy flex items-center justify-center text-paper">
+                            <img src="images/block.png" alt="Steel block" class="w-full h-full object-cover">
+                        </div>
+                        <div class="p-6 sm:w-2/3 flex flex-col justify-center">
+                            <h4 class="font-display font-bold text-xl uppercase leading-tight mb-2">just a block of
+                                steel
+                            </h4>
+
+                            <p class="font-body text-sm mb-4">
+                                A block of steel is a rectangular solid piece of metal. It is made of iron and carbon,
+                                and
+                                it is used in a variety of applications.
+                            </p>
+                            <div class="mt-auto flex justify-between items-center border-t-2 border-ink pt-3 gap-4">
+                                <span class="font-mono text-xs leading-relaxed">
+                                    Dimensions<br />10.0×20.0×75.0 in.
+                                </span>
+
+                                <button aria-label="View Product: Just a block of steel"
+                                    class="shrink-0 font-mono font-bold text-xs uppercase border-2 border-ink px-4 py-2 hover:bg-ink hover:text-paper transition-colors">
+                                    View Product
+                                </button>
+
+                            </div>
+                        </div>
+                    </article>
+                    <article class="border-3 border-ink flex flex-col sm:flex-row bg-paper">
+                        <div
+                            class="sm:w-1/3 border-b-3 sm:border-b-0 sm:border-r-3 border-ink bg-navy flex items-center justify-center text-paper">
+                            <img src="images/block.png" alt="Steel block" class="w-full h-full object-cover">
+                        </div>
+                        <div class="p-6 sm:w-2/3 flex flex-col justify-center">
+                            <h4 class="font-display font-bold text-xl uppercase leading-tight mb-2">just a block of
+                                steel
+                            </h4>
+
+                            <p class="font-body text-sm mb-4">
+                                A block of steel is a rectangular solid piece of metal. It is made of iron and carbon,
+                                and
+                                it is used in a variety of applications.
+                            </p>
+                            <div class="mt-auto flex justify-between items-center border-t-2 border-ink pt-3 gap-4">
+                                <span class="font-mono text-xs leading-relaxed">
+                                    Dimensions<br />10.0×20.0×75.0 in.
+                                </span>
+
+                                <button aria-label="View Product: Just a block of steel"
+                                    class="shrink-0 font-mono font-bold text-xs uppercase border-2 border-ink px-4 py-2 hover:bg-ink hover:text-paper transition-colors">
+                                    View Product
+                                </button>
+
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </div>
+
+
+            <div class="mb-16">
+                <!-- Editorial Section Header -->
+                <div
+                    class="flex flex-col sm:flex-row justify-between items-start sm:items-end mb-8 border-b-3 border-ink pb-4 gap-2">
+                    <h3 class="font-display font-bold text-4xl uppercase tracking-tight leading-none">The Guidebook</h3>
+                    <span class="font-mono text-sm font-bold">Vol. 01 / Quick Tips</span>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+
+                    <!-- Magazine Card 1 -->
+                    <article
+                        class="group border-3 border-ink flex flex-col bg-paper hover:bg-ink hover:text-paper transition-colors duration-200 cursor-pointer">
+
+                        <!-- Image Area -->
+                        <!-- Fixed: Replaced w-48 with w-full to fill the grid column properly -->
+                        <div class="h-80 w-full relative border-b-3 border-ink overflow-hidden bg-gray-200">
+                            <!-- Tag dynamically inverts on hover to maintain contrast -->
+                            <div
+                                class="absolute top-4 left-4 bg-paper text-ink border-2 border-ink px-2 py-1 font-mono text-xs font-bold z-10 group-hover:bg-ink group-hover:text-paper group-hover:border-paper transition-colors">
+                                Steel
+                            </div>
+                            <!-- Optional: grayscale filter that reveals color on hover for an editorial feel -->
+                            <img src="images/Guide.png" alt="Steel cutting guide"
+                                class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500">
+                        </div>
+
+                        <!-- Editorial Content Area -->
+                        <div class="p-6 flex-1 flex flex-col justify-between">
+                            <div>
+                                <!-- Meta Data Row -->
+                                <div
+                                    class="flex justify-between items-center mb-4 font-mono text-xs uppercase opacity-80">
+                                    <span>07.09.2026</span>
+                                    <span>3 Min Read</span>
+                                </div>
+
+                                <!-- Headline & Excerpt -->
+                                <h4 class="font-display font-bold text-2xl uppercase leading-none mb-4">Mastering the
+                                    Perfect Steel Cut</h4>
+                                <p class="font-body text-sm leading-relaxed mb-6 line-clamp-3">
+                                    Learn the precise feeds and speeds required to prevent tool wear when working with
+                                    high-carbon alloys. This guide covers standard milling operations and advanced CNC
+                                    pathing.
+                                </p>
+                            </div>
+
+                            <!-- Author Footer -->
+                            <div
+                                class="flex items-center gap-3 border-t-2 border-ink group-hover:border-paper pt-4 transition-colors">
+                                <div
+                                    class="w-8 h-8 rounded-full bg-ink border-2 border-paper group-hover:bg-paper group-hover:border-ink transition-colors">
+                                </div>
+                                <span class="font-mono text-xs font-bold uppercase">By Eng. Team</span>
+                            </div>
+                        </div>
+
+                    </article>
+
+                </div>
+            </div>
+
+            <div class="mb-16">
+                <!-- Technical Doc Header -->
+                <div
+                    class="border-b-3 border-ink pb-4 mb-8 flex flex-col sm:flex-row justify-between items-start sm:items-end gap-2">
+                    <h3 class="font-display font-bold text-3xl uppercase tracking-tight leading-none">Documentation</h3>
+                    <span class="font-mono text-xs font-bold uppercase tracking-widest">Ref: Guides & Quick Tips</span>
+                </div>
+
+                <!-- Doc Directory Layout (Two-Pane) -->
+                <div class="border-3 border-ink flex flex-col md:flex-row bg-paper">
+
+                    <!-- Sidebar / Table of Contents -->
+                    <aside
+                        class="md:w-1/3 border-b-3 md:border-b-0 md:border-r-3 border-ink p-6 flex flex-col bg-gray-100">
+                        <h4 class="font-mono text-xs font-bold uppercase mb-6 text-ink/60 tracking-wider">Directory //
+                            Vol 1</h4>
+                        <nav class="flex flex-col space-y-4 font-mono text-sm font-bold">
+                            <a href="#"
+                                class="text-ink underline decoration-2 underline-offset-4 hover:bg-ink hover:text-paper inline-block transition-colors px-1 -mx-1">01.
+                                Steel Cutting Specs</a>
+                            <a href="#"
+                                class="text-ink/60 hover:text-ink hover:bg-gray-200 transition-colors px-1 -mx-1">02.
+                                Aluminum Tolerances</a>
+                            <a href="#"
+                                class="text-ink/60 hover:text-ink hover:bg-gray-200 transition-colors px-1 -mx-1">03.
+                                Copper Conductivity</a>
+                            <a href="#"
+                                class="text-ink/60 hover:text-ink hover:bg-gray-200 transition-colors px-1 -mx-1">04.
+                                Safety Protocols</a>
+                        </nav>
+                    </aside>
+
+                    <!-- Main Content / Quick View -->
+                    <main class="md:w-2/3 p-0 flex flex-col">
+
+                        <!-- Doc Entry Header -->
+                        <header
+                            class="p-6 border-b-2 border-ink flex flex-wrap justify-between items-center gap-4 bg-paper">
+                            <div class="flex items-center gap-3">
+                                <span
+                                    class="bg-ink text-paper border-2 border-ink px-2 py-0.5 font-mono text-xs font-bold uppercase">
+                                    Steel
+                                </span>
+                                <h4 class="font-display font-bold text-xl uppercase leading-none">Steel Cutting Specs
+                                </h4>
+                            </div>
+                            <span class="font-mono text-xs font-bold border-2 border-ink px-2 py-0.5">v1.2.0</span>
+                        </header>
+
+                        <!-- Doc Entry Body -->
+                        <div class="p-6 font-body text-sm leading-relaxed flex-grow flex flex-col justify-between">
+                            <div>
+                                <p class="mb-6">
+                                    Standard operating procedures for milling high-carbon steel alloys. Adhering to
+                                    strict feed and speed metrics is required to prevent premature tool wear and ensure
+                                    dimensional accuracy during the 3D block cutting process.
+                                </p>
+
+                                <!-- Technical Specs Table (List format for Brutalist look) -->
+                                <h5 class="font-bold uppercase text-xs mb-3 border-b-2 border-ink pb-1">Recommended
+                                    Parameters</h5>
+                                <ul class="list-none font-mono text-xs space-y-0 mb-8 border-2 border-ink">
+                                    <li class="flex justify-between border-b-2 border-ink p-2 bg-gray-100">
+                                        <strong>Spindle Speed</strong> <span>2,500 RPM</span>
+                                    </li>
+                                    <li class="flex justify-between border-b-2 border-ink p-2">
+                                        <strong>Feed Rate</strong> <span>15 IPM</span>
+                                    </li>
+                                    <li class="flex justify-between p-2 bg-gray-100">
+                                        <strong>Coolant</strong> <span>Flood / Soluble Oil</span>
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <!-- Actionable Footer -->
+                            <button
+                                class="self-start font-mono font-bold text-xs uppercase border-2 border-ink px-4 py-2 hover:bg-ink hover:text-paper transition-colors focus:outline-none focus:ring-2 focus:ring-ink focus:ring-offset-2">
+                                Read Full Documentation
+                            </button>
+                        </div>
+                    </main>
+                </div>
+            </div>
+        </section>
+        <!-- SECTION: PAGINATION -->
+        <section id="pagination" class="pb-24">
+            <div class="border-b-3 border-ink mb-8 pb-2 flex justify-between items-baseline">
+                <h2 class="font-display font-bold text-3xl uppercase tracking-wide">07. Pagination</h2>
+                <span class="font-mono text-sm">SEC-PAG</span>
+            </div>
+
+            <!-- Standard Pagination -->
+            <div class="mb-12">
+                <h3 class="font-display font-semibold text-xl uppercase mb-6">Standard Directory Navigation</h3>
+                <nav class="flex flex-wrap items-center gap-2" aria-label="Pagination">
+                    <!-- Prev Button (Disabled state) -->
+                    <button
+                        class="font-mono font-bold text-xs uppercase tracking-widest border-2 border-ink px-4 py-2 bg-paper text-ink opacity-50 cursor-not-allowed flex items-center gap-2"
+                        aria-disabled="true">
+                        <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="square" stroke-linejoin="miter" stroke-width="3" d="M15 19l-7-7 7-7">
+                            </path>
+                        </svg>
+                        Prev
+                    </button>
+
+                    <!-- Page Numbers -->
+                    <button
+                        class="w-10 h-10 flex items-center justify-center font-mono font-bold text-sm border-2 border-ink bg-navy text-paper hover:bg-ink hover:border-ink transition-colors focus:outline-none focus:ring-2 focus:ring-ink focus:ring-offset-2 focus:ring-offset-paper"
+                        aria-current="page">
+                        1
+                    </button>
+
+                    <button
+                        class="w-10 h-10 flex items-center justify-center font-mono font-bold text-sm border-2 border-ink bg-paper text-ink hover:bg-ink hover:text-paper transition-colors focus:outline-none focus:ring-2 focus:ring-ink focus:ring-offset-2 focus:ring-offset-paper">
+                        2
+                    </button>
+
+                    <button
+                        class="w-10 h-10 flex items-center justify-center font-mono font-bold text-sm border-2 border-ink bg-paper text-ink hover:bg-ink hover:text-paper transition-colors focus:outline-none focus:ring-2 focus:ring-ink focus:ring-offset-2 focus:ring-offset-paper">
+                        3
+                    </button>
+
+                    <!-- Ellipsis -->
+                    <span
+                        class="w-10 h-10 flex items-center justify-center font-mono font-bold text-sm text-ink tracking-widest">
+                        ...
+                    </span>
+
+                    <button
+                        class="w-10 h-10 flex items-center justify-center font-mono font-bold text-sm border-2 border-ink bg-paper text-ink hover:bg-ink hover:text-paper transition-colors focus:outline-none focus:ring-2 focus:ring-ink focus:ring-offset-2 focus:ring-offset-paper">
+                        12
+                    </button>
+
+                    <!-- Next Button -->
+                    <button
+                        class="font-mono font-bold text-xs uppercase tracking-widest border-2 border-ink px-4 py-2 bg-paper text-ink hover:bg-ink hover:text-paper transition-colors focus:outline-none focus:ring-2 focus:ring-ink focus:ring-offset-2 focus:ring-offset-paper flex items-center gap-2">
+                        Next
+                        <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="square" stroke-linejoin="miter" stroke-width="3" d="M9 5l7 7-7 7">
+                            </path>
+                        </svg>
+                    </button>
+                </nav>
+            </div>
+
+            <!-- Compact / Grouped Pagination -->
+            <div>
+                <h3 class="font-display font-semibold text-xl uppercase mb-6">Grouped Block Navigation</h3>
+                <nav class="inline-flex border-2 border-ink bg-paper" aria-label="Compact Pagination">
+                    <button
+                        class="font-mono font-bold text-xs uppercase tracking-widest border-r-2 border-ink px-4 py-2 text-ink hover:bg-ink hover:text-paper transition-colors focus:outline-none focus:bg-ink focus:text-paper">
+                        Prev
+                    </button>
+
+                    <button
+                        class="w-10 flex items-center justify-center font-mono font-bold text-sm border-r-2 border-ink bg-ink text-paper transition-colors focus:outline-none"
+                        aria-current="page">
+                        1
+                    </button>
+
+                    <button
+                        class="w-10 flex items-center justify-center font-mono font-bold text-sm border-r-2 border-ink text-ink hover:bg-ink hover:text-paper transition-colors focus:outline-none focus:bg-ink focus:text-paper">
+                        2
+                    </button>
+
+                    <button
+                        class="w-10 flex items-center justify-center font-mono font-bold text-sm border-r-2 border-ink text-ink hover:bg-ink hover:text-paper transition-colors focus:outline-none focus:bg-ink focus:text-paper">
+                        3
+                    </button>
+
+                    <button
+                        class="font-mono font-bold text-xs uppercase tracking-widest px-4 py-2 text-ink hover:bg-ink hover:text-paper transition-colors focus:outline-none focus:bg-ink focus:text-paper">
+                        Next
+                    </button>
+                </nav>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="border-t-6 border-ink bg-paper py-8 mt-auto">
+        <div
+            class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center gap-4">
+            <div class="flex items-center gap-4">
+                <!-- Abstract Logo -->
+                <div class="w-8 h-8 bg-navy border-2 border-ink flex items-center justify-center rotate-45">
+                    <div class="w-3 h-3 bg-paper border-2 border-ink -rotate-45"></div>
+                </div>
+                <p class="font-display font-bold text-xl uppercase tracking-widest">Amerimatter</p>
+            </div>
+            <p class="font-mono text-xs font-bold uppercase">© 1925 - All Rights Reserved. Precision Manufactured.</p>
+        </div>
+    </footer>
+
+
+    <!-- ============================================== -->
+    <!-- HIDDEN UI ELEMENTS (Modals, Toasts, etc.)      -->
+    <!-- ============================================== -->
+
+    <!-- MODAL OVERLAY -->
+    <div id="demo-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 hidden">
+        <!-- Heavy pattern background to act as a print overlay -->
+        <div class="absolute inset-0 pattern-dots bg-paper opacity-90" onclick="closeModal()"></div>
+
+        <!-- Modal Content Box -->
+        <div class="relative bg-paper border-6 border-ink w-full max-w-lg shadow-none">
+            <!-- Header -->
+            <div class="border-b-3 border-ink bg-navy text-paper p-4 flex justify-between items-center">
+                <h3 class="font-display font-bold text-2xl uppercase">System Authorization</h3>
+                <button onclick="closeModal()"
+                    class="w-8 h-8 flex items-center justify-center border-2 border-paper hover:bg-paper hover:text-navy transition-colors font-mono font-bold">X</button>
+            </div>
+            <!-- Body -->
+            <div class="p-8 space-y-4">
+                <p class="font-body text-base">You are about to approve changes to the primary blueprint schema. This
+                    action will be logged in the central ledger.</p>
+                <div class="p-4 border-2 border-ink bg-[#fff5f4] text-vermilion flex gap-3">
+                    <span class="font-display font-bold text-xl">!</span>
+                    <p class="font-mono text-xs uppercase font-bold mt-1">Warning: Irreversible action. Ensure
+                        parameters are correct.</p>
+                </div>
+            </div>
+            <!-- Footer -->
+            <div class="border-t-3 border-ink p-4 bg-paper flex justify-end gap-4">
+                <button onclick="closeModal()"
+                    class="font-display font-bold uppercase tracking-wider bg-paper text-ink border-2 border-ink px-6 py-2 hover:bg-slate transition-colors">Cancel</button>
+                <button onclick="closeModal(); showToast('Schema Approved and Logged.');"
+                    class="font-display font-bold uppercase tracking-wider bg-navy text-paper border-2 border-ink px-6 py-2 hover:bg-ink hover:border-ink transition-colors">Approve</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- TOAST NOTIFICATION CONTAINER -->
+    <div id="toast-container" class="fixed bottom-6 right-6 z-50 flex flex-col gap-4">
+        <!-- Toasts will be injected here dynamically by JS -->
+    </div>
+
+    <!-- ============================================== -->
+    <!-- INTERACTIVE SCRIPTS                            -->
+    <!-- ============================================== -->
+    <script>
+        // --- Modal Logic ---
+        const modal = document.getElementById('demo-modal');
+
+        function openModal() {
+            modal.classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            modal.classList.add('hidden');
+            document.body.style.overflow = '';
+        }
+
+        // --- Toast Logic ---
+        const form = document.getElementById('demo-form');
+        const toastContainer = document.getElementById('toast-container');
+
+        function showToast(message) {
+            const toast = document.createElement('div');
+            toast.className = 'bg-paper border-3 border-ink p-4 flex items-center gap-4 max-w-sm';
+            toast.innerHTML = `
+                <div class="w-8 h-8 bg-ink text-paper flex items-center justify-center">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="square" stroke-linejoin="miter" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
+                </div>
+                <div>
+                    <p class="font-mono text-xs font-bold uppercase">Success</p>
+                    <p class="font-body text-sm">${message}</p>
+                </div>
+            `;
+            toastContainer.appendChild(toast);
+            setTimeout(() => toast.remove(), 4000);
+        }
+        function clearErrors() {
+            document.querySelectorAll('.error-message').forEach(el => el.classList.remove('show'));
+            document.querySelectorAll('input, select').forEach(el => el.classList.remove('input-error'));
+        }
+
+        function showError(fieldId) {
+            const errorEl = document.getElementById(fieldId + '-error');
+            const field = document.getElementById(fieldId);
+            if (errorEl) errorEl.classList.add('show');
+            if (field) field.classList.add('input-error');
+        }
+
+        function handleFormSubmit(e) {
+            e.preventDefault();
+            clearErrors();
+
+            let isValid = true;
+
+            if (!document.getElementById('first-name').value.trim()) {
+                showError('first-name');
+                isValid = false;
+            }
+            if (!document.getElementById('last-name').value.trim()) {
+                showError('last-name');
+                isValid = false;
+            }
+            if (!document.getElementById('department').value) {
+                showError('department');
+                isValid = false;
+            }
+
+            if (isValid) {
+                showToast('Form submitted successfully.');
+            }
+        }
+
+        // Real-time validation
+        document.querySelectorAll('input[required], select[required]').forEach(field => {
+            field.addEventListener('blur', () => {
+                if (field.value.trim() !== '' || (field.tagName === 'SELECT' && field.value)) {
+                    const errorEl = document.getElementById(field.id + '-error');
+                    if (errorEl) errorEl.classList.remove('show');
+                    field.classList.remove('input-error');
+                }
+            });
+        });
+
+    </script>
+</body>
+
+</html>

@@ -4,8 +4,6 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-    <!-- PRIMARY SEO -->
     <title>Swen Stallone Peck | AI Agent Engineer & Web Architect</title>
     <meta name="description"
         content="Portfolio of Swen Stallone Peck. Expert in building autonomous AI agents, RAG systems, and high-performance web infrastructure using Python, React, and LangChain." />
@@ -13,61 +11,50 @@
         content="AI Agent Engineer, Web Developer, Swen Stallone Peck, RAG Systems, LLM Integration, LangChain, Full Stack Developer, Autonomous Agents" />
     <meta name="author" content="Swen Stallone Peck" />
     <meta name="robots" content="index, follow" />
-
-    <!-- OPEN GRAPH / SOCIAL SHARE -->
     <meta property="og:type" content="profile" />
     <meta property="og:title" content="Swen Stallone Peck | AI Agent Engineer" />
     <meta property="og:description"
         content="Architecting deterministic web infrastructure and probabilistic AI behaviors. Available for hire." />
     <meta property="og:url" content="https://stall.one" />
     <meta property="og:image" content="social-preview.jpg" />
-
-    <!-- TWITTER CARD -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="Swen Stallone Peck | AI Engineer" />
     <meta name="twitter:description" content="Building digital logic and autonomous intelligence systems." />
-
-    <!-- JSON-LD SCHEMA MARKUP -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
       "@type": "Person",
       "name": "Swen Stallone Peck",
-      "url": "https://stall.one", 
+      "url": "https://stall.one",
       "jobTitle": "AI Agent Engineer",
       "image": "placeholder-logo.png",
       "description": "Full Stack Architect bridging the gap between web infrastructure and autonomous AI agents.",
       "knowsAbout": ["Artificial Intelligence", "Web Development", "LangChain", "RAG Systems", "Python", "React"]
     }
     </script>
-
     <link rel="stylesheet" href="./style.css" />
+    <script src="./page-transition.js"></script>
 </head>
 
 <body>
-
     <header>
         <div class="logo-container">
-            <img src="" alt="Swen Stallone Peck - AI Agent Engineer Logo" class="logo-img"
-                onerror="this.style.display='none'; var fb = document.getElementById('text-logo'); if(fb) { fb.style.display='block'; }" />
-            <span id="text-logo" class="brand" style="display:none;">STALL.ONE</span>
+            <span class="brand">STALL.ONE</span>
         </div>
         <div class="menu-toggle" onclick="toggleMenu()">[MENU]</div>
         <nav id="navbar">
             <ul>
                 <li><a href="#expertise" onclick="toggleMenu()">01_SKILLS</a></li>
-                <!-- <li><a href="#projects" onclick="toggleMenu()">02_WORK</a></li> -->
+                <li><a href="#projects" onclick="toggleMenu()">02_WORK</a></li>
                 <li><a href="#certifications" onclick="toggleMenu()">03_CERTS</a></li>
-                <!-- <li><a href="#blog" onclick="toggleMenu()">04_BLOG</a></li> -->
+                <li><a href="./blog/" data-page-transition="ltr" onclick="toggleMenu()">04_BLOG</a></li>
                 <li><a href="#contact" onclick="toggleMenu()">05_CONTACT</a></li>
-                <!-- <li><a href="./resume.pdf" class="resume-btn" download>DOWNLOAD RESUME (PDF)</a></li> -->
             </ul>
         </nav>
     </header>
     <div class="crt-overlay"></div>
 
     <main class="container">
-        <!-- HERO -->
         <section id="hero">
             <span style="display:block; margin-bottom:1rem; color:#aaa; font-weight:bold;">
                 <span class="status-dot"></span>STATUS: AVAILABLE_FOR_HIRE
@@ -84,7 +71,6 @@
             </p>
         </section>
 
-        <!-- EXPERTISE -->
         <section id="expertise">
             <h2>01_CORE_COMPETENCIES</h2>
             <div class="grid-2">
@@ -103,73 +89,71 @@
             </div>
         </section>
 
-        <!-- PROJECTS (Temporarily Commented Out)
         <section id="projects">
             <div style="display:flex; justify-content:space-between; align-items:baseline;">
                 <h2>02_FEATURED_PROJECTS</h2>
                 <span class="scroll-hint">[&lt; SWIPE &gt;]</span>
             </div>
-
             <div class="grid-2">
                 <div class="card">
-                    <h3>[PLATFORM: TAXFORT]</h3>
+                    <h3>[PLATFORM: TAXBOX]</h3>
                     <p><strong>Business Value:</strong> Multi-Tenant AI Document Engine</p>
-                    <p>Production-grade SaaS platform handling sensitive data at scale. Distributed architecture using Turso/SQLite and JuiceFS. AI RAG pipeline via Docling and NVIDIA OpenShell for automated classification.</p>
+                    <p>Production-grade SaaS for sensitive tax docs — isolation-first architecture, RAG classification, calm operator UX.</p>
                     <div class="tags">
                         <span class="tag">MULTI_TENANT</span>
                         <span class="tag">RAG_PIPELINE</span>
-                        <span class="tag">NVIDIA_OPENSHELL</span>
+                        <span class="tag">JUICEFS</span>
                     </div>
                     <div class="links">
-                        <a href="https://tax.swenusa.com/" class="project-link" target="_blank" rel="noopener noreferrer">VIEW_LIVE_DEMO >></a>
-                        <a href="#" class="project-link">VIEW_CASE_STUDY >></a>
+                        <a href="https://tax.swenusa.com/" class="project-link" target="_blank" rel="noopener noreferrer">[LIVE_View]</a>
+                        <a href="./blog/Taxbox/taxfort.html" class="project-link" data-page-transition="ltr">[VIEW_PROJECT] &gt;&gt;</a>
                     </div>
                 </div>
                 <div class="card">
-                    <h3>[ORCHESTRATOR: AI MARKETPLACE]</h3>
+                    <h3>[PLATFORM: Listia]</h3>
                     <p><strong>Business Value:</strong> Agentic E-commerce Automation</p>
-                    <p>Universal adapter using DOM-injection to programmatically manage listings without APIs. Multimodal AI generates SEO-optimized JSON from raw photos for eBay/Amazon/Etsy.</p>
+                    <p>DOM adapters + multimodal listing generation for eBay/Amazon/Etsy — photo to SEO JSON with human publish gates.</p>
                     <div class="tags">
                         <span class="tag">DOM_INJECTION</span>
                         <span class="tag">MULTIMODAL_AI</span>
-                        <span class="tag">ZERO_TRUST</span>
+                        <span class="tag">CLAYUI</span>
                     </div>
                     <div class="links">
-                        <a href="#" class="project-link">VIEW_LIVE_DEMO >></a>
-                        <a href="#" class="project-link">VIEW_REPO >></a>
+                        <a href="https://tryListia.com/" class="project-link" target="_blank" rel="noopener noreferrer">[LIVE_View]</a>
+                        <a href="./blog/Listia/ai-marketplace.html" class="project-link" data-page-transition="ltr">[VIEW_PROJECT] &gt;&gt;</a>
                     </div>
                 </div>
                 <div class="card">
-                    <h3>[WALLET: PASSKEY STATELESS]</h3>
-                    <p><strong>Business Value:</strong> Identity & Security Specialist Piece</p>
-                    <p>Stateless wallet using WebAuthn/Passkeys for biometric security. Local-first logic reconstructs context on-the-fly, reducing server overhead and the attack surface.</p>
+                    <h3>[SYSTEM: SnapNGo]</h3>
+                    <p><strong>Business Value:</strong> Modular environment provisioning CLI</p>
+                    <p>Snap-on microservices and micro-frontends — docs-first developer tooling with architecture depth.</p>
                     <div class="tags">
-                        <span class="tag">WEBAUTHN</span>
-                        <span class="tag">STATELESS</span>
-                        <span class="tag">ACCOUNT_ABSTRACTION</span>
+                        <span class="tag">CLI</span>
+                        <span class="tag">MICROSERVICES</span>
+                        <span class="tag">DX</span>
                     </div>
                     <div class="links">
-                        <a href="https://passkeywallet.vercel.app/" class="project-link" target="_blank" rel="noopener noreferrer">VIEW_LIVE_DEMO >></a>
-                        <a href="#" class="project-link">VIEW_BLOG >></a>
+                        <a href="https://tax.swenusa.com/" class="project-link" target="_blank" rel="noopener noreferrer">[Github]</a>
+                        <a href="./blog/snapngo/snapngo.html" class="project-link" data-page-transition="ltr">[VIEW_PROJECT] &gt;&gt;</a>
                     </div>
                 </div>
                 <div class="card">
-                    <h3>[SIMULATOR: 3D SPATIAL]</h3>
-                    <p><strong>Business Value:</strong> Performance & Reactive State Showcase</p>
-                    <p>High-performance rendering and complex physics. Built with React Three Fiber and Rapier. Optimized with custom shaders and asset instancing for consistent 60 FPS.</p>
+                    <h3>[BRAND: AMERIMATTER]</h3>
+                    <p><strong>Business Value:</strong> Industrial Surfaces + CNC</p>
+                    <p>Print-industrial catalog language, forge demos, and snap-on plant systems narrative.</p>
                     <div class="tags">
-                        <span class="tag">R3F</span>
-                        <span class="tag">RAPIER</span>
-                        <span class="tag">PERFORMANCE_GL</span>
+                        <span class="tag">CNC</span>
+                        <span class="tag">INDUSTRIAL</span>
+                        <span class="tag">SNAP_ON</span>
                     </div>
-                    <a href="#" class="project-link">VIEW_EXPERIENCE >></a>
+                    <div class="links">
+                        <a href="https://tax.swenusa.com/" class="project-link" target="_blank" rel="noopener noreferrer">[LIVE_View]</a>
+                        <a href="./blog/amerimatter/amerimatter-cnc.html" class="project-link" data-page-transition="ltr">[VIEW_PROJECT] &gt;&gt;</a>
+                    </div>
                 </div>
             </div>
         </section>
-        -->
 
-
-        <!-- CERTIFICATIONS -->
         <section id="certifications">
             <div style="display:flex; justify-content:space-between; align-items:baseline;">
                 <h2>03_CERTIFICATIONS</h2>
@@ -179,8 +163,7 @@
                 <div class="card">
                     <h3>[NVIDIA: DEEP LEARNING]</h3>
                     <p><strong>Authority:</strong> NVIDIA</p>
-                    <p>Getting Started with Deep Learning. Foundations of artificial neural networks and model training.
-                    </p>
+                    <p>Getting Started with Deep Learning. Foundations of artificial neural networks and model training.</p>
                     <div class="tags">
                         <span class="tag">DEEP LEARNING</span>
                         <span class="tag">NEURAL NETS</span>
@@ -202,33 +185,30 @@
             </div>
         </section>
 
-        <!-- BLOG (Temporarily Commented Out)
         <section id="blog">
-            <div style="display:flex; justify-content:space-between; align-items:baseline;">
+            <div style="display:flex; justify-content:space-between; align-items:baseline; flex-wrap:wrap; gap:1rem;">
                 <h2>04_TECHNICAL_LOGS</h2>
-                <span class="scroll-hint">[&lt; SWIPE &gt;]</span>
+                <a href="./blog/" data-page-transition="ltr" class="project-link" style="margin-top:0;">OPEN_FULL_LOG &gt;&gt;</a>
             </div>
             <div class="grid-3">
                 <article class="blog-post">
-                    <div class="blog-meta">LOG_ID: 2025-10-12</div>
-                    <h3><a href="#">The End of Single-Shot Prompting</a></h3>
-                    <p>Why iterative, loop-based agentic workflows are replacing linear chains.</p>
+                    <div class="blog-meta">LOG_ID: 2026-07</div>
+                    <h3><a href="./blog/Taxbox/field-notes.html" data-page-transition="ltr">storage system designed for multiple access points</a></h3>
+                    <p>TaxBox uses a  high-performance distributed file system along side vitrual drive to creat a </p>
                 </article>
                 <article class="blog-post">
-                    <div class="blog-meta">LOG_ID: 2025-09-28</div>
-                    <h3><a href="#">Defense of Vanilla JS</a></h3>
-                    <p>Reducing dependency overhead and bundle size in mission-critical apps.</p>
+                    <div class="blog-meta">LOG_ID: 2026-02</div>
+                    <h3><a href="./blog/Taxbox/Architecture.html" data-page-transition="ltr">Greco-futurism architecture</a></h3>
+                    <p>Greco-futurism blends the elegance of ancient Greek architecture with the innovation of futurism,</p>
                 </article>
                 <article class="blog-post">
-                    <div class="blog-meta">LOG_ID: 2025-08-15</div>
-                    <h3><a href="#">ephemeral key derivation using WebAuthn</a></h3>
-                    <p>ephemeral key derivation using WebAuthn PRF & HKDF. Multi-chain support </p>
+                    <div class="blog-meta">LOG_ID: 2022-08</div>
+                    <h3><a href="./blog/tech/webauthn-ephemeral-keys.html" data-page-transition="ltr">Ephemeral Key Derivation using WebAuthn</a></h3>
+                    <p>PRF + HKDF for multi-chain keys that exist only while the authenticator cooperates.</p>
                 </article>
             </div>
         </section>
-        -->
 
-        <!-- CONTACT -->
         <section id="contact">
             <h2>05_INITIATE_CONTACT</h2>
             <div class="grid-2">
@@ -273,13 +253,9 @@
     </footer>
 
     <script>
-        // --- MOBILE MENU LOGIC ---
         function toggleMenu() {
-            var nav = document.getElementById("navbar");
-            nav.classList.toggle("open");
+            document.getElementById("navbar").classList.toggle("open");
         }
-
-        // --- MOBILE SCROLL HINT (Nudge) ---
         function initScrollHint() {
             if (window.innerWidth > 768) return;
             const observer = new IntersectionObserver((entries, observer) => {
@@ -296,81 +272,43 @@
                     }
                 });
             }, { threshold: 0.2 });
-
             document.querySelectorAll('.grid-2, .grid-3').forEach(el => observer.observe(el));
         }
         window.addEventListener('load', initScrollHint);
-
-        // --- CONTACT FORM UX ---
         document.getElementById('contact-form').addEventListener('submit', function (e) {
             e.preventDefault();
             const form = this;
             const btn = form.querySelector('.submit-btn');
             const inputs = form.querySelectorAll('input, textarea');
-
-            // 1. Loading State
             btn.innerText = 'INITIALIZING_UPLINK...';
             btn.style.opacity = '0.7';
             btn.style.cursor = 'wait';
             const formData = new FormData(form);
-            const object = Object.fromEntries(formData);
-            const json = JSON.stringify(object);
-
-            // Disable inputs during transmission
+            const json = JSON.stringify(Object.fromEntries(formData));
             inputs.forEach(input => input.disabled = true);
-
-            // 2. Fetch API Request
             fetch(form.action, {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Accept': 'application/json'
-                },
+                headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
                 body: json
-            })
-                .then(response => {
-                    if (response.ok) {
-                        // Success State
-                        btn.innerText = '✓ TRANSMISSION_ACKNOWLEDGED';
-                        btn.style.opacity = '1';
-                        btn.style.cursor = 'default';
-
-                        // Visual feedback (Terminal Green)
-                        btn.style.borderColor = 'var(--highlight)';
-                        btn.style.color = 'var(--highlight)';
-                        btn.style.backgroundColor = 'rgba(0, 255, 65, 0.1)';
-
-                        // Clear inputs
-                        form.reset();
-                    } else {
-                        // Server Error State
-                        return response.json().then(data => {
-                            if (data.errors) {
-                                throw new Error(data.errors.map(error => error.message).join(", "));
-                            } else {
-                                throw new Error('SERVER_REJECTION');
-                            }
-                        });
-                    }
-                })
-                .catch(error => {
-                    // Network/Client Error State
-                    btn.innerText = '⚠ CONNECTION_ERROR';
-                    btn.style.borderColor = 'red';
-                    btn.style.color = 'red';
+            }).then(response => {
+                if (response.ok) {
+                    btn.innerText = '✓ TRANSMISSION_ACKNOWLEDGED';
                     btn.style.opacity = '1';
-                    btn.style.cursor = 'default';
-                    console.error('Submission Error:', error);
-
-                    // Re-enable inputs so user can retry
-                    inputs.forEach(input => input.disabled = false);
-
-                    // Optional: Show alert for clarity if debugging
-                    // alert('Error: ' + error.message);
-                });
+                    btn.style.borderColor = 'var(--highlight)';
+                    btn.style.color = 'var(--highlight)';
+                    btn.style.backgroundColor = 'rgba(0, 255, 65, 0.1)';
+                    form.reset();
+                } else {
+                    return response.json().then(data => { throw new Error('SERVER_REJECTION'); });
+                }
+            }).catch(error => {
+                btn.innerText = '⚠ CONNECTION_ERROR';
+                btn.style.borderColor = 'red';
+                btn.style.color = 'red';
+                btn.style.opacity = '1';
+                inputs.forEach(input => input.disabled = false);
+            });
         });
     </script>
-
 </body>
-
 </html>

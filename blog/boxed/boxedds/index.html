@@ -1,0 +1,1231 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Boxed Design System</title>
+  <meta name="description" content="Boxed Systems design system — tokens, components, patterns, and interaction principles for product UI.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/design-system.css">
+  <link rel="stylesheet" href="css/docs.css">
+</head>
+<body>
+  <a class="bx-skip-link" href="#main">Skip to content</a>
+
+  <div class="ds-overlay" data-ds-overlay></div>
+
+  <div class="ds-shell">
+    <!-- Sidebar navigation -->
+    <aside class="ds-sidebar" data-ds-sidebar aria-label="Design system navigation">
+      <a class="ds-sidebar__brand" href="#top">
+        <span class="ds-sidebar__logo" aria-hidden="true">B</span>
+        <span>
+          <span class="ds-sidebar__name">Boxed DS</span>
+          <span class="ds-sidebar__sub">v1.0 · Product UI</span>
+        </span>
+      </a>
+
+      <nav class="ds-sidebar__nav">
+        <div class="ds-sidebar__section">
+          <div class="ds-sidebar__label">Start</div>
+          <a class="ds-sidebar__link is-active" href="#top">Overview</a>
+          <a class="ds-sidebar__link" href="#principles">Principles</a>
+          <a class="ds-sidebar__link" href="#usage">Usage</a>
+        </div>
+        <div class="ds-sidebar__section">
+          <div class="ds-sidebar__label">Foundations</div>
+          <a class="ds-sidebar__link" href="#color">Color</a>
+          <a class="ds-sidebar__link" href="#typography">Typography</a>
+          <a class="ds-sidebar__link" href="#spacing">Spacing</a>
+          <a class="ds-sidebar__link" href="#radius-elevation">Radius &amp; elevation</a>
+          <a class="ds-sidebar__link" href="#motion">Motion</a>
+          <a class="ds-sidebar__link" href="#icons">Icons</a>
+          <a class="ds-sidebar__link" href="#layout">Layout</a>
+        </div>
+        <div class="ds-sidebar__section">
+          <div class="ds-sidebar__label">Components</div>
+          <a class="ds-sidebar__link" href="#buttons">Buttons</a>
+          <a class="ds-sidebar__link" href="#forms">Forms</a>
+          <a class="ds-sidebar__link" href="#selection">Selection</a>
+          <a class="ds-sidebar__link" href="#badges">Badges &amp; tags</a>
+          <a class="ds-sidebar__link" href="#avatars">Avatars</a>
+          <a class="ds-sidebar__link" href="#cards">Cards</a>
+          <a class="ds-sidebar__link" href="#alerts">Alerts &amp; toasts</a>
+          <a class="ds-sidebar__link" href="#modals">Modals</a>
+          <a class="ds-sidebar__link" href="#dropdowns">Dropdowns</a>
+          <a class="ds-sidebar__link" href="#tabs">Tabs</a>
+          <a class="ds-sidebar__link" href="#accordion">Accordion</a>
+          <a class="ds-sidebar__link" href="#navigation">Navigation</a>
+          <a class="ds-sidebar__link" href="#tables">Tables</a>
+          <a class="ds-sidebar__link" href="#feedback">Feedback</a>
+          <a class="ds-sidebar__link" href="#upload">Upload &amp; search</a>
+          <a class="ds-sidebar__link" href="#empty">Empty states</a>
+          <a class="ds-sidebar__link" href="#code">Code &amp; kbd</a>
+          <a class="ds-sidebar__link" href="#panels">Brand panels</a>
+        </div>
+        <div class="ds-sidebar__section">
+          <div class="ds-sidebar__label">Patterns</div>
+          <a class="ds-sidebar__link" href="#patterns">Product patterns</a>
+          <a class="ds-sidebar__link" href="#a11y">Accessibility</a>
+          <a class="ds-sidebar__link" href="#tokens-ref">Token reference</a>
+        </div>
+      </nav>
+
+      <div class="ds-sidebar__footer">
+        <label class="bx-field" style="margin:0">
+          <span class="bx-field__label bx-u-text-xs">Theme</span>
+          <select class="bx-select bx-input--sm" data-bx-theme-select aria-label="Color theme">
+            <option value="dark">Dark</option>
+            <option value="light">Light</option>
+            <option value="system">System</option>
+          </select>
+        </label>
+      </div>
+    </aside>
+
+    <div class="ds-main">
+      <header class="ds-topbar">
+        <button type="button" class="bx-btn bx-btn--ghost bx-btn--icon bx-u-hide-sm" data-ds-nav-toggle aria-label="Open navigation" aria-expanded="false" style="display:inline-flex">
+          <svg class="bx-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+        </button>
+        <style>
+          @media (min-width: 1024px) {
+            [data-ds-nav-toggle] { display: none !important; }
+          }
+        </style>
+        <div class="bx-cluster bx-u-flex-1">
+          <span class="bx-kicker">Design System</span>
+        </div>
+        <div class="bx-cluster">
+          <button type="button" class="bx-btn bx-btn--ghost bx-btn--sm" data-bx-theme-toggle aria-pressed="true">
+            <svg class="bx-icon bx-icon--sm" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12.8A9 9 0 1111.2 3 7 7 0 0021 12.8z"/></svg>
+            <span data-bx-theme-label>Dark</span>
+          </button>
+          <a class="bx-btn bx-btn--secondary bx-btn--sm" href="../index.html">Marketing site</a>
+        </div>
+      </header>
+
+      <main id="main" class="ds-content">
+        <!-- ========== OVERVIEW ========== -->
+        <header class="ds-hero" id="top">
+          <p class="ds-hero__kicker">Boxed Systems · Product UI</p>
+          <h1 class="ds-hero__title">Design system</h1>
+          <p class="ds-hero__desc">
+            A complete foundation for product interfaces: tokens, accessible components,
+            and interaction patterns. Built for engineering teams shipping fast without
+            reinventing buttons, forms, or feedback every sprint.
+          </p>
+          <div class="bx-cluster">
+            <a class="bx-btn bx-btn--primary" href="#usage">Get started</a>
+            <a class="bx-btn bx-btn--ghost" href="#buttons">Browse components</a>
+            <button type="button" class="bx-btn bx-btn--secondary" onclick="BoxedDS.toast({ title: 'Hello from BoxedDS', description: 'Toast API is live.', variant: 'success' })">
+              Try toast API
+            </button>
+          </div>
+        </header>
+
+        <!-- ========== PRINCIPLES ========== -->
+        <section class="ds-section" id="principles">
+          <div class="ds-section__header">
+            <h2 class="ds-section__title">Principles</h2>
+            <p class="ds-section__desc">What a modern company needs from a design system — and how Boxed DS answers.</p>
+          </div>
+          <div class="bx-grid bx-grid--2 bx-grid--lg">
+            <article class="bx-card bx-card--accent">
+              <div class="bx-card__body">
+                <h3 class="bx-card__title">One source of truth</h3>
+                <p>Colors, type, space, and motion live as CSS custom properties. Change a token once; product UI updates everywhere.</p>
+              </div>
+            </article>
+            <article class="bx-card bx-card--accent">
+              <div class="bx-card__body">
+                <h3 class="bx-card__title">Ship-ready components</h3>
+                <p>Buttons through tables, modals, toasts, and empty states — with states (hover, focus, disabled, loading, error) built in.</p>
+              </div>
+            </article>
+            <article class="bx-card bx-card--accent">
+              <div class="bx-card__body">
+                <h3 class="bx-card__title">Accessible by default</h3>
+                <p>Focus rings, keyboard navigation, ARIA roles, reduced-motion support, and skip links. WCAG-minded contrast in both themes.</p>
+              </div>
+            </article>
+            <article class="bx-card bx-card--accent">
+              <div class="bx-card__body">
+                <h3 class="bx-card__title">Zero-build friendly</h3>
+                <p>Plain HTML, CSS, and JS. Drop into marketing sites, internal tools, or migrate pieces into React/Vue later via the same class API.</p>
+              </div>
+            </article>
+            <article class="bx-card bx-card--accent">
+              <div class="bx-card__body">
+                <h3 class="bx-card__title">Dark &amp; light themes</h3>
+                <p>Semantic tokens remap per theme. Brand accent stays identity-strong in dark mode; slightly deepened for light-mode contrast.</p>
+              </div>
+            </article>
+            <article class="bx-card bx-card--accent">
+              <div class="bx-card__body">
+                <h3 class="bx-card__title">Progressive JS</h3>
+                <p>Theme, modal, dropdown, tabs, accordion, toast, and copy work via <code>data-bx-*</code> attributes. No framework required.</p>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <!-- ========== USAGE ========== -->
+        <section class="ds-section" id="usage">
+          <div class="ds-section__header">
+            <h2 class="ds-section__title">Usage</h2>
+            <p class="ds-section__desc">Include the system once. Prefer semantic tokens over hard-coded colors.</p>
+          </div>
+          <div class="bx-code-block">
+            <div class="bx-code-block__header">
+              <span class="bx-code-block__lang">HTML</span>
+              <button type="button" class="bx-btn bx-btn--ghost bx-btn--sm" data-bx-copy="#usage-snippet">Copy</button>
+            </div>
+            <pre id="usage-snippet"><code>&lt;html data-theme="dark"&gt;
+  &lt;link rel="stylesheet" href="design-system/css/design-system.css"&gt;
+  &lt;script src="design-system/js/design-system.js" defer&gt;&lt;/script&gt;
+  &lt;button class="bx-btn bx-btn--primary"&gt;Request Specs&lt;/button&gt;
+&lt;/html&gt;</code></pre>
+          </div>
+          <div class="ds-note">
+            <svg class="bx-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
+            <div>
+              <strong>Class prefix:</strong> all public classes use <code>bx-</code>.
+              Interactive hooks use <code>data-bx-*</code>. Docs chrome uses <code>ds-</code> and is not for product use.
+            </div>
+          </div>
+        </section>
+
+        <!-- ========== COLOR ========== -->
+        <section class="ds-section" id="color">
+          <div class="ds-section__header">
+            <h2 class="ds-section__title">Color</h2>
+            <p class="ds-section__desc">Brand identity plus semantic surfaces. Prefer semantic tokens (<code>--bx-fg</code>, <code>--bx-accent</code>) over raw brand hex in product UI.</p>
+          </div>
+
+          <div class="ds-subsection">
+            <h3 class="ds-subsection__title">Brand</h3>
+            <div class="ds-swatch-grid">
+              <div class="ds-swatch"><div class="ds-swatch__chip" style="background:#5eead4"></div><div class="ds-swatch__meta"><div class="ds-swatch__name">Teal</div><div class="ds-swatch__value">#5EEAD4</div></div></div>
+              <div class="ds-swatch"><div class="ds-swatch__chip" style="background:#fcd34d"></div><div class="ds-swatch__meta"><div class="ds-swatch__name">Yellow</div><div class="ds-swatch__value">#FCD34D</div></div></div>
+              <div class="ds-swatch"><div class="ds-swatch__chip" style="background:#f3f4f6"></div><div class="ds-swatch__meta"><div class="ds-swatch__name">White box</div><div class="ds-swatch__value">#F3F4F6</div></div></div>
+              <div class="ds-swatch"><div class="ds-swatch__chip" style="background:#0a0a0a"></div><div class="ds-swatch__meta"><div class="ds-swatch__name">Ink</div><div class="ds-swatch__value">#0A0A0A</div></div></div>
+            </div>
+          </div>
+
+          <div class="ds-subsection">
+            <h3 class="ds-subsection__title">Semantic (theme-aware)</h3>
+            <div class="ds-swatch-grid">
+              <div class="ds-swatch"><div class="ds-swatch__chip" style="background:var(--bx-bg)"></div><div class="ds-swatch__meta"><div class="ds-swatch__name">bg</div><div class="ds-swatch__value">--bx-bg</div></div></div>
+              <div class="ds-swatch"><div class="ds-swatch__chip" style="background:var(--bx-surface)"></div><div class="ds-swatch__meta"><div class="ds-swatch__name">surface</div><div class="ds-swatch__value">--bx-surface</div></div></div>
+              <div class="ds-swatch"><div class="ds-swatch__chip" style="background:var(--bx-fg-strong)"></div><div class="ds-swatch__meta"><div class="ds-swatch__name">fg-strong</div><div class="ds-swatch__value">--bx-fg-strong</div></div></div>
+              <div class="ds-swatch"><div class="ds-swatch__chip" style="background:var(--bx-fg-muted)"></div><div class="ds-swatch__meta"><div class="ds-swatch__name">fg-muted</div><div class="ds-swatch__value">--bx-fg-muted</div></div></div>
+              <div class="ds-swatch"><div class="ds-swatch__chip" style="background:var(--bx-accent)"></div><div class="ds-swatch__meta"><div class="ds-swatch__name">accent</div><div class="ds-swatch__value">--bx-accent</div></div></div>
+              <div class="ds-swatch"><div class="ds-swatch__chip" style="background:var(--bx-border-strong)"></div><div class="ds-swatch__meta"><div class="ds-swatch__name">border</div><div class="ds-swatch__value">--bx-border-strong</div></div></div>
+            </div>
+          </div>
+
+          <div class="ds-subsection">
+            <h3 class="ds-subsection__title">Status</h3>
+            <div class="ds-swatch-grid">
+              <div class="ds-swatch"><div class="ds-swatch__chip" style="background:var(--bx-success)"></div><div class="ds-swatch__meta"><div class="ds-swatch__name">Success</div><div class="ds-swatch__value">--bx-success</div></div></div>
+              <div class="ds-swatch"><div class="ds-swatch__chip" style="background:var(--bx-warning)"></div><div class="ds-swatch__meta"><div class="ds-swatch__name">Warning</div><div class="ds-swatch__value">--bx-warning</div></div></div>
+              <div class="ds-swatch"><div class="ds-swatch__chip" style="background:var(--bx-danger)"></div><div class="ds-swatch__meta"><div class="ds-swatch__name">Danger</div><div class="ds-swatch__value">--bx-danger</div></div></div>
+              <div class="ds-swatch"><div class="ds-swatch__chip" style="background:var(--bx-info)"></div><div class="ds-swatch__meta"><div class="ds-swatch__name">Info</div><div class="ds-swatch__value">--bx-info</div></div></div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ========== TYPOGRAPHY ========== -->
+        <section class="ds-section" id="typography">
+          <div class="ds-section__header">
+            <h2 class="ds-section__title">Typography</h2>
+            <p class="ds-section__desc">Inter for UI. Mono for codes, kickers, and technical labels — the brand’s industrial voice.</p>
+          </div>
+          <div class="ds-preview">
+            <div class="ds-preview__canvas ds-preview__canvas--stack ds-preview__canvas--plain">
+              <div class="ds-type-row"><span class="ds-type-row__meta">display</span><span style="font-size:var(--bx-text-display);font-weight:800;letter-spacing:-0.03em;color:var(--bx-fg-strong)">Boxed Systems</span></div>
+              <div class="ds-type-row"><span class="ds-type-row__meta">5xl / 48</span><span style="font-size:var(--bx-text-5xl);font-weight:800;color:var(--bx-fg-strong)">Hydro Module</span></div>
+              <div class="ds-type-row"><span class="ds-type-row__meta">3xl / 30</span><span style="font-size:var(--bx-text-3xl);font-weight:700;color:var(--bx-fg-strong)">Section heading</span></div>
+              <div class="ds-type-row"><span class="ds-type-row__meta">xl / 20</span><span style="font-size:var(--bx-text-xl);font-weight:600;color:var(--bx-fg-strong)">Card title</span></div>
+              <div class="ds-type-row"><span class="ds-type-row__meta">md / 16</span><span style="font-size:var(--bx-text-md);color:var(--bx-fg)">Body copy for product interfaces and marketing sections. Keep line length under ~70 characters.</span></div>
+              <div class="ds-type-row"><span class="ds-type-row__meta">sm / 14</span><span style="font-size:var(--bx-text-sm);color:var(--bx-fg-muted)">Secondary text, table cells, form labels, helper copy.</span></div>
+              <div class="ds-type-row"><span class="ds-type-row__meta">xs / 12</span><span style="font-size:var(--bx-text-xs);color:var(--bx-fg-subtle)">Captions, badges, timestamps.</span></div>
+              <div class="ds-type-row"><span class="ds-type-row__meta">kicker</span><span class="bx-kicker">Series 01 // Active</span></div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ========== SPACING ========== -->
+        <section class="ds-section" id="spacing">
+          <div class="ds-section__header">
+            <h2 class="ds-section__title">Spacing</h2>
+            <p class="ds-section__desc">4px base scale. Use stack/cluster/grid primitives before raw margins.</p>
+          </div>
+          <div class="ds-preview">
+            <div class="ds-preview__canvas ds-preview__canvas--stack ds-preview__canvas--plain">
+              <div class="ds-space-row"><span class="ds-space-row__label">1 · 4px</span><div class="ds-space-row__bar" style="width:0.25rem"></div></div>
+              <div class="ds-space-row"><span class="ds-space-row__label">2 · 8px</span><div class="ds-space-row__bar" style="width:0.5rem"></div></div>
+              <div class="ds-space-row"><span class="ds-space-row__label">3 · 12px</span><div class="ds-space-row__bar" style="width:0.75rem"></div></div>
+              <div class="ds-space-row"><span class="ds-space-row__label">4 · 16px</span><div class="ds-space-row__bar" style="width:1rem"></div></div>
+              <div class="ds-space-row"><span class="ds-space-row__label">6 · 24px</span><div class="ds-space-row__bar" style="width:1.5rem"></div></div>
+              <div class="ds-space-row"><span class="ds-space-row__label">8 · 32px</span><div class="ds-space-row__bar" style="width:2rem"></div></div>
+              <div class="ds-space-row"><span class="ds-space-row__label">12 · 48px</span><div class="ds-space-row__bar" style="width:3rem"></div></div>
+              <div class="ds-space-row"><span class="ds-space-row__label">16 · 64px</span><div class="ds-space-row__bar" style="width:4rem"></div></div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ========== RADIUS & ELEVATION ========== -->
+        <section class="ds-section" id="radius-elevation">
+          <div class="ds-section__header">
+            <h2 class="ds-section__title">Radius &amp; elevation</h2>
+            <p class="ds-section__desc">Hard edges only. No soft corners, no teal glow rings, no decorative drop shadows — solid faces and crisp outlines.</p>
+          </div>
+          <div class="ds-note">
+            <svg class="bx-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
+            <div>
+              <strong>Rule:</strong> <code>--bx-radius-*</code> surface tokens are <code>0</code>.
+              Soft rounded chrome and halo focus rings are out of brand. Circles only for true indicators (radio, spinner).
+            </div>
+          </div>
+          <div class="bx-grid bx-grid--3">
+            <div class="ds-shadow-card" style="border:1px solid var(--bx-border)">radius · 0</div>
+            <div class="ds-shadow-card" style="border:2px solid var(--bx-accent)">hard outline</div>
+            <div class="ds-shadow-card" style="outline:2px solid var(--bx-focus-ring);outline-offset:2px">focus · square ring</div>
+          </div>
+        </section>
+
+        <!-- ========== MOTION ========== -->
+        <section class="ds-section" id="motion">
+          <div class="ds-section__header">
+            <h2 class="ds-section__title">Motion</h2>
+            <p class="ds-section__desc">Fast feedback (120–200ms). Prefer opacity and transform. Respects <code>prefers-reduced-motion</code>.</p>
+          </div>
+          <div class="bx-grid bx-grid--3">
+            <div class="bx-card">
+              <div class="bx-card__body">
+                <span class="bx-badge bx-badge--outline">fast · 120ms</span>
+                <p class="bx-u-mt-3 bx-u-text-sm bx-u-text-muted">Hover, focus, color changes</p>
+              </div>
+            </div>
+            <div class="bx-card">
+              <div class="bx-card__body">
+                <span class="bx-badge bx-badge--outline">normal · 200ms</span>
+                <p class="bx-u-mt-3 bx-u-text-sm bx-u-text-muted">Dropdowns, tabs, tooltips</p>
+              </div>
+            </div>
+            <div class="bx-card">
+              <div class="bx-card__body">
+                <span class="bx-badge bx-badge--outline">slow · 320ms</span>
+                <p class="bx-u-mt-3 bx-u-text-sm bx-u-text-muted">Modals, panel expands</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ========== ICONS ========== -->
+        <section class="ds-section" id="icons">
+          <div class="ds-section__header">
+            <h2 class="ds-section__title">Icons</h2>
+            <p class="ds-section__desc">Inline SVG with <code>.bx-icon</code>. 24×24 viewBox, 2px stroke. Inherit color from parent.</p>
+          </div>
+          <div class="ds-preview">
+            <div class="ds-preview__canvas">
+              <svg class="bx-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+              <svg class="bx-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+              <svg class="bx-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>
+              <svg class="bx-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M18 6L6 18M6 6l12 12"/></svg>
+              <svg class="bx-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
+              <svg class="bx-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M17 8l-5-5-5 5M12 3v12"/></svg>
+              <svg class="bx-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+              <svg class="bx-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+              <svg class="bx-icon bx-u-text-accent" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l3 7h7l-5.5 4.5L18 21l-6-4-6 4 1.5-7.5L2 9h7z"/></svg>
+            </div>
+            <div class="ds-preview__meta">stroke icons · currentColor · .bx-icon / --sm / --lg</div>
+          </div>
+        </section>
+
+        <!-- ========== LAYOUT ========== -->
+        <section class="ds-section" id="layout">
+          <div class="ds-section__header">
+            <h2 class="ds-section__title">Layout primitives</h2>
+            <p class="ds-section__desc">Compose pages with container, stack, cluster, and grid — not one-off flex soup.</p>
+          </div>
+          <div class="ds-preview">
+            <div class="ds-preview__canvas ds-preview__canvas--stack ds-preview__canvas--plain">
+              <div class="bx-cluster">
+                <span class="bx-badge bx-badge--teal">Cluster</span>
+                <span class="bx-badge">wraps</span>
+                <span class="bx-badge">with gap</span>
+                <button class="bx-btn bx-btn--sm">Action</button>
+              </div>
+              <div class="bx-grid bx-grid--3" style="--bx-grid-gap:0.5rem">
+                <div class="bx-u-p-4 bx-u-bg-muted bx-u-rounded bx-u-text-sm bx-u-text-center">Grid 1</div>
+                <div class="bx-u-p-4 bx-u-bg-muted bx-u-rounded bx-u-text-sm bx-u-text-center">Grid 2</div>
+                <div class="bx-u-p-4 bx-u-bg-muted bx-u-rounded bx-u-text-sm bx-u-text-center">Grid 3</div>
+              </div>
+            </div>
+            <div class="ds-preview__meta">.bx-cluster · .bx-grid · .bx-stack · .bx-container</div>
+          </div>
+        </section>
+
+        <!-- ========== BUTTONS ========== -->
+        <section class="ds-section" id="buttons">
+          <div class="ds-section__header">
+            <h2 class="ds-section__title">Buttons</h2>
+            <p class="ds-section__desc">Primary for the main action. One primary per view. Ghost for tertiary density.</p>
+          </div>
+
+          <div class="ds-subsection">
+            <h3 class="ds-subsection__title">Variants</h3>
+            <div class="ds-preview">
+              <div class="ds-preview__canvas">
+                <button type="button" class="bx-btn bx-btn--primary">Primary</button>
+                <button type="button" class="bx-btn bx-btn--secondary">Secondary</button>
+                <button type="button" class="bx-btn">Default</button>
+                <button type="button" class="bx-btn bx-btn--ghost">Ghost</button>
+                <button type="button" class="bx-btn bx-btn--warning">Warning</button>
+                <button type="button" class="bx-btn bx-btn--danger">Danger</button>
+                <button type="button" class="bx-btn bx-btn--solid">Solid</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="ds-subsection">
+            <h3 class="ds-subsection__title">Sizes, icons, states</h3>
+            <div class="ds-preview">
+              <div class="ds-preview__canvas">
+                <button type="button" class="bx-btn bx-btn--primary bx-btn--sm">Small</button>
+                <button type="button" class="bx-btn bx-btn--primary">Medium</button>
+                <button type="button" class="bx-btn bx-btn--primary bx-btn--lg">Large</button>
+                <button type="button" class="bx-btn bx-btn--primary">
+                  <svg class="bx-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M17 8l-5-5-5 5M12 3v12"/></svg>
+                  Export
+                </button>
+                <button type="button" class="bx-btn bx-btn--primary bx-btn--icon" aria-label="Add">
+                  <svg class="bx-icon" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>
+                </button>
+                <button type="button" class="bx-btn bx-btn--primary" disabled>Disabled</button>
+                <button type="button" class="bx-btn bx-btn--primary" aria-busy="true">Loading</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="ds-subsection">
+            <h3 class="ds-subsection__title">Button group</h3>
+            <div class="ds-preview">
+              <div class="ds-preview__canvas">
+                <div class="bx-btn-group" role="group" aria-label="View">
+                  <button type="button" class="bx-btn bx-btn--sm">Day</button>
+                  <button type="button" class="bx-btn bx-btn--sm bx-btn--primary">Week</button>
+                  <button type="button" class="bx-btn bx-btn--sm">Month</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ========== FORMS ========== -->
+        <section class="ds-section" id="forms">
+          <div class="ds-section__header">
+            <h2 class="ds-section__title">Forms</h2>
+            <p class="ds-section__desc">Label + control + hint/error. Always associate labels with inputs for assistive tech.</p>
+          </div>
+
+          <div class="ds-preview">
+            <div class="ds-preview__canvas ds-preview__canvas--stack ds-preview__canvas--plain" style="max-width:28rem">
+              <form class="bx-stack bx-stack--md" data-bx-form-validate>
+                <div class="bx-field">
+                  <label class="bx-field__label" for="f-name">Full name <span class="bx-required">*</span></label>
+                  <input class="bx-input" id="f-name" name="name" required placeholder="Ada Lovelace" autocomplete="name">
+                  <span class="bx-field__error" hidden>Name is required</span>
+                </div>
+                <div class="bx-field">
+                  <label class="bx-field__label" for="f-email">Work email <span class="bx-required">*</span></label>
+                  <div class="bx-input-group bx-input-group--icon-start">
+                    <span class="bx-input-group__icon" aria-hidden="true">
+                      <svg class="bx-icon bx-icon--sm" viewBox="0 0 24 24"><path d="M4 4h16v16H4z"/><path d="M22 6l-10 7L2 6"/></svg>
+                    </span>
+                    <input class="bx-input" id="f-email" name="email" type="email" required placeholder="you@company.com" autocomplete="email">
+                  </div>
+                  <span class="bx-field__hint">We’ll only use this for module specs.</span>
+                  <span class="bx-field__error" hidden>Email is required</span>
+                </div>
+                <div class="bx-field">
+                  <label class="bx-field__label" for="f-module">Module interest</label>
+                  <select class="bx-select" id="f-module" name="module">
+                    <option value="">Select a module…</option>
+                    <option>Hydro-Module</option>
+                    <option>Myco-Module</option>
+                    <option>Cryo-Module</option>
+                  </select>
+                </div>
+                <div class="bx-field">
+                  <label class="bx-field__label" for="f-notes">Notes</label>
+                  <textarea class="bx-textarea" id="f-notes" name="notes" placeholder="Deployment volume, climate zone…"></textarea>
+                </div>
+                <div class="bx-field bx-field--error">
+                  <label class="bx-field__label" for="f-err">Error example</label>
+                  <input class="bx-input" id="f-err" value="invalid@" aria-invalid="true">
+                  <span class="bx-field__error">Enter a valid email address</span>
+                </div>
+                <div class="bx-cluster">
+                  <button type="submit" class="bx-btn bx-btn--primary">Submit request</button>
+                  <button type="reset" class="bx-btn bx-btn--ghost">Reset</button>
+                </div>
+              </form>
+            </div>
+            <div class="ds-preview__meta">.bx-field · .bx-input · .bx-select · .bx-textarea · data-bx-form-validate</div>
+          </div>
+        </section>
+
+        <!-- ========== SELECTION ========== -->
+        <section class="ds-section" id="selection">
+          <div class="ds-section__header">
+            <h2 class="ds-section__title">Selection controls</h2>
+            <p class="ds-section__desc">Checkbox, radio, and switch — keyboard focusable with visible indicators.</p>
+          </div>
+          <div class="ds-preview">
+            <div class="ds-preview__canvas ds-preview__canvas--stack ds-preview__canvas--plain">
+              <div class="bx-stack bx-stack--sm">
+                <label class="bx-check">
+                  <input type="checkbox" checked>
+                  <span class="bx-check__box" aria-hidden="true"></span>
+                  <span>Email me when specs are ready</span>
+                </label>
+                <label class="bx-check">
+                  <input type="checkbox">
+                  <span class="bx-check__box" aria-hidden="true"></span>
+                  <span>Include installation checklist</span>
+                </label>
+              </div>
+              <hr class="bx-divider">
+              <div class="bx-stack bx-stack--sm">
+                <label class="bx-radio">
+                  <input type="radio" name="tier" checked>
+                  <span class="bx-radio__box" aria-hidden="true"></span>
+                  <span>Pilot (1–3 units)</span>
+                </label>
+                <label class="bx-radio">
+                  <input type="radio" name="tier">
+                  <span class="bx-radio__box" aria-hidden="true"></span>
+                  <span>Fleet (10+ units)</span>
+                </label>
+              </div>
+              <hr class="bx-divider">
+              <label class="bx-switch">
+                <input type="checkbox" checked>
+                <span class="bx-switch__track" aria-hidden="true"></span>
+                <span>Enable telemetry sync</span>
+              </label>
+              <label class="bx-switch">
+                <input type="checkbox">
+                <span class="bx-switch__track" aria-hidden="true"></span>
+                <span>Low-power mode</span>
+              </label>
+            </div>
+          </div>
+        </section>
+
+        <!-- ========== BADGES ========== -->
+        <section class="ds-section" id="badges">
+          <div class="ds-section__header">
+            <h2 class="ds-section__title">Badges &amp; tags</h2>
+            <p class="ds-section__desc">Status chips, module codes, and filterable tags.</p>
+          </div>
+          <div class="ds-preview">
+            <div class="ds-preview__canvas">
+              <span class="bx-badge bx-badge--teal">HBX-7</span>
+              <span class="bx-badge bx-badge--yellow">MBX-3</span>
+              <span class="bx-badge bx-badge--white">CBX-1</span>
+              <span class="bx-badge bx-badge--success bx-badge--dot">Online</span>
+              <span class="bx-badge bx-badge--warning bx-badge--dot">Degraded</span>
+              <span class="bx-badge bx-badge--danger bx-badge--dot">Offline</span>
+              <span class="bx-badge bx-badge--info">Beta</span>
+              <span class="bx-badge bx-badge--outline">Draft</span>
+              <span class="bx-tag">hydro <button type="button" class="bx-tag__remove" aria-label="Remove">×</button></span>
+              <span class="bx-tag">myco <button type="button" class="bx-tag__remove" aria-label="Remove">×</button></span>
+            </div>
+          </div>
+        </section>
+
+        <!-- ========== AVATARS ========== -->
+        <section class="ds-section" id="avatars">
+          <div class="ds-section__header">
+            <h2 class="ds-section__title">Avatars</h2>
+            <p class="ds-section__desc">Initials fallback when no image. Groups stack for multi-user context.</p>
+          </div>
+          <div class="ds-preview">
+            <div class="ds-preview__canvas">
+              <span class="bx-avatar bx-avatar--sm" aria-label="AL">AL</span>
+              <span class="bx-avatar" aria-label="JS">JS</span>
+              <span class="bx-avatar bx-avatar--lg" aria-label="MK">MK</span>
+              <span class="bx-avatar bx-avatar--xl bx-avatar--square" aria-label="BX">BX</span>
+              <div class="bx-avatar-group" aria-label="Team">
+                <span class="bx-avatar bx-avatar--sm">R</span>
+                <span class="bx-avatar bx-avatar--sm">T</span>
+                <span class="bx-avatar bx-avatar--sm">K</span>
+                <span class="bx-avatar bx-avatar--sm">+3</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ========== CARDS ========== -->
+        <section class="ds-section" id="cards">
+          <div class="ds-section__header">
+            <h2 class="ds-section__title">Cards</h2>
+            <p class="ds-section__desc">Content containers for dashboards, catalogs, and settings groups.</p>
+          </div>
+          <div class="bx-grid bx-grid--3">
+            <article class="bx-card bx-card--interactive bx-card--accent">
+              <div class="bx-card__header">
+                <div>
+                  <span class="bx-badge bx-badge--teal">HBX-7</span>
+                  <h3 class="bx-card__title bx-u-mt-2">Hydro Module</h3>
+                </div>
+              </div>
+              <div class="bx-card__body">Closed-loop water systems for arid deployment. Hard edges, solid accent bar — no soft chrome.</div>
+              <div class="bx-card__footer">
+                <span class="bx-u-text-xs bx-u-text-subtle">Series 01</span>
+                <button type="button" class="bx-btn bx-btn--sm bx-btn--primary">Specs</button>
+              </div>
+            </article>
+            <article class="bx-card bx-card--elevated">
+              <div class="bx-card__header">
+                <h3 class="bx-card__title">Elevated card</h3>
+              </div>
+              <div class="bx-card__body">Use elevation for floating surfaces over dense layouts — sparingly.</div>
+              <div class="bx-card__footer">
+                <button type="button" class="bx-btn bx-btn--sm">Details</button>
+              </div>
+            </article>
+            <article class="bx-card bx-card--solid">
+              <div class="bx-card__header">
+                <h3 class="bx-card__title">Solid accent</h3>
+              </div>
+              <div class="bx-card__body">High-emphasis CTA panel. Pair with ink text for brand punch.</div>
+              <div class="bx-card__footer">
+                <button type="button" class="bx-btn bx-btn--solid bx-btn--sm">Get started</button>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <!-- ========== ALERTS & TOASTS ========== -->
+        <section class="ds-section" id="alerts">
+          <div class="ds-section__header">
+            <h2 class="ds-section__title">Alerts &amp; toasts</h2>
+            <p class="ds-section__desc">Inline alerts for page-level messages. Toasts for transient feedback after an action.</p>
+          </div>
+
+          <div class="bx-stack bx-stack--md bx-u-mb-6">
+            <div class="bx-alert bx-alert--info">
+              <svg class="bx-alert__icon bx-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
+              <div class="bx-alert__content">
+                <div class="bx-alert__title">Telemetry online</div>
+                Fleet heartbeat is nominal across all pilot modules.
+              </div>
+              <button type="button" class="bx-alert__close" data-bx-alert-dismiss aria-label="Dismiss">
+                <svg class="bx-icon bx-icon--sm" viewBox="0 0 24 24"><path d="M18 6L6 18M6 6l12 12"/></svg>
+              </button>
+            </div>
+            <div class="bx-alert bx-alert--success">
+              <svg class="bx-alert__icon bx-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>
+              <div class="bx-alert__content">
+                <div class="bx-alert__title">Specs delivered</div>
+                PDF package sent to your work email.
+              </div>
+            </div>
+            <div class="bx-alert bx-alert--warning">
+              <svg class="bx-alert__icon bx-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 9v4M12 17h.01"/><path d="M10.3 3.9L1.8 18a2 2 0 001.7 3h16.9a2 2 0 001.7-3L12.7 3.9a2 2 0 00-3.4 0z"/></svg>
+              <div class="bx-alert__content">
+                <div class="bx-alert__title">Firmware lag</div>
+                Module MBX-3 is 2 versions behind.
+              </div>
+            </div>
+            <div class="bx-alert bx-alert--danger">
+              <svg class="bx-alert__icon bx-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M15 9l-6 6M9 9l6 6"/></svg>
+              <div class="bx-alert__content">
+                <div class="bx-alert__title">Connection lost</div>
+                Reconnect to resume live status.
+              </div>
+            </div>
+          </div>
+
+          <div class="bx-cluster">
+            <button type="button" class="bx-btn bx-btn--sm" onclick="BoxedDS.toast({ title: 'Saved', description: 'Preferences updated.', variant: 'success' })">Success toast</button>
+            <button type="button" class="bx-btn bx-btn--sm" onclick="BoxedDS.toast({ title: 'Heads up', description: 'Quota at 80%.', variant: 'warning' })">Warning toast</button>
+            <button type="button" class="bx-btn bx-btn--sm" onclick="BoxedDS.toast({ title: 'Failed', description: 'Could not reach API.', variant: 'error' })">Error toast</button>
+            <button type="button" class="bx-btn bx-btn--sm" onclick="BoxedDS.toast({ title: 'New message', description: 'Ops left a note.', variant: 'info' })">Info toast</button>
+          </div>
+        </section>
+
+        <!-- ========== MODALS ========== -->
+        <section class="ds-section" id="modals">
+          <div class="ds-section__header">
+            <h2 class="ds-section__title">Modals</h2>
+            <p class="ds-section__desc">Focus-trapping dialogs for confirmations and short forms. Escape and backdrop click close.</p>
+          </div>
+          <div class="ds-preview">
+            <div class="ds-preview__canvas">
+              <button type="button" class="bx-btn bx-btn--primary" data-bx-modal-open="demo-modal">Open modal</button>
+              <button type="button" class="bx-btn bx-btn--danger" data-bx-modal-open="confirm-modal">Destructive confirm</button>
+            </div>
+          </div>
+        </section>
+
+        <!-- ========== DROPDOWNS ========== -->
+        <section class="ds-section" id="dropdowns">
+          <div class="ds-section__header">
+            <h2 class="ds-section__title">Dropdowns</h2>
+            <p class="ds-section__desc">Menus for overflow actions. Close on outside click or Escape.</p>
+          </div>
+          <div class="ds-preview">
+            <div class="ds-preview__canvas">
+              <div class="bx-dropdown">
+                <button type="button" class="bx-btn" data-bx-dropdown-trigger aria-expanded="false" aria-haspopup="menu">
+                  Actions
+                  <svg class="bx-icon bx-icon--sm" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+                </button>
+                <div class="bx-dropdown__menu" role="menu">
+                  <div class="bx-dropdown__label">Module</div>
+                  <button type="button" class="bx-dropdown__item" role="menuitem">View specs</button>
+                  <button type="button" class="bx-dropdown__item" role="menuitem">Download CAD</button>
+                  <button type="button" class="bx-dropdown__item" role="menuitem" aria-disabled="true">Share (soon)</button>
+                  <div class="bx-dropdown__separator"></div>
+                  <button type="button" class="bx-dropdown__item bx-dropdown__item--danger" role="menuitem">Archive</button>
+                </div>
+              </div>
+              <div class="bx-tooltip-wrap">
+                <button type="button" class="bx-btn bx-btn--ghost bx-btn--icon" aria-label="Help">
+                  <svg class="bx-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M9.1 9a3 3 0 015.8 1c0 2-3 2-3 4M12 17h.01"/></svg>
+                </button>
+                <span class="bx-tooltip" role="tooltip">Tooltip on hover / focus</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ========== TABS ========== -->
+        <section class="ds-section" id="tabs">
+          <div class="ds-section__header">
+            <h2 class="ds-section__title">Tabs</h2>
+            <p class="ds-section__desc">Underline tabs for page sections. Pill tabs for compact filters. Arrow keys move focus.</p>
+          </div>
+          <div class="ds-preview">
+            <div class="ds-preview__canvas ds-preview__canvas--stack ds-preview__canvas--plain">
+              <div class="bx-tabs" data-bx-tabs>
+                <div class="bx-tabs__list" role="tablist" aria-label="Module docs">
+                  <button type="button" class="bx-tabs__tab" role="tab" id="tab-overview" aria-controls="panel-overview" aria-selected="true" tabindex="0">Overview</button>
+                  <button type="button" class="bx-tabs__tab" role="tab" id="tab-specs" aria-controls="panel-specs" aria-selected="false" tabindex="-1">Specs</button>
+                  <button type="button" class="bx-tabs__tab" role="tab" id="tab-install" aria-controls="panel-install" aria-selected="false" tabindex="-1">Install</button>
+                </div>
+                <div class="bx-tabs__panel" role="tabpanel" id="panel-overview" aria-labelledby="tab-overview">
+                  <p class="bx-u-text-sm bx-u-text-muted">Overview content — high-level module narrative and status.</p>
+                </div>
+                <div class="bx-tabs__panel" role="tabpanel" id="panel-specs" aria-labelledby="tab-specs" hidden>
+                  <p class="bx-u-text-sm bx-u-text-muted">Technical specifications table would live here.</p>
+                </div>
+                <div class="bx-tabs__panel" role="tabpanel" id="panel-install" aria-labelledby="tab-install" hidden>
+                  <p class="bx-u-text-sm bx-u-text-muted">Installation checklist and site requirements.</p>
+                </div>
+              </div>
+
+              <div class="bx-tabs bx-tabs--pills bx-u-mt-6" data-bx-tabs>
+                <div class="bx-tabs__list" role="tablist" aria-label="Filter">
+                  <button type="button" class="bx-tabs__tab" role="tab" id="pill-all" aria-controls="pill-panel-all" aria-selected="true" tabindex="0">All</button>
+                  <button type="button" class="bx-tabs__tab" role="tab" id="pill-active" aria-controls="pill-panel-active" aria-selected="false" tabindex="-1">Active</button>
+                  <button type="button" class="bx-tabs__tab" role="tab" id="pill-archive" aria-controls="pill-panel-archive" aria-selected="false" tabindex="-1">Archive</button>
+                </div>
+                <div class="bx-tabs__panel" role="tabpanel" id="pill-panel-all" aria-labelledby="pill-all">
+                  <p class="bx-u-text-sm bx-u-text-muted bx-u-mt-3">Showing all modules.</p>
+                </div>
+                <div class="bx-tabs__panel" role="tabpanel" id="pill-panel-active" aria-labelledby="pill-active" hidden>
+                  <p class="bx-u-text-sm bx-u-text-muted bx-u-mt-3">Active deployments only.</p>
+                </div>
+                <div class="bx-tabs__panel" role="tabpanel" id="pill-panel-archive" aria-labelledby="pill-archive" hidden>
+                  <p class="bx-u-text-sm bx-u-text-muted bx-u-mt-3">Archived modules.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ========== ACCORDION ========== -->
+        <section class="ds-section" id="accordion">
+          <div class="ds-section__header">
+            <h2 class="ds-section__title">Accordion</h2>
+            <p class="ds-section__desc">Progressive disclosure for FAQs and dense settings. Single-open by default.</p>
+          </div>
+          <div class="ds-preview">
+            <div class="ds-preview__canvas ds-preview__canvas--plain">
+              <div class="bx-accordion bx-u-w-full" data-bx-accordion>
+                <div class="bx-accordion__item is-open">
+                  <button type="button" class="bx-accordion__trigger" aria-expanded="true">
+                    What is a design system for?
+                    <svg class="bx-accordion__icon bx-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+                  </button>
+                  <div class="bx-accordion__panel">
+                    <div class="bx-accordion__content">
+                      <div class="bx-accordion__content-inner">
+                        Consistency, speed, and quality. Teams share tokens and components so product UI doesn’t fragment across squads and contractors.
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="bx-accordion__item">
+                  <button type="button" class="bx-accordion__trigger" aria-expanded="false">
+                    Can we use this in React?
+                    <svg class="bx-accordion__icon bx-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+                  </button>
+                  <div class="bx-accordion__panel">
+                    <div class="bx-accordion__content">
+                      <div class="bx-accordion__content-inner">
+                        Yes. Reuse CSS tokens/classes and wrap markup in components. JS behaviors can be reimplemented with your framework’s state model.
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="bx-accordion__item">
+                  <button type="button" class="bx-accordion__trigger" aria-expanded="false">
+                    How do themes work?
+                    <svg class="bx-accordion__icon bx-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+                  </button>
+                  <div class="bx-accordion__panel">
+                    <div class="bx-accordion__content">
+                      <div class="bx-accordion__content-inner">
+                        Set <code>data-theme="dark|light"</code> on <code>&lt;html&gt;</code>. Semantic tokens remap automatically. Persist preference via <code>BoxedDS.theme</code>.
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ========== NAVIGATION ========== -->
+        <section class="ds-section" id="navigation">
+          <div class="ds-section__header">
+            <h2 class="ds-section__title">Navigation</h2>
+            <p class="ds-section__desc">Breadcrumbs for hierarchy. Navbar pattern for app chrome.</p>
+          </div>
+          <div class="ds-preview bx-u-mb-4">
+            <div class="ds-preview__canvas ds-preview__canvas--plain">
+              <nav class="bx-breadcrumb" aria-label="Breadcrumb">
+                <span class="bx-breadcrumb__item"><a href="#">Platform</a><span class="bx-breadcrumb__sep" aria-hidden="true">/</span></span>
+                <span class="bx-breadcrumb__item"><a href="#">Modules</a><span class="bx-breadcrumb__sep" aria-hidden="true">/</span></span>
+                <span class="bx-breadcrumb__item" aria-current="page">Hydro-Module</span>
+              </nav>
+            </div>
+          </div>
+          <div class="ds-preview">
+            <div class="ds-preview__canvas ds-preview__canvas--plain" style="padding:0;overflow:hidden">
+              <header class="bx-navbar" style="position:relative">
+                <a class="bx-navbar__brand" href="#">
+                  <span class="bx-navbar__logo">B</span>
+                  Boxed Systems
+                </a>
+                <nav class="bx-navbar__nav" aria-label="Primary">
+                  <a class="bx-link--nav" href="#" aria-current="page">Modules</a>
+                  <a class="bx-link--nav" href="#">Docs</a>
+                  <a class="bx-link--nav" href="#">Support</a>
+                </nav>
+                <div class="bx-navbar__actions">
+                  <button type="button" class="bx-btn bx-btn--primary bx-btn--sm">Request Specs</button>
+                </div>
+              </header>
+            </div>
+            <div class="ds-preview__meta">.bx-navbar · .bx-breadcrumb · .bx-link--nav</div>
+          </div>
+        </section>
+
+        <!-- ========== TABLES ========== -->
+        <section class="ds-section" id="tables">
+          <div class="ds-section__header">
+            <h2 class="ds-section__title">Tables</h2>
+            <p class="ds-section__desc">Data density for ops dashboards. Wrap in <code>.bx-table-wrap</code> for horizontal scroll on small screens.</p>
+          </div>
+          <div class="bx-table-wrap">
+            <table class="bx-table">
+              <thead>
+                <tr>
+                  <th>Module</th>
+                  <th>Code</th>
+                  <th>Status</th>
+                  <th>Sites</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong class="bx-u-text-strong">Hydro</strong></td>
+                  <td><code>HBX-7</code></td>
+                  <td><span class="bx-badge bx-badge--success bx-badge--dot">Online</span></td>
+                  <td>12</td>
+                  <td><button type="button" class="bx-btn bx-btn--ghost bx-btn--sm">Open</button></td>
+                </tr>
+                <tr>
+                  <td><strong class="bx-u-text-strong">Myco</strong></td>
+                  <td><code>MBX-3</code></td>
+                  <td><span class="bx-badge bx-badge--warning bx-badge--dot">Degraded</span></td>
+                  <td>4</td>
+                  <td><button type="button" class="bx-btn bx-btn--ghost bx-btn--sm">Open</button></td>
+                </tr>
+                <tr>
+                  <td><strong class="bx-u-text-strong">Cryo</strong></td>
+                  <td><code>CBX-1</code></td>
+                  <td><span class="bx-badge bx-badge--info bx-badge--dot">Pilot</span></td>
+                  <td>2</td>
+                  <td><button type="button" class="bx-btn bx-btn--ghost bx-btn--sm">Open</button></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="bx-cluster bx-cluster--between bx-u-mt-4">
+            <span class="bx-u-text-sm bx-u-text-muted">Showing 1–3 of 3</span>
+            <nav class="bx-pagination" aria-label="Pagination">
+              <button type="button" class="bx-pagination__btn" disabled aria-label="Previous">‹</button>
+              <button type="button" class="bx-pagination__btn" aria-current="page">1</button>
+              <button type="button" class="bx-pagination__btn">2</button>
+              <button type="button" class="bx-pagination__btn">3</button>
+              <span class="bx-pagination__ellipsis">…</span>
+              <button type="button" class="bx-pagination__btn">12</button>
+              <button type="button" class="bx-pagination__btn" aria-label="Next">›</button>
+            </nav>
+          </div>
+        </section>
+
+        <!-- ========== FEEDBACK ========== -->
+        <section class="ds-section" id="feedback">
+          <div class="ds-section__header">
+            <h2 class="ds-section__title">Progress, loaders &amp; steppers</h2>
+            <p class="ds-section__desc">Communicate system state during waits and multi-step flows.</p>
+          </div>
+          <div class="ds-preview bx-u-mb-4">
+            <div class="ds-preview__canvas ds-preview__canvas--stack ds-preview__canvas--plain">
+              <div>
+                <div class="bx-cluster bx-cluster--between bx-u-mb-2">
+                  <span class="bx-u-text-sm">Upload</span>
+                  <span class="bx-u-text-xs bx-u-text-muted">64%</span>
+                </div>
+                <div class="bx-progress" role="progressbar" aria-valuenow="64" aria-valuemin="0" aria-valuemax="100">
+                  <div class="bx-progress__bar" style="width:64%"></div>
+                </div>
+              </div>
+              <div class="bx-progress bx-progress--success"><div class="bx-progress__bar" style="width:100%"></div></div>
+              <div class="bx-progress bx-progress--warning"><div class="bx-progress__bar" style="width:40%"></div></div>
+              <div class="bx-cluster">
+                <div class="bx-spinner" role="status" aria-label="Loading"></div>
+                <div class="bx-spinner bx-spinner--sm"></div>
+                <div class="bx-spinner bx-spinner--lg"></div>
+              </div>
+            </div>
+          </div>
+          <div class="ds-preview bx-u-mb-4">
+            <div class="ds-preview__canvas ds-preview__canvas--plain">
+              <div class="bx-stepper bx-u-w-full" aria-label="Onboarding progress">
+                <div class="bx-stepper__step is-complete">
+                  <span class="bx-stepper__dot" aria-hidden="true">✓</span>
+                  <span class="bx-stepper__label">Account</span>
+                </div>
+                <div class="bx-stepper__step is-complete">
+                  <span class="bx-stepper__dot" aria-hidden="true">✓</span>
+                  <span class="bx-stepper__label">Org</span>
+                </div>
+                <div class="bx-stepper__step is-active">
+                  <span class="bx-stepper__dot" aria-hidden="true">3</span>
+                  <span class="bx-stepper__label">Modules</span>
+                </div>
+                <div class="bx-stepper__step">
+                  <span class="bx-stepper__dot" aria-hidden="true">4</span>
+                  <span class="bx-stepper__label">Launch</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="ds-preview">
+            <div class="ds-preview__canvas ds-preview__canvas--plain" style="max-width:20rem">
+              <div class="bx-skeleton bx-skeleton--avatar bx-u-mb-3"></div>
+              <div class="bx-skeleton bx-skeleton--title"></div>
+              <div class="bx-skeleton bx-skeleton--text"></div>
+              <div class="bx-skeleton bx-skeleton--text" style="width:80%"></div>
+              <div class="bx-skeleton bx-skeleton--btn bx-u-mt-4"></div>
+            </div>
+            <div class="ds-preview__meta">.bx-skeleton — content placeholders while data loads</div>
+          </div>
+        </section>
+
+        <!-- ========== UPLOAD & SEARCH ========== -->
+        <section class="ds-section" id="upload">
+          <div class="ds-section__header">
+            <h2 class="ds-section__title">Upload &amp; search</h2>
+            <p class="ds-section__desc">Common product surfaces for file intake and global find.</p>
+          </div>
+          <div class="ds-preview bx-u-mb-4">
+            <div class="ds-preview__canvas ds-preview__canvas--plain">
+              <label class="bx-upload bx-u-w-full" for="file-demo">
+                <input type="file" id="file-demo" multiple>
+                <svg class="bx-upload__icon bx-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M17 8l-5-5-5 5M12 3v12"/></svg>
+                <span class="bx-upload__title">Drop files or click to browse</span>
+                <span class="bx-upload__hint">PDF, STEP, or ZIP up to 50MB</span>
+              </label>
+            </div>
+          </div>
+          <div class="ds-preview">
+            <div class="ds-preview__canvas">
+              <div class="bx-search">
+                <svg class="bx-search__icon bx-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+                <input class="bx-input" type="search" placeholder="Search modules…" aria-label="Search modules">
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ========== EMPTY ========== -->
+        <section class="ds-section" id="empty">
+          <div class="ds-section__header">
+            <h2 class="ds-section__title">Empty states</h2>
+            <p class="ds-section__desc">Every list needs a zero-data experience with a clear next action.</p>
+          </div>
+          <div class="ds-preview">
+            <div class="ds-preview__canvas ds-preview__canvas--plain">
+              <div class="bx-empty bx-u-w-full">
+                <svg class="bx-empty__icon bx-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/><path d="M3.3 7L12 12l8.7-5M12 22V12"/></svg>
+                <h3 class="bx-empty__title">No modules yet</h3>
+                <p class="bx-empty__desc">Deploy your first boxed system to see live telemetry, firmware status, and site health here.</p>
+                <div class="bx-empty__actions">
+                  <button type="button" class="bx-btn bx-btn--primary">Add module</button>
+                  <button type="button" class="bx-btn bx-btn--ghost">Read docs</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ========== CODE ========== -->
+        <section class="ds-section" id="code">
+          <div class="ds-section__header">
+            <h2 class="ds-section__title">Code &amp; keyboard</h2>
+            <p class="ds-section__desc">Developer-facing UI: inline code, blocks with copy, and keyboard hints.</p>
+          </div>
+          <div class="ds-preview">
+            <div class="ds-preview__canvas ds-preview__canvas--stack ds-preview__canvas--plain">
+              <p class="bx-u-text-sm">Install with <code>npm i @boxed/ds</code> (placeholder) or press <kbd class="bx-kbd">⌘</kbd> <kbd class="bx-kbd">K</kbd> to search.</p>
+              <div class="bx-code-block">
+                <div class="bx-code-block__header">
+                  <span class="bx-code-block__lang">CSS</span>
+                  <button type="button" class="bx-btn bx-btn--ghost bx-btn--sm" data-bx-copy="#token-snippet">Copy</button>
+                </div>
+                <pre id="token-snippet"><code>.cta {
+  background: var(--bx-accent);
+  color: var(--bx-fg-on-brand);
+  border-radius: var(--bx-radius-md);
+}</code></pre>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ========== PANELS ========== -->
+        <section class="ds-section" id="panels">
+          <div class="ds-section__header">
+            <h2 class="ds-section__title">Brand panels</h2>
+            <p class="ds-section__desc">Tech brutalism solid blocks — marketing and high-impact product moments.</p>
+          </div>
+          <div class="bx-grid bx-grid--2">
+            <div class="bx-panel bx-panel--teal">
+              <p class="bx-kicker" style="color:inherit;opacity:0.7">Hydro</p>
+              <h3 class="bx-panel__title">Closed-loop water</h3>
+              <p class="bx-panel__body">Solid teal slab — maximum brand energy for hero CTAs.</p>
+            </div>
+            <div class="bx-panel bx-panel--yellow">
+              <p class="bx-kicker" style="color:inherit;opacity:0.7">Myco</p>
+              <h3 class="bx-panel__title">Living substrate</h3>
+              <p class="bx-panel__body">Yellow secondary accent for contrast sequences.</p>
+            </div>
+            <div class="bx-panel bx-panel--ink">
+              <p class="bx-kicker">Cryo</p>
+              <h3 class="bx-panel__title">Cold chain ready</h3>
+              <p class="bx-panel__body">Ink panel with teal kicker — default product dark surface language.</p>
+            </div>
+            <div class="bx-panel bx-panel--white">
+              <p class="bx-kicker" style="color:#0a0a0a;opacity:0.55">Systems</p>
+              <h3 class="bx-panel__title">White box series</h3>
+              <p class="bx-panel__body">High-key panel for light-mode marketing breaks.</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- ========== PATTERNS ========== -->
+        <section class="ds-section" id="patterns">
+          <div class="ds-section__header">
+            <h2 class="ds-section__title">Product patterns</h2>
+            <p class="ds-section__desc">What modern companies wire on top of atoms — composed, opinionated layouts.</p>
+          </div>
+          <div class="bx-grid bx-grid--2 bx-grid--lg">
+            <article class="bx-card">
+              <div class="bx-card__body">
+                <h3 class="bx-card__title">Auth &amp; onboarding</h3>
+                <p>Forms + steppers + alerts. Validate client-side, toast on success, modal for legal accept.</p>
+              </div>
+            </article>
+            <article class="bx-card">
+              <div class="bx-card__body">
+                <h3 class="bx-card__title">Settings</h3>
+                <p>Sidebar nav + stacked fields + switches. Destructive actions behind confirm modals.</p>
+              </div>
+            </article>
+            <article class="bx-card">
+              <div class="bx-card__body">
+                <h3 class="bx-card__title">Data tables</h3>
+                <p>Search + filters (pills) + table + pagination + empty state. Row actions via dropdown.</p>
+              </div>
+            </article>
+            <article class="bx-card">
+              <div class="bx-card__body">
+                <h3 class="bx-card__title">Feedback loop</h3>
+                <p>Optimistic UI: button loading → toast success/error → inline alert for blocking issues.</p>
+              </div>
+            </article>
+            <article class="bx-card">
+              <div class="bx-card__body">
+                <h3 class="bx-card__title">App shell</h3>
+                <p>Sticky navbar + optional sidebar + content container. Theme toggle in account menu.</p>
+              </div>
+            </article>
+            <article class="bx-card">
+              <div class="bx-card__body">
+                <h3 class="bx-card__title">Marketing ↔ product bridge</h3>
+                <p>Same tokens as the scroll demo. Brand panels for landing pages; denser components for the app.</p>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <!-- ========== A11Y ========== -->
+        <section class="ds-section" id="a11y">
+          <div class="ds-section__header">
+            <h2 class="ds-section__title">Accessibility</h2>
+            <p class="ds-section__desc">Non-negotiables for a company-grade system.</p>
+          </div>
+          <ul class="bx-stack bx-stack--sm" style="list-style:disc;padding-left:1.25rem;color:var(--bx-fg-muted)">
+            <li>Visible <code>:focus-visible</code> rings on all interactive controls</li>
+            <li>Skip link to main content</li>
+            <li>Modal focus restore + Escape to close</li>
+            <li>Tabs: arrow key navigation, <code>aria-selected</code>, panel association</li>
+            <li>Toasts use <code>aria-live</code>; errors use <code>role="alert"</code></li>
+            <li><code>prefers-reduced-motion</code> zeros animation durations</li>
+            <li>Form fields: labels, required indicators, error text tied to invalid state</li>
+            <li>Icon-only buttons require <code>aria-label</code></li>
+            <li>Color is never the only status signal (dots + labels)</li>
+          </ul>
+        </section>
+
+        <!-- ========== TOKEN REF ========== -->
+        <section class="ds-section" id="tokens-ref">
+          <div class="ds-section__header">
+            <h2 class="ds-section__title">Token reference</h2>
+            <p class="ds-section__desc">Core CSS custom properties. Full set lives in <code>css/tokens.css</code>.</p>
+          </div>
+          <div class="bx-table-wrap">
+            <table class="bx-table bx-table--compact ds-props">
+              <thead>
+                <tr>
+                  <th>Token</th>
+                  <th>Use</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td><code>--bx-bg</code></td><td>Page background</td></tr>
+                <tr><td><code>--bx-surface</code></td><td>Cards, panels, inputs</td></tr>
+                <tr><td><code>--bx-fg</code> / <code>--bx-fg-strong</code> / <code>--bx-fg-muted</code></td><td>Text hierarchy</td></tr>
+                <tr><td><code>--bx-accent</code></td><td>Primary brand action color</td></tr>
+                <tr><td><code>--bx-border</code> / <code>--bx-border-strong</code></td><td>Dividers, control outlines</td></tr>
+                <tr><td><code>--bx-space-*</code></td><td>Spacing scale (4px base)</td></tr>
+                <tr><td><code>--bx-text-*</code></td><td>Type scale</td></tr>
+                <tr><td><code>--bx-radius-*</code></td><td>Corner radius</td></tr>
+                <tr><td><code>--bx-shadow-*</code></td><td>Elevation</td></tr>
+                <tr><td><code>--bx-duration-*</code> / <code>--bx-ease-*</code></td><td>Motion</td></tr>
+                <tr><td><code>--bx-z-*</code></td><td>Stacking (dropdown → tooltip)</td></tr>
+                <tr><td><code>--bx-control-h-*</code></td><td>Control heights sm/md/lg</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="bx-u-mt-8">
+            <h3 class="ds-subsection__title">JavaScript API</h3>
+            <div class="bx-code-block">
+              <div class="bx-code-block__header">
+                <span class="bx-code-block__lang">JS</span>
+                <button type="button" class="bx-btn bx-btn--ghost bx-btn--sm" data-bx-copy="#api-snippet">Copy</button>
+              </div>
+              <pre id="api-snippet"><code>BoxedDS.theme.set('light')      // 'dark' | 'light' | 'system'
+BoxedDS.theme.toggle()
+BoxedDS.toast({ title, description, variant, duration })
+BoxedDS.modal.open('demo-modal')
+BoxedDS.modal.close()</code></pre>
+            </div>
+          </div>
+        </section>
+
+        <footer class="bx-u-mt-12 bx-u-pt-8" style="border-top:1px solid var(--bx-border)">
+          <div class="bx-cluster bx-cluster--between">
+            <p class="bx-u-text-sm bx-u-text-muted">Boxed Design System v1.0 · Tech brutalism for product UI</p>
+            <a class="bx-link bx-u-text-sm" href="../index.html">← Marketing demo</a>
+          </div>
+        </footer>
+      </main>
+    </div>
+  </div>
+
+  <!-- Modals (portaled at body end) -->
+  <div class="bx-modal-backdrop" data-bx-modal-backdrop="demo-modal"></div>
+  <div class="bx-modal" id="demo-modal" role="dialog" aria-modal="true" aria-labelledby="demo-modal-title" aria-hidden="true">
+    <div class="bx-modal__panel">
+      <div class="bx-modal__header">
+        <h2 class="bx-modal__title" id="demo-modal-title">Request module specs</h2>
+        <button type="button" class="bx-btn bx-btn--ghost bx-btn--icon bx-btn--sm" data-bx-modal-close aria-label="Close">
+          <svg class="bx-icon" viewBox="0 0 24 24"><path d="M18 6L6 18M6 6l12 12"/></svg>
+        </button>
+      </div>
+      <div class="bx-modal__body">
+        <p class="bx-u-mb-4">We’ll send the latest CAD package and deployment checklist to your work email.</p>
+        <div class="bx-field">
+          <label class="bx-field__label" for="modal-email">Email</label>
+          <input class="bx-input" id="modal-email" type="email" placeholder="you@company.com">
+        </div>
+      </div>
+      <div class="bx-modal__footer">
+        <button type="button" class="bx-btn bx-btn--ghost" data-bx-modal-close>Cancel</button>
+        <button type="button" class="bx-btn bx-btn--primary" data-bx-modal-close onclick="BoxedDS.toast({ title: 'Request queued', variant: 'success' })">Send specs</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="bx-modal-backdrop" data-bx-modal-backdrop="confirm-modal"></div>
+  <div class="bx-modal" id="confirm-modal" role="dialog" aria-modal="true" aria-labelledby="confirm-modal-title" aria-hidden="true">
+    <div class="bx-modal__panel bx-modal__panel--sm">
+      <div class="bx-modal__header">
+        <h2 class="bx-modal__title" id="confirm-modal-title">Archive module?</h2>
+        <button type="button" class="bx-btn bx-btn--ghost bx-btn--icon bx-btn--sm" data-bx-modal-close aria-label="Close">
+          <svg class="bx-icon" viewBox="0 0 24 24"><path d="M18 6L6 18M6 6l12 12"/></svg>
+        </button>
+      </div>
+      <div class="bx-modal__body">
+        This removes the module from live dashboards. Telemetry history is retained for 90 days.
+      </div>
+      <div class="bx-modal__footer">
+        <button type="button" class="bx-btn bx-btn--ghost" data-bx-modal-close>Cancel</button>
+        <button type="button" class="bx-btn bx-btn--danger" data-bx-modal-close onclick="BoxedDS.toast({ title: 'Module archived', variant: 'warning' })">Archive</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/design-system.js"></script>
+</body>
+</html>

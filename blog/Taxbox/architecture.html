@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TaxFort Architecture White Paper | stall.one</title>
+    <meta name="description" content="How multi-tenant isolation, edge vaults, and a RAG pipeline compose into a document platform for CPA firms." />
+    <meta name="robots" content="index, follow" />
+    <link rel="stylesheet" href="../../style.css" />
+    <script src="../../page-transition.js"></script>
+</head>
+<body>
+    <header>
+        <div class="logo-container">
+            <a href="../" data-page-transition="rtl" class="brand-link" aria-label="Back to home">
+                <span class="brand">STALL.ONE</span>
+            </a>
+        </div>
+        <div class="menu-toggle" onclick="toggleMenu()">[MENU]</div>
+        <nav id="navbar">
+            <ul>
+                <li><a href="../#expertise" data-page-transition="rtl" onclick="toggleMenu()">01_SKILLS</a></li>
+                <li><a href="../#projects" data-page-transition="rtl" onclick="toggleMenu()">02_WORK</a></li>
+                <li><a href="../#certifications" data-page-transition="rtl" onclick="toggleMenu()">03_CERTS</a></li>
+                <li><a href="../blog/" data-page-transition="ltr" onclick="toggleMenu()">04_BLOG</a></li>
+                <li><a href="../#contact" data-page-transition="rtl" onclick="toggleMenu()">05_CONTACT</a></li>
+            </ul>
+        </nav>
+    </header>
+    <div class="crt-overlay"></div>
+
+    <main class="container">
+        <section>
+            <article class="case-study">
+                <span class="case-study-kicker">WHITE_PAPER // SYSTEM DESIGN</span>
+                <h1>TaxFort Architecture</h1>
+                <p class="case-study-lede">
+                    How multi-tenant isolation, edge vaults, and a RAG pipeline compose into a document
+                    platform you can put in front of a CPA firm.
+                </p>
+
+                <dl class="case-study-meta">
+                    <div>
+                        <dt>Project</dt>
+                        <dd>Taxbox / TaxFort</dd>
+                    </div>
+                    <div>
+                        <dt>Audience</dt>
+                        <dd>Lead eng · architects</dd>
+                    </div>
+                    <div>
+                        <dt>Stack</dt>
+                        <dd>RAG · Turso · JuiceFS · Docling</dd>
+                    </div>
+                </dl>
+
+                <div class="tags" style="margin-bottom: 2rem; padding-top: 0;">
+                    <span class="tag">WHITE_PAPER</span>
+                    <span class="tag">MULTI_TENANT</span>
+                    <span class="tag">RAG_PIPELINE</span>
+                </div>
+                <p class="hub-section-label">Architecture map</p>
+                <pre style="font-family:var(--font-header); font-size:0.8rem; line-height:1.45; color:var(--highlight); border:1px solid var(--grid-color); padding:1.15rem; overflow-x:auto; background:#0a0a0c; margin-bottom:2rem;">┌─────────────┐   pair/session    ┌──────────────────┐
+│  TaxFort UI │ ────────────────► │  Edge gateway    │
+│  (firm ops) │                   │  auth + policy   │
+└──────┬──────┘                   └────────┬─────────┘
+       │ upload                             │
+       ▼                                    ▼
+┌─────────────┐   blobs            ┌──────────────────┐
+│   JuiceFS   │ ◄───────────────── │  Ingest workers  │
+│  vault FS   │                    │  Docling / OCR   │
+└─────────────┘                    └────────┬─────────┘
+                                            │ embeddings
+                                            ▼
+                                   ┌──────────────────┐
+                                   │ Turso / SQLite   │
+                                   │ tenant-scoped    │
+                                   │ meta + vectors   │
+                                   └────────┬─────────┘
+                                            │ query
+                                            ▼
+                                   ┌──────────────────┐
+                                   │ RAG answer path  │
+                                   │ + audit trail    │
+                                   └──────────────────┘</pre>
+
+                <h2>Isolation model</h2>
+                <p>
+                    Every query path carries a tenant id derived from the session, never from the client
+                    body alone. Vector stores, object keys, and job queues are namespaced. Cross-tenant
+                    joins are structurally impossible in the query layer, not merely forbidden in app code.
+                </p>
+
+                <h2>Storage split</h2>
+                <p>
+                    JuiceFS holds immutable document blobs. Turso/SQLite holds tenant metadata,
+                    classification labels, and embedding references. Large files stay on a filesystem
+                    contract; hot metadata stays portable.
+                </p>
+
+                <h2>Ingest → classify → retrieve</h2>
+                <ul>
+                    <li>Upload lands in a tenant vault.</li>
+                    <li>Workers run Docling prep and model classification.</li>
+                    <li>Embeddings write under the same tenant scope.</li>
+                    <li>Retrieval always filters by policy before ranking.</li>
+                </ul>
+
+                <h2>Desktop pairing</h2>
+                <p>
+                    Firms often need documents on machines they control. Pairing establishes a short-lived,
+                    device-bound session that mounts the vault workflow without emailing PDFs.
+                </p>
+
+                <div class="case-callout">
+                    <strong>Outcome</strong>
+                    <p>
+                        Isolation is a first-class product constraint — not a bolt-on filter. The hub case
+                        study covers business narrative; this page is the system design layer.
+                    </p>
+                </div>
+
+                <nav class="case-actions" aria-label="Post navigation">
+                    <a href="../../work/taxfort.html" data-page-transition="rtl">&lt;&lt; PROJECT_HUB</a>
+                    <a href="./field-notes.html" data-page-transition="ltr">FIELD_NOTES &gt;&gt;</a>
+                    <a href="../" data-page-transition="rtl">BLOG_INDEX</a>
+                </nav>
+            </article>
+        </section>
+        
+    </main>
+
+    <footer>
+        <div class="container" style="border:none; padding-top: 2rem; padding-bottom: 2rem; display:flex; justify-content:space-between; flex-wrap:wrap; gap:1rem;">
+            <div class="social-links">
+                <a href="https://github.com/stall-one">[GITHUB]</a>
+                <a href="https://x.com/gitstallone">[X / TWITTER]</a>
+            </div>
+            <span style="font-size: 0.8rem; opacity: 0.8;">// © 2025 SWEN_S_PECK</span>
+        </div>
+    </footer>
+    <script>function toggleMenu(){ document.getElementById("navbar").classList.toggle("open"); }</script>
+</body>
+</html>

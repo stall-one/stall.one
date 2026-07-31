@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!--
+      STARTER: architecture white paper
+      Inspired by work/*.html — same stall.one shell + case-study structure,
+      deeper technical sections (the hub’s “02 · White Paper” deliverable).
+
+      1. mkdir -p blog/YourProject
+      2. cp starters/white-paper.html blog/YourProject/Architecture.html
+      3. Point hub deliverable-card at this file
+    -->
+    <title>{{TITLE}} | stall.one</title>
+    <meta name="description" content="{{LEDE}}" />
+    <meta name="robots" content="index, follow" />
+    <link rel="stylesheet" href="../style.css" />
+    <script src="../../page-transition.js"></script>
+</head>
+<body>
+    <header>
+        <div class="logo-container">
+            <a href="../../" data-page-transition="rtl" class="brand-link" aria-label="Back to home">
+                <span class="brand">STALL.ONE</span>
+            </a>
+        </div>
+        <div class="menu-toggle" onclick="toggleMenu()">[MENU]</div>
+        <nav id="navbar">
+            <ul>
+                <li><a href="../../#projects" data-page-transition="rtl" onclick="toggleMenu()">02_WORK</a></li>
+                <li><a href="../" data-page-transition="ltr" onclick="toggleMenu()">04_BLOG</a></li>
+                <li><a href="../../#contact" data-page-transition="rtl" onclick="toggleMenu()">05_CONTACT</a></li>
+            </ul>
+        </nav>
+    </header>
+    <div class="crt-overlay"></div>
+
+    <main class="container">
+        <section>
+            <article class="case-study">
+                <span class="case-study-kicker">WHITE_PAPER // SYSTEM DESIGN</span>
+                <h1>{{TITLE}}</h1>
+                <p class="case-study-lede">{{LEDE}}</p>
+
+                <dl class="case-study-meta">
+                    <div>
+                        <dt>Project</dt>
+                        <dd>{{PROJECT_NAME}}</dd>
+                    </div>
+                    <div>
+                        <dt>Audience</dt>
+                        <dd>Lead eng · architects</dd>
+                    </div>
+                    <div>
+                        <dt>Depth</dt>
+                        <dd>System design</dd>
+                    </div>
+                </dl>
+
+                <div class="tags" style="margin-bottom: 2rem; padding-top: 0;">
+                    <span class="tag">WHITE_PAPER</span>
+                    <span class="tag">SYSTEM_DESIGN</span>
+                    <span class="tag">{{TAG}}</span>
+                </div>
+
+                <p class="hub-section-label">Architecture map</p>
+                <pre style="font-family:var(--font-header); font-size:0.8rem; line-height:1.45; color:var(--highlight); border:1px solid var(--grid-color); padding:1.15rem; overflow-x:auto; background:#0a0a0c; margin-bottom:2rem;">┌─────────────┐     ┌─────────────┐
+│  Client UI  │ ──► │  API / edge │
+└──────┬──────┘     └──────┬──────┘
+       │                   │
+       ▼                   ▼
+┌─────────────┐     ┌─────────────┐
+│   Storage   │ ◄─► │  Workers    │
+└─────────────┘     └─────────────┘</pre>
+
+                <h2>Problem boundary</h2>
+                <p>
+                    Engineering problem statement — constraints, failure modes, and what “correct”
+                    means for this system. Expand the hub’s one-paragraph problem with depth.
+                </p>
+
+                <h2>System shape</h2>
+                <p>
+                    Components, trust boundaries, and data flow. Keep boxes honest.
+                </p>
+
+                <h2>Critical paths</h2>
+                <ul>
+                    <li>Happy path: request → process → persist → respond.</li>
+                    <li>Isolation / auth / policy rules.</li>
+                    <li>Degradation when a dependency fails.</li>
+                </ul>
+
+                <h2>Tradeoffs</h2>
+                <p>
+                    What you accepted, deferred, or rejected — and why.
+                </p>
+
+                <div class="case-callout">
+                    <strong>For architects</strong>
+                    <p>
+                        Hub case study = business narrative. This page = technical depth.
+                        Design post = product visual language.
+                    </p>
+                </div>
+
+                <nav class="case-actions" aria-label="Post navigation">
+                    <a href="../../work/{{HUB_SLUG}}.html" data-page-transition="rtl">&lt;&lt; PROJECT_HUB</a>
+                    <a href="./design.html" data-page-transition="ltr">DESIGN_POST &gt;&gt;</a>
+                    <a href="../" data-page-transition="rtl">BLOG_INDEX</a>
+                </nav>
+            </article>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container" style="border:none; padding-top: 2rem; padding-bottom: 2rem; display:flex; justify-content:space-between; flex-wrap:wrap; gap:1rem;">
+            <div class="social-links">
+                <a href="https://github.com/stall-one">[GITHUB]</a>
+                <a href="https://x.com/gitstallone">[X / TWITTER]</a>
+            </div>
+            <span style="font-size: 0.8rem; opacity: 0.8;">// © 2025 SWEN_S_PECK</span>
+        </div>
+    </footer>
+    <script>function toggleMenu(){ document.getElementById("navbar").classList.toggle("open"); }</script>
+</body>
+</html>

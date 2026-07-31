@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Technical Logs | stall.one</title>
+    <meta name="description" content="Technical logs and white papers linked from project hubs." />
+    <meta name="robots" content="index, follow" />
+    <link rel="stylesheet" href="../style.css" />
+    <script src="../page-transition.js"></script>
+</head>
+<body>
+    <header>
+        <div class="logo-container">
+            <a href="../" data-page-transition="rtl" class="brand-link" aria-label="Back to home">
+                <span class="brand">STALL.ONE</span>
+            </a>
+        </div>
+        <div class="menu-toggle" onclick="toggleMenu()">[MENU]</div>
+        <nav id="navbar">
+            <ul>
+                <li><a href="../#expertise" data-page-transition="rtl" onclick="toggleMenu()">01_SKILLS</a></li>
+                <li><a href="../#projects" data-page-transition="rtl" onclick="toggleMenu()">02_WORK</a></li>
+                <li><a href="../#certifications" data-page-transition="rtl" onclick="toggleMenu()">03_CERTS</a></li>
+                <li><a href="../blog/" data-page-transition="ltr" onclick="toggleMenu()">04_BLOG</a></li>
+                <li><a href="../#contact" data-page-transition="rtl" onclick="toggleMenu()">05_CONTACT</a></li>
+            </ul>
+        </nav>
+    </header>
+    <div class="crt-overlay"></div>
+    <main class="container">
+        <section id="blog">
+            <div style="display:flex; justify-content:space-between; align-items:baseline; flex-wrap:wrap; gap:1rem;">
+                <h2>04_TECHNICAL_LOGS</h2>
+                <a class="project-link" data-page-transition="rtl" href="../" style="margin-top:0;">&lt;&lt; RETURN_HOME</a>
+            </div>
+            <p style="margin-bottom: 2rem; color:#ccc; max-width:60ch;">
+                Logs and white papers mirror project hub structure. See
+                <code>starters/README.md</code> for the recipe.
+            </p>
+            <div class="grid-3">
+                <article class="blog-post">
+                    <div class="blog-meta">TECH · CRYPTO · WEBAUTHN</div>
+                    <h3><a href="./tech/webauthn-ephemeral-keys.html" data-page-transition="ltr">Ephemeral Key Derivation using WebAuthn</a></h3>
+                    <p>PRF + HKDF for multi-chain keys that exist only while the authenticator cooperates — interactive pipeline sandbox.</p>
+                </article>
+                <article class="blog-post">
+                    <div class="blog-meta">TAXBOX · WHITE_PAPER</div>
+                    <h3><a href="./Taxbox/Architecture.html" data-page-transition="ltr">TaxFort Architecture</a></h3>
+                    <p>Isolation, JuiceFS, Turso, RAG — system design layer for Taxbox.</p>
+                </article>
+                <article class="blog-post">
+                    <div class="blog-meta">TAXBOX · LOG</div>
+                    <h3><a href="./Taxbox/field-notes.html" data-page-transition="ltr">Taxbox field notes</a></h3>
+                    <p>Working notes from shipping a multi-tenant document engine.</p>
+                </article>
+                <article class="blog-post">
+                    <div class="blog-meta">STARTERS</div>
+                    <h3><a href="../starters/README.md">How to add more</a></h3>
+                    <p>Copy starters/blog.html or white-paper.html — pattern matches work hubs.</p>
+                </article>
+            </div>
+        </section>
+    </main>
+    <footer>
+        <div class="container" style="border:none; padding-top: 2rem; padding-bottom: 2rem; display:flex; justify-content:space-between; flex-wrap:wrap; gap:1rem;">
+            <div class="social-links">
+                <a href="https://github.com/stall-one">[GITHUB]</a>
+                <a href="https://x.com/gitstallone">[X / TWITTER]</a>
+            </div>
+            <span style="font-size: 0.8rem; opacity: 0.8;">// © 2025 SWEN_S_PECK</span>
+        </div>
+    </footer>
+    <script>function toggleMenu(){ document.getElementById("navbar").classList.toggle("open"); }</script>
+</body>
+</html>

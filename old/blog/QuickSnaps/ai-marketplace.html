@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Case Study: AI Marketplace Orchestrator | stall.one</title>
+    <meta name="description"
+        content="Case study: agentic e-commerce automation with DOM injection and multimodal listing generation." />
+    <link rel="stylesheet" href="../../style.css" />
+    <script src="../../page-transition.js"></script>
+</head>
+
+<body>
+    <header>
+        <div class="logo-container">
+            <a href="../../" data-page-transition="rtl" class="brand-link" aria-label="Back to home">
+                <span class="brand">STALL.ONE</span>
+            </a>
+        </div>
+        <div class="menu-toggle" onclick="toggleMenu()">[MENU]</div>
+        <nav id="navbar">
+            <ul>
+                <li><a href="../../#projects" data-page-transition="rtl" onclick="toggleMenu()">02_WORK</a></li>
+                <li><a href="../blog/" data-page-transition="ltr" onclick="toggleMenu()">04_BLOG</a></li>
+                <li><a href="../../#contact" data-page-transition="rtl" onclick="toggleMenu()">05_CONTACT</a></li>
+            </ul>
+        </nav>
+    </header>
+    <div class="crt-overlay"></div>
+
+    <main class="container">
+        <section>
+            <article class="case-study">
+                <span class="case-study-kicker">CASE_STUDY // 02_WORK</span>
+                <h1>[ORCHESTRATOR: AI MARKETPLACE]</h1>
+                <p class="case-study-lede">
+                    Agentic e-commerce automation: manage listings across marketplaces without official APIs, and turn
+                    raw product photos into SEO-ready structured data.
+                </p>
+
+                <dl class="case-study-meta">
+                    <div>
+                        <dt>Role</dt>
+                        <dd>Agent systems</dd>
+                    </div>
+                    <div>
+                        <dt>Stack</dt>
+                        <dd>DOM · Multimodal AI</dd>
+                    </div>
+                    <div>
+                        <dt>Domain</dt>
+                        <dd>E-commerce ops</dd>
+                    </div>
+                    <div>
+                        <dt>Channels</dt>
+                        <dd>eBay · Amazon · Etsy</dd>
+                    </div>
+                </dl>
+
+                <div class="tags" style="margin-bottom: 2rem; padding-top: 0;">
+                    <span class="tag">DOM_INJECTION</span>
+                    <span class="tag">MULTIMODAL_AI</span>
+                    <span class="tag">ZERO_TRUST</span>
+                </div>
+
+                <h2>Problem</h2>
+                <p>
+                    Sellers juggle fragmented dashboards. APIs are incomplete, rate-limited, or unavailable. Listing
+                    creation still starts with a phone photo and ends in manual title/description/taxonomy work that
+                    does not scale.
+                </p>
+
+                <h2>Approach</h2>
+                <ul>
+                    <li>Universal adapter layer using controlled DOM injection to drive marketplace UIs programmatically.</li>
+                    <li>Multimodal model path: image → attributes → SEO-optimized JSON for channel-specific schemas.</li>
+                    <li>Zero-trust posture for credentials and session material — agents act with least privilege.</li>
+                    <li>Human-in-the-loop checkpoints before irreversible publish actions.</li>
+                </ul>
+
+                <div class="case-callout">
+                    <strong>Outcome</strong>
+                    <p>
+                        Operators go from photo dump to draft listings in minutes, with an orchestration layer that can
+                        be extended per marketplace without rewriting the core agent loop.
+                    </p>
+                </div>
+
+                <h2>Design notes</h2>
+                <p>
+                    The hard part is not “calling an LLM” — it is reliable tool use against brittle UIs, structured
+                    output contracts, and recovery when a selector moves. Trajectories are logged so failures are
+                    debuggable instead of mystical.
+                </p>
+
+                <nav class="case-actions" aria-label="Case study actions">
+                    <a href="../../#projects" data-page-transition="rtl">&lt;&lt; BACK_TO_WORK</a>
+                    <a href="../blog/quicksnaps.html" data-page-transition="ltr">VIEW_BLOG &gt;&gt;</a>
+                    <a href="../Taxbox/taxfort.html" data-page-transition="rtl">&lt;&lt; PREV_CASE</a>
+                    <a href="../TheEnclave/robotic-food.html" data-page-transition="ltr">NEXT_CASE &gt;&gt;</a>
+                </nav>
+            </article>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container"
+            style="border:none; padding-top: 2rem; padding-bottom: 2rem; display:flex; justify-content:space-between; flex-wrap:wrap; gap:1rem;">
+            <div class="social-links">
+                <a href="https://github.com/stall-one">[GITHUB]</a>
+                <a href="https://x.com/gitstallone">[X / TWITTER]</a>
+            </div>
+            <span style="font-size: 0.8rem; opacity: 0.8;">// © 2025 SWEN_S_PECK</span>
+        </div>
+    </footer>
+
+    <script>
+        function toggleMenu() {
+            document.getElementById("navbar").classList.toggle("open");
+        }
+    </script>
+</body>
+
+</html>

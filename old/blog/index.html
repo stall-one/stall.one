@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Technical Logs | Swen Stallone Peck</title>
+<meta content="Technical logs and notes on AI agents, web architecture, and systems engineering by Swen Stallone Peck." name="description"/>
+<meta content="index, follow" name="robots"/>
+<meta content="website" property="og:type"/>
+<meta content="Technical Logs | stall.one" property="og:title"/>
+<meta content="Notes on AI agents, web architecture, and systems engineering." property="og:description"/>
+<meta content="https://stall.one/blog/" property="og:url"/>
+<link href="../../style.css" rel="stylesheet"/>
+<script src="../page-transition.js"></script>
+<style>
+/* Themed listing cards (visual identity only; layout = site grid) */
+.blog-index-grid .blog-post.card-enc { border-color: rgba(234,179,8,.4); background: linear-gradient(165deg,#141418,#0a0a0c); }
+.blog-index-grid .blog-post.card-enc h3 a { color: #eab308; }
+.blog-index-grid .blog-post.card-enc .style-label, .blog-index-grid .blog-post.card-enc .blog-meta { color: #9a9aa6; }
+.blog-index-grid .blog-post.card-enc p { color: #9a9aa6; }
+.blog-index-grid .blog-post.card-enc:hover { border-color: #eab308; box-shadow: 4px 4px 0 #0a0a0c, 4px 4px 0 2px #eab308; }
+
+.blog-index-grid .blog-post.card-rf { border-color: rgba(56,189,248,.35); background: linear-gradient(165deg,#101820,#070b12); }
+.blog-index-grid .blog-post.card-rf h3 a { color: #38bdf8; }
+.blog-index-grid .blog-post.card-rf .style-label, .blog-index-grid .blog-post.card-rf .blog-meta, .blog-index-grid .blog-post.card-rf p { color: #8aa0b8; }
+.blog-index-grid .blog-post.card-rf:hover { border-color: #38bdf8; box-shadow: 4px 4px 0 #070b12, 4px 4px 0 2px #38bdf8; }
+
+.blog-index-grid .blog-post.card-wbm, .blog-index-grid .blog-post.card-wb { border-color: rgba(74,222,128,.35); background: linear-gradient(165deg,#121c16,#0a120e); }
+.blog-index-grid .blog-post.card-wbm h3 a, .blog-index-grid .blog-post.card-wb h3 a { color: #4ade80; }
+.blog-index-grid .blog-post.card-wbm .style-label, .blog-index-grid .blog-post.card-wbm .blog-meta, .blog-index-grid .blog-post.card-wbm p,
+.blog-index-grid .blog-post.card-wb .style-label, .blog-index-grid .blog-post.card-wb .blog-meta, .blog-index-grid .blog-post.card-wb p { color: #8aa896; }
+.blog-index-grid .blog-post.card-wbm:hover, .blog-index-grid .blog-post.card-wb:hover { border-color: #4ade80; box-shadow: 4px 4px 0 #0a120e, 4px 4px 0 2px #4ade80; }
+
+.blog-index-grid .blog-post.card-flav { border-color: rgba(56,189,248,.3); background: linear-gradient(165deg,#141c28,#0c1018); }
+.blog-index-grid .blog-post.card-flav h3 a { color: #38bdf8; }
+.blog-index-grid .blog-post.card-flav .style-label, .blog-index-grid .blog-post.card-flav .blog-meta, .blog-index-grid .blog-post.card-flav p { color: #8b9cb3; }
+
+.blog-index-grid .blog-post.card-avs, .blog-index-grid .blog-post.card-gcs { border-color: rgba(167,139,250,.4); background: linear-gradient(165deg,#12121f,#0a0a12); }
+.blog-index-grid .blog-post.card-avs h3 a, .blog-index-grid .blog-post.card-gcs h3 a { color: #a78bfa; }
+.blog-index-grid .blog-post.card-avs .style-label, .blog-index-grid .blog-post.card-avs .blog-meta, .blog-index-grid .blog-post.card-avs p,
+.blog-index-grid .blog-post.card-gcs .style-label, .blog-index-grid .blog-post.card-gcs .blog-meta, .blog-index-grid .blog-post.card-gcs p { color: #9b9bc0; }
+
+.blog-index-grid .blog-post.card-mycopkg { border-color: rgba(134,239,172,.35); background: linear-gradient(165deg,#161c15,#0f1410); }
+.blog-index-grid .blog-post.card-mycopkg h3 a { color: #86efac; }
+.blog-index-grid .blog-post.card-mycopkg .style-label, .blog-index-grid .blog-post.card-mycopkg .blog-meta, .blog-index-grid .blog-post.card-mycopkg p { color: #8a9a85; }
+
+.blog-index-grid .blog-post.card-mycoleather { border-color: rgba(212,165,116,.4); background: linear-gradient(165deg,#241c16,#1a1410); }
+.blog-index-grid .blog-post.card-mycoleather h3 a { color: #d4a574; }
+.blog-index-grid .blog-post.card-mycoleather .style-label, .blog-index-grid .blog-post.card-mycoleather .blog-meta, .blog-index-grid .blog-post.card-mycoleather p { color: #a89888; }
+
+.blog-index-grid .blog-post.card-paw { border-color: rgba(34,211,238,.35); background: linear-gradient(165deg,#0f1a24,#071018); }
+.blog-index-grid .blog-post.card-paw h3 a { color: #22d3ee; }
+.blog-index-grid .blog-post.card-paw .style-label, .blog-index-grid .blog-post.card-paw .blog-meta, .blog-index-grid .blog-post.card-paw p { color: #8ba3b5; }
+
+.blog-index-grid .blog-post.card-fr { border-color: rgba(96,165,250,.35); background: linear-gradient(165deg,#151922,#0c0e14); }
+.blog-index-grid .blog-post.card-fr h3 a { color: #60a5fa; }
+.blog-index-grid .blog-post.card-fr .style-label, .blog-index-grid .blog-post.card-fr .blog-meta, .blog-index-grid .blog-post.card-fr p { color: #8b93a7; }
+
+.blog-index-grid .blog-post.card-meat { border-color: rgba(251,113,133,.4); background: linear-gradient(165deg,#241618,#1a0f10); }
+.blog-index-grid .blog-post.card-meat h3 a { color: #fb7185; }
+.blog-index-grid .blog-post.card-meat .style-label, .blog-index-grid .blog-post.card-meat .blog-meta, .blog-index-grid .blog-post.card-meat p { color: #b89898; }
+
+.blog-index-grid .blog-post.card-bio { border-color: rgba(245,158,11,.4); background: linear-gradient(165deg,#1c1810,#14110a); }
+.blog-index-grid .blog-post.card-bio h3 a { color: #f59e0b; }
+.blog-index-grid .blog-post.card-bio .style-label, .blog-index-grid .blog-post.card-bio .blog-meta, .blog-index-grid .blog-post.card-bio p { color: #a89a7a; }
+
+.blog-index-grid .blog-post.card-xb { border-color: rgba(232,197,71,.35); background: linear-gradient(165deg,#161c17,#0f1410); }
+.blog-index-grid .blog-post.card-xb h3 a { color: #e8c547; font-style: italic; }
+.blog-index-grid .blog-post.card-xb .style-label, .blog-index-grid .blog-post.card-xb .blog-meta, .blog-index-grid .blog-post.card-xb p { color: #8a9a88; }
+
+.blog-index-grid .blog-post.card-prot { border-color: #c5d4e3; background: #fff; box-shadow: 0 8px 28px -12px rgba(12,25,41,.12); }
+.blog-index-grid .blog-post.card-prot h3 a { color: #0891b2; text-transform: none; }
+.blog-index-grid .blog-post.card-prot .style-label, .blog-index-grid .blog-post.card-prot .blog-meta, .blog-index-grid .blog-post.card-prot p { color: #5b6b7c; }
+.blog-index-grid .blog-post.card-prot:hover { border-color: #0891b2; box-shadow: 4px 4px 0 #f0f9ff, 4px 4px 0 2px #0891b2; }
+
+.blog-index-grid .blog-post.card-fuel { border-color: rgba(255,107,44,.35); background: linear-gradient(165deg,#141416,#0a0a0b); border-radius: 1rem; }
+.blog-index-grid .blog-post.card-fuel h3 a { color: #ff6b2c; text-transform: none; }
+.blog-index-grid .blog-post.card-fuel .style-label, .blog-index-grid .blog-post.card-fuel .blog-meta, .blog-index-grid .blog-post.card-fuel p { color: #a1a1aa; }
+
+.blog-index-grid .blog-post.card-cin { border-color: rgba(74,144,200,.35); background: linear-gradient(165deg,#121a2b,#070b14); border-radius: 6px; }
+.blog-index-grid .blog-post.card-cin h3 a { color: #4a90c8; }
+.blog-index-grid .blog-post.card-cin .style-label, .blog-index-grid .blog-post.card-cin .blog-meta, .blog-index-grid .blog-post.card-cin p { color: #8ba0b8; }
+
+.blog-index-grid .blog-post.card-vt, .blog-index-grid .blog-post.card-ds { border-color: #333; background: #0c0c0e; }
+.blog-index-grid .blog-post.card-vt h3 a, .blog-index-grid .blog-post.card-ds h3 a { color: #00ff41; }
+.blog-index-grid .blog-post.card-vt .style-label, .blog-index-grid .blog-post.card-vt .blog-meta, .blog-index-grid .blog-post.card-vt p,
+.blog-index-grid .blog-post.card-ds .style-label, .blog-index-grid .blog-post.card-ds .blog-meta, .blog-index-grid .blog-post.card-ds p { color: #888; }
+
+.blog-index-grid .blog-post.card-pair, .blog-index-grid .blog-post.card-taxbox { border-color: #e2e8f0; background: #fff; border-radius: 1.25rem; box-shadow: 0 10px 40px -10px rgba(0,0,0,.06); }
+.blog-index-grid .blog-post.card-pair h3 a, .blog-index-grid .blog-post.card-taxbox h3 a { color: #5a3fff; text-transform: none; }
+.blog-index-grid .blog-post.card-pair .style-label, .blog-index-grid .blog-post.card-pair .blog-meta, .blog-index-grid .blog-post.card-pair p,
+.blog-index-grid .blog-post.card-taxbox .style-label, .blog-index-grid .blog-post.card-taxbox .blog-meta, .blog-index-grid .blog-post.card-taxbox p { color: #64748b; }
+.blog-index-grid .blog-post.card-pair:hover, .blog-index-grid .blog-post.card-taxbox:hover { border-color: #5a3fff; box-shadow: 4px 4px 0 #f8fafc, 4px 4px 0 2px #5a3fff; }
+
+.blog-index-grid .blog-post.card-snap, .blog-index-grid .blog-post.card-cnc { border: 2px solid #111213; background: #f4ece2; border-radius: 0; }
+.blog-index-grid .blog-post.card-snap h3 a, .blog-index-grid .blog-post.card-cnc h3 a { color: #111213; text-transform: uppercase; }
+.blog-index-grid .blog-post.card-snap .style-label { color: #df3a23; }
+.blog-index-grid .blog-post.card-cnc .style-label, .blog-index-grid .blog-post.card-cnc .blog-meta { color: #1d2d3d; }
+.blog-index-grid .blog-post.card-snap .blog-meta, .blog-index-grid .blog-post.card-snap p,
+.blog-index-grid .blog-post.card-cnc p { color: #111213; opacity: .88; }
+
+.blog-index-grid .blog-post.card-qs { border: 1px solid rgba(255,255,255,.5); background: #f8fafc; border-radius: 1.75rem;
+  box-shadow: 12px 12px 24px rgba(163,177,198,.35), -12px -12px 24px rgba(255,255,255,.85); }
+.blog-index-grid .blog-post.card-qs h3 a { color: #6366f1; text-transform: none; }
+.blog-index-grid .blog-post.card-qs .style-label, .blog-index-grid .blog-post.card-qs .blog-meta, .blog-index-grid .blog-post.card-qs p { color: #64748b; }
+.blog-index-grid .blog-post.card-qs:hover { transform: translateY(-6px); box-shadow: 18px 18px 36px rgba(163,177,198,.4), -12px -12px 24px rgba(255,255,255,.9); }
+
+.blog-index-grid .blog-post.card-boxed { border-color: rgba(94,234,212,.35); background: linear-gradient(165deg,#171717,#0a0a0a); }
+.blog-index-grid .blog-post.card-boxed h3 a { color: #5eead4; }
+.blog-index-grid .blog-post.card-boxed .style-label, .blog-index-grid .blog-post.card-boxed .blog-meta, .blog-index-grid .blog-post.card-boxed p { color: #737373; }
+
+.blog-index-grid .blog-post.card-amber { border-color: #3d320f; background: linear-gradient(165deg,#14110a,#0c0b09); }
+.blog-index-grid .blog-post.card-amber h3 a { color: #ffb000; }
+.blog-index-grid .blog-post.card-amber .style-label, .blog-index-grid .blog-post.card-amber .blog-meta { color: #8a7030; }
+.blog-index-grid .blog-post.card-amber p { color: #e0c070; }
+
+.blog-index-grid .blog-post.card-paper { border-color: #cfc4b0; background: #f4efe6; }
+.blog-index-grid .blog-post.card-paper h3 a { color: #1c1915; text-transform: none; }
+.blog-index-grid .blog-post.card-paper .style-label, .blog-index-grid .blog-post.card-paper .blog-meta { color: #6b6358; }
+.blog-index-grid .blog-post.card-paper p { color: #3a332b; }
+
+.blog-index-grid .blog-post.card-neon { border-color: rgba(139,92,255,.5); background: radial-gradient(ellipse at 0% 0%, rgba(139,92,255,.25), transparent 55%), #0d0b1a; }
+.blog-index-grid .blog-post.card-neon h3 a { background: linear-gradient(120deg,#fff,#c4b5fd,#ff4fd8); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.blog-index-grid .blog-post.card-neon .style-label, .blog-index-grid .blog-post.card-neon .blog-meta, .blog-index-grid .blog-post.card-neon p { color: #8f86b8; }
+</style></head>
+<body>
+<header>
+<div class="logo-container">
+<a aria-label="Back to home" class="brand-link" data-page-transition="rtl" href="../">
+<span class="brand">STALL.ONE</span>
+</a>
+</div>
+<div class="menu-toggle" onclick="toggleMenu()">[MENU]</div>
+<nav id="navbar">
+<ul>
+<li><a data-page-transition="rtl" href="../#projects" onclick="toggleMenu()">02_WORK</a></li>
+<li><a aria-current="page" href="./" onclick="toggleMenu()">04_BLOG</a></li>
+<li><a data-page-transition="rtl" href="../#contact" onclick="toggleMenu()">05_CONTACT</a></li>
+</ul>
+</nav>
+</header>
+<div class="crt-overlay"></div>
+<main class="container">
+<section id="blog">
+<div style="display:flex; justify-content:space-between; align-items:baseline; flex-wrap:wrap; gap:1rem;">
+<h2>04_TECHNICAL_LOGS</h2>
+<a class="project-link" data-page-transition="rtl" href="../" style="margin-top:0;">&lt;&lt; RETURN_HOME</a>
+</div>
+<p style="margin-bottom: 3rem;">Field notes on platforms, design, and the systems we ship. Shared site layout; each log keeps its own visual identity.</p>
+<div class="grid-3 blog-index-grid">
+<article class="blog-post card-enc">
+<div class="style-label">Style · Sovereign Gold</div>
+<div class="blog-meta">LOG_ID: 2026-07 · WHITEPAPER</div>
+<h3><a data-page-transition="ltr" href="./TheEnclave/enclave-whitepaper.html">The Enclave: Economic Enclavism</a></h3>
+<p>Sovereign grid, ESC, civic contributions — parallel construction inside the city.</p>
+</article>
+<article class="blog-post card-rf">
+<div class="style-label">Style · Sensor Blue</div>
+<div class="blog-meta">LOG_ID: 2026-07</div>
+<h3><a data-page-transition="ltr" href="./BoxedSystems/rf-hydroponic-sensing.html">Multi-Modal RF Sensing for Hydroponics</a></h3>
+<p>mmWave, ISAC, HSI, acoustic fusion, RIS, LiDAR NLOS for stackable CEA.</p>
+</article>
+<article class="blog-post card-wbm">
+<div class="style-label">Style · Whitebox Green</div>
+<div class="blog-meta">LOG_ID: 2026-07</div>
+<h3><a data-page-transition="ltr" href="./BoxedSystems/whitebox-master-plan.html">Whitebox Bio-Industrial Master Plan</a></h3>
+<p>Autonomous modular facilities — food, materials, alt-protein at local scale.</p>
+</article>
+<article class="blog-post card-flav">
+<div class="style-label">Style · Clear Freestyle</div>
+<div class="blog-meta">LOG_ID: 2026-07</div>
+<h3><a data-page-transition="ltr" href="./TheEnclave/clear-protein-flavors.html">Flavors for Freestyle Clear Protein</a></h3>
+<p>Citrus, berry, tropical, herbal families + modular drink combos.</p>
+</article>
+<article class="blog-post card-avs">
+<div class="style-label">Style · Violet Taxonomy</div>
+<div class="blog-meta">LOG_ID: 2026-07</div>
+<h3><a data-page-transition="ltr" href="./tech/asset-vs-command-streaming.html">Asset vs Command Streaming</a></h3>
+<p>Why asset/data streaming is not nested under command/API streaming.</p>
+</article>
+<article class="blog-post card-mycopkg">
+<div class="style-label">Style · Forest Foam</div>
+<div class="blog-meta">LOG_ID: 2026-07-25</div>
+<h3><a data-page-transition="ltr" href="./BoxedSystems/mycelium-packaging.html">DIY Mycelium Packaging</a></h3>
+<p>Grow foam-replacement packaging from oyster mycelium on ag waste — 7–14 days.</p>
+</article>
+<article class="blog-post card-mycoleather">
+<div class="style-label">Style · Fungal Hide</div>
+<div class="blog-meta">LOG_ID: 2026-07-25</div>
+<h3><a data-page-transition="ltr" href="./BoxedSystems/mycelium-leather.html">Mycelium Leather Production</a></h3>
+<p>DIY Reishi/oyster leather sheets — paste, mat growth, dry and finish.</p>
+</article>
+<article class="blog-post card-paw">
+<div class="style-label">Style · Plasma Cyan</div>
+<div class="blog-meta">LOG_ID: 2026-07-25</div>
+<h3><a data-page-transition="ltr" href="./BoxedSystems/plasma-activated-water.html">Plasma Activated Water for Hydroponics</a></h3>
+<p>RONS as partial N fertilizer, biostimulant, and sanitizer — air, water, electricity.</p>
+</article>
+<article class="blog-post card-wb">
+<div class="style-label">Style · Grow Green</div>
+<div class="blog-meta">LOG_ID: 2026-07-25</div>
+<h3><a data-page-transition="ltr" href="./BoxedSystems/whitebox-hydroponics.html">Whitebox Hydroponics Module Prototype</a></h3>
+<p>1×0.75×2m NFT unit — BOM, hybrid climate, RPi 5, assembly path.</p>
+</article>
+<article class="blog-post card-fr">
+<div class="style-label">Style · Cold Chain Blue</div>
+<div class="blog-meta">LOG_ID: 2026-07-25</div>
+<h3><a data-page-transition="ltr" href="./TheEnclave/modular-48v-refrigeration.html">48V Modular Refrigeration Architecture</a></h3>
+<p>Shared compressor, per-module EEV/solenoid/defrost on a 48V bus.</p>
+</article>
+<article class="blog-post card-gcs">
+<div class="style-label">Style · Violet Gpu</div>
+<div class="blog-meta">LOG_ID: 2026-07-25</div>
+<h3><a data-page-transition="ltr" href="./tech/graphics-command-streaming.html">Graphics Command Streaming</a></h3>
+<p>Stream GPU commands, not pixels — deltas, prediction, client render.</p>
+</article>
+<article class="blog-post card-meat">
+<div class="style-label">Style · Diy Bio Rose</div>
+<div class="blog-meta">LOG_ID: 2026-07-25</div>
+<h3><a data-page-transition="ltr" href="./BoxedSystems/diy-cultivated-meat.html">DIY Cultivated Meat (Educational)</a></h3>
+<p>Kitchen-scale cell culture — media, scaffold, safety. Not for eating.</p>
+</article>
+<article class="blog-post card-bio">
+<div class="style-label">Style · Acid Mine Amber</div>
+<div class="blog-meta">LOG_ID: 2026-07-25</div>
+<h3><a data-page-transition="ltr" href="./Amerimatter/bioleaching-acidithiobacillus.html">A. thiooxidans vs A. ferrooxidans</a></h3>
+<p>E-waste bioleaching — complementary sulfur vs iron oxidizers.</p>
+</article>
+<article class="blog-post card-xb">
+<div class="style-label">Style · Lab Biotech</div>
+<div class="blog-meta">LOG_ID: 2026-07-25</div>
+<h3><a data-page-transition="ltr" href="./BoxedSystems/xanthobacter-tagetidis.html">Xanthobacter tagetidis DSM 11105</a></h3>
+<p>HOB proxy for Solein-like work — H₂/CO₂ autotrophy, N₂ fix, cultivation notes.</p>
+</article>
+<article class="blog-post card-prot">
+<div class="style-label">Style · Clear Beverage Lab</div>
+<div class="blog-meta">LOG_ID: 2026-07-25</div>
+<h3><a data-page-transition="ltr" href="./TheEnclave/clear-protein-concentrate.html">Clear Pumpable Protein for BiB / Fountain</a></h3>
+<p>HWPI &amp; clear pea concentrates — pH, UHT, pumpability, clarity after dilution.</p>
+</article>
+<article class="blog-post card-fuel">
+<div class="style-label">Style · Food-Tech Ember</div>
+<div class="blog-meta">LOG_ID: 2026-07-25</div>
+<h3><a data-page-transition="ltr" href="./TheEnclave/robotic-food-pods.html">Fast Food is Broken. Robotics + Subscription.</a></h3>
+<p>Autonomous pods, hybrid-wok, Bowl Credits — pilot coming to Pompano Beach.</p>
+</article>
+<article class="blog-post card-cin">
+<div class="style-label">Style · Cinematic Void</div>
+<div class="blog-meta">LOG_ID: 2026-07-25</div>
+<h3><a data-page-transition="ltr" href="./Told/cinematic-scroll.html">Cinematic Scroll: Film That Seeks With You</a></h3>
+<p>WebGPU depth heroes, scroll-scrubbed video, aerospace-industrial UI.</p>
+</article>
+<article class="blog-post card-vt">
+<div class="style-label">Style · Terminal Green</div>
+<div class="blog-meta">LOG_ID: 2026-07-25</div>
+<h3><a data-page-transition="ltr" href="./Told/view-transitions.html">Cross-Document View Transitions</a></h3>
+<p>LTR page wipes on stall.one — @view-transition, pageswap, clip-path.</p>
+</article>
+<article class="blog-post card-pair">
+<div class="style-label">Style · Taxfort Saas</div>
+<div class="blog-meta">LOG_ID: 2026-07-25</div>
+<h3><a data-page-transition="ltr" href="./Taxbox/desktop-pairing.html">Desktop Pairing &amp; Vault Mounts</a></h3>
+<p>Tauri pairing, STS mounts, inbound webhooks into JuiceFS.</p>
+</article>
+<article class="blog-post card-snap">
+<div class="style-label">Style · Print Industrial</div>
+<div class="blog-meta">LOG_ID: 2026-07-25</div>
+<h3><a data-page-transition="ltr" href="./SnapNGo/snap-on-systems.html">Snap-on Systems for the Plant Floor</a></h3>
+<p>Amerimatter delivery model — microservices + hardware, one engagement.</p>
+</article>
+<article class="blog-post card-ds">
+<div class="style-label">Style · Terminal Green</div>
+<div class="blog-meta">LOG_ID: 2026-07-25</div>
+<h3><a data-page-transition="ltr" href="./Told/design-systems-ship.html">Design Systems That Ship With the Product</a></h3>
+<p>Product-shaped kits — Clay, TaxFort, Boxed, CNC, cinematic, stall.one.</p>
+</article>
+<article class="blog-post card-cnc">
+<div class="style-label">Style · Print Industrial</div>
+<div class="blog-meta">LOG_ID: 2026-07-24</div>
+<h3><a data-page-transition="ltr" href="./Amerimatter/cnc-metal.html">Amerimatter CNC Metal · Vol. 1</a></h3>
+<p>Precision stock catalog, Forge cutter, and shop guides — paper, ink, navy.</p>
+</article>
+<article class="blog-post card-qs">
+<div class="style-label">Style · Clayui</div>
+<div class="blog-meta">LOG_ID: 2026-07-24</div>
+<h3><a data-page-transition="ltr" href="./QuickSnaps/quicksnaps.html">QuickSnaps: Snap. Describe. List.</a></h3>
+<p>Agentic product catalog — multimodal drafts, marketplace adapters, DOM import/export.</p>
+</article>
+<article class="blog-post card-taxbox">
+<div class="style-label">Style · Taxfort Saas</div>
+<div class="blog-meta">LOG_ID: 2026-07-24</div>
+<h3><a data-page-transition="ltr" href="./Taxbox/taxbox.html">Taxbox: Multi-Tenant Vaults at the Edge</a></h3>
+<p>TaxFort platform — gateway, auth, billing, JuiceFS vaults, and tenant isolation by construction.</p>
+</article>
+<article class="blog-post card-boxed">
+<div class="style-label">Style · Tech Brutalism</div>
+<div class="blog-meta">LOG_ID: 2026-07-24</div>
+<h3><a data-page-transition="ltr" href="./BoxedSystems/boxed-systems.html">Boxed Systems: Hard Edges &amp; Zero-Build UI</a></h3>
+<p>Scroll blinds, Hydro/Myco/Cryo modules, and a company design system under one brand contract.</p>
+</article>
+<article class="blog-post card-amber">
+<div class="style-label">Style · Amber Crt</div>
+<div class="blog-meta">LOG_ID: 2025-10-12</div>
+<h3><a data-page-transition="ltr" href="./Told/end-of-single-shot-prompting.html">The End of Single-Shot Prompting</a></h3>
+<p>Why iterative, loop-based agentic workflows are replacing linear chains.</p>
+</article>
+<article class="blog-post card-paper">
+<div class="style-label">Style · Editorial Paper</div>
+<div class="blog-meta">LOG_ID: 2025-09-28</div>
+<h3><a data-page-transition="ltr" href="./Told/defense-of-vanilla-js.html">Defense of Vanilla JS</a></h3>
+<p>Reducing dependency overhead and bundle size in mission-critical apps.</p>
+</article>
+<article class="blog-post card-neon">
+<div class="style-label">Style · Neon Brutalist</div>
+<div class="blog-meta">LOG_ID: 2025-08-15</div>
+<h3><a data-page-transition="ltr" href="./tech/webauthn-ephemeral-keys.html">Ephemeral Key Derivation using WebAuthn</a></h3>
+<p>Ephemeral key derivation using WebAuthn PRF &amp; HKDF. Multi-chain support.</p>
+</article>
+</div>
+</section>
+</main>
+<footer>
+<div class="container" style="border:none; padding-top: 2rem; padding-bottom: 2rem; display:flex; justify-content:space-between; flex-wrap:wrap; gap:1rem;">
+<div class="social-links">
+<a href="https://github.com/stall-one">[GITHUB]</a>
+<a href="https://www.linkedin.com/in/victor-peck-405aa0263/">[LINKEDIN]</a>
+<a href="https://x.com/gitstallone">[X / TWITTER]</a>
+</div>
+<span style="font-size: 0.8rem; opacity: 0.8;">
+                // © 2025 SWEN_S_PECK. [SYSTEM_INTEGRITY: VERIFIED].<br/>
+                // UNAUTHORIZED_REPLICATION_PROHIBITED.
+            </span>
+</div>
+</footer>
+<script>
+        function toggleMenu() {
+            var nav = document.getElementById("navbar");
+            nav.classList.toggle("open");
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,780 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ClayUI - Modern Corporate Design System</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        :root {
+            /* Core Backgrounds */
+            --bg-body: #f0f4f8;
+            --clay-surface: #ffffff; /* Changed to stark white for flat contrast */
+            
+            /* Brand Colors */
+            --primary: #6366f1;       /* Indigo */
+            --secondary: #ec4899;     /* Pink */
+            --accent: #14b8a6;        /* Teal */
+            --warning: #f59e0b;       /* Amber */
+            --danger: #ef4444;        /* Red */
+            --success: #22c55e;       /* Green */
+            
+            /* Physics & Shape */
+            --radius-sm: 12px;
+            --radius-md: 20px;
+            --radius-lg: 32px;
+            --radius-full: 9999px;
+            
+            /* Modal Overlay */
+            --bg-overlay: rgba(240, 244, 248, 0.8);
+        }
+
+        body {
+            font-family: 'Nunito', sans-serif;
+            background-color: var(--bg-body);
+            color: #475569;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .clay-card {
+            background-color: var(--clay-surface);
+            border-radius: var(--radius-lg);
+            border: 1px solid #e2e8f0; /* Flat border instead of shadow */
+            transition: transform 0.3s ease, border-color 0.3s ease;
+        }
+        .clay-card:hover {
+            transform: translateY(-4px);
+            border-color: #cbd5e1;
+        }
+
+        .clay-btn {
+            border: 1px solid transparent;
+            padding: 12px 28px;
+            border-radius: var(--radius-md);
+            font-weight: 800;
+            cursor: pointer;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            position: relative;
+            background-color: #f1f5f9; /* Flat secondary bg */
+            color: #475569;
+            user-select: none;
+        }
+        .clay-btn:hover { 
+            transform: scale(1.02); 
+            background-color: #e2e8f0;
+        }
+        .clay-btn:active { 
+            transform: scale(0.98); 
+        }
+
+        .clay-btn-primary {
+            background-color: var(--primary);
+            color: white;
+        }
+        .clay-btn-primary:hover {
+            background-color: #4f46e5;
+        }
+        .clay-btn-primary:active { 
+            background-color: #4338ca; 
+        }
+
+        .clay-btn-secondary {
+            background-color: var(--secondary);
+            color: white;
+        }
+
+        .clay-input {
+            width: 100%;
+            padding: 16px 24px;
+            border-radius: var(--radius-md);
+            border: 1px solid #cbd5e1; /* Flat border */
+            background-color: var(--clay-surface);
+            outline: none;
+            color: #334155;
+            font-weight: 600;
+            transition: all 0.2s ease;
+        }
+        .clay-input:focus {
+            border-color: var(--primary);
+        }
+
+        .clay-toggle {
+            appearance: none;
+            width: 56px;
+            height: 32px;
+            border-radius: var(--radius-full);
+            background-color: #cbd5e1;
+            position: relative;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            border: none;
+        }
+        .clay-toggle::after {
+            content: '';
+            position: absolute;
+            top: 4px; left: 4px; width: 24px; height: 24px;
+            border-radius: 50%; 
+            background-color: white;
+            transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        .clay-toggle:checked { background-color: var(--primary); }
+        .clay-toggle:checked::after { transform: translateX(24px); }
+
+        /* Custom Range Slider */
+        .clay-slider {
+            -webkit-appearance: none;
+            width: 100%;
+            height: 12px;
+            border-radius: var(--radius-full);
+            background: #e2e8f0;
+            outline: none;
+        }
+        .clay-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 24px; height: 24px;
+            border-radius: 50%;
+            background: var(--primary);
+            cursor: pointer;
+            transition: transform 0.1s;
+        }
+        .clay-slider::-webkit-slider-thumb:active { transform: scale(0.9); }
+
+        /* Custom Radio Button */
+        .clay-radio {
+            appearance: none;
+            width: 24px; height: 24px;
+            border-radius: 50%;
+            background-color: var(--clay-surface);
+            border: 2px solid #cbd5e1;
+            position: relative;
+            cursor: pointer;
+            transition: border-color 0.2s;
+        }
+        .clay-radio:checked {
+            border-color: var(--primary);
+        }
+        .clay-radio::after {
+            content: '';
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            width: 12px; height: 12px;
+            border-radius: 50%;
+            background-color: var(--primary);
+            transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        .clay-radio:checked::after { transform: translate(-50%, -50%) scale(1); }
+
+        /* File Upload Zone */
+        .clay-dropzone {
+            border: 2px dashed #cbd5e1;
+            background-color: #f8fafc;
+            border-radius: var(--radius-lg);
+            transition: all 0.3s ease;
+        }
+        .clay-dropzone:hover {
+            border-color: var(--primary);
+            background-color: #eef2ff;
+        }
+
+        .nav-item {
+            border-radius: var(--radius-md);
+            transition: all 0.2s ease;
+            color: #64748b;
+        }
+        .nav-item:hover { color: var(--primary); background-color: rgba(255,255,255,0.5); }
+        .nav-item.active {
+            color: var(--primary); 
+            background-color: #e0e7ff; /* Flat active state background */
+            font-weight: 800;
+        }
+
+        .tab-btn {
+            padding: 10px 20px;
+            border-radius: var(--radius-full);
+            font-weight: 700; color: #64748b;
+            transition: all 0.2s ease; cursor: pointer;
+            border: 1px solid transparent;
+        }
+        .tab-btn.active {
+            background-color: var(--primary); 
+            color: white;
+        }
+
+        .modal-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background-color: var(--bg-overlay); backdrop-filter: blur(8px);
+            z-index: 50; display: flex; align-items: center; justify-content: center;
+            opacity: 0; pointer-events: none; transition: opacity 0.3s ease;
+        }
+        .modal-overlay.open { opacity: 1; pointer-events: auto; }
+        .modal-content {
+            transform: scale(0.9) translateY(20px);
+            transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        .modal-overlay.open .modal-content { transform: scale(1) translateY(0); }
+
+        .toast-container { position: fixed; bottom: 24px; right: 24px; z-index: 60; display: flex; flex-direction: column; gap: 12px; }
+        .clay-toast {
+            background: var(--clay-surface); padding: 16px; border-radius: var(--radius-md); 
+            border: 1px solid #e2e8f0;
+            display: flex; align-items: center; gap: 12px; min-width: 300px;
+            border-left: 6px solid var(--primary); transform: translateX(120%);
+            transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        .clay-toast.show { transform: translateX(0); }
+        .clay-toast.success { border-left-color: var(--success); }
+        .clay-toast.warning { border-left-color: var(--warning); }
+        .clay-toast.error { border-left-color: var(--danger); }
+
+        /* Skeletons */
+        .skeleton {
+            background: #e2e8f0;
+            background-image: linear-gradient(90deg, rgba(255,255,255,0) 0, rgba(255,255,255,0.6) 20%, rgba(255,255,255,0) 40%);
+            background-size: 200% 100%;
+            animation: shimmer 1.5s infinite linear;
+            border-radius: var(--radius-sm);
+        }
+        @keyframes shimmer { 0% { background-position: -200% 0; } 100% { background-position: 200% 0; } }
+
+        /* Chart Elements */
+        .clay-bar {
+            transition: height 1s cubic-bezier(0.34, 1.56, 0.64, 1), transform 0.2s;
+        }
+        .clay-bar:hover { transform: scaleY(1.02) translateY(-2px); }
+
+        /* Animations */
+        @keyframes float-y { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+        .animate-float { animation: float-y 5s ease-in-out infinite; }
+        
+        /* Converted Pulse to scale instead of box-shadow glow */
+        @keyframes flat-pulse { 0% { transform: scale(1); } 50% { transform: scale(1.02); } 100% { transform: scale(1); } }
+        .pulse-animation { animation: flat-pulse 2s infinite ease-in-out; }
+
+        .reveal-on-scroll { opacity: 0; transform: translateY(30px); transition: all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1); }
+        .reveal-on-scroll.is-visible { opacity: 1; transform: translateY(0); }
+        .stagger-row { opacity: 0; transform: translateX(-20px); transition: all 0.5s ease-out; }
+        .stagger-row.is-visible { opacity: 1; transform: translateX(0); }
+        .hover-float { transition: transform 0.3s ease; }
+        .clay-card:hover .hover-float { transform: translateY(-8px) scale(1.1); }
+
+        /* Sidebar & Scrollbar */
+        #sidebar { transition: transform 0.3s ease; }
+        .sidebar-open #sidebar { transform: translateX(0); }
+        @media (max-width: 768px) {
+            #sidebar { transform: translateX(-100%); position: fixed; height: 100%; top: 0; left: 0; box-shadow: 10px 0 20px rgba(0,0,0,0.1); }
+        }
+        ::-webkit-scrollbar { width: 12px; }
+        ::-webkit-scrollbar-track { background: #f0f4f8; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 20px; border: 4px solid #f0f4f8; }
+        ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+    </style>
+</head>
+<body class="flex h-screen overflow-hidden">
+
+    <!-- Mobile Overlay -->
+    <div id="mobile-overlay" class="fixed inset-0 bg-slate-900/20 backdrop-blur-sm z-10 hidden md:hidden" onclick="toggleMobileMenu()"></div>
+
+    <!-- Sidebar -->
+    <aside id="sidebar" class="w-72 flex flex-col h-full bg-[#f0f4f8] z-20 md:relative border-r border-white/40 flex-shrink-0">
+        <div class="p-8 pb-4 flex justify-between items-center">
+            <div class="flex items-center gap-4">
+                <div class="w-12 h-12 rounded-2xl bg-indigo-500 flex items-center justify-center text-white shadow-xl animate-float">
+                    <i data-lucide="layers" stroke-width="3"></i>
+                </div>
+                <div>
+                    <h1 class="text-2xl font-extrabold text-slate-700 tracking-tight">ClaySys</h1>
+                    <p class="text-xs text-slate-400 font-bold uppercase tracking-wider">v3.0 Ent</p>
+                </div>
+            </div>
+            <button class="md:hidden text-slate-400" onclick="toggleMobileMenu()"><i data-lucide="x"></i></button>
+        </div>
+
+        <nav class="flex-1 overflow-y-auto px-6 py-4 space-y-2">
+            <p class="px-4 text-xs font-bold text-slate-400 uppercase tracking-widest mb-2">Design</p>
+            <a href="#overview" class="nav-item active flex items-center gap-3 px-5 py-3 font-bold" onclick="setActiveNav(this)">
+                <i data-lucide="layout-grid" size="18"></i> Overview
+            </a>
+            <a href="#typography" class="nav-item flex items-center gap-3 px-5 py-3 font-bold" onclick="setActiveNav(this)">
+                <i data-lucide="type" size="18"></i> Typography
+            </a>
+            
+            <p class="px-4 text-xs font-bold text-slate-400 uppercase tracking-widest mb-2 mt-6">Components</p>
+            <a href="#actions" class="nav-item flex items-center gap-3 px-5 py-3 font-bold" onclick="setActiveNav(this)">
+                <i data-lucide="mouse-pointer-click" size="18"></i> Actions
+            </a>
+            <a href="#forms-adv" class="nav-item flex items-center gap-3 px-5 py-3 font-bold" onclick="setActiveNav(this)">
+                <i data-lucide="list-checks" size="18"></i> Forms
+            </a>
+            <a href="#ui-elements" class="nav-item flex items-center gap-3 px-5 py-3 font-bold" onclick="setActiveNav(this)">
+                <i data-lucide="layout-template" size="18"></i> UI Elements
+            </a>
+            
+            <p class="px-4 text-xs font-bold text-slate-400 uppercase tracking-widest mb-2 mt-6">Application</p>
+            <a href="#data-viz" class="nav-item flex items-center gap-3 px-5 py-3 font-bold" onclick="setActiveNav(this)">
+                <i data-lucide="bar-chart-3" size="18"></i> Data Vis
+            </a>
+             <a href="#app-states" class="nav-item flex items-center gap-3 px-5 py-3 font-bold" onclick="setActiveNav(this)">
+                <i data-lucide="loader" size="18"></i> App States
+            </a>
+            <a href="#settings" class="nav-item flex items-center gap-3 px-5 py-3 font-bold" onclick="setActiveNav(this)">
+                <i data-lucide="settings" size="18"></i> Settings
+            </a>
+        </nav>
+
+        <div class="p-6">
+            <div class="clay-card p-4 flex items-center gap-3 cursor-pointer hover:bg-white/50 transition-colors" onclick="showToast('Profile settings loaded', 'info')">
+                <div class="w-10 h-10 rounded-full bg-pink-300 border-2 border-white overflow-hidden shadow-sm">
+                    <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Felix" alt="User" />
+                </div>
+                <div class="flex-1 overflow-hidden">
+                    <h4 class="font-bold text-sm text-slate-700 truncate">Alex Designer</h4>
+                    <p class="text-xs text-slate-400 truncate">Enterprise</p>
+                </div>
+                <i data-lucide="chevron-right" size="16" class="text-slate-400"></i>
+            </div>
+        </div>
+    </aside>
+
+    <!-- Main Content Area -->
+    <main class="flex-1 h-full overflow-y-auto relative scroll-smooth bg-[#f0f4f8]">
+        
+        <div class="md:hidden p-6 pb-0 flex justify-between items-center sticky top-0 z-10 bg-[#f0f4f8]/80 backdrop-blur-sm">
+            <h1 class="text-2xl font-extrabold text-slate-700">ClaySys</h1>
+            <button class="clay-btn p-2 rounded-xl" onclick="toggleMobileMenu()"><i data-lucide="menu"></i></button>
+        </div>
+
+        <div class="p-6 md:p-12 max-w-7xl mx-auto space-y-24">
+
+            <!-- Hero Section -->
+            <section id="overview" class="text-center pt-8 pb-12 reveal-on-scroll">
+                <h1 class="text-5xl md:text-7xl font-extrabold text-slate-800 mb-6 tracking-tight leading-tight">
+                    Enterprise UI, <br>
+                    <span class="text-indigo-500 relative inline-block">
+                        softened.
+                        <svg class="absolute w-full h-3 -bottom-1 left-0 text-indigo-300 opacity-50" viewBox="0 0 100 10" preserveAspectRatio="none">
+                            <path d="M0 5 Q 50 10 100 5" stroke="currentColor" stroke-width="8" fill="none" />
+                        </svg>
+                    </span>
+                </h1>
+                <p class="text-xl text-slate-500 max-w-2xl mx-auto mb-10 font-medium">
+                    A comprehensive, tactile design system for modern web applications. Featuring advanced forms, data visualization, and deep physical layering.
+                </p>
+                <div class="flex flex-wrap justify-center gap-6">
+                    <button class="clay-btn clay-btn-primary text-lg px-8 py-4 pulse-animation" onclick="showToast('Downloading Complete System...', 'success')">
+                        Download Kit <i data-lucide="download-cloud" size="20"></i>
+                    </button>
+                </div>
+            </section>
+
+            <!-- Color Palette -->
+            <section class="space-y-8 reveal-on-scroll">
+                <div class="flex items-center gap-4">
+                    <div class="h-10 w-1 rounded-full bg-indigo-500"></div>
+                    <h2 class="text-3xl font-extrabold text-slate-700">Brand Palette</h2>
+                </div>
+                <div class="grid grid-cols-2 md:grid-cols-5 gap-6">
+                    <!-- Iterating Colors -->
+                    <div class="clay-card p-3 group cursor-pointer" onclick="copyColor('#6366F1')">
+                        <div class="h-28 rounded-2xl bg-indigo-500 shadow-inner mb-4 relative overflow-hidden group-hover:scale-[1.02] transition-transform">
+                            <div class="absolute inset-0 bg-gradient-to-tr from-black/10 to-transparent"></div>
+                            <div class="absolute top-2 right-2 text-white/80 opacity-0 group-hover:opacity-100 transition-opacity"><i data-lucide="copy" size="16"></i></div>
+                        </div>
+                        <div class="px-2 pb-2"><div class="font-bold text-slate-700">Primary</div><div class="text-xs font-mono text-slate-400">#6366F1</div></div>
+                    </div>
+                    <div class="clay-card p-3 group cursor-pointer" onclick="copyColor('#EC4899')">
+                        <div class="h-28 rounded-2xl bg-pink-500 shadow-inner mb-4 relative overflow-hidden group-hover:scale-[1.02] transition-transform">
+                            <div class="absolute inset-0 bg-gradient-to-tr from-black/10 to-transparent"></div>
+                            <div class="absolute top-2 right-2 text-white/80 opacity-0 group-hover:opacity-100 transition-opacity"><i data-lucide="copy" size="16"></i></div>
+                        </div>
+                        <div class="px-2 pb-2"><div class="font-bold text-slate-700">Secondary</div><div class="text-xs font-mono text-slate-400">#EC4899</div></div>
+                    </div>
+                    <div class="clay-card p-3 group cursor-pointer" onclick="copyColor('#14B8A6')">
+                        <div class="h-28 rounded-2xl bg-teal-500 shadow-inner mb-4 relative overflow-hidden group-hover:scale-[1.02] transition-transform">
+                            <div class="absolute inset-0 bg-gradient-to-tr from-black/10 to-transparent"></div>
+                            <div class="absolute top-2 right-2 text-white/80 opacity-0 group-hover:opacity-100 transition-opacity"><i data-lucide="copy" size="16"></i></div>
+                        </div>
+                        <div class="px-2 pb-2"><div class="font-bold text-slate-700">Accent</div><div class="text-xs font-mono text-slate-400">#14B8A6</div></div>
+                    </div>
+                     <div class="clay-card p-3 group cursor-pointer" onclick="copyColor('#F59E0B')">
+                        <div class="h-28 rounded-2xl bg-amber-500 shadow-inner mb-4 relative overflow-hidden group-hover:scale-[1.02] transition-transform">
+                            <div class="absolute inset-0 bg-gradient-to-tr from-black/10 to-transparent"></div>
+                             <div class="absolute top-2 right-2 text-white/80 opacity-0 group-hover:opacity-100 transition-opacity"><i data-lucide="copy" size="16"></i></div>
+                        </div>
+                        <div class="px-2 pb-2"><div class="font-bold text-slate-700">Warning</div><div class="text-xs font-mono text-slate-400">#F59E0B</div></div>
+                    </div>
+                     <div class="clay-card p-3 group cursor-pointer" onclick="copyColor('#EF4444')">
+                        <div class="h-28 rounded-2xl bg-red-500 shadow-inner mb-4 relative overflow-hidden group-hover:scale-[1.02] transition-transform">
+                            <div class="absolute inset-0 bg-gradient-to-tr from-black/10 to-transparent"></div>
+                             <div class="absolute top-2 right-2 text-white/80 opacity-0 group-hover:opacity-100 transition-opacity"><i data-lucide="copy" size="16"></i></div>
+                        </div>
+                        <div class="px-2 pb-2"><div class="font-bold text-slate-700">Danger</div><div class="text-xs font-mono text-slate-400">#EF4444</div></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Advanced Forms & Inputs -->
+            <section id="forms-adv" class="space-y-8 scroll-mt-20 reveal-on-scroll">
+                <div class="flex items-center gap-4">
+                    <div class="h-10 w-1 rounded-full bg-pink-500"></div>
+                    <h2 class="text-3xl font-extrabold text-slate-700">Advanced Forms</h2>
+                </div>
+
+                <div class="grid lg:grid-cols-2 gap-8">
+                    <!-- Left Column -->
+                    <div class="clay-card p-8 md:p-10 space-y-8">
+                        <h3 class="text-lg font-bold text-slate-400 uppercase tracking-widest border-b border-slate-200 pb-2">Inputs & Selections</h3>
+                        
+                        <div>
+                            <label class="block text-sm font-extrabold text-slate-600 mb-2 ml-1">Volume Level: <span id="vol-val" class="text-indigo-500">50</span>%</label>
+                            <input type="range" min="0" max="100" value="50" class="clay-slider" oninput="document.getElementById('vol-val').innerText = this.value">
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-extrabold text-slate-600 mb-4 ml-1">Plan Selection</label>
+                            <div class="flex gap-6">
+                                <label class="flex items-center gap-3 cursor-pointer group">
+                                    <input type="radio" name="plan" class="clay-radio" checked>
+                                    <span class="font-bold text-slate-600 group-hover:text-indigo-500 transition-colors">Starter</span>
+                                </label>
+                                <label class="flex items-center gap-3 cursor-pointer group">
+                                    <input type="radio" name="plan" class="clay-radio">
+                                    <span class="font-bold text-slate-600 group-hover:text-indigo-500 transition-colors">Professional</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="flex items-center justify-between pt-4 border-t border-slate-200/50">
+                            <span class="font-bold text-slate-700">Auto-Renew Subscription</span>
+                            <input type="checkbox" class="clay-toggle" checked onchange="showToast(this.checked ? 'Auto-renew Enabled' : 'Auto-renew Disabled', 'info')">
+                        </div>
+                    </div>
+
+                    <!-- Right Column: File Upload -->
+                    <div class="clay-card p-8 md:p-10 space-y-8 flex flex-col">
+                        <h3 class="text-lg font-bold text-slate-400 uppercase tracking-widest border-b border-slate-200 pb-2">Media Upload</h3>
+                        
+                        <div class="clay-dropzone flex-1 flex flex-col items-center justify-center p-8 text-center cursor-pointer group" onclick="showToast('File explorer opened', 'info')">
+                            <div class="w-16 h-16 rounded-full bg-white shadow-lg flex items-center justify-center text-indigo-500 mb-4 group-hover:scale-110 transition-transform">
+                                <i data-lucide="cloud-upload" size="32"></i>
+                            </div>
+                            <h4 class="text-lg font-extrabold text-slate-700 mb-1">Drag & Drop files here</h4>
+                            <p class="text-sm text-slate-500 font-medium mb-6">or click to browse from your computer</p>
+                            <button class="clay-btn text-sm py-2">Select Files</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- UI Elements -->
+            <section id="ui-elements" class="space-y-8 scroll-mt-20 reveal-on-scroll">
+                <div class="flex items-center gap-4">
+                    <div class="h-10 w-1 rounded-full bg-amber-500"></div>
+                    <h2 class="text-3xl font-extrabold text-slate-700">UI Elements</h2>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div class="clay-card p-8 space-y-8">
+                        <h3 class="text-lg font-bold text-slate-400 uppercase tracking-widest border-b border-slate-200 pb-2">Avatars & Collaboration</h3>
+                        <div class="flex items-center gap-6">
+                            <!-- Avatar Group -->
+                            <div class="flex -space-x-4">
+                                <div class="w-12 h-12 rounded-full border-4 border-[#f8fafc] bg-indigo-100 z-30 shadow-md overflow-hidden"><img src="https://api.dicebear.com/7.x/avataaars/svg?seed=J" /></div>
+                                <div class="w-12 h-12 rounded-full border-4 border-[#f8fafc] bg-pink-100 z-20 shadow-md overflow-hidden"><img src="https://api.dicebear.com/7.x/avataaars/svg?seed=A" /></div>
+                                <div class="w-12 h-12 rounded-full border-4 border-[#f8fafc] bg-teal-100 z-10 shadow-md overflow-hidden"><img src="https://api.dicebear.com/7.x/avataaars/svg?seed=M" /></div>
+                                <div class="w-12 h-12 rounded-full border-4 border-[#f8fafc] bg-slate-200 flex items-center justify-center text-xs font-bold text-slate-600 shadow-md z-0">+5</div>
+                            </div>
+                            <button class="clay-btn text-xs py-2 px-3 rounded-full"><i data-lucide="plus" size="14"></i> Invite</button>
+                        </div>
+                    </div>
+
+                    <div class="clay-card p-8 space-y-8">
+                        <h3 class="text-lg font-bold text-slate-400 uppercase tracking-widest border-b border-slate-200 pb-2">Navigation Helpers</h3>
+                        
+                        <!-- Breadcrumbs -->
+                        <nav class="flex text-sm font-bold text-slate-500">
+                            <a href="#" class="hover:text-indigo-500 transition-colors">Dashboard</a>
+                            <span class="mx-2 text-slate-300">/</span>
+                            <a href="#" class="hover:text-indigo-500 transition-colors">Projects</a>
+                            <span class="mx-2 text-slate-300">/</span>
+                            <span class="text-slate-800">ClaySys Redesign</span>
+                        </nav>
+
+                        <!-- Pagination -->
+                        <div class="flex gap-2 pt-4">
+                            <button class="clay-btn w-10 h-10 p-0 rounded-lg text-slate-400"><i data-lucide="chevron-left" size="18"></i></button>
+                            <button class="clay-btn w-10 h-10 p-0 rounded-lg clay-btn-primary">1</button>
+                            <button class="clay-btn w-10 h-10 p-0 rounded-lg">2</button>
+                            <button class="clay-btn w-10 h-10 p-0 rounded-lg">3</button>
+                            <button class="clay-btn w-10 h-10 p-0 rounded-lg text-slate-400"><i data-lucide="chevron-right" size="18"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Data Visualization -->
+            <section id="data-viz" class="space-y-8 scroll-mt-20 reveal-on-scroll">
+                <div class="flex items-center gap-4">
+                    <div class="h-10 w-1 rounded-full bg-teal-500"></div>
+                    <h2 class="text-3xl font-extrabold text-slate-700">Data Visualization</h2>
+                </div>
+
+                <div class="clay-card p-8 md:p-12">
+                    <div class="flex justify-between items-end mb-10">
+                        <div>
+                            <h3 class="text-xl font-extrabold text-slate-700">Revenue Overview</h3>
+                            <p class="text-slate-500 font-medium">Monthly recurring revenue (Q3)</p>
+                        </div>
+                        <h2 class="text-4xl font-extrabold text-indigo-500">$124.5k</h2>
+                    </div>
+
+                    <!-- CSS Bar Chart -->
+                    <div class="h-64 flex items-end justify-between gap-2 md:gap-6 border-b-2 border-slate-200/50 pb-4 relative">
+                        <!-- Y-Axis Lines (Decorative) -->
+                        <div class="absolute inset-0 flex flex-col justify-between z-0 pointer-events-none">
+                            <div class="border-t border-slate-200/50 w-full h-0"></div>
+                            <div class="border-t border-slate-200/50 w-full h-0"></div>
+                            <div class="border-t border-slate-200/50 w-full h-0"></div>
+                            <div class="border-t border-slate-200/50 w-full h-0"></div>
+                        </div>
+                        
+                        <!-- Bars -->
+                        <div class="w-full flex flex-col items-center gap-3 z-10 group cursor-crosshair">
+                            <div class="w-full max-w-[60px] h-[40%] bg-indigo-300 rounded-t-xl clay-bar relative">
+                                <div class="absolute -top-10 left-1/2 -translate-x-1/2 bg-slate-800 text-white text-xs font-bold py-1 px-2 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">$45k</div>
+                            </div>
+                            <span class="text-xs font-bold text-slate-400 uppercase">Jul</span>
+                        </div>
+                        
+                        <div class="w-full flex flex-col items-center gap-3 z-10 group cursor-crosshair">
+                            <div class="w-full max-w-[60px] h-[65%] bg-indigo-400 rounded-t-xl clay-bar relative">
+                                <div class="absolute -top-10 left-1/2 -translate-x-1/2 bg-slate-800 text-white text-xs font-bold py-1 px-2 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">$75k</div>
+                            </div>
+                            <span class="text-xs font-bold text-slate-400 uppercase">Aug</span>
+                        </div>
+
+                        <div class="w-full flex flex-col items-center gap-3 z-10 group cursor-crosshair">
+                            <div class="w-full max-w-[60px] h-[90%] bg-indigo-500 rounded-t-xl clay-bar relative">
+                                <div class="absolute -top-10 left-1/2 -translate-x-1/2 bg-slate-800 text-white text-xs font-bold py-1 px-2 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">$110k</div>
+                            </div>
+                            <span class="text-xs font-bold text-slate-400 uppercase">Sep</span>
+                        </div>
+
+                         <div class="w-full flex flex-col items-center gap-3 z-10 group cursor-crosshair">
+                            <div class="w-full max-w-[60px] h-[75%] bg-pink-400 rounded-t-xl clay-bar relative">
+                                <div class="absolute -top-10 left-1/2 -translate-x-1/2 bg-slate-800 text-white text-xs font-bold py-1 px-2 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">$85k</div>
+                            </div>
+                            <span class="text-xs font-bold text-slate-400 uppercase">Oct</span>
+                        </div>
+                        
+                        <div class="w-full flex flex-col items-center gap-3 z-10 group cursor-crosshair">
+                            <div class="w-full max-w-[60px] h-[100%] bg-pink-500 rounded-t-xl clay-bar relative">
+                                 <div class="absolute -top-10 left-1/2 -translate-x-1/2 bg-slate-800 text-white text-xs font-bold py-1 px-2 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">$124.5k</div>
+                            </div>
+                            <span class="text-xs font-bold text-slate-800 uppercase">Nov</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Application States -->
+            <section id="app-states" class="space-y-8 scroll-mt-20 reveal-on-scroll">
+                <div class="flex items-center gap-4">
+                    <div class="h-10 w-1 rounded-full bg-slate-400"></div>
+                    <h2 class="text-3xl font-extrabold text-slate-700">App States</h2>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-8">
+                    <!-- Loading Skeletons -->
+                    <div class="clay-card p-8 space-y-6">
+                        <h3 class="text-lg font-bold text-slate-400 uppercase tracking-widest border-b border-slate-200 pb-2">Loading State</h3>
+                        
+                        <div class="flex gap-4 items-center">
+                            <div class="skeleton w-16 h-16 rounded-full flex-shrink-0"></div>
+                            <div class="space-y-3 w-full">
+                                <div class="skeleton h-4 w-3/4"></div>
+                                <div class="skeleton h-4 w-1/2"></div>
+                            </div>
+                        </div>
+                        <div class="space-y-3 pt-4">
+                            <div class="skeleton h-3 w-full"></div>
+                            <div class="skeleton h-3 w-full"></div>
+                            <div class="skeleton h-3 w-5/6"></div>
+                        </div>
+                    </div>
+
+                    <!-- Empty State -->
+                    <div class="clay-card p-8 flex flex-col items-center justify-center text-center space-y-4">
+                        <div class="w-24 h-24 bg-[#e2e8f0] rounded-full shadow-[inset_4px_4px_10px_rgba(163,177,198,0.5),inset_-4px_-4px_10px_rgba(255,255,255,0.9)] flex items-center justify-center text-slate-400 mb-2">
+                            <i data-lucide="inbox" size="40"></i>
+                        </div>
+                        <h3 class="text-xl font-extrabold text-slate-700">No Messages</h3>
+                        <p class="text-slate-500 font-medium text-sm max-w-xs">You're all caught up! New messages will appear here when you receive them.</p>
+                        <button class="clay-btn clay-btn-primary mt-2" onclick="showToast('Refreshing inbox...', 'info')"><i data-lucide="refresh-cw" size="18"></i> Refresh</button>
+                    </div>
+                </div>
+            </section>
+
+             <!-- Settings & Tabs -->
+             <section id="settings" class="space-y-8 scroll-mt-20 pb-20 reveal-on-scroll">
+                <div class="flex items-center gap-4">
+                    <div class="h-10 w-1 rounded-full bg-amber-500"></div>
+                    <h2 class="text-3xl font-extrabold text-slate-700">Settings Panels</h2>
+                </div>
+
+                <div class="clay-card p-6 md:p-8">
+                    <!-- Tab Header -->
+                    <div class="flex gap-2 mb-8 border-b border-slate-200 pb-4 overflow-x-auto">
+                        <button class="tab-btn active" onclick="switchTab(this, 'general')">General</button>
+                        <button class="tab-btn" onclick="switchTab(this, 'security')">Security</button>
+                    </div>
+
+                    <!-- Tab Content: General -->
+                    <div id="tab-general" class="tab-content">
+                        <h4 class="font-bold text-xl text-slate-700 mb-6">Account Information</h4>
+                        <div class="grid md:grid-cols-2 gap-6 mb-6">
+                            <div>
+                                <label class="block text-sm font-bold text-slate-600 mb-2 ml-1">Username</label>
+                                <input type="text" class="clay-input" value="alex_designer">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-bold text-slate-600 mb-2 ml-1">Company Role</label>
+                                <select class="clay-input appearance-none">
+                                    <option>UI/UX Lead</option>
+                                    <option>Frontend Developer</option>
+                                    <option>Product Manager</option>
+                                </select>
+                            </div>
+                        </div>
+                        <button class="clay-btn clay-btn-primary mt-4" onclick="showToast('Profile Updated!', 'success')">Save Changes</button>
+                    </div>
+
+                    <!-- Tab Content: Security -->
+                    <div id="tab-security" class="tab-content hidden">
+                        <h4 class="font-bold text-xl text-slate-700 mb-6">Security Settings</h4>
+                        <div class="space-y-4 max-w-md">
+                            <button class="clay-btn w-full justify-between">
+                                Change Password <i data-lucide="chevron-right" size="16"></i>
+                            </button>
+                            <button class="clay-btn w-full justify-between">
+                                Two-Factor Auth 
+                                <span class="bg-green-100 text-green-600 text-xs py-1 px-2 rounded-full shadow-inner font-bold">Enabled</span>
+                            </button>
+                            <button class="clay-btn w-full justify-between text-red-500 hover:bg-red-50">
+                                Delete Account <i data-lucide="alert-triangle" size="16"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Toast Container -->
+    <div id="toast-container" class="toast-container"></div>
+
+    <script>
+        /* // Initialize Icons */
+        lucide.createIcons();
+
+        /* // 1. Navigation Logic */
+        function setActiveNav(element) {
+            document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
+            element.classList.add('active');
+            if (window.innerWidth < 768) toggleMobileMenu();
+        }
+
+        /* // 2. Mobile Menu Toggle */
+        function toggleMobileMenu() {
+            document.body.classList.toggle('sidebar-open');
+            const overlay = document.getElementById('mobile-overlay');
+            overlay.classList.toggle('hidden');
+        }
+
+        /* // 3. Toast Notifications System */
+        function showToast(message, type = 'info') {
+            const container = document.getElementById('toast-container');
+            const toast = document.createElement('div');
+            
+            let iconName = 'info';
+            if (type === 'success') iconName = 'check-circle';
+            if (type === 'error') iconName = 'alert-triangle';
+            if (type === 'warning') iconName = 'alert-circle';
+
+            toast.className = `clay-toast ${type}`;
+            toast.innerHTML = `
+                <i data-lucide="${iconName}" class="${type === 'success' ? 'text-green-500' : type === 'error' ? 'text-red-500' : 'text-indigo-500'}"></i>
+                <span class="font-bold text-sm text-slate-700">${message}</span>
+            `;
+
+            container.appendChild(toast);
+            lucide.createIcons({ root: toast });
+
+            requestAnimationFrame(() => toast.classList.add('show'));
+
+            setTimeout(() => {
+                toast.classList.remove('show');
+                setTimeout(() => toast.remove(), 400);
+            }, 3000);
+        }
+
+        /* // 4. Tabs Logic */
+        function switchTab(btn, tabName) {
+            const container = btn.closest('.clay-card');
+            container.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+
+            container.querySelectorAll('.tab-content').forEach(c => c.classList.add('hidden'));
+            document.getElementById(`tab-${tabName}`).classList.remove('hidden');
+            
+            // Re-trigger scroll animations if tab content has them
+            setTimeout(() => {
+                 document.getElementById(`tab-${tabName}`).classList.add('animate-fade-in');
+            }, 10);
+        }
+
+        /* // 5. Copy to Clipboard Utility */
+        function copyColor(hex) {
+            navigator.clipboard.writeText(hex).then(() => {
+                showToast(`Copied ${hex} to clipboard`, 'success');
+            }).catch(() => {
+                showToast('Failed to copy', 'error');
+            });
+        }
+
+        /* // 6. Scroll Observer for Animations */
+        const observerOptions = { threshold: 0.1, rootMargin: "0px 0px -50px 0px" };
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-visible');
+                    
+                    // Stagger chart bars if visible
+                    const chart = entry.target.querySelector('.h-64');
+                    if (chart) {
+                        const bars = chart.querySelectorAll('.clay-bar');
+                        bars.forEach((bar, index) => {
+                            const finalHeight = bar.style.height || bar.classList.toString().match(/h-\[([^\]]+)\]/)[1];
+                            bar.style.height = '0';
+                            setTimeout(() => {
+                                bar.style.height = finalHeight;
+                            }, index * 200 + 300); 
+                        });
+                    }
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.reveal-on-scroll').forEach((el) => {
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>

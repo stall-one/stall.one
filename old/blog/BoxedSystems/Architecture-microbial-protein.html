@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bio R&D Architecture | stall.one</title>
+    <meta name="description" content="How HOB, bioleaching, and culture education tracks share lab ops patterns under Whitebox R&amp;D without cross-contaminating claims." />
+    <meta name="robots" content="index, follow" />
+    <link rel="stylesheet" href="../../style.css" />
+    <script src="../../page-transition.js"></script>
+    
+<style>
+body.post-doc {
+  --bg:#0c0c0e; --panel:#141418; --fg:#eee; --muted:#9a9aa6; --accent:#00ff41;
+  --line: color-mix(in srgb, var(--accent) 28%, #141418);
+  background:var(--bg); color:var(--fg);
+}
+body.post-doc .crt-overlay { opacity:.2; }
+body.post-doc header { background:rgba(12,12,14,.95); border-bottom:1px solid var(--line); }
+body.post-doc .brand { background:var(--accent); color:var(--bg); }
+body.post-doc .container { background:transparent; border-color:transparent; max-width:920px; }
+body.post-doc section { border:0; padding:6rem 0 4.5rem; }
+body.post-doc .post { max-width:860px; margin:0 auto; }
+body.post-doc .kicker { color:var(--accent); font-size:.75rem; font-weight:700; letter-spacing:.1em; text-transform:uppercase; margin:0 0 1rem; }
+body.post-doc h1 { font-size:clamp(1.8rem,4.5vw,2.6rem); border:0; margin:0 0 1rem; text-transform:none; line-height:1.15; }
+body.post-doc .lede { color:var(--muted); font-size:1.1rem; line-height:1.65; max-width:58ch; margin:0 0 1.5rem; }
+body.post-doc h2 { font-size:1.15rem; border:0; margin:2.25rem 0 .85rem; color:var(--fg); text-transform:none; }
+body.post-doc h2::before { content:"// "; color:var(--accent); }
+body.post-doc p, body.post-doc li { color:var(--muted); line-height:1.65; max-width:65ch; }
+body.post-doc ul { margin:0 0 1.25rem 1.2rem; }
+body.post-doc li { margin-bottom:.45rem; }
+body.post-doc strong { color:var(--fg); }
+body.post-doc a { color:var(--accent); font-weight:700; }
+body.post-doc .chips { display:flex; flex-wrap:wrap; gap:.45rem; margin:0 0 1.75rem; }
+body.post-doc .chip { font-size:.68rem; font-weight:700; letter-spacing:.06em; text-transform:uppercase; color:var(--accent); border:1px solid color-mix(in srgb,var(--accent) 40%,transparent); padding:.3rem .65rem; border-radius:999px; }
+body.post-doc .callout { border:2px solid var(--fg); padding:1.2rem 1.35rem; margin:1.5rem 0; background:rgba(0,255,65,.04); }
+body.post-doc .callout strong { display:block; color:var(--accent); font-size:.72rem; letter-spacing:.1em; text-transform:uppercase; margin-bottom:.4rem; }
+body.post-doc .callout p { margin:0; color:var(--fg); max-width:none; }
+body.post-doc .nav-row { display:flex; flex-wrap:wrap; gap:1rem 1.5rem; margin-top:2.5rem; padding-top:1.5rem; border-top:1px solid var(--line); }
+body.post-doc .nav-row a { font-weight:700; font-size:.85rem; letter-spacing:.06em; text-transform:uppercase; }
+body.post-doc .swatches { display:flex; flex-wrap:wrap; gap:.75rem; margin:1rem 0 1.5rem; }
+body.post-doc .swatch { width:4.5rem; text-align:center; }
+body.post-doc .swatch i { display:block; height:2.75rem; border:1px solid var(--line); margin-bottom:.3rem; }
+body.post-doc .swatch span { font-size:.62rem; color:var(--muted); font-family:var(--font-header); }
+body.post-doc .diagram { border:1px solid var(--line); background:#08080a; padding:1.15rem; margin:1.25rem 0 1.5rem; overflow-x:auto; font-family:var(--font-header); font-size:.76rem; line-height:1.45; color:#9fefb0; white-space:pre; }
+body.post-doc .docs { border:2px solid var(--fg); padding:1.2rem 1.35rem; margin:1.5rem 0; background:#08080a; }
+body.post-doc .docs pre { margin:.7rem 0 0; font-family:var(--font-header); font-size:.85rem; color:var(--accent); white-space:pre; overflow-x:auto; }
+body.post-doc table { width:100%; border-collapse:collapse; margin:1rem 0 1.5rem; font-size:.9rem; }
+body.post-doc th, body.post-doc td { text-align:left; padding:.55rem .4rem; border-bottom:1px solid var(--line); color:var(--muted); vertical-align:top; }
+body.post-doc th { font-size:.65rem; letter-spacing:.08em; text-transform:uppercase; color:var(--accent); }
+body.post-doc td:first-child { color:var(--fg); font-weight:600; }
+body.post-doc .persona-grid { display:grid; grid-template-columns:1fr; gap:1rem; margin:1rem 0 1.5rem; }
+@media(min-width:720px){ body.post-doc .persona-grid { grid-template-columns:1fr 1fr 1fr; } }
+body.post-doc .persona { border:1px solid var(--line); padding:1rem; }
+body.post-doc .persona strong { display:block; color:var(--accent); font-size:.72rem; letter-spacing:.08em; text-transform:uppercase; margin-bottom:.4rem; }
+body.post-doc .persona p { margin:0; font-size:.9rem; max-width:none; }
+
+body.post-doc { --bg:#0f1410; --panel: color-mix(in srgb, #f0f0e0 6%, #0f1410); --fg:#f0f0e0; --muted:#8a9a88; --accent:#e8c547;
+  --line: color-mix(in srgb, #e8c547 28%, #0f1410); }
+body.post-doc .brand { background:#e8c547; color:#0f1410; }
+
+</style>
+
+</head>
+<body class="post-doc">
+    <header>
+        <div class="logo-container">
+            <a href="../../" data-page-transition="rtl" class="brand-link" aria-label="Back to home">
+                <span class="brand">STALL.ONE</span>
+            </a>
+        </div>
+        <div class="menu-toggle" onclick="toggleMenu()">[MENU]</div>
+        <nav id="navbar">
+            <ul>
+                <li><a href="../../#projects" data-page-transition="rtl" onclick="toggleMenu()">02_WORK</a></li>
+                <li><a href="../" data-page-transition="ltr" onclick="toggleMenu()">04_BLOG</a></li>
+                <li><a href="../../#contact" data-page-transition="rtl" onclick="toggleMenu()">05_CONTACT</a></li>
+            </ul>
+        </nav>
+    </header>
+    <div class="crt-overlay"></div>
+    <main class="container">
+
+        <section>
+            <article class="post">
+                <p class="kicker">WHITE_PAPER // LAB SYSTEMS</p>
+                <h1>Bio R&amp;D Architecture</h1>
+                <p class="lede">How HOB, bioleaching, and culture education tracks share lab ops patterns under Whitebox R&amp;D without cross-contaminating claims.</p>
+                <div class="chips">
+                    <span class="chip">WHITE_PAPER</span>
+                    <span class="chip">SYSTEM_DESIGN</span>
+                    <span class="chip">MICROBIAL &amp; CULTURED PROTEIN R&amp;D</span>
+                </div>
+                <div class="diagram"> Shared lab ops (sterile · waste · logging)
+        │
+        ├── HOB track (gas, media, harvest)
+        ├── Bioleaching track (ore, pH, metals)
+        └── Culture edu track (scaffold, media)</div>
+                <h2>Track isolation</h2>
+                <p>Separate SOPs, waste streams, and success metrics. Shared only: documentation culture and safety.</p>
+                <h2>Claims hygiene</h2>
+                <p>Educational ≠ commercial food. Protocols say so in the first screen.</p>
+                <h2>Feed into Whitebox</h2>
+                <p>Successful tracks become facility payloads later — not all at once.</p>
+
+                <div class="callout">
+                    <strong>For architects</strong>
+                    <p>This page is the technical depth layer of the project hub. Business narrative lives on the case study; aesthetic rationale lives on the design post.</p>
+                </div>
+                <nav class="nav-row" aria-label="Post navigation">
+                    <a href="../../work/microbial-protein.html" data-page-transition="rtl">&lt;&lt; Project hub</a>
+                    <a href="./design-microbial-protein.html" data-page-transition="ltr">Design post →</a>
+                    <a href="../" data-page-transition="rtl">Blog index</a>
+                </nav>
+            </article>
+        </section>
+
+    </main>
+    <footer>
+        <div class="container" style="border:none; padding-top: 2rem; padding-bottom: 2rem; display:flex; justify-content:space-between; flex-wrap:wrap; gap:1rem;">
+            <div class="social-links">
+                <a href="https://github.com/stall-one">[GITHUB]</a>
+                <a href="https://x.com/gitstallone">[X / TWITTER]</a>
+            </div>
+            <span style="font-size: 0.8rem; opacity: 0.8;">// © 2025 SWEN_S_PECK</span>
+        </div>
+    </footer>
+    <script>function toggleMenu(){ document.getElementById("navbar").classList.toggle("open"); }</script>
+    
+</body>
+</html>

@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Desktop Pairing &amp; Vault Mounts | stall.one</title>
+  <meta name="description" content="TaxFort desktop pairing, STS vault mounts, and inbound webhooks into JuiceFS — design and systems notes."/>
+  <meta name="robots" content="index, follow"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="../../style.css"/>
+  <script src="../../page-transition.js"></script>
+  <style>
+body.post-pair{--bg:#f8fafc;--panel:#ffffff;--fg:#0f172a;--muted:#64748b;--accent:#5a3fff;--line:color-mix(in srgb,#5a3fff 28%, #ffffff);
+background:var(--bg);color:var(--fg);font-family:Inter,system-ui,sans-serif}
+body.post-pair .crt-overlay{opacity:.18}
+body.post-pair header{background:color-mix(in srgb,var(--bg) 92%, transparent);border-bottom:1px solid var(--line);backdrop-filter:blur(10px)}
+body.post-pair .brand{background:var(--accent);color:var(--bg);border-radius:.4rem}
+body.post-pair nav a,body.post-pair .menu-toggle{color:var(--fg)}
+body.post-pair footer{color:var(--muted);border-top:1px solid var(--line)}
+body.post-pair footer a{color:var(--fg)}
+body.post-pair .container{background:transparent;border-color:transparent;max-width:920px}
+body.post-pair section{border:0;padding:6rem 0 4.5rem}
+body.post-pair .post{max-width:860px;margin:0 auto}
+body.post-pair .kicker{color:var(--accent);font-size:.7rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;margin:0 0 1rem}
+body.post-pair .hero{margin:0 0 2rem;padding:0 0 1.75rem;border-bottom:1px solid var(--line)}
+body.post-pair .hero h1{font-size:clamp(1.9rem,5vw,2.9rem);font-weight:800;letter-spacing:-.03em;line-height:1.1;margin:0 0 1.1rem;border:0;text-transform:none;font-family:inherit;color:var(--fg)}
+body.post-pair .hero h1 em{color:var(--accent);font-style:italic}
+body.post-pair .lede{color:var(--muted);font-size:1.08rem;line-height:1.65;max-width:52ch;margin:0 0 1.3rem}
+body.post-pair .lede strong{color:var(--fg)}
+body.post-pair .chips{display:flex;flex-wrap:wrap;gap:.45rem}
+body.post-pair .chip{font-size:.68rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--accent);background:color-mix(in srgb,var(--accent) 12%,transparent);border:1px solid color-mix(in srgb,var(--accent) 35%,transparent);border-radius:999px;padding:.35rem .7rem}
+body.post-pair .grid{display:grid;grid-template-columns:1fr;gap:1.1rem;margin:0 0 1.75rem}
+@media(min-width:720px){body.post-pair .grid{grid-template-columns:1fr 1fr}body.post-pair .span-2{grid-column:1/-1}}
+body.post-pair .card{background:var(--panel);border:1px solid var(--line);border-radius:1.15rem;padding:1.4rem 1.5rem}
+body.post-pair .card h2{font-size:.78rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);margin:0 0 .85rem;border:0;font-family:inherit}
+body.post-pair .card h2 b{color:var(--fg)}
+body.post-pair .card p,body.post-pair .card li{color:var(--muted);font-size:.97rem;line-height:1.6;margin:0 0 .65rem;max-width:none}
+body.post-pair .card p:last-child{margin:0}
+body.post-pair .card ul,body.post-pair .card ol{margin:0 0 0 1.1rem}
+body.post-pair .card strong{color:var(--fg)}
+body.post-pair .card a{color:var(--accent);font-weight:700}
+body.post-pair .card code{color:var(--accent);background:color-mix(in srgb,var(--accent) 12%,transparent);padding:.1em .35em;border-radius:4px;font-size:.88em}
+body.post-pair pre{background:color-mix(in srgb,var(--fg) 6%,var(--bg));color:var(--muted);border:1px solid var(--line);border-left:3px solid var(--accent);border-radius:calc(1.15rem - 2px);padding:1.1rem 1.2rem;font:0.8rem/1.55 ui-monospace,Menlo,monospace;overflow-x:auto;white-space:pre;margin:.6rem 0 0}
+body.post-pair table{width:100%;border-collapse:collapse;font-size:.9rem}
+body.post-pair th,body.post-pair td{text-align:left;padding:.55rem .45rem;border-bottom:1px solid var(--line);color:var(--muted);vertical-align:top}
+body.post-pair th{font-size:.65rem;letter-spacing:.08em;text-transform:uppercase}
+body.post-pair td:first-child{color:var(--fg);font-weight:600}
+body.post-pair .callout{background:color-mix(in srgb,var(--accent) 10%,var(--bg));border:1px solid var(--line);border-left:3px solid var(--accent);border-radius:1.15rem;padding:1.25rem 1.4rem;margin:0 0 1.5rem}
+body.post-pair .callout strong{display:block;color:var(--accent);font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;margin:0 0 .45rem}
+body.post-pair .callout p{margin:0;color:var(--fg);line-height:1.6;max-width:none}
+body.post-pair .nav{display:flex;flex-wrap:wrap;justify-content:space-between;gap:.75rem 1.25rem;margin-top:2.5rem;padding-top:1.5rem;border-top:1px solid var(--line)}
+body.post-pair .nav a{color:var(--accent);font-weight:700;font-size:.88rem;text-decoration:none}
+body.post-pair .nav a:hover{text-decoration:underline;text-underline-offset:4px}
+body.post-pair .card{box-shadow:0 10px 40px -12px rgba(15,23,42,.08)}body.post-pair .chip{background:#f3f0ff}body.post-pair .brand{border-radius:.5rem}
+body.post-pair .crt-overlay{display:none}
+body.post-pair header{background:rgba(255,255,255,.94)}
+
+</style>
+</head>
+<body class="post-pair">
+  <header>
+    <div class="logo-container">
+      <a href="../../" data-page-transition="rtl" class="brand-link" aria-label="Back to home"><span class="brand">STALL.ONE</span></a>
+    </div>
+    <div class="menu-toggle" onclick="toggleMenu()">[MENU]</div>
+    <nav id="navbar">
+      <ul>
+        <li><a href="../../#projects" data-page-transition="rtl" onclick="toggleMenu()">02_WORK</a></li>
+        <li><a href="../" data-page-transition="rtl" onclick="toggleMenu()">04_BLOG</a></li>
+        <li><a href="../../#contact" data-page-transition="rtl" onclick="toggleMenu()">05_CONTACT</a></li>
+      </ul>
+    </nav>
+  </header>
+  <div class="crt-overlay"></div>
+  <main class="container">
+    <section>
+      <article class="post">
+        <div class="kicker">LOG_ID: 2026-07-25 · TAXFORT · TAURI · JUICEFS</div>
+        <div class="hero">
+          <h1>Pair the desktop. <em>Mount</em> the vault.</h1>
+          <p class="lede">How TaxFort gets files in without the browser UI: inbound webhooks to a vault inbox, and a
+                        Tauri desktop client that pairs to a user then mounts org-scoped storage with STS.</p>
+          <div class="chips"><span class="chip">Desktop pairing</span><span class="chip">STS</span><span class="chip">Webhooks</span><span class="chip">JuiceFS S3</span></div>
+        </div>
+        <div class="grid">
+          <div class="card"><h2><strong>01</strong> · Two entry paths</h2><p>
+<strong>Webhooks</strong> — email / SMS / storage events land objects under an org prefix
+                            inbox. No browser JWT; secrets and event identity resolve the vault.
+                        </p><p>
+<strong>Desktop pairing</strong> — device starts a pair flow, web confirms, auth issues
+                            device binding. Vault then hands short-lived STS for a local mount.
+                        </p></div>
+<div class="card"><h2><strong>02</strong> · What pairing is not</h2><p>
+                            Pairing does not transfer workspace ownership or decide who pays (firm pool vs client pays).
+                            It only binds a <em>device</em> to a <em>user</em>. Billing and membership stay elsewhere.
+                        </p></div>
+<div class="card span-2"><h2><strong>03</strong> · Topology sketch</h2><pre class="pr-code"><code><span class="c">SendGrid / Twilio / S3 events          TaxFort Desktop (Tauri)</span>
+        │                                        │
+        ▼                                        ▼
+<span class="h">api-gateway</span>  /api/v1/webhooks/*  ·  /api/v1/desktop/pairing/*
+        │                                        │
+        ▼                                        ▼
+<span class="h">vault-service</span> (inbox write)          <span class="h">auth-service</span> (pair + device)
+        │                                        │
+        └──────────── Postgres + JuiceFS S3 ─────┘</code></pre></div>
+<div class="card"><h2><strong>04</strong> · Design surface</h2><ul>
+<li>Soft purple SaaS chrome (taxBox Safe)</li>
+<li>Pairing code as a large, scannable artifact</li>
+<li>Desktop “Z: drive” metaphor for mount success</li>
+<li>Same identity headers as browser after pair</li>
+</ul></div>
+<div class="card"><h2><strong>05</strong> · Storage notify</h2><p>
+                            JuiceFS S3 gateway fires into the Docker network DNS name of the gateway — never
+                            <code>localhost</code> from inside the container. Secret lives on vault-service.
+                        </p></div>
+        </div>
+        <div class="callout"><strong>Design bias</strong><p>
+                        Accountants live in the filesystem. Pairing + STS keeps the same tenancy rules as the web vault
+                        while meeting them where they work — without turning every laptop into a long-lived secret store.
+                    </p></div>
+        <div class="card span-2"><h2>Takeaway</h2><p>
+                        Platform overview:
+                        <a data-page-transition="ltr" href="./taxbox.html" style="font-weight:700">Taxbox log</a>
+                        · Case study:
+                        <a data-page-transition="ltr" href="../../work/taxfort.html" style="font-weight:700">VIEW_CASE_STUDY</a>
+                        · Docs live under <code>taxfort-platform/docs/webhooks-and-desktop-pairing.md</code>.
+                    </p></div>
+        <nav class="nav" aria-label="Post navigation"><a data-page-transition="rtl" href="../Told/view-transitions.html">← View Transitions</a><a data-page-transition="rtl" href="./">All logs</a><a data-page-transition="ltr" href="../SnapNGo/snap-on-systems.html">Next: Snap-on Systems →</a></nav>
+      </article>
+    </section>
+  </main>
+  <footer>
+    <div class="container" style="border:none;padding-top:2rem;padding-bottom:2rem;display:flex;justify-content:space-between;flex-wrap:wrap;gap:1rem">
+      <div class="social-links">
+        <a href="https://github.com/stall-one">[GITHUB]</a>
+        <a href="https://x.com/gitstallone">[X / TWITTER]</a>
+      </div>
+      <span style="font-size:0.8rem;opacity:0.8">// © 2025 SWEN_S_PECK</span>
+    </div>
+  </footer>
+  <script>function toggleMenu(){document.getElementById("navbar").classList.toggle("open");}</script>
+</body>
+</html>

@@ -1,0 +1,1216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TaxBox Design System</title>
+    
+    <!-- Fonts: Inter for that clean, modern SaaS look -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <!-- Icons: Phosphor Icons -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        tf: {
+                            purple: '#5A3FFF',
+                            purple_hover: '#4B30E6',
+                            purple_light: '#F3F0FF',
+                            dark: '#14142B',
+                            navy: '#1A1C3A',
+                            green: '#00C853',
+                            green_light: '#E6F9EC',
+                            green_dark: '#1D4936',
+                            surface: '#F8F9FA',
+                            border: '#E2E8F0',
+                            text: '#0F172A',
+                            text_muted: '#64748B'
+                        }
+                    },
+                    boxShadow: {
+                        'soft': '0 10px 40px -10px rgba(0,0,0,0.06)',
+                        'glow': '0 8px 24px -6px rgba(90, 63, 255, 0.4)',
+                    },
+                    borderRadius: {
+                        '2xl': '1rem',
+                        '3xl': '1.5rem',
+                        '4xl': '2rem',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body { background-color: #F8F9FA; color: #0F172A; }
+        
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #CBD5E1; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: #94A3B8; }
+
+        /* Smooth tab transitions */
+        .tab-content { display: none; animation: fadeIn 0.3s ease-in-out; }
+        .tab-content.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
+    </style>
+</head>
+<body class="flex h-screen overflow-hidden antialiased">
+
+    <!-- Sidebar Navigation -->
+    <aside class="w-64 bg-white border-r border-tf-border flex flex-col h-full flex-shrink-0 z-20">
+        <div class="p-6 border-b border-tf-border">
+            <div class="flex items-center gap-2 font-black text-2xl tracking-tight">
+                <i class="ph-fill ph-shield-check text-tf-purple text-3xl"></i>
+                taxBox <span class="text-[10px] text-tf-purple uppercase tracking-widest bg-tf-purple_light px-2 py-1 rounded-md ml-1">Safe</span>
+            </div>
+            <p class="text-xs text-tf-text_muted mt-2">Design System & UI Kit</p>
+        </div>
+
+        <div class="flex-1 overflow-y-auto py-4">
+            <nav class="space-y-1 px-3">
+                <p class="px-3 text-xs font-semibold text-tf-text_muted uppercase tracking-wider mb-2 mt-4">Foundations</p>
+                <button onclick="switchTab('colors')" class="nav-btn w-full flex items-center gap-3 px-3 py-2.5 text-sm font-medium rounded-lg text-tf-purple bg-tf-purple_light transition-colors" data-tab="colors">
+                    <i class="ph ph-palette text-lg"></i> Colors
+                </button>
+                <button onclick="switchTab('typography')" class="nav-btn w-full flex items-center gap-3 px-3 py-2.5 text-sm font-medium rounded-lg text-tf-text_muted hover:bg-gray-50 transition-colors" data-tab="typography">
+                    <i class="ph ph-text-aa text-lg"></i> Typography
+                </button>
+
+                <p class="px-3 text-xs font-semibold text-tf-text_muted uppercase tracking-wider mb-2 mt-6">Components</p>
+                <button onclick="switchTab('buttons')" class="nav-btn w-full flex items-center gap-3 px-3 py-2.5 text-sm font-medium rounded-lg text-tf-text_muted hover:bg-gray-50 transition-colors" data-tab="buttons">
+                    <i class="ph ph-hand-pointing text-lg"></i> Buttons & Badges
+                </button>
+                <button onclick="switchTab('inputs')" class="nav-btn w-full flex items-center gap-3 px-3 py-2.5 text-sm font-medium rounded-lg text-tf-text_muted hover:bg-gray-50 transition-colors" data-tab="inputs">
+                    <i class="ph ph-keyboard text-lg"></i> Inputs & Forms
+                </button>
+                <button onclick="switchTab('cards')" class="nav-btn w-full flex items-center gap-3 px-3 py-2.5 text-sm font-medium rounded-lg text-tf-text_muted hover:bg-gray-50 transition-colors" data-tab="cards">
+                    <i class="ph ph-cards text-lg"></i> Cards & Vaults
+                </button>
+                <button onclick="switchTab('tables')" class="nav-btn w-full flex items-center gap-3 px-3 py-2.5 text-sm font-medium rounded-lg text-tf-text_muted hover:bg-gray-50 transition-colors" data-tab="tables">
+                    <i class="ph ph-table text-lg"></i> Data & Tables
+                </button>
+                      <button onclick="switchTab('alerts')" class="nav-btn w-full flex items-center gap-3 px-3 py-2.5 text-sm font-medium rounded-lg text-tf-text_muted hover:bg-gray-50 transition-colors" data-tab="alerts">
+                    <i class="ph ph-bell-ringing text-lg"></i> Alerts & Toasts
+                </button>
+                <button onclick="switchTab('empty')" class="nav-btn w-full flex items-center gap-3 px-3 py-2.5 text-sm font-medium rounded-lg text-tf-text_muted hover:bg-gray-50 transition-colors" data-tab="empty">
+                    <i class="ph ph-ghost text-lg"></i> Empty States
+                </button>
+                <p class="px-3 text-xs font-semibold text-tf-text_muted uppercase tracking-wider mb-2 mt-6">Complex Patterns</p>
+                <button onclick="switchTab('modals')" class="nav-btn w-full flex items-center gap-3 px-3 py-2.5 text-sm font-medium rounded-lg text-tf-text_muted hover:bg-gray-50 transition-colors" data-tab="modals">
+                    <i class="ph ph-browser text-lg"></i> Modals & Dialogs
+                </button>
+                <button onclick="switchTab('sidebar-layout')" class="nav-btn w-full flex items-center gap-3 px-3 py-2.5 text-sm font-medium rounded-lg text-tf-text_muted hover:bg-gray-50 transition-colors" data-tab="sidebar-layout">
+                    <i class="ph ph-layout text-lg"></i> Sidebar & Layout
+                </button>
+            </nav>
+        </div>
+        
+        <div class="p-4 border-t border-tf-border">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-full bg-tf-dark flex items-center justify-center text-white font-bold text-sm">PE</div>
+                <div>
+                    <p class="text-sm font-semibold">Active Safe</p>
+                    <p class="text-xs text-tf-text_muted">Personal Vault</p>
+                </div>
+            </div>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="flex-1 overflow-y-auto bg-[#F8FAFC]">
+        <div class="max-w-6xl mx-auto p-8 lg:p-12">
+            
+            <!-- COLORS SECTION -->
+            <section id="colors" class="tab-content active space-y-8">
+                <div class="border-b border-gray-200 pb-5">
+                    <h1 class="text-3xl font-black tracking-tight">Colors</h1>
+                    <p class="text-tf-text_muted mt-2">The core palette defining the brand. Click hex codes to copy.</p>
+                </div>
+
+                <div class="space-y-6">
+                    <h3 class="text-lg font-bold">Primary Brand</h3>
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                        <div class="bg-white p-3 rounded-2xl shadow-soft border border-gray-100">
+                            <div class="h-24 bg-tf-purple rounded-xl mb-3"></div>
+                            <p class="font-bold text-sm">Primary Purple</p>
+                            <button onclick="copyToClipboard('#5A3FFF')" class="text-xs text-tf-text_muted hover:text-tf-purple">#5A3FFF</button>
+                        </div>
+                        <div class="bg-white p-3 rounded-2xl shadow-soft border border-gray-100">
+                            <div class="h-24 bg-tf-purple_hover rounded-xl mb-3"></div>
+                            <p class="font-bold text-sm">Purple Hover</p>
+                            <button onclick="copyToClipboard('#4B30E6')" class="text-xs text-tf-text_muted hover:text-tf-purple">#4B30E6</button>
+                        </div>
+                        <div class="bg-white p-3 rounded-2xl shadow-soft border border-gray-100">
+                            <div class="h-24 bg-tf-purple_light rounded-xl mb-3 border border-gray-100"></div>
+                            <p class="font-bold text-sm">Purple Light / Base</p>
+                            <button onclick="copyToClipboard('#F3F0FF')" class="text-xs text-tf-text_muted hover:text-tf-purple">#F3F0FF</button>
+                        </div>
+                    </div>
+
+                    <h3 class="text-lg font-bold mt-10">Neutrals & Darks</h3>
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                        <div class="bg-white p-3 rounded-2xl shadow-soft border border-gray-100">
+                            <div class="h-24 bg-tf-dark rounded-xl mb-3"></div>
+                            <p class="font-bold text-sm">Dark Black/Navy</p>
+                            <button onclick="copyToClipboard('#14142B')" class="text-xs text-tf-text_muted hover:text-tf-purple">#14142B</button>
+                        </div>
+                        <div class="bg-white p-3 rounded-2xl shadow-soft border border-gray-100">
+                            <div class="h-24 bg-tf-navy rounded-xl mb-3"></div>
+                            <p class="font-bold text-sm">Deep Navy</p>
+                            <button onclick="copyToClipboard('#1A1C3A')" class="text-xs text-tf-text_muted hover:text-tf-purple">#1A1C3A</button>
+                        </div>
+                        <div class="bg-white p-3 rounded-2xl shadow-soft border border-gray-100">
+                            <div class="h-24 bg-tf-text_muted rounded-xl mb-3"></div>
+                            <p class="font-bold text-sm">Muted Slate</p>
+                            <button onclick="copyToClipboard('#64748B')" class="text-xs text-tf-text_muted hover:text-tf-purple">#64748B</button>
+                        </div>
+                        <div class="bg-white p-3 rounded-2xl shadow-soft border border-gray-100">
+                            <div class="h-24 bg-[#F8FAFC] rounded-xl mb-3 border border-gray-200"></div>
+                            <p class="font-bold text-sm">App Background</p>
+                            <button onclick="copyToClipboard('#F8FAFC')" class="text-xs text-tf-text_muted hover:text-tf-purple">#F8FAFC</button>
+                        </div>
+                    </div>
+
+                    <h3 class="text-lg font-bold mt-10">Status (Success/Action)</h3>
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                        <div class="bg-white p-3 rounded-2xl shadow-soft border border-gray-100">
+                            <div class="h-24 bg-tf-green rounded-xl mb-3"></div>
+                            <p class="font-bold text-sm">Success Green</p>
+                            <button onclick="copyToClipboard('#00C853')" class="text-xs text-tf-text_muted hover:text-tf-purple">#00C853</button>
+                        </div>
+                        <div class="bg-white p-3 rounded-2xl shadow-soft border border-gray-100">
+                            <div class="h-24 bg-tf-green_light rounded-xl mb-3"></div>
+                            <p class="font-bold text-sm">Success Light</p>
+                            <button onclick="copyToClipboard('#E6F9EC')" class="text-xs text-tf-text_muted hover:text-tf-purple">#E6F9EC</button>
+                        </div>
+                        <div class="bg-white p-3 rounded-2xl shadow-soft border border-gray-100">
+                            <div class="h-24 bg-tf-green_dark rounded-xl mb-3"></div>
+                            <p class="font-bold text-sm">Firm Card Dark</p>
+                            <button onclick="copyToClipboard('#1D4936')" class="text-xs text-tf-text_muted hover:text-tf-purple">#1D4936</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- TYPOGRAPHY SECTION -->
+            <section id="typography" class="tab-content space-y-8">
+                <div class="border-b border-gray-200 pb-5">
+                    <h1 class="text-3xl font-black tracking-tight">Typography</h1>
+                    <p class="text-tf-text_muted mt-2">Inter is used exclusively for a clean, highly legible, modern interface.</p>
+                </div>
+
+                <div class="bg-white rounded-3xl p-8 shadow-soft border border-gray-100 space-y-10">
+                    <div>
+                        <p class="text-xs font-bold text-tf-text_muted uppercase tracking-widest mb-4">Hero Heading (Black 900)</p>
+                        <h1 class="text-5xl md:text-7xl font-black tracking-tighter leading-tight text-tf-dark">
+                            Your Financial<br>Documents,
+                            <span class="text-tf-purple italic block mt-1">Securely<br>Organized.</span>
+                        </h1>
+                    </div>
+
+                    <hr class="border-gray-100">
+
+                    <div>
+                        <p class="text-xs font-bold text-tf-text_muted uppercase tracking-widest mb-4">Section Titles (Bold 700 / Black 900)</p>
+                        <h2 class="text-4xl font-black tracking-tight text-tf-dark mb-4">Choose Your <span class="text-tf-purple">Safe.</span></h2>
+                        <h3 class="text-2xl font-bold tracking-tight text-tf-dark">Vault Management</h3>
+                        <h4 class="text-xl font-bold tracking-tight text-tf-dark mt-2">Securely Access Your Infrastructure.</h4>
+                    </div>
+
+                    <hr class="border-gray-100">
+
+                    <div class="grid md:grid-cols-2 gap-8">
+                        <div>
+                            <p class="text-xs font-bold text-tf-text_muted uppercase tracking-widest mb-4">Body Text (Regular 400)</p>
+                            <p class="text-tf-text_muted text-lg leading-relaxed">
+                                AI instantly classifies every upload. Accountants mount your Safe as a local drive. Final documents are locked for 10 years — permanently immutable.
+                            </p>
+                        </div>
+                        <div>
+                            <p class="text-xs font-bold text-tf-text_muted uppercase tracking-widest mb-4">Microcopy & Labels (Bold/Medium)</p>
+                            <p class="text-sm font-semibold text-tf-text mb-2">EMAIL ADDRESS</p>
+                            <p class="text-xs text-tf-text_muted">"Zero manual filing."</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- BUTTONS & BADGES SECTION -->
+            <section id="buttons" class="tab-content space-y-8">
+                <div class="border-b border-gray-200 pb-5">
+                    <h1 class="text-3xl font-black tracking-tight">Buttons & Badges</h1>
+                    <p class="text-tf-text_muted mt-2">Interactive elements and status indicators.</p>
+                </div>
+
+                <div class="space-y-8">
+                    <div class="bg-white rounded-3xl p-8 shadow-soft border border-gray-100">
+                        <h3 class="text-lg font-bold mb-6">Primary Actions</h3>
+                        <div class="flex flex-wrap gap-4 items-center">
+                            <!-- Large CTA Pill -->
+                            <button class="bg-tf-purple text-white px-8 py-3.5 rounded-full font-bold hover:bg-tf-purple_hover transition-all shadow-glow flex items-center gap-2">
+                                Activate My Safe <i class="ph-bold ph-arrow-right"></i>
+                            </button>
+                            
+                            <!-- Block Button (Form submit style) -->
+                            <button class="bg-tf-purple text-white px-8 py-3.5 rounded-xl font-bold hover:bg-tf-purple_hover transition-all shadow-glow w-64 flex justify-center items-center gap-2">
+                                ENTER MY SAFE <i class="ph-bold ph-arrow-right"></i>
+                            </button>
+
+                            <!-- Small Primary -->
+                            <button class="bg-tf-purple text-white px-5 py-2 rounded-lg font-semibold hover:bg-tf-purple_hover transition-all text-sm flex items-center gap-2">
+                                <i class="ph-bold ph-cloud-arrow-up"></i> Upload Files
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="bg-white rounded-3xl p-8 shadow-soft border border-gray-100">
+                        <h3 class="text-lg font-bold mb-6">Secondary & Teriary Actions</h3>
+                        <div class="flex flex-wrap gap-4 items-center bg-gray-50 p-6 rounded-2xl">
+                            <!-- Secondary Outline/White -->
+                            <button class="bg-white text-tf-dark px-8 py-3.5 rounded-full font-bold shadow-sm border border-gray-200 hover:border-gray-300 hover:bg-gray-50 transition-all">
+                                Watch Demo
+                            </button>
+                            
+                            <!-- Secondary Gray text -->
+                            <button class="bg-white text-tf-text_muted px-8 py-3 rounded-xl font-bold border border-gray-200 hover:bg-gray-50 transition-all text-sm uppercase tracking-wider">
+                                Activate Client
+                            </button>
+
+                            <!-- Destructive -->
+                            <button class="bg-red-50 text-red-600 px-6 py-2.5 rounded-xl font-bold hover:bg-red-100 transition-all text-sm flex items-center gap-2">
+                                <i class="ph-bold ph-trash"></i> DELETE SAFE
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="bg-white rounded-3xl p-8 shadow-soft border border-gray-100">
+                        <h3 class="text-lg font-bold mb-6">Badges & Status Tags</h3>
+                        <div class="flex flex-wrap gap-4">
+                            <!-- Purple Solid -->
+                            <span class="bg-tf-purple text-white text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-widest">
+                                Most Popular
+                            </span>
+                            
+                            <!-- Purple Light -->
+                            <span class="bg-tf-purple_light text-tf-purple text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider flex items-center gap-1">
+                                <i class="ph-fill ph-lightning"></i> AI Auto-Sorts • Accountant Ready
+                            </span>
+
+                            <!-- Success Light -->
+                            <span class="bg-tf-green_light text-tf-green text-xs font-bold px-3 py-1 rounded-full flex items-center gap-1">
+                                <i class="ph-fill ph-check-circle"></i> Active
+                            </span>
+                            
+                            <!-- Outline Badge -->
+                            <span class="border border-gray-200 text-tf-text_muted text-xs font-bold px-3 py-1 rounded-full uppercase">
+                                Firm Starter — 2 of 10 Safes in Use
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                                <!-- Buttons -->
+                                <div>
+                                    <h2 class="text-lg font-bold mb-4">Buttons</h2>
+                                    <div class="bg-white p-8 rounded-3xl shadow-soft border border-gray-100 flex flex-wrap gap-6 items-center">
+                                        <!-- Primary -->
+                                        <div class="space-y-2 text-center">
+                                            <button class="bg-tf-purple text-white px-6 py-3 rounded-xl font-bold shadow-glow hover:bg-tf-purple_hover transition-colors flex items-center justify-center gap-2 min-w-[160px]">
+                                                Activate My Safe <i class="ph-bold ph-arrow-right"></i>
+                                            </button>
+                                            <p class="text-xs text-gray-500 font-mono">Primary</p>
+                                        </div>
+                                        
+                                        <!-- Dark -->
+                                        <div class="space-y-2 text-center">
+                                            <button class="bg-tf-dark text-white px-6 py-3 rounded-xl font-bold shadow-soft hover:bg-tf-dark_hover transition-colors flex items-center justify-center gap-2 min-w-[160px]">
+                                                Sign In <i class="ph-bold ph-arrow-right"></i>
+                                            </button>
+                                            <p class="text-xs text-gray-500 font-mono">Dark</p>
+                                        </div>
+                
+                                        <!-- Secondary / Outline -->
+                                        <div class="space-y-2 text-center">
+                                            <button class="bg-white text-tf-dark border border-gray-200 px-6 py-3 rounded-xl font-bold shadow-sm hover:bg-gray-50 transition-colors min-w-[160px]">
+                                                Watch Demo
+                                            </button>
+                                            <p class="text-xs text-gray-500 font-mono">Outline</p>
+                                        </div>
+                
+                                        <!-- Google Auth -->
+                                        <div class="space-y-2 text-center">
+                                            <button class="bg-white text-tf-dark border border-gray-200 px-6 py-3 rounded-full font-bold shadow-sm hover:bg-gray-50 transition-colors flex items-center justify-center gap-2 w-full max-w-[280px]">
+                                                <img src="https://www.svgrepo.com/show/475656/google-color.svg" class="w-5 h-5" alt="Google"> Continue with Google
+                                            </button>
+                                            <p class="text-xs text-gray-500 font-mono">Social (Pill)</p>
+                                        </div>
+                                    </div>
+                                </div>
+            </section>
+
+            <!-- INPUTS & FORMS SECTION -->
+            <section id="inputs" class="tab-content space-y-8">
+                <div class="border-b border-gray-200 pb-5">
+                    <h1 class="text-3xl font-black tracking-tight">Inputs & Forms</h1>
+                    <p class="text-tf-text_muted mt-2">Form controls with high focus states and clear labels.</p>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-8">
+                    <!-- Standard Forms -->
+                    <div class="bg-white rounded-3xl p-8 shadow-soft border border-gray-100 space-y-6">
+                        <h3 class="text-lg font-bold mb-2">Login / Standard Inputs</h3>
+                        
+                        <div>
+                            <label class="block text-xs font-bold text-tf-text_muted uppercase tracking-wider mb-2">Email Address</label>
+                            <input type="email" placeholder="name@company.com" class="w-full px-4 py-3.5 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-tf-purple/20 focus:border-tf-purple transition-all bg-white font-medium placeholder-gray-400 text-tf-dark">
+                        </div>
+
+                        <div>
+                            <div class="flex justify-between items-center mb-2">
+                                <label class="block text-xs font-bold text-tf-text_muted uppercase tracking-wider">Password</label>
+                                <a href="#" class="text-xs font-bold text-tf-purple hover:underline">FORGOT?</a>
+                            </div>
+                            <div class="relative">
+                                <input type="password" placeholder="••••••••" class="w-full px-4 py-3.5 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-tf-purple/20 focus:border-tf-purple transition-all bg-white font-medium text-tf-dark">
+                                <i class="ph ph-lock absolute right-4 top-1/2 -translate-y-1/2 text-gray-400"></i>
+                            </div>
+                        </div>
+
+                        <label class="flex items-center gap-3 cursor-pointer">
+                            <input type="checkbox" class="w-4 h-4 rounded border-gray-300 text-tf-purple focus:ring-tf-purple">
+                            <span class="text-sm font-semibold text-tf-dark">Keep my session active</span>
+                        </label>
+                    </div>
+
+                    <!-- Search & Custom Forms -->
+                    <div class="space-y-6">
+                        <div class="bg-white rounded-3xl p-8 shadow-soft border border-gray-100">
+                            <h3 class="text-lg font-bold mb-4">Search & Filters</h3>
+                            
+                            <div class="relative mb-4">
+                                <i class="ph ph-magnifying-glass absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 text-lg"></i>
+                                <input type="text" placeholder="Search your safes..." class="w-full pl-12 pr-4 py-3 rounded-full border border-gray-200 focus:outline-none focus:ring-2 focus:ring-tf-purple/20 focus:border-tf-purple transition-all bg-white font-medium placeholder-gray-400">
+                            </div>
+
+                            <div class="flex gap-2">
+                                <select class="appearance-none bg-white border border-gray-200 rounded-full px-4 py-2 text-sm font-bold text-tf-dark focus:outline-none focus:ring-2 focus:ring-tf-purple/20 cursor-pointer">
+                                    <option>ALL YEARS</option>
+                                    <option>2024</option>
+                                    <option>2023</option>
+                                </select>
+                                <select class="appearance-none bg-white border border-gray-200 rounded-full px-4 py-2 text-sm font-bold text-tf-dark focus:outline-none focus:ring-2 focus:ring-tf-purple/20 cursor-pointer">
+                                    <option>ALL STATUSES</option>
+                                    <option>Locked</option>
+                                    <option>Review Needed</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- Dark form variant -->
+                        <div class="bg-tf-green_dark text-white rounded-3xl p-8 shadow-soft">
+                            <h3 class="text-xl font-bold mb-2">Invite Firm Employee</h3>
+                            <p class="text-green-100 text-sm mb-6">Send a secure invite so a team member can join your firm.</p>
+                            
+                            <label class="block text-xs font-bold text-green-200 uppercase tracking-wider mb-2">Employee Email</label>
+                            <div class="relative mb-6">
+                                <i class="ph ph-envelope absolute left-4 top-1/2 -translate-y-1/2 text-green-200/50 text-lg"></i>
+                                <input type="email" placeholder="employee@firm.com" class="w-full pl-12 pr-4 py-3 rounded-xl border border-white/10 bg-black/20 focus:outline-none focus:ring-2 focus:ring-white/30 text-white placeholder-green-200/50 font-medium">
+                            </div>
+                            
+                            <button class="w-full bg-white/20 hover:bg-white/30 text-white py-3 rounded-xl font-bold transition-colors flex justify-center items-center gap-2">
+                                <i class="ph-bold ph-user-plus"></i> SEND EMPLOYEE INVITE
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- CARDS & VAULTS SECTION -->
+            <section id="cards" class="tab-content space-y-8">
+                <div class="border-b border-gray-200 pb-5">
+                    <h1 class="text-3xl font-black tracking-tight">Cards & Vaults</h1>
+                    <p class="text-tf-text_muted mt-2">Displaying complex information, pricing, and system statuses.</p>
+                </div>
+    
+                    <!-- Pricing Cards -->
+                    <div>
+                        <h2 class="text-lg font-bold mb-4">Pricing Cards (Landing Page)</h2>
+                        <div class="grid md:grid-cols-3 gap-6">
+                            
+                            <!-- Basic Card -->
+                            <div class="bg-white rounded-3xl p-8 border border-gray-100 flex flex-col items-center text-center shadow-sm">
+                                <h3 class="text-xl font-bold text-tf-dark">Basic Safe</h3>
+                                <p class="text-xs font-bold text-tf-text_muted uppercase tracking-wider mt-1">Personal Tax Safe</p>
+                                <div class="mt-6 mb-8 flex items-baseline">
+                                    <span class="text-4xl font-black text-tf-dark">$29.99</span>
+                                    <span class="text-gray-500 font-medium ml-1">/mo</span>
+                                </div>
+                                <div class="w-full bg-gray-50 rounded-full py-2 px-4 flex justify-between items-center mb-8 border border-gray-100">
+                                    <span class="text-xs font-bold text-gray-500 uppercase">Capacity</span>
+                                    <span class="text-sm font-bold text-tf-purple">250 Files</span>
+                                </div>
+                                <ul class="space-y-4 mb-8 text-left w-full text-sm font-medium text-gray-600">
+                                    <li class="flex items-center gap-3"><i class="ph-bold ph-check text-gray-300"></i> AI Auto-Sorting</li>
+                                    <li class="flex items-center gap-3"><i class="ph-bold ph-check text-gray-300"></i> Virtual Drive Access</li>
+                                    <li class="flex items-center gap-3"><i class="ph-bold ph-check text-gray-300"></i> 10-Year Final Lock</li>
+                                </ul>
+                                <button class="w-full mt-auto bg-white text-tf-dark border border-gray-200 py-3 rounded-xl font-bold hover:bg-gray-50 transition-colors">ACTIVATE BASIC</button>
+                            </div>
+    
+                            <!-- Pro Card (Most Popular) -->
+                            <div class="bg-white rounded-3xl p-8 border-2 border-tf-purple flex flex-col items-center text-center shadow-glow relative scale-105 z-10">
+                                <div class="absolute -top-3 bg-tf-purple text-white text-[10px] font-bold uppercase tracking-widest py-1 px-4 rounded-full">Most Popular</div>
+                                <h3 class="text-xl font-bold text-tf-dark">Pro Safe</h3>
+                                <p class="text-xs font-bold text-tf-text_muted uppercase tracking-wider mt-1">Personal Tax Safe</p>
+                                <div class="mt-6 mb-8 flex items-baseline">
+                                    <span class="text-5xl font-black text-tf-dark">$59.99</span>
+                                    <span class="text-gray-500 font-medium ml-1">/mo</span>
+                                </div>
+                                <div class="w-full bg-gray-50 rounded-full py-2 px-4 flex justify-between items-center mb-8 border border-gray-100">
+                                    <span class="text-xs font-bold text-gray-500 uppercase">Capacity</span>
+                                    <span class="text-sm font-bold text-tf-purple">500 Files</span>
+                                </div>
+                                <ul class="space-y-4 mb-8 text-left w-full text-sm font-medium text-gray-600">
+                                    <li class="flex items-center gap-3"><i class="ph-bold ph-check-circle text-tf-purple"></i> Everything in Basic</li>
+                                    <li class="flex items-center gap-3"><i class="ph-bold ph-check-circle text-tf-purple"></i> Priority AI Processing</li>
+                                    <li class="flex items-center gap-3"><i class="ph-bold ph-check-circle text-tf-purple"></i> Unlimited Invited CPAs</li>
+                                </ul>
+                                <button class="w-full mt-auto bg-tf-purple text-white py-3 rounded-xl font-bold hover:bg-tf-purple_hover transition-colors shadow-glow">ACTIVATE PRO</button>
+                            </div>
+    
+                            <!-- Custom Dark Card (Invite) -->
+                            <div class="bg-[#1C4532] rounded-3xl p-8 text-white flex flex-col shadow-xl relative overflow-hidden h-full">
+                                <div class="absolute -bottom-10 -right-10 text-[#255C43] opacity-50">
+                                    <i class="ph-fill ph-asterisk text-9xl"></i>
+                                </div>
+                                <div class="relative z-10">
+                                    <h3 class="text-xl font-bold mb-2">Invite Firm Employee</h3>
+                                    <p class="text-sm text-green-100 mb-8 font-medium">Send a secure invite so a team member can join your firm. Assign them to client safes after they accept.</p>
+                                    
+                                    <div class="space-y-4 w-full">
+                                        <div>
+                                            <label class="text-xs font-bold text-green-200 uppercase tracking-wider block mb-1.5">Employee Email</label>
+                                            <div class="relative">
+                                                <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                                                    <i class="ph ph-envelope-simple text-green-400/50 text-lg"></i>
+                                                </div>
+                                                <input type="email" placeholder="employee@firm.com" class="w-full pl-11 pr-4 py-3 bg-[#143325] border border-[#255C43] text-white placeholder-green-400/50 rounded-xl focus:outline-none focus:border-green-400 transition-colors text-sm font-medium">
+                                            </div>
+                                        </div>
+                                        <button class="w-full bg-white/90 text-[#1C4532] py-3 rounded-xl font-bold hover:bg-white transition-colors flex justify-center items-center gap-2">
+                                            <i class="ph-bold ph-user-plus"></i> SEND EMPLOYEE INVITE
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+    
+                        </div>
+                    </div>
+    
+                    <!-- Dashboard Widgets -->
+                    <div>
+                        <h2 class="text-lg font-bold mb-4">Dashboard Widgets</h2>
+                        <div class="grid md:grid-cols-2 gap-6">
+                            
+                            <!-- Progress Card -->
+                            <div class="bg-tf-purple rounded-3xl p-6 text-white shadow-glow relative overflow-hidden">
+                                <div class="flex justify-between items-start mb-8">
+                                    <div class="flex items-center gap-3">
+                                        <i class="ph-bold ph-lock-key text-2xl"></i>
+                                        <h3 class="text-xl font-bold">10-Year Final Lock</h3>
+                                    </div>
+                                    <span class="bg-white/20 px-3 py-1 rounded-full text-xs font-bold tracking-wider">FIRM STARTER PLAN</span>
+                                </div>
+                                <p class="text-sm text-white/80 font-medium mb-6">Your Pro Safe provides immutable storage.</p>
+                                
+                                <div class="flex justify-between items-end mb-2">
+                                    <div class="flex items-baseline gap-1">
+                                        <span class="text-3xl font-black">0 B</span>
+                                        <span class="text-sm font-medium text-white/80">used of 500 GB</span>
+                                    </div>
+                                    <span class="text-sm font-bold">0.5%</span>
+                                </div>
+                                <!-- Progress Bar -->
+                                <div class="w-full bg-white/20 rounded-full h-3">
+                                    <div class="bg-white h-3 rounded-full" style="width: 5%"></div>
+                                </div>
+                            </div>
+    
+                            <!-- Small Stat Cards -->
+                            <div class="grid grid-cols-2 gap-4">
+                                <div class="bg-white rounded-2xl p-5 shadow-sm border border-gray-100 flex items-center gap-4">
+                                    <div class="w-12 h-12 rounded-full bg-tf-purple_light flex items-center justify-center text-tf-purple">
+                                        <i class="ph-fill ph-archive-box text-2xl"></i>
+                                    </div>
+                                    <div>
+                                        <p class="text-xs font-bold text-tf-text_muted uppercase tracking-wider">Total Files</p>
+                                        <p class="text-2xl font-black text-tf-dark">250</p>
+                                    </div>
+                                </div>
+                                <div class="bg-white rounded-2xl p-5 shadow-sm border border-gray-100 flex items-center gap-4">
+                                    <div class="w-12 h-12 rounded-full bg-yellow-50 flex items-center justify-center text-yellow-600">
+                                        <i class="ph-fill ph-magic-wand text-2xl"></i>
+                                    </div>
+                                    <div>
+                                        <p class="text-xs font-bold text-tf-text_muted uppercase tracking-wider">AI Sorted</p>
+                                        <p class="text-2xl font-black text-tf-dark">248</p>
+                                    </div>
+                                </div>
+                                <div class="bg-white rounded-2xl p-5 shadow-sm border border-gray-100 flex items-center gap-4">
+                                    <div class="w-12 h-12 rounded-full bg-red-50 flex items-center justify-center text-red-500">
+                                        <i class="ph-fill ph-warning text-2xl"></i>
+                                    </div>
+                                    <div>
+                                        <p class="text-xs font-bold text-tf-text_muted uppercase tracking-wider">Review Needed</p>
+                                        <p class="text-2xl font-black text-tf-dark">2</p>
+                                    </div>
+                                </div>
+                                <div class="bg-white rounded-2xl p-5 shadow-sm border border-gray-100 flex items-center gap-4">
+                                    <div class="w-12 h-12 rounded-full bg-tf-green_light flex items-center justify-center text-tf-green">
+                                        <i class="ph-fill ph-database text-2xl"></i>
+                                    </div>
+                                    <div>
+                                        <p class="text-xs font-bold text-tf-text_muted uppercase tracking-wider">Storage Used</p>
+                                        <p class="text-2xl font-black text-tf-dark">12 MB</p>
+                                    </div>
+                                </div>
+                            </div>
+    
+                        </div>
+                    </div>
+               
+                    <!-- App Download Card -->
+                    <div class="bg-white rounded-3xl p-6 border border-gray-100 shadow-soft flex items-center justify-between">
+                        <div>
+                            <div class="w-12 h-12 bg-tf-purple rounded-xl flex items-center justify-center text-white mb-4 shadow-glow">
+                                <i class="ph-bold ph-desktop text-2xl"></i>
+                            </div>
+                            <h3 class="text-xl font-black mb-1">Secure Desktop Client</h3>
+                            <p class="text-sm text-tf-text_muted max-w-sm mb-6">Mount your secure business drive directly to your computer. Access your files as a local disk with end-to-end encryption.</p>
+                            
+                            <div class="flex gap-3">
+                                <button class="bg-tf-purple text-white px-5 py-2.5 rounded-xl font-bold text-sm hover:bg-tf-purple_hover transition-colors flex items-center gap-2">
+                                    <i class="ph-bold ph-download"></i> Windows
+                                </button>
+                                <button class="bg-white border border-gray-200 text-tf-dark px-5 py-2.5 rounded-xl font-bold text-sm hover:bg-gray-50 transition-colors flex items-center gap-2">
+                                    <i class="ph-fill ph-apple-logo"></i> macOS
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="hidden md:block p-8 bg-gray-50 rounded-2xl border border-gray-100 mr-4">
+                            <div class="w-16 h-16 bg-white rounded-2xl shadow-sm flex flex-col items-center justify-center mx-auto mb-2 border border-gray-100">
+                                <i class="ph-fill ph-hard-drives text-tf-purple text-2xl mb-1"></i>
+                            </div>
+                            <p class="text-center font-bold text-sm">Z: DRIVE</p>
+                            <p class="text-center text-[10px] font-bold text-tf-green uppercase tracking-widest">Mounted</p>
+                        </div>
+                    </div>
+            </section>
+
+            <!-- DATA & TABLES SECTION -->
+            <section id="tables" class="tab-content space-y-8">
+                <div class="border-b border-gray-200 pb-5">
+                    <h1 class="text-3xl font-black tracking-tight">Data & Tables</h1>
+                    <p class="text-tf-text_muted mt-2">Displaying lists of documents and files.</p>
+                </div>
+
+                <!-- Stats Row -->
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+                    <div class="bg-white p-5 rounded-2xl shadow-soft border border-gray-100 flex items-center gap-4">
+                        <div class="w-10 h-10 rounded-full bg-tf-purple_light text-tf-purple flex items-center justify-center">
+                            <i class="ph-fill ph-files text-xl"></i>
+                        </div>
+                        <div>
+                            <p class="text-xs font-bold text-tf-text_muted uppercase tracking-wider">Total Files</p>
+                            <p class="text-xl font-black">250</p>
+                        </div>
+                    </div>
+                    <div class="bg-white p-5 rounded-2xl shadow-soft border border-gray-100 flex items-center gap-4">
+                        <div class="w-10 h-10 rounded-full bg-yellow-50 text-yellow-600 flex items-center justify-center">
+                            <i class="ph-fill ph-magic-wand text-xl"></i>
+                        </div>
+                        <div>
+                            <p class="text-xs font-bold text-tf-text_muted uppercase tracking-wider">AI Sorted</p>
+                            <p class="text-xl font-black">248</p>
+                        </div>
+                    </div>
+                     <div class="bg-white p-5 rounded-2xl shadow-soft border border-gray-100 flex items-center gap-4">
+                        <div class="w-10 h-10 rounded-full bg-red-50 text-red-500 flex items-center justify-center">
+                            <i class="ph-fill ph-warning-circle text-xl"></i>
+                        </div>
+                        <div>
+                            <p class="text-xs font-bold text-tf-text_muted uppercase tracking-wider">Review Needed</p>
+                            <p class="text-xl font-black">2</p>
+                        </div>
+                    </div>
+                    <div class="bg-white p-5 rounded-2xl shadow-soft border border-gray-100 flex items-center gap-4">
+                        <div class="w-10 h-10 rounded-full bg-tf-green_light text-tf-green flex items-center justify-center">
+                            <i class="ph-fill ph-database text-xl"></i>
+                        </div>
+                        <div>
+                            <p class="text-xs font-bold text-tf-text_muted uppercase tracking-wider">Storage Used</p>
+                            <p class="text-xl font-black">1.2 GB</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Complex Table Layout -->
+                <div class="bg-white rounded-3xl shadow-soft border border-gray-100 overflow-hidden flex flex-col md:flex-row min-h-[500px]">
+                    <!-- Table Sidebar -->
+                    <div class="w-full md:w-64 bg-white border-r border-gray-100 p-4">
+                        <div class="space-y-2">
+                            <button class="w-full flex items-center gap-3 px-4 py-3 bg-tf-purple text-white rounded-xl font-bold text-sm shadow-md">
+                                <i class="ph-bold ph-folder"></i> All Files
+                            </button>
+                            <button class="w-full flex items-center gap-3 px-4 py-3 text-tf-text_muted hover:bg-gray-50 rounded-xl font-semibold text-sm transition-colors">
+                                <i class="ph ph-tray"></i> Inbox
+                            </button>
+                            <button class="w-full flex items-center gap-3 px-4 py-3 text-tf-text_muted hover:bg-gray-50 rounded-xl font-semibold text-sm transition-colors">
+                                <i class="ph ph-lightning"></i> AI Sorted
+                            </button>
+                            <button class="w-full flex items-center gap-3 px-4 py-3 text-tf-text_muted hover:bg-gray-50 rounded-xl font-semibold text-sm transition-colors">
+                                <i class="ph ph-lock-key"></i> Final
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- Table Content -->
+                    <div class="flex-1 flex flex-col">
+                        <div class="p-4 border-b border-gray-100 flex justify-between items-center">
+                            <div class="flex items-center gap-3">
+                                <h3 class="font-bold text-lg">Your Documents (2)</h3>
+                                <span class="bg-tf-purple_light text-tf-purple text-[10px] font-bold px-2 py-1 rounded uppercase tracking-wider"><i class="ph-fill ph-lightning"></i> AI Sorted</span>
+                            </div>
+                            <div class="flex items-center gap-2 text-sm">
+                                <span class="text-tf-text_muted font-semibold">Show</span>
+                                <select class="border border-gray-200 rounded-lg px-2 py-1 font-bold outline-none">
+                                    <option>10 Per Page</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- Table Header -->
+                        <div class="grid grid-cols-12 gap-4 px-6 py-4 border-b border-gray-100 text-xs font-bold text-tf-text_muted uppercase tracking-wider bg-gray-50/50">
+                            <div class="col-span-1"><input type="checkbox" class="rounded border-gray-300"></div>
+                            <div class="col-span-4 flex items-center gap-1 cursor-pointer hover:text-tf-dark">DOCUMENT NAME <i class="ph-bold ph-caret-up-down"></i></div>
+                            <div class="col-span-2 flex items-center gap-1 cursor-pointer hover:text-tf-dark">YEAR <i class="ph-bold ph-caret-up-down"></i></div>
+                            <div class="col-span-3 flex items-center gap-1 cursor-pointer text-tf-purple">UPLOADED DATE <i class="ph-bold ph-caret-down"></i></div>
+                            <div class="col-span-2 text-right">STATUS</div>
+                        </div>
+
+                        <!-- Table Rows -->
+                        <div class="flex-1 overflow-y-auto">
+                            <!-- Row 1 -->
+                            <div class="grid grid-cols-12 gap-4 px-6 py-4 border-b border-gray-50 items-center hover:bg-gray-50 transition-colors group">
+                                <div class="col-span-1"><input type="checkbox" class="rounded border-gray-300"></div>
+                                <div class="col-span-4 flex items-center gap-3">
+                                    <div class="w-8 h-8 rounded-lg bg-tf-purple_light text-tf-purple flex items-center justify-center">
+                                        <i class="ph-fill ph-file-pdf text-lg"></i>
+                                    </div>
+                                    <span class="font-bold text-sm">W2_John_Doe.pdf</span>
+                                </div>
+                                <div class="col-span-2 text-sm font-semibold text-tf-text_muted">2024</div>
+                                <div class="col-span-3 text-sm font-semibold text-tf-text_muted">Oct 24, 2024</div>
+                                <div class="col-span-2 text-right">
+                                    <span class="bg-tf-green_light text-tf-green text-[10px] font-bold px-2.5 py-1 rounded-full uppercase tracking-wider">Ready</span>
+                                </div>
+                            </div>
+                            <!-- Row 2 -->
+                            <div class="grid grid-cols-12 gap-4 px-6 py-4 border-b border-gray-50 items-center hover:bg-gray-50 transition-colors group">
+                                <div class="col-span-1"><input type="checkbox" class="rounded border-gray-300"></div>
+                                <div class="col-span-4 flex items-center gap-3">
+                                    <div class="w-8 h-8 rounded-lg bg-gray-100 text-tf-text_muted flex items-center justify-center">
+                                        <i class="ph-fill ph-file-text text-lg"></i>
+                                    </div>
+                                    <span class="font-bold text-sm text-tf-dark line-through decoration-2 decoration-gray-300">2024 Form 1040 — Final</span>
+                                </div>
+                                <div class="col-span-2 text-sm font-semibold text-tf-text_muted">2024</div>
+                                <div class="col-span-3 text-sm font-semibold text-tf-text_muted">Oct 20, 2024</div>
+                                <div class="col-span-2 text-right flex justify-end gap-2 items-center">
+                                    <i class="ph-fill ph-lock-key text-tf-green"></i>
+                                    <span class="text-[10px] font-bold text-tf-text_muted uppercase tracking-wider">Locked</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="p-4 border-t border-gray-100 flex justify-between items-center text-xs font-bold text-tf-text_muted uppercase tracking-wider">
+                            <span>Showing 1 to 2 of 2 files</span>
+                            <div class="flex gap-1">
+                                <button class="w-8 h-8 rounded-lg border border-gray-200 flex items-center justify-center hover:bg-gray-50 disabled:opacity-50"><i class="ph-bold ph-caret-left"></i></button>
+                                <button class="w-8 h-8 rounded-lg border border-gray-200 flex items-center justify-center hover:bg-gray-50 disabled:opacity-50"><i class="ph-bold ph-caret-right"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- MODALS SECTION -->
+            <section id="modals" class="tab-content space-y-8">
+                <div class="border-b border-gray-200 pb-5 flex justify-between items-end">
+                    <div>
+                        <h1 class="text-3xl font-black tracking-tight">Modals & Dialogs</h1>
+                        <p class="text-tf-text_muted mt-2">Complex overlays for authentication and critical actions.</p>
+                    </div>
+                    <button onclick="toggleModal('demo-modal')" class="bg-tf-purple text-white px-6 py-2.5 rounded-xl font-bold shadow-glow hover:bg-tf-purple_hover transition-colors">
+                        Launch Demo Modal
+                    </button>
+                </div>
+
+                <div class="bg-gray-200 rounded-3xl p-8 h-[600px] flex items-center justify-center relative overflow-hidden">
+                    <!-- Inline preview of modal structure without overlay -->
+                     <div class="bg-white rounded-[2rem] shadow-2xl flex max-w-4xl w-full overflow-hidden transform scale-90">
+                        <!-- Left Panel (Dark) -->
+                        <div class="w-5/12 bg-[#1A1C3A] p-10 text-white flex flex-col justify-between relative overflow-hidden">
+                            <!-- Background accent -->
+                            <div class="absolute -top-24 -left-24 w-64 h-64 bg-tf-purple/30 rounded-full blur-3xl"></div>
+                            
+                            <div class="relative z-10 space-y-8">
+                                <div class="flex items-center gap-2">
+                                    <div class="w-10 h-10 bg-tf-purple rounded-xl flex items-center justify-center shadow-glow">
+                                        <i class="ph-fill ph-shield-check text-xl"></i>
+                                    </div>
+                                    <div>
+                                        <div class="font-black leading-none text-sm uppercase tracking-widest">TaxBox Safe</div>
+                                        <div class="text-[10px] text-white/50 font-bold tracking-widest">PROTOCOL V4.0.6</div>
+                                    </div>
+                                </div>
+                                
+                                <div>
+                                    <h2 class="text-3xl font-black mb-6 leading-tight">Initialize your<br>encrypted identity.</h2>
+                                    <ul class="space-y-4">
+                                        <li class="flex items-center gap-3 text-sm text-white/80 font-medium">
+                                            <i class="ph-bold ph-lock-key text-tf-purple"></i> AES-256 GCM Encryption
+                                        </li>
+                                        <li class="flex items-center gap-3 text-sm text-white/80 font-medium">
+                                            <i class="ph-bold ph-database text-tf-purple"></i> Immutable Storage Layer
+                                        </li>
+                                        <li class="flex items-center gap-3 text-sm text-white/80 font-medium">
+                                            <i class="ph-bold ph-cpu text-tf-purple"></i> AI Pattern Matching
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            
+                            <div class="relative z-10 bg-white/5 border border-white/10 rounded-2xl p-5 backdrop-blur-sm">
+                                <div class="flex text-yellow-400 text-sm mb-2">
+                                    <i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i>
+                                </div>
+                                <p class="text-xs text-white/70 italic leading-relaxed">"The most seamless tax tool I've ever used. The security is unmatched."</p>
+                            </div>
+                        </div>
+
+                        <!-- Right Panel (Light) -->
+                        <div class="w-7/12 bg-white p-12">
+                            <div class="flex gap-2 mb-8">
+                                <div class="w-8 h-1.5 bg-tf-purple rounded-full"></div>
+                                <div class="w-8 h-1.5 bg-gray-200 rounded-full"></div>
+                                <div class="w-8 h-1.5 bg-gray-200 rounded-full"></div>
+                            </div>
+                            
+                            <p class="text-[10px] font-bold text-tf-text_muted uppercase tracking-widest mb-1">Security</p>
+                            <h2 class="text-3xl font-black text-tf-dark mb-2">Welcome Back</h2>
+                            <p class="text-sm text-tf-text_muted mb-10 font-medium">Access your encrypted tax documents.</p>
+                            
+                            <div class="space-y-5">
+                                <div>
+                                    <label class="block text-xs font-bold text-tf-text_muted uppercase tracking-wider mb-2">Email Identity</label>
+                                    <div class="relative">
+                                        <i class="ph-bold ph-envelope absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"></i>
+                                        <input type="email" placeholder="name@domain.com" class="w-full pl-11 pr-4 py-3.5 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-tf-purple/20 focus:border-tf-purple text-tf-dark font-medium">
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <div class="flex justify-between items-center mb-2">
+                                        <label class="block text-xs font-bold text-tf-text_muted uppercase tracking-wider">Secret Key (Password)</label>
+                                        <a href="#" class="text-xs font-bold text-tf-purple hover:underline">FORGOT?</a>
+                                    </div>
+                                    <div class="relative">
+                                        <i class="ph-bold ph-lock-key absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"></i>
+                                        <input type="password" placeholder="••••••••" class="w-full pl-11 pr-4 py-3.5 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-tf-purple/20 focus:border-tf-purple text-tf-dark font-medium">
+                                    </div>
+                                </div>
+
+                                <button class="w-full bg-black text-white py-4 rounded-xl font-bold flex justify-center items-center gap-2 mt-2 hover:bg-gray-900 transition-colors">
+                                    SIGN IN <i class="ph-bold ph-arrow-right"></i>
+                                </button>
+                                
+                                <div class="text-center pt-2">
+                                    <p class="text-sm font-medium text-tf-text_muted">New user? <a href="#" class="text-tf-purple font-bold">Create account</a></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+
+ <!-- Toast Notification -->
+ <div id="toast" class="fixed bottom-5 right-5 bg-tf-dark text-white px-4 py-3 rounded-lg shadow-xl font-semibold text-sm transform translate-y-20 opacity-0 transition-all duration-300 z-50 flex items-center gap-2">
+    <i class="ph-bold ph-check-circle text-tf-green"></i> <span id="toast-msg">Copied to clipboard!</span>
+</div>
+       <!-- ==========================================
+             ALERTS & NOTIFICATIONS
+        =========================================== -->
+        <section id="alerts" class="tab-content space-y-8">
+            <div class="border-b border-gray-200 pb-5 flex justify-between items-end">
+                <div>
+                    <h1 class="text-3xl font-black tracking-tight text-tf-dark">Alerts & Notifications</h1>
+                    <p class="text-tf-text_muted mt-2">Feedback messages for user actions and system statuses.</p>
+                </div>
+                <button onclick="showToast('Test notification triggered!')" class="bg-tf-dark text-white px-4 py-2 rounded-lg font-bold text-sm hover:bg-tf-dark_hover transition-colors shadow-soft">
+                    Trigger Toast Demo
+                </button>
+            </div>
+
+             <div class="bg-gray-200 rounded-3xl p-8 h-[600px] flex items-center justify-center relative overflow-hidden">
+                <!-- Inline Alerts -->
+                <div class="bg-white rounded-3xl p-8 shadow-soft border border-gray-100 space-y-6">
+                    <h3 class="text-lg font-bold mb-2">Inline Banners</h3>
+                    
+                    <!-- Info -->
+                    <div class="bg-blue-50 border border-blue-100 rounded-xl p-4 flex gap-3">
+                        <i class="ph-fill ph-info text-blue-500 text-xl flex-shrink-0 mt-0.5"></i>
+                        <div>
+                            <h4 class="text-sm font-bold text-blue-900 mb-1">Tax Season Update</h4>
+                            <p class="text-xs text-blue-800/80 font-medium leading-relaxed">The IRS has extended the filing deadline for certain regions. Check your eligibility.</p>
+                        </div>
+                    </div>
+
+                    <!-- Success -->
+                    <div class="bg-tf-green_light border border-green-200 rounded-xl p-4 flex gap-3">
+                        <i class="ph-fill ph-check-circle text-tf-green text-xl flex-shrink-0 mt-0.5"></i>
+                        <div>
+                            <h4 class="text-sm font-bold text-green-900 mb-1">Safe Encrypted Successfully</h4>
+                            <p class="text-xs text-green-800/80 font-medium leading-relaxed">All 250 files have been processed and permanently locked.</p>
+                        </div>
+                    </div>
+
+                    <!-- Warning -->
+                    <div class="bg-yellow-50 border border-yellow-200 rounded-xl p-4 flex gap-3">
+                        <i class="ph-fill ph-warning text-yellow-600 text-xl flex-shrink-0 mt-0.5"></i>
+                        <div>
+                            <h4 class="text-sm font-bold text-yellow-900 mb-1">Action Required</h4>
+                            <p class="text-xs text-yellow-800/80 font-medium leading-relaxed">Your payment method is expiring in 3 days. Update it to prevent locking.</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Error -->
+                    <div class="bg-red-50 border border-red-200 rounded-xl p-4 flex gap-3">
+                        <i class="ph-fill ph-warning-circle text-red-500 text-xl flex-shrink-0 mt-0.5"></i>
+                        <div>
+                            <h4 class="text-sm font-bold text-red-900 mb-1">Decryption Failed</h4>
+                            <p class="text-xs text-red-800/80 font-medium leading-relaxed">The secret key provided does not match the Safe's signature.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Toast Examples -->
+                <div class="bg-white rounded-3xl p-8 shadow-soft border border-gray-100 space-y-6 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMiIgY3k9IjIiIHI9IjIiIGZpbGw9IiNFMkU4RjAiLz48L3N2Zz4=')]">
+                    <h3 class="text-lg font-bold mb-2 bg-white inline-block pr-4">Toast Notifications (Static)</h3>
+                    
+                    <div class="space-y-4">
+                        <!-- Standard Toast -->
+                        <div class="bg-tf-dark text-white px-4 py-3 rounded-xl shadow-xl font-semibold text-sm flex items-center justify-between">
+                            <div class="flex items-center gap-3">
+                                <i class="ph-fill ph-check-circle text-tf-green text-lg"></i>
+                                <span>Client invite sent to john@example.com</span>
+                            </div>
+                            <button class="text-gray-400 hover:text-white"><i class="ph-bold ph-x"></i></button>
+                        </div>
+                        
+                        <!-- Undo Toast -->
+                        <div class="bg-tf-dark text-white px-4 py-3 rounded-xl shadow-xl font-semibold text-sm flex items-center justify-between">
+                            <div class="flex items-center gap-3">
+                                <i class="ph-fill ph-trash text-gray-400 text-lg"></i>
+                                <span>Draft deleted.</span>
+                            </div>
+                            <button class="text-tf-purple_light hover:text-white font-bold text-xs uppercase tracking-wider">Undo</button>
+                        </div>
+
+                        <!-- Error Toast -->
+                        <div class="bg-red-500 text-white px-4 py-3 rounded-xl shadow-xl font-semibold text-sm flex items-center justify-between">
+                            <div class="flex items-center gap-3">
+                                <i class="ph-fill ph-warning-circle text-white text-lg"></i>
+                                <span>Connection lost. Retrying...</span>
+                            </div>
+                            <button class="text-white/70 hover:text-white"><i class="ph-bold ph-x"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+                <!-- ==========================================
+             EMPTY STATES
+        =========================================== -->
+        <section id="empty" class="tab-content space-y-8">
+            <div class="border-b border-gray-200 pb-5">
+                <h1 class="text-3xl font-black tracking-tight text-tf-dark">Empty States</h1>
+                <p class="text-tf-text_muted mt-2">Engaging placeholders for when data is missing or yet to be created.</p>
+            </div>
+
+            <div class="bg-white rounded-3xl p-12 shadow-soft border border-gray-100 flex flex-col items-center justify-center text-center h-[500px]">
+                <!-- Graphic -->
+                <div class="relative mb-8">
+                    <div class="absolute inset-0 bg-tf-purple/10 rounded-full blur-2xl transform scale-150"></div>
+                    <div class="w-24 h-24 bg-white rounded-2xl shadow-glow border border-gray-100 flex items-center justify-center relative z-10 text-tf-purple">
+                        <i class="ph-fill ph-folder-dashed text-5xl"></i>
+                    </div>
+                    <div class="absolute -bottom-2 -right-2 w-10 h-10 bg-tf-green_light rounded-xl flex items-center justify-center border-2 border-white z-20 text-tf-green">
+                        <i class="ph-bold ph-sparkle text-xl"></i>
+                    </div>
+                </div>
+                
+                <h2 class="text-2xl font-black text-tf-dark mb-3">Your Safe is Ready</h2>
+                <p class="text-tf-text_muted max-w-sm mb-8 font-medium leading-relaxed">Drag and drop your tax documents here. Our AI will automatically classify, encrypt, and lock them securely.</p>
+                
+                <div class="flex flex-wrap justify-center gap-4">
+                    <button class="bg-tf-purple text-white px-6 py-3 rounded-xl font-bold shadow-glow hover:bg-tf-purple_hover transition-colors flex items-center gap-2">
+                        <i class="ph-bold ph-upload-simple"></i> Upload Files
+                    </button>
+                    <button class="bg-white text-tf-dark border border-gray-200 px-6 py-3 rounded-xl font-bold hover:bg-gray-50 transition-colors flex items-center gap-2 shadow-sm">
+                        <i class="ph-bold ph-plugs-connected"></i> Connect Drive
+                    </button>
+                </div>
+            </div>
+        </section>
+
+             <!-- ==========================================
+             SIDEBAR & LAYOUT
+        =========================================== -->
+        <section id="sidebar-layout" class="tab-content space-y-8">
+            <div class="border-b border-gray-200 pb-5">
+                <h1 class="text-3xl font-black tracking-tight text-tf-dark">Sidebar & Layout</h1>
+                <p class="text-tf-text_muted mt-2">The main application shell structure.</p>
+            </div>
+
+            <div class="bg-white rounded-3xl border border-gray-200 shadow-xl overflow-hidden flex h-[600px] relative">
+                <!-- Nav Mock -->
+                <aside class="w-64 border-r border-gray-100 flex flex-col h-full bg-white">
+                    <div class="p-6">
+                        <div class="flex items-center gap-2">
+                            <div class="w-8 h-8 bg-tf-dark rounded-lg flex items-center justify-center text-white">
+                                <i class="ph-bold ph-shield-check text-xl"></i>
+                            </div>
+                            <div>
+                                <h1 class="font-black tracking-tight text-tf-dark text-xl">TaxBox</h1>
+                            </div>
+                            <span class="text-[10px] text-tf-purple font-bold tracking-widest ml-1 bg-tf-purple_light px-2 py-0.5 rounded uppercase">Safe</span>
+                        </div>
+                    </div>
+
+                    <!-- User Selector -->
+                    <div class="px-4 mb-6">
+                        <button class="w-full flex items-center justify-between p-3 rounded-xl border border-gray-200 hover:bg-gray-50 transition-colors">
+                            <div class="flex items-center gap-3">
+                                <div class="w-8 h-8 bg-tf-dark text-white rounded-full flex items-center justify-center font-bold text-xs">PE</div>
+                                <div class="text-left">
+                                    <p class="text-[10px] text-gray-500 font-bold uppercase tracking-wider">ACTIVE SAFE</p>
+                                    <p class="text-sm font-bold text-tf-dark">Personal Safe</p>
+                                </div>
+                            </div>
+                            <i class="ph-bold ph-caret-down text-gray-400"></i>
+                        </button>
+                    </div>
+
+                    <!-- Links -->
+                    <div class="flex-1 px-4 space-y-1">
+                        <p class="text-[10px] font-bold text-gray-400 uppercase tracking-wider px-3 mb-2">MAIN</p>
+                        <a href="#" class="flex items-center gap-3 px-3 py-2 text-sm font-bold bg-tf-purple_light text-tf-purple rounded-lg"><i class="ph-fill ph-squares-four text-lg"></i> Dashboard</a>
+                        <a href="#" class="flex items-center gap-3 px-3 py-2 text-sm font-semibold text-gray-600 hover:bg-gray-50 rounded-lg"><i class="ph ph-files text-lg"></i> Documents</a>
+                        <a href="#" class="flex items-center gap-3 px-3 py-2 text-sm font-semibold text-gray-600 hover:bg-gray-50 rounded-lg"><i class="ph ph-shield-check text-lg"></i> Manage Safes</a>
+                        <a href="#" class="flex items-center gap-3 px-3 py-2 text-sm font-semibold text-gray-600 hover:bg-gray-50 rounded-lg"><i class="ph ph-users text-lg"></i> Manage Employees</a>
+                        
+                        <p class="text-[10px] font-bold text-gray-400 uppercase tracking-wider px-3 mt-6 mb-2">TOOLS</p>
+                        <a href="#" class="flex items-center gap-3 px-3 py-2 text-sm font-semibold text-gray-600 hover:bg-gray-50 rounded-lg"><i class="ph ph-desktop text-lg"></i> Desktop App</a>
+                    </div>
+
+                    <!-- Bottom Profile -->
+                    <div class="p-4 border-t border-gray-100">
+                        <div class="flex items-center gap-3">
+                            <img src="https://i.pravatar.cc/150?img=11" alt="User" class="w-10 h-10 rounded-full border border-gray-200">
+                            <div>
+                                <p class="text-sm font-bold text-tf-dark flex items-center gap-1">victor peck <i class="ph-fill ph-check-circle text-tf-purple text-xs"></i></p>
+                                <p class="text-[10px] text-gray-500 font-mono truncate w-32">CLIENT ID • PECK420</p>
+                            </div>
+                        </div>
+                    </div>
+                </aside>
+                <!-- Content Mock -->
+                <main class="flex-1 bg-[#F8F9FA] p-8">
+                    <div class="h-full border-2 border-dashed border-gray-300 rounded-2xl flex items-center justify-center text-gray-400 font-bold">
+                        Main Content Area
+                    </div>
+                </main>
+            </div>
+        </section>
+    </div>
+    </main>
+
+    <!-- Actual Hidden Modal for Demo -->
+    <div id="demo-modal" class="fixed inset-0 bg-tf-navy/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4 opacity-0 transition-opacity duration-300">
+        <div class="bg-white rounded-[2rem] shadow-2xl flex flex-col md:flex-row max-w-4xl w-full overflow-hidden transform scale-95 transition-transform duration-300" id="modal-content">
+            <!-- Modal Content (Same as above) -->
+            <div class="md:w-5/12 bg-[#1A1C3A] p-8 md:p-10 text-white flex flex-col justify-between relative overflow-hidden hidden md:flex">
+                <div class="absolute -top-24 -left-24 w-64 h-64 bg-tf-purple/30 rounded-full blur-3xl"></div>
+                <div class="relative z-10 space-y-8">
+                    <div class="flex items-center gap-2">
+                        <div class="w-10 h-10 bg-tf-purple rounded-xl flex items-center justify-center shadow-glow">
+                            <i class="ph-fill ph-shield-check text-xl"></i>
+                        </div>
+                        <div>
+                            <div class="font-black leading-none text-sm uppercase tracking-widest">TaxBox Safe</div>
+                            <div class="text-[10px] text-white/50 font-bold tracking-widest">PROTOCOL V4.0.6</div>
+                        </div>
+                    </div>
+                    <div>
+                        <h2 class="text-3xl font-black mb-6 leading-tight">Initialize your<br>encrypted identity.</h2>
+                        <ul class="space-y-4">
+                            <li class="flex items-center gap-3 text-sm text-white/80 font-medium"><i class="ph-bold ph-lock-key text-tf-purple"></i> AES-256 GCM Encryption</li>
+                            <li class="flex items-center gap-3 text-sm text-white/80 font-medium"><i class="ph-bold ph-database text-tf-purple"></i> Immutable Storage Layer</li>
+                            <li class="flex items-center gap-3 text-sm text-white/80 font-medium"><i class="ph-bold ph-cpu text-tf-purple"></i> AI Pattern Matching</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="w-full md:w-7/12 bg-white p-8 md:p-12 relative">
+                <button onclick="toggleModal('demo-modal')" class="absolute top-6 right-6 text-gray-400 hover:text-gray-800 transition-colors">
+                    <i class="ph-bold ph-x text-xl"></i>
+                </button>
+                <div class="flex gap-2 mb-8">
+                    <div class="w-8 h-1.5 bg-tf-purple rounded-full"></div>
+                    <div class="w-8 h-1.5 bg-gray-200 rounded-full"></div>
+                </div>
+                <p class="text-[10px] font-bold text-tf-text_muted uppercase tracking-widest mb-1">Security</p>
+                <h2 class="text-3xl font-black text-tf-dark mb-2">Welcome Back</h2>
+                <p class="text-sm text-tf-text_muted mb-10 font-medium">Access your encrypted tax documents.</p>
+                <div class="space-y-5">
+                    <div>
+                        <label class="block text-xs font-bold text-tf-text_muted uppercase tracking-wider mb-2">Email Identity</label>
+                        <div class="relative">
+                            <i class="ph-bold ph-envelope absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"></i>
+                            <input type="email" placeholder="name@domain.com" class="w-full pl-11 pr-4 py-3.5 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-tf-purple/20 focus:border-tf-purple text-tf-dark font-medium">
+                        </div>
+                    </div>
+                    <div>
+                        <div class="flex justify-between items-center mb-2">
+                            <label class="block text-xs font-bold text-tf-text_muted uppercase tracking-wider">Secret Key (Password)</label>
+                            <a href="#" class="text-xs font-bold text-tf-purple hover:underline">FORGOT?</a>
+                        </div>
+                        <div class="relative">
+                            <i class="ph-bold ph-lock-key absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"></i>
+                            <input type="password" placeholder="••••••••" class="w-full pl-11 pr-4 py-3.5 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-tf-purple/20 focus:border-tf-purple text-tf-dark font-medium">
+                        </div>
+                    </div>
+                    <button onclick="toggleModal('demo-modal')" class="w-full bg-black text-white py-4 rounded-xl font-bold flex justify-center items-center gap-2 mt-2 hover:bg-gray-900 transition-colors">
+                        SIGN IN <i class="ph-bold ph-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+   
+  <!-- Global Toast Container -->
+  <div id="toast" class="fixed bottom-6 right-6 transform transition-all duration-300 translate-y-20 opacity-0 z-50">
+    <div class="bg-tf-dark text-white px-5 py-4 rounded-xl shadow-2xl flex items-center gap-3 min-w-[300px]">
+        <i class="ph-fill ph-check-circle text-tf-green text-xl"></i>
+        <span id="toast-msg" class="font-semibold text-sm">Notification message</span>
+    </div>
+</div>
+
+        </div>
+    </main>
+
+            <script>
+                // Tab Switching Logic
+                function switchTab(tabId) {
+                    // Update buttons
+                    document.querySelectorAll('.nav-btn').forEach(btn => {
+                        btn.classList.remove('text-tf-purple', 'bg-tf-purple_light');
+                        btn.classList.add('text-tf-text_muted', 'hover:bg-gray-50');
+                        if(btn.getAttribute('data-tab') === tabId) {
+                            btn.classList.remove('text-tf-text_muted', 'hover:bg-gray-50');
+                            btn.classList.add('text-tf-purple', 'bg-tf-purple_light');
+                        }
+                    });
+        
+                    // Update content sections
+                    document.querySelectorAll('.tab-content').forEach(content => {
+                        content.classList.remove('active');
+                    });
+                    document.getElementById(tabId).classList.add('active');
+                }
+        
+                // Copy to clipboard with custom Toast
+                function copyToClipboard(text) {
+                    // Use legacy method for wider iframe compatibility as per instructions
+                    const textArea = document.createElement("textarea");
+                    textArea.value = text;
+                    document.body.appendChild(textArea);
+                    textArea.select();
+                    try {
+                        document.execCommand('copy');
+                        showToast(`Copied ${text}`);
+                    } catch (err) {
+                        console.error('Failed to copy', err);
+                    }
+                    document.body.removeChild(textArea);
+                }
+        
+                  <!-- MODALS SECTION -->
+        // <!-- ... existing code ... -->
+                function showToast(message) {
+                    const toast = document.getElementById('toast');
+                    document.getElementById('toast-msg').innerText = message;
+                    
+                    // Show toast
+                    toast.classList.remove('translate-y-20', 'opacity-0');
+                    
+                    // Hide toast after 3 seconds
+                    setTimeout(() => {
+                        toast.classList.add('translate-y-20', 'opacity-0');
+                    }, 3000);
+                }
+        
+                // Modal Toggling Logic
+                function toggleModal(modalId) {
+                    const modal = document.getElementById(modalId);
+                    const content = modal.querySelector('#modal-content') || modal.children[0];
+                    
+                    if (modal.classList.contains('hidden')) {
+                        // Open modal
+                        modal.classList.remove('hidden');
+                        // Small delay to allow display:block to apply before animating opacity
+                        setTimeout(() => {
+                            modal.classList.remove('opacity-0');
+                            if (content) content.classList.remove('scale-95');
+                        }, 10);
+                    } else {
+                        // Close modal
+                        modal.classList.add('opacity-0');
+                        if (content) content.classList.add('scale-95');
+                        // Wait for animation to finish before hiding
+                        setTimeout(() => {
+                            modal.classList.add('hidden');
+                        }, 300);
+                    }
+                }
+            </script>
+</body>
+</html>

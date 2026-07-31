@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Asset Streaming vs Command Streaming | stall.one</title>
+<meta content="Why asset/data streaming and command/API streaming are related but distinct client-GPU strategies — not nested categories." name="description"/>
+<meta content="index, follow" name="robots"/>
+<link href="../../style.css" rel="stylesheet"/>
+<script src="../../page-transition.js"></script>
+
+<style>
+/* Shared article layout (theme-owned, not site terminal) */
+body.post-avs .blog-article { max-width: 900px; margin: 0 auto; }
+body.post-avs .blog-kicker { display:block; margin:0 0 1rem; font-size:0.72rem; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; }
+body.post-avs .blog-hero { margin:0 0 2rem; padding:0 0 1.75rem; border-bottom:1px solid var(--line, var(--grid-color)); }
+body.post-avs .blog-article h1, body.post-avs .blog-hero h1 {
+  font-size: clamp(1.85rem, 5vw, 2.9rem); font-weight:800; letter-spacing:-0.03em;
+  text-transform:none; border:none; line-height:1.12; margin:0 0 1.1rem; color:inherit;
+  font-family:inherit; max-width:none;
+}
+body.post-avs .blog-lede { font-size:1.1rem; line-height:1.65; max-width:52ch; margin:0 0 1.35rem; opacity:0.9; }
+body.post-avs .blog-hero .tags, body.post-avs .blog-article .tags {
+  display:flex; flex-wrap:wrap; gap:0.45rem; margin:0; padding:0; margin-top:0; padding-top:0;
+}
+body.post-avs .blog-grid { display:grid; grid-template-columns:1fr; gap:1.1rem; margin:0 0 1.75rem; }
+@media (min-width:720px) {
+  body.post-avs .blog-grid { grid-template-columns:1fr 1fr; }
+  body.post-avs .blog-grid .span-2 { grid-column:1 / -1; }
+}
+body.post-avs .blog-card { padding:1.35rem 1.45rem; min-width:0; }
+body.post-avs .blog-card h2, body.post-avs .blog-card h3 {
+  font-size:0.78rem; font-weight:700; letter-spacing:0.08em; text-transform:uppercase;
+  border:none; margin:0 0 0.85rem; padding:0; display:block; line-height:1.3; text-decoration:none;
+  font-family:inherit;
+}
+body.post-avs .blog-card h2::before, body.post-avs .blog-card h3::before { content:none; }
+body.post-avs .blog-card p, body.post-avs .blog-card li { font-size:0.97rem; line-height:1.6; max-width:none; margin-bottom:0.65rem; }
+body.post-avs .blog-card p:last-child { margin-bottom:0; }
+body.post-avs .blog-card ul, body.post-avs .blog-card ol { margin:0 0 0 1.15rem; }
+body.post-avs .blog-card li { margin-bottom:0.4rem; }
+body.post-avs .blog-callout { padding:1.25rem 1.4rem; margin:0 0 1.5rem; }
+body.post-avs .blog-callout strong { display:block; font-size:0.7rem; letter-spacing:0.1em; text-transform:uppercase; margin-bottom:0.45rem; }
+body.post-avs .blog-callout p { margin:0; max-width:none; line-height:1.6; }
+body.post-avs .blog-nav { display:flex; flex-wrap:wrap; justify-content:space-between; gap:0.75rem 1.25rem; margin-top:2.5rem; padding-top:1.5rem; border-top:1px solid var(--line, var(--grid-color)); }
+body.post-avs .blog-nav a { font-weight:700; font-size:0.85rem; text-decoration:none; }
+body.post-avs .blog-code, body.post-avs .blog-card pre {
+  font-family:ui-monospace, Menlo, monospace; font-size:0.8rem; line-height:1.55;
+  padding:1.1rem 1.2rem; overflow-x:auto; margin:0.75rem 0 0; white-space:pre;
+}
+body.post-avs .blog-table { width:100%; border-collapse:collapse; font-size:0.9rem; }
+body.post-avs .blog-table th, body.post-avs .blog-table td { text-align:left; padding:0.55rem 0.45rem; vertical-align:top; }
+body.post-avs section { border-bottom:none; padding-top:6rem; padding-bottom:4rem; }
+body.post-avs .container { max-width:1000px; }
+
+
+
+/* Base Variables & Theme */
+body.post-avs {
+  --blog-muted: color-mix(in srgb, var(--text-color) 62%, transparent);
+  --blog-surface: color-mix(in srgb, var(--text-color) 5%, var(--bg-color));
+  --blog-border: var(--grid-color);
+  --blog-radius: 12px;
+  --bg-color: #0c0a14; 
+  --text-color: #efeaff; 
+  --grid-color: #161222; 
+  --highlight: #c084fc;
+  
+  background: var(--bg-color); 
+  color: var(--text-color);
+  font-family: system-ui, -apple-system, sans-serif; /* Fallback font */
+  line-height: 1.6;
+}
+
+/* Header & Overlays */
+body.post-avs .crt-overlay { opacity: 0.22; pointer-events: none; }
+body.post-avs header { 
+  background: rgba(12,10,20,0.95); 
+  border-bottom: 1px solid rgba(192,132,252,0.3); 
+}
+body.post-avs .brand { background: var(--highlight); color: var(--bg-color); padding: 0.25rem 0.5rem; font-weight: bold; }
+
+/* Typography & Headers */
+body.post-avs h1, body.post-avs h2 { color: var(--text-color); margin-top: 0; }
+body.post-avs .blog-kicker { color: var(--highlight); font-size: 0.85rem; font-weight: bold; margin-bottom: 1rem; }
+body.post-avs .blog-lede { font-size: 1.2rem; margin-bottom: 1.5rem; }
+body.post-avs .blog-lede, body.post-avs .blog-card p, body.post-avs .blog-card li { color: #9b93b5; }
+
+/* Tags */
+body.post-avs .tags { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 2rem; }
+body.post-avs .tag { 
+  color: var(--highlight); 
+  border: 1px solid rgba(192,132,252,0.3); 
+  background: rgba(192,132,252,0.12); 
+  border-radius: 999px; 
+  padding: 0.25rem 0.75rem; 
+  font-size: 0.85rem; 
+}
+
+/* Grid Layout */
+body.post-avs .blog-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+  margin: 2rem 0;
+}
+@media (min-width: 768px) {
+  body.post-avs .blog-grid { grid-template-columns: repeat(2, 1fr); }
+  body.post-avs .span-2 { grid-column: span 2; }
+}
+
+/* Cards & Callouts */
+body.post-avs .blog-card { 
+  background: var(--grid-color); 
+  border: 1px solid rgba(192,132,252,0.3); 
+  border-radius: 0.75rem; 
+  padding: 1.5rem;
+}
+body.post-avs .blog-card.standalone { margin-bottom: 2rem; }
+body.post-avs .blog-callout { 
+  background: rgba(192,132,252,0.12); 
+  border-left: 3px solid var(--highlight); 
+  padding: 1.5rem;
+  margin: 2rem 0;
+  border-radius: 0 0.5rem 0.5rem 0;
+}
+body.post-avs .blog-callout p { margin: 0; color: #9b93b5; }
+body.post-avs .blog-callout strong { display: block; margin-bottom: 0.5rem; color: var(--highlight); }
+
+/* Table Styling */
+body.post-avs .blog-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+}
+body.post-avs .blog-table th, 
+body.post-avs .blog-table td {
+  padding: 0.75rem;
+  text-align: left;
+  border-bottom: 1px solid rgba(192,132,252,0.2);
+}
+body.post-avs .blog-table th { color: var(--highlight); font-weight: bold; }
+body.post-avs .blog-table tr:last-child td { border-bottom: none; }
+
+/* Navigation */
+body.post-avs .blog-nav {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-top: 3rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid rgba(192,132,252,0.3);
+}
+body.post-avs .blog-nav a { 
+  color: var(--highlight); 
+  text-decoration: none; 
+  font-weight: 500;
+}
+body.post-avs .blog-nav a:hover { text-decoration: underline; }
+
+</style></head>
+<body class="post-avs">
+<header>
+<div class="logo-container">
+<a aria-label="Back to home" class="brand-link" data-page-transition="rtl" href="../../">
+<span class="brand">STALL.ONE</span>
+</a>
+</div>
+<div class="menu-toggle" onclick="toggleMenu()">[MENU]</div>
+<nav id="navbar">
+<ul>
+<li><a data-page-transition="rtl" href="../../#projects" onclick="toggleMenu()">02_WORK</a></li>
+<li><a data-page-transition="rtl" href="../" onclick="toggleMenu()">04_BLOG</a></li>
+<li><a data-page-transition="rtl" href="../../#contact" onclick="toggleMenu()">05_CONTACT</a></li>
+</ul>
+</nav>
+</header>
+<div class="crt-overlay"></div>
+<main class="container">
+<section>
+<article class="blog-article">
+<div class="blog-kicker">LOG_ID: 2026-07 · GRAPHICS · STREAMING TAXONOMY</div>
+<div class="blog-hero">
+<h1>Asset streaming vs command streaming</h1>
+<p class="blog-lede">Asset/data streaming does <strong>not</strong> strictly sit under command/API streaming. Both push work to the client GPU, but they operate at different abstraction levels and often hybridize in production systems.</p>
+<div class="tags"><span class="tag">Command/API</span><span class="tag">Asset/Data</span><span class="tag">Client GPU</span><span class="tag">Hybrid</span></div>
+</div>
+<div class="blog-grid">
+<div class="blog-card"><h2>01 · Command / API streaming</h2>
+<p><strong>Lower-level.</strong> Server sends graphics API instructions (draw calls, bindings, buffer updates, state). Client is largely a dumb executor replaying the stream on its GPU — remote-controlling the pipeline. Example lineage: intercept Vulkan/GL and forward.</p></div>
+<div class="blog-card"><h2>02 · Asset / data streaming</h2>
+<p><strong>Higher-level.</strong> Server sends resources (meshes, textures, materials, scene state). Client owns a full renderer that generates its own API commands. Server delivers <em>what</em> to render, not every <em>how</em> of each frame.</p></div>
+<div class="blog-card span-2"><h2>03 · Comparison</h2>
+<table class="blog-table"><thead><tr><th>Aspect</th><th>Command / API</th><th>Asset / Data</th></tr></thead><tbody>
+<tr><td>Granularity</td><td>Fine (API calls)</td><td>Coarser (assets/chunks)</td></tr>
+<tr><td>Client intelligence</td><td>Lower (replay)</td><td>Higher (own engine)</td></tr>
+<tr><td>Bandwidth pattern</td><td>Great for dynamic scenes</td><td>Great with LOD/progressive load</td></tr>
+<tr><td>Flexibility</td><td>Precise control</td><td>Large/complex content</td></tr>
+<tr><td>Complexity</td><td>High sync burden</td><td>Asset pipeline burden</td></tr>
+<tr><td>Common in</td><td>Specialized remote render / some cloud gaming cores</td><td>Unreal/Unity streaming, viz, web 3D</td></tr>
+</tbody></table></div>
+<div class="blog-card"><h2>04 · Why it feels nested</h2>
+<p>Hybrids stream assets first, then lightweight command-like updates (“move object X”). Shared goal (avoid pixel streaming) causes people to lump them under “client rendering.”</p></div>
+<div class="blog-card"><h2>05 · Bottom line</h2>
+<p>Asset streaming is a separate, often more practical strategy. Command streaming is specialized and lower-level. They complement; neither strictly contains the other. See also <a data-page-transition="ltr" href="./graphics-command-streaming.html" style="font-weight:700; color:var(--highlight);">command streaming vision</a>.</p></div>
+</div>
+<div class="blog-callout">
+<strong>Thesis</strong>
+<p>Ship content when you have a client engine; ship API tape when you need remote pipeline control.</p>
+</div>
+<div class="blog-card standalone">
+<h2>Takeaway</h2>
+<p>Choose abstraction level by product: games and viz usually win with assets + LOD; specialized remote GL needs true command streams.</p>
+</div>
+<nav aria-label="Post navigation" class="blog-nav">
+<a data-page-transition="rtl" href="../BoxedSystems/whitebox-master-plan.html">← Whitebox Plan</a>
+<a data-page-transition="rtl" href="./">All logs</a>
+<a data-page-transition="ltr" href="./graphics-command-streaming.html">Command Streaming →</a>
+</nav>
+</article>
+</section>
+</main>
+<footer>
+<div class="container" style="border:none; padding-top: 2rem; padding-bottom: 2rem; display:flex; justify-content:space-between; flex-wrap:wrap; gap:1rem;">
+<div class="social-links">
+<a href="https://github.com/stall-one" style="color:var(--highlight); text-decoration:none;">[GITHUB]</a>
+<a href="https://x.com/gitstallone" style="color:var(--highlight); text-decoration:none;">[X / TWITTER]</a>
+</div>
+<span style="font-size: 0.8rem; opacity: 0.8;">// © 2026 SWEN_S_PECK</span>
+</div>
+</footer>
+<script>
+    function toggleMenu() {
+        document.getElementById("navbar").classList.toggle("open");
+    }
+</script>
+</body>
+</html>
