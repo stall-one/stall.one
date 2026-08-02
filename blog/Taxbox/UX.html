@@ -3,16 +3,8 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <!--
-      STARTER: field note / technical log
-      Inspired by work/*.html project hubs (same shell + case-study language).
-
-      1. mkdir -p blog/YourProject
-      2. cp starters/blog.html blog/YourProject/your-note.html
-      3. Fill content; link from hub related-logs
-    -->
-    <title>UX + visual language | stall.one</title>
-    <meta name="description" content="{{LEDE}}" />
+    <title>UX + visual language | TaxBox | stall.one</title>
+    <meta name="description" content="Why TaxBox uses a calm violet-on-slate system instead of terminal brutalism — operator psychology under tax-season load." />
     <meta name="robots" content="index, follow" />
     <link rel="stylesheet" href="../../style.css" />
     <script src="../../page-transition.js"></script>
@@ -30,7 +22,7 @@
                 <li><a href="../../#expertise" data-page-transition="rtl" onclick="toggleMenu()">01_SKILLS</a></li>
                 <li><a href="../../#projects" data-page-transition="rtl" onclick="toggleMenu()">02_WORK</a></li>
                 <li><a href="../../#certifications" data-page-transition="rtl" onclick="toggleMenu()">03_CERTS</a></li>
-                <li><a href="../../" data-page-transition="ltr" onclick="toggleMenu()">04_BLOG</a></li>
+                <li><a href="../" data-page-transition="ltr" onclick="toggleMenu()">04_BLOG</a></li>
                 <li><a href="../../#contact" data-page-transition="rtl" onclick="toggleMenu()">05_CONTACT</a></li>
             </ul>
         </nav>
@@ -39,11 +31,14 @@
 
     <main class="container">
         <section>
-            <!-- Same vocabulary as project hubs: kicker, lede, meta, tags, // h2, callout, actions -->
+            <a href="./taxfort.html" class="project-link" data-page-transition="rtl" aria-label="Back to TaxBox" style="margin-top:0; margin-bottom:1.5rem;">&lt;&lt; Back to TaxBox</a>
             <article class="case-study">
-                <span class="case-study-kicker">LOG // TaxBox · 2025-03-29</span>
-                <h1>{UX + visual language}</h1>
-                <p class="case-study-lede">{{LEDE}}</p>
+                <span class="case-study-kicker">DESIGN_POST // UX + VISUAL LANGUAGE</span>
+                <h1>UX + visual language</h1>
+                <p class="case-study-lede">
+                    Why TaxBox uses a calm violet-on-slate system instead of terminal brutalism — and how
+                    that choice maps to operator psychology under tax-season load.
+                </p>
 
                 <dl class="case-study-meta">
                     <div>
@@ -52,46 +47,100 @@
                     </div>
                     <div>
                         <dt>Type</dt>
-                        <dd>Branding flow</dd>
+                        <dd>Design post</dd>
                     </div>
                     <div>
                         <dt>Audience</dt>
-                        <dd>Ux Designer</dd>
+                        <dd>PMs · UX · product</dd>
                     </div>
                 </dl>
 
                 <div class="tags" style="margin-bottom: 2rem; padding-top: 0;">
-                    <span class="tag">ux</span>
-                    <span class="tag">brand voice</span>
+                    <span class="tag">DESIGN</span>
+                    <span class="tag">UX</span>
+                    <span class="tag">VISUAL_LANGUAGE</span>
                 </div>
 
-                <h2>Context</h2>
+                <h2>Target audience</h2>
                 <p>
-                    What triggered this note — the concrete situation, constraint, or failure.
-                    Mirror the hub “Problem” tone: plain language, no marketing fog.
+                    CPA firm staff in vaults and workspaces for long sessions: onboarding clients, uploading
+                    packets, reviewing labels under tax-season deadlines. Legibility and calm hierarchy
+                    matter more than visual drama when the queue is long.
                 </p>
 
-                <h2>What we tried</h2>
+                <h2>Why this setup</h2>
+                <p>
+                    Light canvas, clear hierarchy, and one action violet. Primary controls should read as
+                    “do the next safe thing” under deadline load — not as a developer console. Contrast and
+                    spacing carry status; color is reserved for commitment, not decoration.
+                </p>
+
+                <p class="hub-section-label">Palette</p>
+                <div class="swatches">
+                    <div class="swatch">
+                        <i style="background:#f8fafc"></i>
+                        <span>Canvas<br>#f8fafc</span>
+                    </div>
+                    <div class="swatch">
+                        <i style="background:#ffffff; border-color:#333"></i>
+                        <span>Panel<br>#ffffff</span>
+                    </div>
+                    <div class="swatch">
+                        <i style="background:#5a3fff"></i>
+                        <span>Action<br>#5a3fff</span>
+                    </div>
+                    <div class="swatch">
+                        <i style="background:#0f172a"></i>
+                        <span>Ink<br>#0f172a</span>
+                    </div>
+                    <div class="swatch">
+                        <i style="background:#64748b"></i>
+                        <span>Muted<br>#64748b</span>
+                    </div>
+                </div>
+                <p>
+                    Canvas and panel separate page chrome from working surfaces. Ink carries body and
+                    titles; muted handles secondary labels. Action is reserved for primary CTAs and focus —
+                    not decorative accents on every card.
+                </p>
+
+                <h2>Goals</h2>
                 <ul>
-                    <li>First approach or experiment.</li>
-                    <li>Second approach or measurement.</li>
-                    <li>What you rejected and why.</li>
+                    <li>Reduce cognitive load during peak filing — status and hierarchy before decoration.</li>
+                    <li>Make isolation legible in the UI (workspace context, vault scope), not only in the API.</li>
+                    <li>Keep one product language across host shell and Auth / Billing / Vault remotes via <code>@taxbox/ui</code>.</li>
+                    <li>Keep visual noise low during peak season — no chrome that competes with the packet in hand.</li>
                 </ul>
 
-                <div class="case-callout">
-                    <strong>What stuck</strong>
-                    <p>{{TAKEAWAY}}</p>
+                <h2>Personas / workflow</h2>
+                <div class="persona-grid">
+                    <div class="persona">
+                        <strong>Firm admin</strong>
+                        <p>Onboards staff, manages tenants, cares about isolation and audit.</p>
+                    </div>
+                    <div class="persona">
+                        <strong>Preparer</strong>
+                        <p>Uploads packets, needs fast classification and search under deadline.</p>
+                    </div>
+                    <div class="persona">
+                        <strong>Reviewer</strong>
+                        <p>Overrides model labels; needs confidence scores and paper trail.</p>
+                    </div>
                 </div>
 
-                <h2>Links</h2>
-                <p>
-                    Point back to the hub and related deliverables so this log stays part of the project tree.
-                </p>
+                <div class="case-callout">
+                    <strong>Product maturity signal</strong>
+                    <p>
+                        Design choices here are deliberate pivots with psychological and workflow reasoning —
+                        not whatever looked cool that day.
+                    </p>
+                </div>
 
                 <nav class="case-actions" aria-label="Post navigation">
-                    <a href="../../work/{{HUB_SLUG}}.html" data-page-transition="rtl">&lt;&lt; PROJECT_HUB</a>
+                    <a href="./taxfort.html" data-page-transition="rtl">&lt;&lt; PROJECT_HUB</a>
+                    <a href="./architecture.html" data-page-transition="rtl">WHITE_PAPER &gt;&gt;</a>
+                    <a href="./design-systems.html" data-page-transition="ltr">DESIGN_SYSTEM &gt;&gt;</a>
                     <a href="../" data-page-transition="rtl">BLOG_INDEX</a>
-                    <a href="../../#projects" data-page-transition="rtl">ALL_WORK</a>
                 </nav>
             </article>
         </section>

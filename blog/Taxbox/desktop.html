@@ -3,16 +3,8 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <!--
-      STARTER: field note / technical log
-      Inspired by work/*.html project hubs (same shell + case-study language).
-
-      1. mkdir -p blog/YourProject
-      2. cp starters/blog.html blog/YourProject/your-note.html
-      3. Fill content; link from hub related-logs
-    -->
-    <title>Desktop app | stall.one</title>
-    <meta name="description" content="{{LEDE}}" />
+    <title>Desktop pairing &amp; vault mounts | TaxBox | stall.one</title>
+    <meta name="description" content="TaxBox desktop pairing: device → web approve → STS mount of org-scoped JuiceFS vaults — same tenancy as the browser, where accountants work." />
     <meta name="robots" content="index, follow" />
     <link rel="stylesheet" href="../../style.css" />
     <script src="../../page-transition.js"></script>
@@ -30,7 +22,7 @@
                 <li><a href="../../#expertise" data-page-transition="rtl" onclick="toggleMenu()">01_SKILLS</a></li>
                 <li><a href="../../#projects" data-page-transition="rtl" onclick="toggleMenu()">02_WORK</a></li>
                 <li><a href="../../#certifications" data-page-transition="rtl" onclick="toggleMenu()">03_CERTS</a></li>
-                <li><a href="../../" data-page-transition="ltr" onclick="toggleMenu()">04_BLOG</a></li>
+                <li><a href="../" data-page-transition="ltr" onclick="toggleMenu()">04_BLOG</a></li>
                 <li><a href="../../#contact" data-page-transition="rtl" onclick="toggleMenu()">05_CONTACT</a></li>
             </ul>
         </nav>
@@ -39,11 +31,14 @@
 
     <main class="container">
         <section>
-            <!-- Same vocabulary as project hubs: kicker, lede, meta, tags, // h2, callout, actions -->
+            <a href="./taxfort.html" class="project-link" data-page-transition="rtl" aria-label="Back to TaxBox" style="margin-top:0; margin-bottom:1.5rem;">&lt;&lt; Back to TaxBox</a>
             <article class="case-study">
-                <span class="case-study-kicker">LOG // TaxBox · 2025-03-29</span>
-                <h1>{UX + visual language}</h1>
-                <p class="case-study-lede">{{LEDE}}</p>
+                <span class="case-study-kicker">LOG // TAXBOX · TAURI · STS</span>
+                <h1>Pair the desktop. Mount the vault.</h1>
+                <p class="case-study-lede">
+                    A Tauri desktop client pairs to a TaxBox user, then mounts org-scoped storage with
+                    short-lived STS — same vault rules as the web, on a local drive path.
+                </p>
 
                 <dl class="case-study-meta">
                     <div>
@@ -52,46 +47,88 @@
                     </div>
                     <div>
                         <dt>Type</dt>
-                        <dd>Branding flow</dd>
+                        <dd>Field note</dd>
                     </div>
                     <div>
                         <dt>Audience</dt>
-                        <dd>Ux Designer</dd>
+                        <dd>Builders · operators</dd>
                     </div>
                 </dl>
 
                 <div class="tags" style="margin-bottom: 2rem; padding-top: 0;">
-                    <span class="tag">ux</span>
-                    <span class="tag">brand voice</span>
+                    <span class="tag">DESKTOP_PAIRING</span>
+                    <span class="tag">STS</span>
+                    <span class="tag">JUICEFS</span>
+                    <span class="tag">TAURI</span>
                 </div>
 
-                <h2>Context</h2>
+                <h2>Flow</h2>
+                <ol>
+                    <li>Desktop starts pairing → shows a short <code>userCode</code>, keeps <code>deviceCode</code> secret</li>
+                    <li>Signed-in web approves the code</li>
+                    <li>Desktop polls → one-shot <code>deviceToken</code> (~90 days)</li>
+                    <li>List safes → request vault credentials → STS under <code>orgs/{id}/</code>; remount on a timer</li>
+                </ol>
+
+                <h2>What pairing is not</h2>
                 <p>
-                    What triggered this note — the concrete situation, constraint, or failure.
-                    Mirror the hub “Problem” tone: plain language, no marketing fog.
+                    Pairing does not transfer workspace ownership or decide who pays (firm pool vs client pays).
+                    It only binds a <em>device</em> to a <em>user</em>. Billing and membership stay elsewhere.
                 </p>
 
-                <h2>What we tried</h2>
+                <p class="hub-section-label">Topology sketch</p>
+                <pre style="font-family:var(--font-header); font-size:0.8rem; line-height:1.45; color:var(--highlight); border:1px solid var(--grid-color); padding:1.15rem; overflow-x:auto; background:#0a0a0c; margin-bottom:2rem;">TaxBox Desktop (Tauri)
+        │
+        │  pairing/start · pairing/token · organizations · vault-credentials
+        ▼
+┌───────────────────┐
+│  api-gateway      │  device token → x-user-* headers
+└─────────┬─────────┘
+          │
+    ┌─────┴──────┐
+    ▼            ▼
+ auth-service   vault-service
+ (pair + device) (STS / entitlement)
+    │            │
+    └──── Postgres + JuiceFS S3 ────┘
+              prefix: orgs/{id}/</pre>
+
+                <h2>Design surface</h2>
                 <ul>
-                    <li>First approach or experiment.</li>
-                    <li>Second approach or measurement.</li>
-                    <li>What you rejected and why.</li>
+                    <li>Soft purple SaaS chrome (TaxBox product surface)</li>
+                    <li>Pairing code as a large, scannable artifact</li>
+                    <li>Desktop “Z: drive” metaphor for mount success</li>
+                    <li>Same identity headers as browser after pair (<code>x-user-*</code>)</li>
                 </ul>
 
                 <div class="case-callout">
-                    <strong>What stuck</strong>
-                    <p>{{TAKEAWAY}}</p>
+                    <strong>Design bias</strong>
+                    <p>
+                        Accountants live in the filesystem. Pairing + STS keeps the same tenancy rules as the
+                        web vault while meeting them where they work — without turning every laptop into a
+                        long-lived secret store.
+                    </p>
                 </div>
 
-                <h2>Links</h2>
+                <!-- <h2>Related: inbound webhooks</h2>
                 <p>
-                    Point back to the hub and related deliverables so this log stays part of the project tree.
+                    A separate path fills the vault <em>inbox</em> without a desktop session: email, SMS, or
+                    storage events write under <code>orgs/{id}/inbox/…</code>. Pairing mounts the vault;
+                    webhooks feed objects into it. Architecture white paper covers both cut lines.
+                </p> -->
+
+                <h2>Takeaway</h2>
+                <p>
+                    Device binds to user; STS mounts <code>orgs/{id}/</code> under the same membership and
+                    entitlement checks as the browser. Secrets stay short-lived; ownership and billing stay
+                    off the pairing path.
                 </p>
 
                 <nav class="case-actions" aria-label="Post navigation">
-                    <a href="../../work/{{HUB_SLUG}}.html" data-page-transition="rtl">&lt;&lt; PROJECT_HUB</a>
+                    <a href="./taxfort.html" data-page-transition="rtl">&lt;&lt; PROJECT_HUB</a>
+                    <a href="./architecture.html" data-page-transition="ltr">WHITE_PAPER &gt;&gt;</a>
+                    <a href="./UX.html" data-page-transition="ltr">UX_POST &gt;&gt;</a>
                     <a href="../" data-page-transition="rtl">BLOG_INDEX</a>
-                    <a href="../../#projects" data-page-transition="rtl">ALL_WORK</a>
                 </nav>
             </article>
         </section>

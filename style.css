@@ -1279,3 +1279,56 @@ a.deliverable-card:hover .del-cta { color: var(--highlight); }
     font-weight: 700;
 }
 
+/* Design-post swatches + personas (TaxBox UX, etc.) */
+.swatches {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.85rem 1rem;
+    margin: 1rem 0 1.75rem;
+}
+.swatch {
+    width: 5rem;
+    text-align: center;
+}
+.swatch i {
+    display: block;
+    height: 2.75rem;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    margin-bottom: 0.35rem;
+}
+.swatch span {
+    display: block;
+    font-size: 0.65rem;
+    line-height: 1.35;
+    color: #888;
+    font-family: var(--font-header);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+}
+.persona-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 14rem), 1fr));
+    gap: 1.25rem;
+    margin: 1rem 0 2rem;
+}
+.persona {
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    padding: 1.25rem 1.35rem;
+    background: rgba(255, 255, 255, 0.02);
+}
+.persona strong {
+    display: block;
+    font-size: 0.85rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+    color: var(--text-color);
+}
+.persona p {
+    margin: 0;
+    font-size: 0.9rem;
+    line-height: 1.5;
+    color: #ccc;
+    max-width: none;
+}
+
