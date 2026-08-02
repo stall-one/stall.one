@@ -3,17 +3,8 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <!--
-      STARTER: architecture white paper
-      Inspired by work/*.html — same stall.one shell + case-study structure,
-      deeper technical sections (the hub’s “02 · White Paper” deliverable).
-
-      1. mkdir -p blog/YourProject
-      2. cp starters/white-paper.html blog/YourProject/Architecture.html
-      3. Point hub deliverable-card at this file
-    -->
-    <title>{{TITLE}} | stall.one</title>
-    <meta name="description" content="{{LEDE}}" />
+    <title>Amerimatter Architecture | stall.one</title>
+    <meta name="description" content="Amerimatter system design: SnapNGo spine with catalog, inventory, orders, and checkout payment for industrial commerce." />
     <meta name="robots" content="index, follow" />
     <link rel="stylesheet" href="../../style.css" />
     <script src="../../page-transition.js"></script>
@@ -21,18 +12,18 @@
 <body>
     <header>
         <div class="logo-container">
-            <a href="../" data-page-transition="rtl" class="brand-link" aria-label="Back to home">
+            <a href="../../" data-page-transition="rtl" class="brand-link" aria-label="Back to home">
                 <span class="brand">STALL.ONE</span>
             </a>
         </div>
         <div class="menu-toggle" onclick="toggleMenu()">[MENU]</div>
         <nav id="navbar">
             <ul>
-                <li><a href="../#expertise" data-page-transition="rtl" onclick="toggleMenu()">01_SKILLS</a></li>
-                <li><a href="../#projects" data-page-transition="rtl" onclick="toggleMenu()">02_WORK</a></li>
-                <li><a href="../#certifications" data-page-transition="rtl" onclick="toggleMenu()">03_CERTS</a></li>
-                <li><a href="../blog/" data-page-transition="ltr" onclick="toggleMenu()">04_BLOG</a></li>
-                <li><a href="../#contact" data-page-transition="rtl" onclick="toggleMenu()">05_CONTACT</a></li>
+                <li><a href="../../#expertise" data-page-transition="rtl" onclick="toggleMenu()">01_SKILLS</a></li>
+                <li><a href="../../#projects" data-page-transition="rtl" onclick="toggleMenu()">02_WORK</a></li>
+                <li><a href="../../#certifications" data-page-transition="rtl" onclick="toggleMenu()">03_CERTS</a></li>
+                <li><a href="../" data-page-transition="ltr" onclick="toggleMenu()">04_BLOG</a></li>
+                <li><a href="../../#contact" data-page-transition="rtl" onclick="toggleMenu()">05_CONTACT</a></li>
             </ul>
         </nav>
     </header>
@@ -40,76 +31,114 @@
 
     <main class="container">
         <section>
+            <a href="./amerimatter-cnc.html" class="project-link" data-page-transition="rtl" aria-label="Back to Amerimatter" style="margin-top:0; margin-bottom:1.5rem;">&lt;&lt; Back to Amerimatter</a>
             <article class="case-study">
-                <span class="case-study-kicker">WHITE_PAPER // SYSTEM DESIGN</span>
-                <h1>{{TITLE}}</h1>
-                <p class="case-study-lede">{{LEDE}}</p>
+                <span class="case-study-kicker">WHITE_PAPER // DRAFT · SYSTEM DESIGN</span>
+                <h1>Amerimatter Architecture</h1>
+                <p class="case-study-lede">
+                    Stack shape for Amerimatter brand commerce: SnapNGo CLI scaffolds the spine; domain
+                    modules cover catalog, inventory, cart/orders, and checkout payment for goods.
+                </p>
 
                 <dl class="case-study-meta">
                     <div>
                         <dt>Project</dt>
-                        <dd>{{PROJECT_NAME}}</dd>
+                        <dd>Amerimatter</dd>
                     </div>
                     <div>
                         <dt>Audience</dt>
                         <dd>Lead eng · architects</dd>
                     </div>
                     <div>
-                        <dt>Depth</dt>
-                        <dd>System design</dd>
+                        <dt>Stack</dt>
+                        <dd>SnapNGo · Catalog · Orders · Commerce pay</dd>
                     </div>
                 </dl>
 
                 <div class="tags" style="margin-bottom: 2rem; padding-top: 0;">
                     <span class="tag">WHITE_PAPER</span>
-                    <span class="tag">SYSTEM_DESIGN</span>
-                    <span class="tag">{{TAG}}</span>
+                    <span class="tag">SNAPNGO</span>
+                    <span class="tag">COMMERCE</span>
+                    <span class="tag">ORDERS</span>
                 </div>
 
-                <p class="hub-section-label">Architecture map</p>
-                <pre style="font-family:var(--font-header); font-size:0.8rem; line-height:1.45; color:var(--highlight); border:1px solid var(--grid-color); padding:1.15rem; overflow-x:auto; background:#0a0a0c; margin-bottom:2rem;">┌─────────────┐     ┌─────────────┐
-│  Client UI  │ ──► │  API / edge │
-└──────┬──────┘     └──────┬──────┘
-       │                   │
-       ▼                   ▼
-┌─────────────┐     ┌─────────────┐
-│   Storage   │ ◄─► │  Workers    │
-└─────────────┘     └─────────────┘</pre>
+                <p class="hub-section-label">Target topology</p>
+                <pre style="font-family:var(--font-header); font-size:0.8rem; line-height:1.45; color:var(--highlight); border:1px solid var(--grid-color); padding:1.15rem; overflow-x:auto; background:#0a0a0c; margin-bottom:2rem;">
+  snapngo init / add / up
+        │
+        ▼
+┌──────────────────────────────────────────────────┐
+│  Host shell · catalog / cart remotes (print UI)  │
+└───────────────────────┬──────────────────────────┘
+                        ▼
+                 API Gateway
+                        │
+     ┌──────────┬───────┼────────┬────────────┬──────────┐
+     ▼          ▼       ▼        ▼            ▼          ▼
+   auth      media   catalog  inventory    orders   commerce pay
+ (buyer/     (presign) (SKU)   (stock)     (cart)   (checkout)
+  staff)                                           shopper → merchant
+     │          │       │        │            │          │
+     └──────────┴───────┴────────┴────────────┴──────────┘
+                        │
+              Postgres · object storage (S3)
+              tenants/{storeId}/products/...
 
-                <h2>Problem boundary</h2>
+packages: @snapngo/shared · @snapngo/observability · brand UI tokens
+</pre>
+
+                <h2>SnapNGo spine</h2>
                 <p>
-                    Engineering problem statement — constraints, failure modes, and what “correct”
-                    means for this system. Expand the hub’s one-paragraph problem with depth.
+                    Scaffold with SnapNGo: gateway, auth defaults, observability packages, module ports and
+                    env. Domain modules attach for commerce. Host shell loads catalog and cart surfaces under
+                    the Amerimatter design system (paper / ink / vermilion).
                 </p>
 
-                <h2>System shape</h2>
-                <p>
-                    Components, trust boundaries, and data flow. Keep boxes honest.
-                </p>
-
-                <h2>Critical paths</h2>
+                <h2>Money model</h2>
                 <ul>
-                    <li>Happy path: request → process → persist → respond.</li>
-                    <li>Isolation / auth / policy rules.</li>
-                    <li>Degradation when a dependency fails.</li>
+                    <li><strong>Checkout payments</strong> — buyer pays for metal / SKUs / cart lines (PaymentIntents or equivalent)</li>
+                    <li><strong>Orders service</strong> — cart, line items, state machine, history</li>
+                    <li><strong>Inventory</strong> — ATS, reserve on checkout start, commit or release on success/cancel</li>
+                    <li><strong>Catalog</strong> — SKUs, categories, media refs, MSRP; stock stays out of product rows as the long-term rule</li>
+                </ul>
+                <p>
+                    Commercial center is catalog → cart → pay → fulfill. Payment attaches to the order, not
+                    to a recurring platform seat plan.
+                </p>
+
+                <h2>Critical path: place order (draft)</h2>
+                <pre style="font-family:var(--font-header); font-size:0.8rem; line-height:1.45; color:var(--highlight); border:1px solid var(--grid-color); padding:1.15rem; overflow-x:auto; background:#0a0a0c; margin-bottom:2rem;">1. Browse catalog (gateway → catalog)
+2. Add to cart (orders) · optional stock check (inventory)
+3. Checkout → commerce pay session
+4. Inventory reserve → payment confirm → order commit
+5. Release reserve on cancel / failure</pre>
+
+                <h2>Auth roles (draft)</h2>
+                <ul>
+                    <li><strong>Staff / admin</strong> — catalog and order ops</li>
+                    <li><strong>Buyer account</strong> — optional logged-in customer; guests may cart with session id</li>
                 </ul>
 
-                <h2>Tradeoffs</h2>
+                <h2>Media</h2>
                 <p>
-                    What you accepted, deferred, or rejected — and why.
+                    Product images via presign under tenant prefix; CDN for public catalog reads. Hard borders
+                    and print assets follow the brand system, not generic SaaS illustration.
                 </p>
 
                 <div class="case-callout">
                     <strong>For architects</strong>
                     <p>
-                        Hub case study = business narrative. This page = technical depth.
-                        Design post = product visual language.
+                        Design system leads portfolio proof; the stack is commerce-shaped so catalog and order
+                        journeys are real. SnapNGo keeps gateway and module cut lines stable while catalog,
+                        inventory, and orders own their write models.
                     </p>
                 </div>
 
                 <nav class="case-actions" aria-label="Post navigation">
-                    <a href="../../work/{{HUB_SLUG}}.html" data-page-transition="rtl">&lt;&lt; PROJECT_HUB</a>
-                    <a href="./design.html" data-page-transition="ltr">DESIGN_POST &gt;&gt;</a>
+                    <a href="./amerimatter-cnc.html" data-page-transition="rtl">&lt;&lt; PROJECT_HUB</a>
+                    <a href="./UX.html" data-page-transition="ltr">UX_POST &gt;&gt;</a>
+                    <a href="./brand-steps.html" data-page-transition="ltr">BRAND_STEPS &gt;&gt;</a>
+                    <a href="../snapngo/white-paper.html" data-page-transition="ltr">SNAPNGO_ARCH &gt;&gt;</a>
                     <a href="../" data-page-transition="rtl">BLOG_INDEX</a>
                 </nav>
             </article>

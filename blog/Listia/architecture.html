@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Taxbox Architecture White Paper | stall.one</title>
-    <meta name="description" content="TaxBox platform architecture: api-gateway, auth/billing/vault microservices, JuiceFS vaults, dual Valkey, inbound webhooks, and desktop pairing." />
+    <title>Listia Architecture White Paper | stall.one</title>
+    <meta name="description" content="Listia system design: SnapNgo host and MFEs over a gateway to auth, billing, media, and catalog — Mongo product write model, channel overrides, async AI enrichment, and marketplace adapters with a human publish gate." />
     <meta name="robots" content="index, follow" />
     <link rel="stylesheet" href="../../style.css" />
     <script src="../../page-transition.js"></script>
@@ -31,20 +31,20 @@
 
     <main class="container">
         <section>
-            <a href="./taxfort.html" class="project-link" data-page-transition="rtl" aria-label="Back to TaxBox" style="margin-top:0; margin-bottom:1.5rem;">&lt;&lt; Back to TaxBox</a>
+            <a href="./ai-marketplace.html" class="project-link" data-page-transition="rtl" aria-label="Back to Listia" style="margin-top:0; margin-bottom:1.5rem;">&lt;&lt; Back to Listia</a>
             <article class="case-study">
                 <span class="case-study-kicker">WHITE_PAPER // SYSTEM DESIGN</span>
-                <h1>Taxbox Architecture</h1>
+                <h1>Listia Architecture</h1>
                 <p class="case-study-lede">
-                    Host shell and domain MFEs over a single gateway to auth, billing, and vault services —
-                    JuiceFS tenant prefixes, dual Valkey, inbound webhooks, and desktop STS mount for CPA
-                    firm workflows.
+                    Multi-tenant ecommerce chassis under SnapNgo: host shell and remotes over an API gateway
+                    to ownership-clear services — Mongo catalog as the product write model, channel overrides
+                    for marketplaces, async AI enrichment, and a supervised path from photo to publish.
                 </p>
 
                 <dl class="case-study-meta">
                     <div>
                         <dt>Project</dt>
-                        <dd>TaxBox</dd>
+                        <dd>Listia</dd>
                     </div>
                     <div>
                         <dt>Audience</dt>
@@ -52,298 +52,255 @@
                     </div>
                     <div>
                         <dt>Stack</dt>
-                        <dd>SnapNgo · MFEs · Gateway · JuiceFS · Valkey</dd>
+                        <dd>SnapNgo · Catalog · Agents · Mongo · Gateway</dd>
                     </div>
                 </dl>
 
                 <div class="tags" style="margin-bottom: 2rem; padding-top: 0;">
                     <span class="tag">WHITE_PAPER</span>
                     <span class="tag">SNAPNGO</span>
-                    <span class="tag">MICROSERVICES</span>
-                    <span class="tag">MULTI_TENANT</span>
-                    <span class="tag">JUICEFS</span>
+                    <span class="tag">CATALOG</span>
+                    <span class="tag">AGENTS</span>
+                    <span class="tag">MARKETPLACE</span>
                 </div>
 
-                <p class="hub-section-label">SnapNgo system map (TaxBox)</p>
+                <p class="hub-section-label">Platform chassis + ecommerce domain</p>
                 <pre style="font-family:var(--font-header); font-size:0.8rem; line-height:1.45; color:var(--highlight); border:1px solid var(--grid-color); padding:1.15rem; overflow-x:auto; background:#0a0a0c; margin-bottom:2rem;">
 ┌──────────────────────────────────────────────────┐
 │                    Host Shell                    │
-│                   (with Auth)                    │
-│  ┌──────────┐ ┌───────────┐ ┌─────────┐          │
-│  │ Auth MFE │ │Billing MFE│ │Vault MFE│          │
-│  └────┬─────┘ └─────┬─────┘ └────┬────┘          │
-└───────┼─────────────┼────────────┼───────────────┘
-        │             │            │
-        └─────────┐   │   ┌────────┘
+│              (auth context · MF load)            │
+│  ┌──────────┐ ┌───────────┐ ┌────────────┐       │
+│  │ Auth MFE │ │Billing MFE│ │Catalog MFE │       │
+│  └────┬─────┘ └─────┬─────┘ └─────┬──────┘       │
+└───────┼─────────────┼─────────────┼──────────────┘
+        │             │             │
+        └─────────┐   │   ┌─────────┘
                   ▼   ▼   ▼
 ┌──────────────────────────────────────────────────┐
 │                   API Gateway                    │
-└───┬─────────────┬─────────────┬──────────────────┘
-    │             │             │
-    ▼             ▼             ▼
-┌─────────────┐ ┌─────────────┐ ┌─────────────┐
-│    Auth     │ │   Billing   │ │    Vault    │
-│ Microservice│ │ Microservice│ │ Microservice│
-└─────────────┘ └─────────────┘ └──────┬──────┘
-                                       │
-                                       │ Enqueues Job
-User File Upload                       ▼
-       │                        ┌──────────────┐
-       ▼                        │    Valkey    │
-┌──────────────┐  Webhook Event │ Agent Queue  │
-│  JuiceFS S3  ├───────────────►└──────┬───────┘
-│   (Prefix)   │  routes to Vault      │ BRPOP / Consume
-└──────────────┘                       ▼
-                                ┌──────────────┐
-                                │ Agent Worker │
-                                │   (Python)   │
-                                └──────────────┘
+│         JWT · rate-limit · x-user-* inject       │
+└───┬─────────┬──────────┬──────────┬──────────────┘
+    │         │          │          │
+    ▼         ▼          ▼          ▼
+┌───────┐ ┌───────┐ ┌────────┐ ┌─────────┐
+│ Auth  │ │Billing│ │ Media  │ │ Catalog │ ··· inventory / orders (next)
+│  MS   │ │  MS   │ │ blob   │ │  MS     │
+└───┬───┘ └───┬───┘ └───┬────┘ └────┬────┘
+    │         │         │           │
+    │ Postgres│         │      MongoDB
+    │         │         │   products · categories
+    └─────────┴─────────┴───► S3 / R2
+                    tenants/{storeId}/products/...
 
 packages (import, not deploy):
-  @taxbox/plans · @taxbox/ui
   @snapngo/shared · @snapngo/observability
+  product UI tokens (host + remotes)
 </pre>
 
-                <h2>SnapNgo layers</h2>
+                <h2>Two layers</h2>
                 <p>
-                    Host shell holds session and active workspace, then loads Auth, Billing, and Vault
-                    MFEs. Each remote calls the API gateway; the gateway routes to the matching service.
-                    Storage and async work sit under Vault: JuiceFS prefixes, agent Valkey, Python worker.
+                    <strong>Platform chassis</strong> — gateway, auth (orgs / seats / roles), SaaS billing
+                    entitlement, tenant-scoped media with presigned uploads. Same multi-tenant SaaS spine
+                    as other SnapNgo products.
                 </p>
+                <p>
+                    <strong>Ecommerce domain</strong> — catalog first (products, categories, channel deltas);
+                    inventory and orders as separate services when stock and cart matter. Do not force
+                    “vault = catalog.” Lift the chassis; swap the vertical.
+                </p>
+
+                <h2>SnapNgo layers</h2>
                 <ul>
-                    <li><strong>Host shell</strong> — session, active workspace, chrome</li>
-                    <li><strong>Auth / Billing / Vault MFEs</strong> — independently deployable UI</li>
-                    <li><strong>API gateway</strong> — JWT / device token; injects <code>x-user-*</code>; proxies</li>
-                    <li><strong>Auth / Billing / Vault services</strong> — identity, entitlement, files</li>
-                    <li><strong>JuiceFS + valkey-agent + worker</strong> — blobs and inbox jobs</li>
+                    <li><strong>Host shell</strong> — session, active store/org, app frame; loads remotes</li>
+                    <li><strong>MFEs</strong> — Auth, Billing, Catalog (admin lab), later storefront surfaces</li>
+                    <li><strong>API gateway</strong> — single public door; JWT; injects <code>x-user-*</code>; blocks internal routes</li>
+                    <li><strong>Auth / Billing / Media / Catalog</strong> — identity, SaaS sub, blobs, products</li>
                 </ul>
 
                 <h2>Mental model (services)</h2>
-                <p>
-                    Four jobs under the SnapNgo gateway. Data ownership is deliberate so isolation is structural,
-                    not a filter bolted onto one monolith.
-                </p>
                 <ul>
-                    <li><strong>auth</strong> — people, workspaces (orgs), members, roles, invites, desktop pairing</li>
-                    <li><strong>billing</strong> — Stripe, subscriptions, entitlement flags (<code>readAllowed</code> / <code>writeAllowed</code>)</li>
-                    <li><strong>vault</strong> — if membership + entitlement allow → S3 presign / STS under <code>orgs/{organizationId}/</code></li>
-                    <li><strong>gateway</strong> — door: verify identity, strip bearer, inject trusted headers, proxy</li>
+                    <li><strong>gateway</strong> — edge only; no product or membership source of truth</li>
+                    <li><strong>auth</strong> — users, orgs (stores), members, roles; internal membership API for other MS</li>
+                    <li><strong>billing</strong> — merchant pays you (SaaS plans / limits), not shopper cart charges</li>
+                    <li><strong>media / blob</strong> — membership + optional entitlement → presign under <code>tenants/{storeId}/…</code></li>
+                    <li><strong>catalog</strong> — Mongo product write model; never joins auth tables for membership</li>
+                    <li><strong>inventory / orders</strong> — stock and cart later; soft-ref product ids, no shared catalog SQL</li>
                 </ul>
-                <p>
-                    There is no separate “vault” table. A <strong>workspace is an auth organization</strong>;
-                    file storage is keyed by that id. Vault never owns Stripe rows; billing never stores files.
-                </p>
 
-                <h2>Shared packages</h2>
-                <p>
-                    Not deployable services — libraries every app imports so plan rules, auth headers, and
-                    UI tokens stay single-source across the monorepo.
-                </p>
-                <ul>
-                    <li>
-                        <strong><code>@taxbox/plans</code></strong> — plan catalog (Basic, Pro, ClientPays,
-                        FirmStarter, FirmPro, …): <code>safeLimit</code>, <code>seatLimit</code>, billing mode.
-                        Billing entitlement and checkout read this; vault does not invent plan numbers.
-                    </li>
-                    <li>
-                        <strong><code>@snapngo/shared</code></strong> — error shapes, OpenAPI helpers, health
-                        helpers, gateway header names, service port map. Shared contract so MFEs and services
-                        agree on identity headers and error envelopes.
-                    </li>
-                    <li>
-                        <strong><code>@snapngo/observability</code></strong> — Pino logging, OTEL middleware,
-                        span helpers. Same telemetry spine on gateway and services without copy-paste.
-                    </li>
-                    <li>
-                        <strong><code>@taxbox/ui</code></strong> — design tokens, theme CSS, ThemeProvider,
-                        Radix-backed components. Host shell and remotes share look and behavior.
-                    </li>
-                </ul>
-                <p>
-                    Scope split: <code>@taxbox/*</code> for product packages (plans, UI);
-                    <code>@snapngo/*</code> for platform libraries (shared, observability).
-                </p>
-
-                <p class="hub-section-label">Request path (service detail)</p>
-                <pre style="font-family:var(--font-header); font-size:0.8rem; line-height:1.45; color:var(--highlight); border:1px solid var(--grid-color); padding:1.15rem; overflow-x:auto; background:#0a0a0c; margin-bottom:2rem;">Host shell / MFE
+                <p class="hub-section-label">Catalog lab path (built)</p>
+                <pre style="font-family:var(--font-header); font-size:0.8rem; line-height:1.45; color:var(--highlight); border:1px solid var(--grid-color); padding:1.15rem; overflow-x:auto; background:#0a0a0c; margin-bottom:2rem;">Browser (host)  ──MF──► catalog_remote
+        │  cookie / JWT
+        ▼
+ api-gateway
         │
-        ▼
-┌───────────────────┐
-│  api-gateway      │  JWT · rate-limit · x-user-* headers
-└─────────┬─────────┘
-          │
-    ┌─────┼──────────────┐
-    ▼     ▼              ▼
- auth   billing        vault
-    │     │              ├── JuiceFS S3  (orgs/{id}/…)
-    │     │              └── valkey-agent → agent-worker
-    └─────┴──────┬───────┘
-                 ▼
-            Postgres
-                 +
-         valkey-gateway   (edge rate-limit only)</pre>
+        ├── /api/auth/*  ──────────► auth ──► Postgres
+        │                               │
+        │                               │  GET /internal/memberships
+        │                               │  (x-internal-service-secret)
+        │                               ▲
+        └── /api/v1/catalog/* ──► catalog
+                                    ├── MongoDB  products + categories
+                                    └── HTTP ──► auth membership
 
-                <h2>Gateway as trust boundary</h2>
+ Gateway returns 404 for /api/v1/internal/*
+ (browser must not call service-internal APIs)</pre>
+
+                <h2>Catalog write model</h2>
                 <p>
-                    The browser only talks to the gateway. On authenticated routes the gateway verifies JWT
-                    (or resolves a desktop device token), then injects:
+                    Product data lives in <strong>MongoDB</strong>, not shared Postgres. Auth keeps users and
+                    membership; catalog owns document-shaped products.
                 </p>
                 <ul>
-                    <li><code>x-user-id</code>, <code>x-user-email</code>, <code>x-user-name</code>, <code>x-user-role</code></li>
-                    <li><code>x-active-organization-id</code></li>
+                    <li>Unique per tenant: <code>(organizationId, slug)</code>, <code>(organizationId, sku)</code></li>
+                    <li><strong>Core</strong> — title, sku, brand, status (<code>draft</code> | <code>published</code> | <code>archived</code>), media refs</li>
+                    <li><strong>customAttributes</strong> — merchant facets (labeled, mergeable); not free-form dump</li>
+                    <li><strong>channelOverrides</strong> — marketplace deltas (eBay title, Google condition) without forking the base product</li>
+                    <li><strong>aiContext</strong> — isolated AI output (tags, syndication copy, embeddings, status) so human fields are never silently overwritten</li>
                 </ul>
                 <p>
-                    Authorization is stripped after verify so backends trust gateway headers — not a re-used
-                    bearer. Public paths are narrow: inbound webhooks and desktop pairing start/poll.
-                    Everything else requires identity.
+                    Base product = channel-agnostic source of truth. Channel listing status is separate
+                    (<code>ACTIVE</code> | <code>INACTIVE</code> | <code>PENDING</code> | <code>ERROR</code>).
+                    PATCH merges overrides by channel unless replace mode is set. GET <code>?channel=ebay</code>
+                    returns resolved <code>channelView</code>.
                 </p>
 
-                <h2>Workspaces, payers, and vaults</h2>
+                <h2>Two enrichment tracks</h2>
                 <p>
-                    Workspaces are boxes. Subscriptions live on the <em>payer</em> box — not on every client safe.
-                </p>
-                <pre style="font-family:var(--font-header); font-size:0.8rem; line-height:1.45; color:var(--highlight); border:1px solid var(--grid-color); padding:1.15rem; overflow-x:auto; background:#0a0a0c; margin-bottom:2rem;">           ONE firm plan subscription
-                     │
-                     ▼
-           ┌───────────────────┐
-           │  Firm account     │  ← checkout FirmStarter / FirmPro here
-           └─────────┬─────────┘
-                     │ funds up to safeLimit
-       ┌─────────────┼─────────────┐
-       ▼             ▼             ▼
-  Client vault  Client vault  Client vault
-  (firm_pool)   (firm_pool)   (firm_pool)
-  no own Stripe no own Stripe no own Stripe
-
-  Exception: ClientPays vault → own Stripe sub, does not consume firm safe slot
-  Personal vault → taxpayer Basic/Pro on that workspace</pre>
-                <p>
-                    Org metadata carries <code>kind</code> (<code>firm</code> / <code>personal</code> / <code>client</code>) and
-                    <code>billing</code> (<code>firm_pool</code> / <code>client_pays</code> / <code>personal</code>), plus
-                    <code>firmOrgId</code> when a client vault is firm-linked. Entitlement resolution uses the
-                    billable org (firm for pool vaults; the vault itself for Client Pays / personal).
-                </p>
-
-                <h2>Isolation model</h2>
-                <p>
-                    Access is resolved before entitlement. Vault does not invent tenancy from the request body alone.
+                    Both write into isolated <code>aiContext</code> (and related media), not by overwriting
+                    human core fields on save. Product <strong>save never waits on an LLM</strong>.
                 </p>
                 <ul>
-                    <li>Platform admin → allow</li>
-                    <li>Direct <code>member</code> row for (user, vault org) → use that role</li>
-                    <li>Else firm staff: client org has <code>firmOrgId</code> and user is a member of the firm → firm role</li>
-                    <li>Else deny</li>
+                    <li>
+                        <strong>1 · Product metadata enrichment</strong> — after a product exists (title, SKU,
+                        specs already saved), an async worker adds SEO copy, channel syndication text, tags,
+                        and text embeddings from the write model.
+                    </li>
+                    <li>
+                        <strong>2 · Photo enrichment (asset gen)</strong> — source product photo + operator
+                        prompt → gen AI produces <em>new</em> images (studio packshot, lifestyle, social
+                        crops, channel-ready variants). Optional vision pass on outputs; human confirm before
+                        assets attach to the product.
+                    </li>
                 </ul>
+
+                <p class="hub-section-label">1 · Product metadata enrichment</p>
+                <pre style="font-family:var(--font-header); font-size:0.8rem; line-height:1.45; color:var(--highlight); border:1px solid var(--grid-color); padding:1.15rem; overflow-x:auto; background:#0a0a0c; margin-bottom:2rem;">Merchandiser → catalog-service (sync save → Mongo)
+       │  emit ProductCreated / ProductUpdated
+       ▼
+AI worker (SEO · syndication copy · text tags · text embeddings)
+       │  update product.aiContext
+       ▼
+Search projector (later) ──► text vectors + facets</pre>
+
+                <p class="hub-section-label">2 · Photo enrichment (gen new assets)</p>
+                <pre style="font-family:var(--font-header); font-size:0.8rem; line-height:1.45; color:var(--highlight); border:1px solid var(--grid-color); padding:1.15rem; overflow-x:auto; background:#0a0a0c; margin-bottom:2rem;">Source photo ──► [prompt] ──► [gen ai]
+   (phone / pack)              studio · lifestyle · social
+                                      │
+                                      ▼
+                               [Vision agent]  (optional QC / tags)
+                                      │
+                           ┌──────────┴──────────┐
+                           ▼                     ▼
+                    [Human review]        [Publish gate]
+                           │                     │
+                           └────── confirm ──────┘
+                                      │
+                                      ▼
+                    media gallery + refs on product
+                    (not silent overwrite of primary shot)</pre>
                 <p>
-                    Write roles: <code>owner</code>, <code>admin</code>, <code>staff</code>, <code>collaborator</code>.
-                    Read-only: <code>viewer</code>, <code>member</code>. Object keys live under
-                    <code>orgs/{organizationId}/…</code> — cross-tenant paths are not a query join problem;
-                    the prefix is the tenancy boundary. Billing can still refuse write when
-                    <code>pending_payment</code>, past due, or over <code>safeLimit</code>.
+                    Metadata enrichment answers “what is this product in words?” Photo enrichment answers
+                    “what selling images can we generate from this shot?” Different inputs, different
+                    outputs; both async relative to product save unless a lab admin demo forces sync.
                 </p>
 
-                <h2>Critical path: browser upload</h2>
-                <pre style="font-family:var(--font-header); font-size:0.8rem; line-height:1.45; color:var(--highlight); border:1px solid var(--grid-color); padding:1.15rem; overflow-x:auto; background:#0a0a0c; margin-bottom:2rem;">1. Web → gateway → auth: JWT
-2. Web → gateway → vault: POST /vault/presign/upload
-3. Gateway: verify JWT, set x-user-*, strip Authorization
-4. Vault: resolve membership (member and/or firmOrgId)
-5. Vault → billing: GET /entitlement?organizationId=…
-6. Billing: firm or vault sub → writeAllowed?
-7. Vault: presigned PUT under orgs/{id}/…
-8. Browser: PUT bytes directly to JuiceFS (not through app servers)</pre>
+                <p class="hub-section-label">Listing agent path (marketplace publish)</p>
+                <pre style="font-family:var(--font-header); font-size:0.8rem; line-height:1.45; color:var(--highlight); border:1px solid var(--grid-color); padding:1.15rem; overflow-x:auto; background:#0a0a0c; margin-bottom:2rem;">Photo ──► [Vision agent] ──► attributes JSON
+              │
+              ▼
+        [Schema mapper]
+        eBay | Amazon | Etsy
+              │
+              ▼
+        [Adapter / DOM]
+        session · form fill
+              │
+       ┌──────┴──────┐
+       ▼             ▼
+ [Human review]  [Publish gate]
+       │             │
+       └──── confirm ┘</pre>
                 <p>
-                    File bytes never transit auth or billing. Vault is policy + credentials; JuiceFS holds blobs.
+                    Listia’s publish path is <strong>browser execution</strong>, not marketplace seller APIs.
+                    Small multi-channel sellers are not on developer programs or advanced sync stacks; adapters
+                    drive the same seller UIs they already use. Least-privilege sessions; irreversible publish
+                    stays behind a human gate. Syndication copy in <code>aiContext</code> feeds the mapper;
+                    empty channel overrides fall back to auto-generated text. Sellers who need full channel
+                    APIs and warehouse sync have outgrown this wedge.
                 </p>
 
-                <h2>Storage + agent pipeline</h2>
+                <h2>Membership boundary</h2>
                 <p>
-                    JuiceFS exposes an S3-compatible API. Inbox layout:
-                    <code>orgs/{organizationId}/inbox/YYYY-MM-DD/{source}-…</code>.
+                    Catalog does not share-query auth’s <code>member</code> table. It calls:
                 </p>
+                <pre style="font-family:var(--font-header); font-size:0.8rem; line-height:1.45; color:var(--highlight); border:1px solid var(--grid-color); padding:1.15rem; overflow-x:auto; background:#0a0a0c; margin-bottom:2rem;">GET /api/v1/internal/memberships?userId=&amp;organizationId=
+Header: x-internal-service-secret: …</pre>
                 <p>
-                    When an object lands under an inbox prefix, the storage webhook (secret-checked, fast ACK)
-                    enqueues work. Two Valkey instances stay isolated on purpose:
+                    Roles change per org; JWT claims alone are not the long-term authority for every role map.
+                    Internal routes stay off the public gateway surface.
+                </p>
+
+                <h2>Shopper read model (target)</h2>
+                <p>
+                    Merchant admin talks to <strong>catalog Mongo</strong>. Shopper search and category pages
+                    should not fan out to catalog + pricing + inventory on every request.
                 </p>
                 <ul>
-                    <li><strong>valkey-gateway</strong> — rate-limit / edge only</li>
-                    <li><strong>valkey-agent</strong> — inbox job queue (<code>inbox:jobs</code>); Python <code>agent-worker</code> BRPOPs</li>
+                    <li>Write services stay systems of record</li>
+                    <li>Outbox / change stream → projector → denormalized doc in Elasticsearch / OpenSearch</li>
+                    <li>Flatten <code>searchableText</code> and <code>facets</code> at project time</li>
+                    <li>Fuzzy stock bands in the index; exact qty at reserve/checkout</li>
+                    <li>Every doc scoped by <code>organizationId</code> / <code>storeId</code></li>
                 </ul>
                 <p>
-                    Postgres holds durable map + run logs (object key ↔ job ↔ agent status). Mixing rate-limit
-                    keys with agent jobs on one Redis is a production failure mode we designed out.
+                    Sequence: catalog write model first → inventory/pricing sources → ES projector when PLP
+                    is a product requirement — not ES before you have a product.
                 </p>
-                <pre style="font-family:var(--font-header); font-size:0.8rem; line-height:1.45; color:var(--highlight); border:1px solid var(--grid-color); padding:1.15rem; overflow-x:auto; background:#0a0a0c; margin-bottom:2rem;">Email / SMS / browser / desktop put
-        │
-        ▼
-  JuiceFS  orgs/{id}/inbox/…
-        │  S3 notify (or inline enqueue after PutObject)
-        ▼
-  POST /api/v1/webhooks/storage   ← secret, fast ACK
-        ├─► valkey-agent   (queue)
-        └─► Postgres       (map + logs)
-                │
-                ▼
-         agent-worker (Python)
-         read object → classify / extract → update run</pre>
 
-                <h2>Inbound webhooks</h2>
-                <p>
-                    Files can enter without a logged-in browser session. Gateway bypasses JWT on
-                    <code>/api/v1/webhooks/*</code>; vault enforces secrets and vault resolution.
-                </p>
+                <h2>SaaS billing vs commerce payments</h2>
                 <ul>
-                    <li><strong>Email</strong> (SendGrid Inbound Parse) — local-part / slug → vault; attachments → inbox</li>
-                    <li><strong>SMS</strong> (Twilio) — body line <code>vault:{slug}</code>; media → inbox</li>
-                    <li><strong>Storage</strong> — S3 event on inbox prefix → agent pipeline trigger</li>
+                    <li><strong>billing-service</strong> — merchant subscription to you (limits: products, seats, storage)</li>
+                    <li><strong>commerce payments</strong> — shopper pays merchant (cart / PaymentIntents / Connect later)</li>
                 </ul>
                 <p>
-                    Unknown email vaults return 200 without storing (avoid provider retry storms).
-                    Storage requires <code>STORAGE_WEBHOOK_SECRET</code>. Only <code>inbox</code> prefixes wake the agent —
-                    not the whole vault tree.
+                    Do not put every shopper charge through the SaaS billing MS. Catalog checks entitlement
+                    (e.g. create product allowed / max products) before create.
                 </p>
 
-                <h2>Desktop pairing</h2>
-                <p>
-                    Pairing binds a <strong>device to a user</strong> — not who pays and not workspace ownership.
-                    Direction is device → web (reverse of “type a code into the app”).
-                </p>
-                <ol>
-                    <li>Desktop <code>pairing/start</code> → shows short <code>userCode</code>, keeps <code>deviceCode</code> secret (15m)</li>
-                    <li>Signed-in web <code>/desktop</code> → approve code</li>
-                    <li>Desktop polls with deviceCode → one-shot <code>deviceToken</code> (~90d)</li>
-                    <li>List safes + <code>vault-credentials</code> → STS under <code>orgs/{id}/</code>; remount ~50m</li>
-                </ol>
-                <p>
-                    Gateway treats opaque device tokens like users (resolve-token → <code>x-user-*</code>).
-                    Raw codes/tokens are hashed at rest; unknown poll codes return <code>pending</code> (no enumeration).
-                    Firm staff see firm-linked client vaults without per-vault membership invites.
-                </p>
-
-                <h2>What each service refuses to own</h2>
+                <h2>What each piece refuses to own</h2>
                 <ul>
-                    <li><strong>Gateway</strong> — no orgs, no Stripe, no S3 product rules</li>
-                    <li><strong>Auth</strong> — no charges, no file bytes, no “is this vault paid?”</li>
-                    <li><strong>Billing</strong> — no membership source of truth, no file storage</li>
-                    <li><strong>Vault</strong> — no Stripe, no firm/client create, no long-term membership truth</li>
+                    <li><strong>Gateway</strong> — no products, no membership truth</li>
+                    <li><strong>Auth</strong> — no product documents, no cart</li>
+                    <li><strong>Billing</strong> — no shopper checkout ledger</li>
+                    <li><strong>Catalog</strong> — no stock ledger, no auth SQL, no blocking LLM on save</li>
+                    <li><strong>Search index</strong> — not the product database; rebuild from sources</li>
                 </ul>
-                <p>
-                    That split keeps failure modes local: a billing outage can fail entitlement closed;
-                    a vault bug cannot rewrite who is on the firm roster.
-                </p>
 
                 <div class="case-callout">
                     <strong>Outcome</strong>
                     <p>
-                        Isolation is structural: workspace id as storage prefix, membership + firm linkage
-                        as access, billing entitlement as capacity, gateway as the only public door.
-                        UI remotes and backend services share the same cut lines so tenancy cannot drift
-                        between shell and S3.
+                        Clean base product, marketplace noise under channel overrides, AI in an isolated
+                        context, membership via auth HTTP, gateway as the only public door. Admin path uses
+                        the write model; shoppers eventually hit a projected read model. Publish stays
+                        supervised when adapters touch real channel UIs.
                     </p>
                 </div>
 
                 <nav class="case-actions" aria-label="Post navigation">
-                    <a href="./taxfort.html" data-page-transition="rtl">&lt;&lt; PROJECT_HUB</a>
-                    <a href="./field-notes.html" data-page-transition="ltr">FIELD_NOTES &gt;&gt;</a>
+                    <a href="./ai-marketplace.html" data-page-transition="rtl">&lt;&lt; PROJECT_HUB</a>
+                    <a href="./AGENTS.html" data-page-transition="ltr">AGENTS &gt;&gt;</a>
+                    <a href="./broswerex.html" data-page-transition="ltr">BROWSER_EXEC &gt;&gt;</a>
+                    <a href="./UX.html" data-page-transition="ltr">UX_POST &gt;&gt;</a>
                     <a href="../" data-page-transition="rtl">BLOG_INDEX</a>
                 </nav>
             </article>

@@ -3,12 +3,11 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Project: snapngo | stall.one</title>
-    <meta name="description" content="CLI for modular environment provisioning — case study, architecture, and developer docs." />
+    <title>Project: SnapNGo | stall.one</title>
+    <meta name="description" content="SnapNGo CLI builds modular systems: scaffold a spine, add microservices and micro-frontends, generate compose/env, run the stack." />
     <meta name="robots" content="index, follow" />
     <link rel="stylesheet" href="../../style.css" />
     <script src="../../page-transition.js"></script>
-    
 </head>
 <body>
     <header>
@@ -20,11 +19,11 @@
         <div class="menu-toggle" onclick="toggleMenu()">[MENU]</div>
         <nav id="navbar">
             <ul>
-                <li><a href="../#expertise" data-page-transition="rtl" onclick="toggleMenu()">01_SKILLS</a></li>
-                <li><a href="../#projects" data-page-transition="rtl" onclick="toggleMenu()">02_WORK</a></li>
-                <li><a href="../#certifications" data-page-transition="rtl" onclick="toggleMenu()">03_CERTS</a></li>
+                <li><a href="../../#expertise" data-page-transition="rtl" onclick="toggleMenu()">01_SKILLS</a></li>
+                <li><a href="../../#projects" data-page-transition="rtl" onclick="toggleMenu()">02_WORK</a></li>
+                <li><a href="../../#certifications" data-page-transition="rtl" onclick="toggleMenu()">03_CERTS</a></li>
                 <li><a href="../" data-page-transition="ltr" onclick="toggleMenu()">04_BLOG</a></li>
-                <li><a href="../#contact" data-page-transition="rtl" onclick="toggleMenu()">05_CONTACT</a></li>
+                <li><a href="../../#contact" data-page-transition="rtl" onclick="toggleMenu()">05_CONTACT</a></li>
             </ul>
         </nav>
     </header>
@@ -35,7 +34,10 @@
             <article class="project-hub case-study">
                 <span class="project-hub-kicker">PROJECT_HUB // 02_WORK</span>
                 <h1>[SYSTEM: SNAPNGO]</h1>
-                <p class="project-hub-lede">A specialized CLI engineered to set up, build, and modify high-value software environments — snap-on microservices and micro-frontends without ceremony sprawl.</p>
+                <p class="project-hub-lede">
+                    CLI to build modular systems: scaffold a spine, add microservices and micro-frontends,
+                    generate compose and env, bring the stack up. Faster path from zero to a known, runnable shape.
+                </p>
 
                 <dl class="case-study-meta">
                     <div>
@@ -48,7 +50,7 @@
                     </div>
                     <div>
                         <dt>Domain</dt>
-                        <dd>Dev tooling / plant systems</dd>
+                        <dd>System scaffolding / DX</dd>
                     </div>
                     <div>
                         <dt>Status</dt>
@@ -56,80 +58,92 @@
                     </div>
                 </dl>
 
-                <div>
                 <div class="tags" style="margin-bottom: 2rem; padding-top: 0;">
-                    <span class="tag">OPEN_SOURCE</span>
                     <span class="tag">CLI</span>
+                    <span class="tag">OPEN_SOURCE</span>
                     <span class="tag">MICROSERVICES</span>
                     <span class="tag">MICRO_FRONTENDS</span>
+                    <span class="tag">DX</span>
                 </div>
 
-            <p class="hub-section-label">Portfolio deliverables</p>
-            <div class="deliverables">
-                <a class="deliverable-card" href="#case-study">
-                    <div class="del-slot">01 · Case Study</div>
-                    <h3>Business narrative</h3>
-                    <div class="del-audience">Stakeholders · clients · ROI</div>
-                    <p>Problem, approach, and outcome in plain language. Hooks decision-makers who care about value delivered.</p>
-                    <span class="del-cta">Read case study ↓</span>
-                </a>
-                <a class="deliverable-card" href="../snapngo/white-paper.html" data-page-transition="ltr">
-                    <div class="del-slot">02 · White Paper</div>
-                    <h3>System design</h3>
-                    <div class="del-audience">Lead eng · architects</div>
-                    <p>Technical depth: boundaries, data flow, failure modes, and diagrams. Built for people who review systems.</p>
-                    <span class="del-cta">Open architecture →</span>
-                </a>
-                <a class="deliverable-card" href="../snapngo/Developer.html" data-page-transition="ltr">
-                    <div class="del-slot">03 · Docs / Quick Start</div>
-                    <h3>Developer surface</h3>
-                    <div class="del-audience">Engineers · DX</div>
-                    <p>CLI install, config, and module snap-on. For tooling, docs beat moodboards.</p>
-                    <span class="del-cta">Open quick start →</span>
-                </a>
-            </div>
-
-
-            <p class="hub-section-label">CLI / developer tooling extras</p>
-            <div class="extras-grid">
-                <div class="extra-card">
-                    <h3>Quick-start / docs</h3>
-                    <p>Install command, config shape, and module add flow — the API surface is the product.</p>
-                    <p><a href="../snapngo/Quick-start.html" data-page-transition="ltr">Open quick start →</a></p>
+                <p class="hub-section-label">Portfolio deliverables</p>
+                <div class="deliverables">
+                    <a class="deliverable-card" href="#case-study">
+                        <div class="del-slot">01 · Case Study</div>
+                        <h3>Business narrative</h3>
+                        <div class="del-audience">Stakeholders · clients · ROI</div>
+                        <p>Time lost to snowflake stacks — value of scaffolding a known modular system.</p>
+                        <span class="del-cta">Read case study ↓</span>
+                    </a>
+                    <a class="deliverable-card" href="./white-paper.html" data-page-transition="ltr">
+                        <div class="del-slot">02 · White Paper</div>
+                        <h3>System design</h3>
+                        <div class="del-audience">Lead eng · architects</div>
+                        <p>Host, MFEs, gateway, service ownership, packages — topology the CLI generates and runs.</p>
+                        <span class="del-cta">Open architecture →</span>
+                    </a>
+                    <a class="deliverable-card" href="./Developer.html" data-page-transition="ltr">
+                        <div class="del-slot">03 · Developer surface</div>
+                        <h3>DX / modules</h3>
+                        <div class="del-audience">Engineers · DX</div>
+                        <p>CLI commands, module contract, shared packages — day-one engineer surface.</p>
+                        <span class="del-cta">Open developer →</span>
+                    </a>
                 </div>
-                <div class="extra-card">
-                    <h3>Terminal recording</h3>
-                    <p>Prefer Asciinema or a short GIF of <code>snapngo init && snapngo add && snapngo up</code> over static screenshots when publishing releases.</p>
+
+                <p class="hub-section-label">CLI / tooling extras</p>
+                <div class="extras-grid">
+                    <div class="extra-card">
+                        <h3>Quick start</h3>
+                        <p><code>init</code> · <code>add</code> · <code>up</code> · health — install and first run.</p>
+                        <p><a href="./Quick-start.html" data-page-transition="ltr">Open quick start →</a></p>
+                    </div>
+                    <div class="extra-card">
+                        <h3>MMUI</h3>
+                        <p>Microservices + micro-frontends + modular UI — aligned cut lines in the scaffolded stack.</p>
+                        <p><a href="./mmui.html" data-page-transition="ltr">Read field note →</a></p>
+                    </div>
                 </div>
-            </div>
-        
 
                 <div id="case-study" class="case-study-block">
                     <p class="hub-section-label">Case study · business narrative</p>
                     <h2>Problem</h2>
-                    <p>Greenfield stacks and plant-floor integrations both suffer from snowflake setup. Teams reinvent Docker compose, env files, and service wiring every time.</p>
+                    <p>
+                        Teams burn weeks hand-wiring compose files, env folklore, and service boilerplate for
+                        every new modular stack. Auth, gateway, and tenancy get reinvented per product instead
+                        of reused as a known shape.
+                    </p>
                     <h2>Approach</h2>
                     <ul>
-                    <li>CLI-first scaffolding with opinionated defaults and escape hatches.</li>
-                    <li>Snap-on module model: add/remove services without rewriting the spine.</li>
-                    <li>Document the API surface as the product — install, configure, extend.</li>
+                        <li>CLI surface: init spine, add modules, up, health.</li>
+                        <li>Generated spine with gateway, auth defaults, observability hooks, org tenancy shape.</li>
+                        <li>Modules for domain services and optional micro-frontends without rewriting the spine.</li>
+                        <li>Shared packages so contracts stay consistent across modules.</li>
                     </ul>
                     <div class="case-callout">
                         <strong>Outcome / ROI framing</strong>
-                        <p>A developer-facing system for provisioning modular environments with plant-floor and web microservice DNA.</p>
+                        <p>
+                            Shorter path from empty repo to a running modular system. Reusable chassis for
+                            multi-service products (e.g. TaxBox, Listia) without redoing platform decisions each time.
+                        </p>
                     </div>
                     <h2>What shipped</h2>
-                    <p>Snap-on systems thesis and architecture packaging for portfolio; docs-oriented hub.</p>
-                </div>
+                    <p>
+                        Portfolio package: architecture white paper, developer surface, quick start, MMUI and
+                        modular-systems notes. Reference monorepos implement the chassis; public CLI packaging
+                        is open source direction.
+                    </p>
                 </div>
 
                 <h2>Technical logs</h2>
                 <div class="related-logs">
-                <a href="../snapngo/snap-on-systems.html" data-page-transition="ltr"><span>THESIS</span>Snap-on systems</a>
+                    <a href="./modular-systems.html" data-page-transition="ltr"><span>THESIS</span>Modular systems</a>
+                    <a href="./mmui.html" data-page-transition="ltr"><span>LOG</span>MMUI</a>
+                    <a href="./white-paper.html" data-page-transition="ltr"><span>WHITE_PAPER</span>Architecture</a>
                 </div>
 
                 <nav class="case-actions" aria-label="Project navigation">
-                    <a href="../#projects" data-page-transition="rtl">&lt;&lt; BACK_TO_WORK</a>
+                    <a href="../../#projects" data-page-transition="rtl">&lt;&lt; BACK_TO_WORK</a>
                     <a href="../Listia/ai-marketplace.html" data-page-transition="rtl">&lt;&lt; PREV</a>
                     <a href="../amerimatter/amerimatter-cnc.html" data-page-transition="ltr">NEXT &gt;&gt;</a>
                 </nav>

@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Developer surface | SnapNGo | stall.one</title>
-    <meta name="description" content="SnapNGo developer surface draft: CLI as product API, module contract, shared packages, and how verticals consume the chassis." />
+    <title>Modular systems | SnapNGo | stall.one</title>
+    <meta name="description" content="SnapNGo modular systems: CLI-built spine, attachable modules, idempotent apply — less ceremony when standing up multi-service stacks." />
     <meta name="robots" content="index, follow" />
     <link rel="stylesheet" href="../../style.css" />
     <script src="../../page-transition.js"></script>
@@ -33,11 +33,11 @@
         <section>
             <a href="./snapngo.html" class="project-link" data-page-transition="rtl" aria-label="Back to SnapNGo" style="margin-top:0; margin-bottom:1.5rem;">&lt;&lt; Back to SnapNGo</a>
             <article class="case-study">
-                <span class="case-study-kicker">DOCS // DRAFT · DEVELOPER</span>
-                <h1>Developer surface</h1>
+                <span class="case-study-kicker">LOG // SNAPNGO · DRAFT · THESIS</span>
+                <h1>Modular systems</h1>
                 <p class="case-study-lede">
-                    Surfaces engineers touch day one: CLI commands, module contract, shared packages, and the
-                    gateway path remotes and services use.
+                    Build multi-service stacks from the terminal: stable spine, attachable modules, less
+                    ceremony. init → add → up yields a runnable shape teams can extend.
                 </p>
 
                 <dl class="case-study-meta">
@@ -47,66 +47,55 @@
                     </div>
                     <div>
                         <dt>Type</dt>
-                        <dd>Docs · draft</dd>
+                        <dd>Field note · draft</dd>
                     </div>
                     <div>
                         <dt>Audience</dt>
-                        <dd>Engineers · DX</dd>
+                        <dd>Builders · DX</dd>
                     </div>
                 </dl>
 
                 <div class="tags" style="margin-bottom: 2rem; padding-top: 0;">
-                    <span class="tag">DX</span>
+                    <span class="tag">THESIS</span>
                     <span class="tag">CLI</span>
-                    <span class="tag">MODULES</span>
-                    <span class="tag">PACKAGES</span>
+                    <span class="tag">MODULAR</span>
+                    <span class="tag">MICROSERVICES</span>
                 </div>
 
-                <h2>Surfaces</h2>
-                <ul>
-                    <li><strong>CLI</strong> — <code>init</code>, <code>add</code>, <code>up</code>, <code>health</code> (see quick start)</li>
-                    <li><strong>Module contract</strong> — ports, env keys, lifecycle scripts, optional remote entry</li>
-                    <li><strong>Packages</strong> — <code>@snapngo/shared</code>, <code>@snapngo/observability</code></li>
-                    <li><strong>Gateway path</strong> — remotes and web talk <code>/api/…</code> only; no browser → internal MS</li>
-                </ul>
-
-                <h2>Module contract (draft sketch)</h2>
-                <pre style="font-family:var(--font-header); font-size:0.8rem; line-height:1.45; color:var(--highlight); border:1px solid var(--grid-color); padding:1.15rem; overflow-x:auto; background:#0a0a0c; margin-bottom:2rem;">{
-  "name": "catalog",
-  "service": { "port": 3104, "health": "/health" },
-  "env": ["MONGODB_URL", "AUTH_SERVICE_URL"],
-  "remote": { "name": "catalog_remote", "port": 4180 },
-  "dependsOn": ["gateway", "auth"]
-}</pre>
-
-                <h2>Example modules</h2>
-                <ul>
-                    <li>Auth + gateway — typical spine add-ons</li>
-                    <li>Billing, vault/media, catalog — domain modules used by multi-tenant products</li>
-                    <li>Optional MF remotes per domain, loaded by the host shell</li>
-                </ul>
+                <h2>Problem</h2>
                 <p>
-                    Domain services and product UI packages live with the app; generators and cut-line
-                    contracts come from SnapNGo.
+                    Every new stack reinvents compose, env, auth wiring, and service boilerplate. Snowflake
+                    setups do not scale across products or teams. Cost shows up as delayed demos, fragile
+                    onboarding, and platform decisions re-litigated per repo.
                 </p>
 
-                <h2>Local reference</h2>
+                <h2>Model</h2>
+                <ul>
+                    <li><strong>CLI</strong> — init spine, add modules, up, health</li>
+                    <li><strong>Spine</strong> — gateway, identity defaults, observability hooks</li>
+                    <li><strong>Modules</strong> — domain service ± UI remote ± package surface</li>
+                    <li><strong>Idempotent apply</strong> — re-run configure to converge</li>
+                    <li><strong>Escape hatches</strong> — generated files until marked customized</li>
+                </ul>
+
+                <h2>What you get out</h2>
                 <p>
-                    Reference monorepos use compose and make targets (<code>make up</code>, health, migrate).
-                    Observability is optional. Full topology lives in the white paper.
+                    A running multi-service system with a known cut map: remotes talk through the gateway;
+                    services own their data; shared packages keep error and auth-header contracts aligned.
+                    Domain modules (auth, billing, catalog, vault, …) plug into that spine.
                 </p>
 
                 <div class="case-callout">
-                    <strong>DX bar</strong>
+                    <strong>Takeaway</strong>
                     <p>
-                        Day-one should fit a short command sequence. Topology and tradeoffs sit in the white
-                        paper; install and module shape sit here and in Quick start.
+                        Ceremony drops when scaffolding is productized. The next service should not require
+                        re-deriving how auth and the gateway fit together.
                     </p>
                 </div>
 
                 <nav class="case-actions" aria-label="Post navigation">
                     <a href="./snapngo.html" data-page-transition="rtl">&lt;&lt; PROJECT_HUB</a>
-                    <a href="./Quick-start.html" data-page-transition="rtl">&lt;&lt; QUICK_START</a>
+                    <a href="./Quick-start.html" data-page-transition="ltr">QUICK_START &gt;&gt;</a>
                     <a href="./white-paper.html" data-page-transition="ltr">WHITE_PAPER &gt;&gt;</a>
                     <a href="../" data-page-transition="rtl">BLOG_INDEX</a>
                 </nav>

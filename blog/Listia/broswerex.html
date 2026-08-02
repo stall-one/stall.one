@@ -3,16 +3,8 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <!--
-      STARTER: field note / technical log
-      Inspired by work/*.html project hubs (same shell + case-study language).
-
-      1. mkdir -p blog/YourProject
-      2. cp starters/blog.html blog/YourProject/your-note.html
-      3. Fill content; link from hub related-logs
-    -->
-    <title>{{TITLE}} | stall.one</title>
-    <meta name="description" content="{{LEDE}}" />
+    <title>Browser execution | Listia | stall.one</title>
+    <meta name="description" content="Listia browser execution drives marketplace seller UIs for small multi-channel sellers — not marketplace developer APIs or enterprise connectors." />
     <meta name="robots" content="index, follow" />
     <link rel="stylesheet" href="../../style.css" />
     <script src="../../page-transition.js"></script>
@@ -20,18 +12,18 @@
 <body>
     <header>
         <div class="logo-container">
-            <a href="../" data-page-transition="rtl" class="brand-link" aria-label="Back to home">
+            <a href="../../" data-page-transition="rtl" class="brand-link" aria-label="Back to home">
                 <span class="brand">STALL.ONE</span>
             </a>
         </div>
         <div class="menu-toggle" onclick="toggleMenu()">[MENU]</div>
         <nav id="navbar">
             <ul>
-                <li><a href="../#expertise" data-page-transition="rtl" onclick="toggleMenu()">01_SKILLS</a></li>
-                <li><a href="../#projects" data-page-transition="rtl" onclick="toggleMenu()">02_WORK</a></li>
-                <li><a href="../#certifications" data-page-transition="rtl" onclick="toggleMenu()">03_CERTS</a></li>
-                <li><a href="../blog/" data-page-transition="ltr" onclick="toggleMenu()">04_BLOG</a></li>
-                <li><a href="../#contact" data-page-transition="rtl" onclick="toggleMenu()">05_CONTACT</a></li>
+                <li><a href="../../#expertise" data-page-transition="rtl" onclick="toggleMenu()">01_SKILLS</a></li>
+                <li><a href="../../#projects" data-page-transition="rtl" onclick="toggleMenu()">02_WORK</a></li>
+                <li><a href="../../#certifications" data-page-transition="rtl" onclick="toggleMenu()">03_CERTS</a></li>
+                <li><a href="../" data-page-transition="ltr" onclick="toggleMenu()">04_BLOG</a></li>
+                <li><a href="../../#contact" data-page-transition="rtl" onclick="toggleMenu()">05_CONTACT</a></li>
             </ul>
         </nav>
     </header>
@@ -39,59 +31,113 @@
 
     <main class="container">
         <section>
-            <!-- Same vocabulary as project hubs: kicker, lede, meta, tags, // h2, callout, actions -->
+            <a href="./ai-marketplace.html" class="project-link" data-page-transition="rtl" aria-label="Back to Listia" style="margin-top:0; margin-bottom:1.5rem;">&lt;&lt; Back to Listia</a>
             <article class="case-study">
-                <span class="case-study-kicker">LOG // {{PROJECT_TAG}} · {{YYYY-MM-DD}}</span>
-                <h1>{{TITLE}}</h1>
-                <p class="case-study-lede">{{LEDE}}</p>
+                <span class="case-study-kicker">LOG // LISTIA · DRAFT · BROWSER</span>
+                <h1>Browser execution</h1>
+                <p class="case-study-lede">
+                    Listia lists through the same marketplace screens small sellers already use — controlled
+                    DOM automation with a human publish gate. It is not a marketplace developer-API product
+                    and not an enterprise connector stack.
+                </p>
 
                 <dl class="case-study-meta">
                     <div>
                         <dt>Project</dt>
-                        <dd>{{PROJECT_NAME}}</dd>
+                        <dd>Listia</dd>
                     </div>
                     <div>
                         <dt>Type</dt>
-                        <dd>Field note</dd>
+                        <dd>Field note · draft</dd>
                     </div>
                     <div>
                         <dt>Audience</dt>
-                        <dd>{{AUDIENCE}}</dd>
+                        <dd>Builders · operators</dd>
                     </div>
                 </dl>
 
                 <div class="tags" style="margin-bottom: 2rem; padding-top: 0;">
-                    <span class="tag">{{TAG_1}}</span>
-                    <span class="tag">{{TAG_2}}</span>
+                    <span class="tag">DOM_INJECTION</span>
+                    <span class="tag">SMALL_SELLER</span>
+                    <span class="tag">NO_CHANNEL_API</span>
+                    <span class="tag">PUBLISH_GATE</span>
                 </div>
 
-                <h2>Context</h2>
+                <h2>Who this is for</h2>
                 <p>
-                    What triggered this note — the concrete situation, constraint, or failure.
-                    Mirror the hub “Problem” tone: plain language, no marketing fog.
+                    Solo and small multi-channel sellers: phone photos, a few weekly listings, no ops team,
+                    no appetite for developer portals, API keys, app review, or “advanced” channel integrations.
+                    They already work in eBay / Amazon / Etsy in the browser. Listia meets them there.
                 </p>
 
-                <h2>What we tried</h2>
+                <h2>What this is not</h2>
                 <ul>
-                    <li>First approach or experiment.</li>
-                    <li>Second approach or measurement.</li>
-                    <li>What you rejected and why.</li>
+                    <li><strong>Not marketplace APIs</strong> — no eBay / Amazon / Etsy seller API integration as the product path</li>
+                    <li><strong>Not for advanced sellers</strong> already on inventory sync tools, ERP connectors, or full API stacks</li>
+                    <li><strong>Not a general web scraper</strong> — only channel seller UIs Listia has adapters for</li>
+                </ul>
+                <p>
+                    When someone is ready for official channel APIs and warehouse-grade sync, they have
+                    outgrown Listia’s wedge. The product stays honest about that ceiling.
+                </p>
+
+                <h2>What browser execution is</h2>
+                <p>
+                    A <strong>channel adapter</strong> that drives the real seller UI: fill forms, pick
+                    taxonomy, attach media, walk multi-step wizards — same surfaces the seller would click,
+                    from a structured listing document produced in Listia.
+                </p>
+                <ul>
+                    <li>Input: listing JSON (product + channel overrides + confirmed assets)</li>
+                    <li>Runtime: browser context with the seller’s marketplace session</li>
+                    <li>Output: draft on-channel and/or publish under an explicit gate</li>
+                </ul>
+
+                <p class="hub-section-label">Place in the pipeline</p>
+                <pre style="font-family:var(--font-header); font-size:0.8rem; line-height:1.45; color:var(--highlight); border:1px solid var(--grid-color); padding:1.15rem; overflow-x:auto; background:#0a0a0c; margin-bottom:2rem;">Listia catalog / aiContext
+        │  channel-shaped payload
+        ▼
+[Adapter / DOM]  ← browser execution (seller UI, not channel API)
+ session · form fill · media attach
+        │
+ ┌──────┴──────┐
+ ▼             ▼
+[Human review] [Publish gate]
+        │
+        ▼
+  Marketplace listing (as if the seller clicked through)</pre>
+
+                <h2>Rules</h2>
+                <ul>
+                    <li><strong>UI path by design</strong> — small sellers live in the browser; adapters follow that, not a developer roadmap</li>
+                    <li><strong>Least privilege</strong> — session scoped to the seller account and the action</li>
+                    <li><strong>No silent publish</strong> — irreversible clicks stay behind confirm</li>
+                    <li><strong>Observable runs</strong> — step log / failure trace so “stuck on Etsy step 3” is diagnosable</li>
+                    <li><strong>Adapters version per channel</strong> — seller UIs churn; treat that as the cost of this wedge</li>
                 </ul>
 
                 <div class="case-callout">
                     <strong>What stuck</strong>
-                    <p>{{TAKEAWAY}}</p>
+                    <p>
+                        One listing in Listia, many channels, without asking a hobby seller to become a
+                        developer. Browser execution is the last mile on purpose — same screens they trust,
+                        automation they can still stop before Publish.
+                    </p>
                 </div>
 
-                <h2>Links</h2>
-                <p>
-                    Point back to the hub and related deliverables so this log stays part of the project tree.
-                </p>
+                <h2>Open questions (draft)</h2>
+                <ul>
+                    <li>Hosted browser vs seller-local extension — session residency and CAPTCHA reality.</li>
+                    <li>How often adapters break when marketplaces redesign their seller UI.</li>
+                    <li>Clear “you’ve outgrown Listia” moment when channel APIs become the right tool.</li>
+                </ul>
 
                 <nav class="case-actions" aria-label="Post navigation">
-                    <a href="../../work/{{HUB_SLUG}}.html" data-page-transition="rtl">&lt;&lt; PROJECT_HUB</a>
+                    <a href="./ai-marketplace.html" data-page-transition="rtl">&lt;&lt; PROJECT_HUB</a>
+                    <a href="./AGENTS.html" data-page-transition="ltr">AGENTS &gt;&gt;</a>
+                    <a href="./architecture.html" data-page-transition="ltr">WHITE_PAPER &gt;&gt;</a>
+                    <a href="./UX.html" data-page-transition="ltr">UX_POST &gt;&gt;</a>
                     <a href="../" data-page-transition="rtl">BLOG_INDEX</a>
-                    <a href="../../#projects" data-page-transition="rtl">ALL_WORK</a>
                 </nav>
             </article>
         </section>

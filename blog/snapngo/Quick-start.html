@@ -3,16 +3,8 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <!--
-      STARTER: field note / technical log
-      Inspired by work/*.html project hubs (same shell + case-study language).
-
-      1. mkdir -p blog/YourProject
-      2. cp starters/blog.html blog/YourProject/your-note.html
-      3. Fill content; link from hub related-logs
-    -->
-    <title>{{TITLE}} | stall.one</title>
-    <meta name="description" content="{{LEDE}}" />
+    <title>Quick start | SnapNGo | stall.one</title>
+    <meta name="description" content="SnapNGo quick start draft: init spine, add modules, up the stack — install and day-one surface for engineers." />
     <meta name="robots" content="index, follow" />
     <link rel="stylesheet" href="../../style.css" />
     <script src="../../page-transition.js"></script>
@@ -30,7 +22,7 @@
                 <li><a href="../../#expertise" data-page-transition="rtl" onclick="toggleMenu()">01_SKILLS</a></li>
                 <li><a href="../../#projects" data-page-transition="rtl" onclick="toggleMenu()">02_WORK</a></li>
                 <li><a href="../../#certifications" data-page-transition="rtl" onclick="toggleMenu()">03_CERTS</a></li>
-                <li><a href="../../" data-page-transition="ltr" onclick="toggleMenu()">04_BLOG</a></li>
+                <li><a href="../" data-page-transition="ltr" onclick="toggleMenu()">04_BLOG</a></li>
                 <li><a href="../../#contact" data-page-transition="rtl" onclick="toggleMenu()">05_CONTACT</a></li>
             </ul>
         </nav>
@@ -39,59 +31,80 @@
 
     <main class="container">
         <section>
-            <!-- Same vocabulary as project hubs: kicker, lede, meta, tags, // h2, callout, actions -->
+            <a href="./snapngo.html" class="project-link" data-page-transition="rtl" aria-label="Back to SnapNGo" style="margin-top:0; margin-bottom:1.5rem;">&lt;&lt; Back to SnapNGo</a>
             <article class="case-study">
-                <span class="case-study-kicker">LOG // {{PROJECT_TAG}} · {{YYYY-MM-DD}}</span>
-                <h1>{{TITLE}}</h1>
-                <p class="case-study-lede">{{LEDE}}</p>
+                <span class="case-study-kicker">DOCS // DRAFT · QUICK START</span>
+                <h1>Quick start</h1>
+                <p class="case-study-lede">
+                    Install, scaffold a spine, add a module, bring the stack up. Commands below are the
+                    intended day-one path (illustrative until the public CLI ships).
+                </p>
 
                 <dl class="case-study-meta">
                     <div>
                         <dt>Project</dt>
-                        <dd>{{PROJECT_NAME}}</dd>
+                        <dd>SnapNGo</dd>
                     </div>
                     <div>
                         <dt>Type</dt>
-                        <dd>Field note</dd>
+                        <dd>Docs · draft</dd>
                     </div>
                     <div>
                         <dt>Audience</dt>
-                        <dd>{{AUDIENCE}}</dd>
+                        <dd>Engineers · DX</dd>
                     </div>
                 </dl>
 
                 <div class="tags" style="margin-bottom: 2rem; padding-top: 0;">
-                    <span class="tag">{{TAG_1}}</span>
-                    <span class="tag">{{TAG_2}}</span>
+                    <span class="tag">DOCS</span>
+                    <span class="tag">CLI</span>
+                    <span class="tag">QUICK_START</span>
                 </div>
 
-                <h2>Context</h2>
-                <p>
-                    What triggered this note — the concrete situation, constraint, or failure.
-                    Mirror the hub “Problem” tone: plain language, no marketing fog.
-                </p>
+                <h2>Install &amp; scaffold (illustrative)</h2>
+                <pre style="font-family:var(--font-header); font-size:0.85rem; line-height:1.5; color:var(--highlight); border:1px solid var(--grid-color); padding:1.15rem; overflow-x:auto; background:#0a0a0c; margin-bottom:2rem;"># install (illustrative)
+curl -fsSL https://stall.one/snapngo/install | sh
 
-                <h2>What we tried</h2>
+# scaffold a spine
+snapngo init my-stack
+cd my-stack
+
+# add modules
+snapngo add auth
+snapngo add gateway
+snapngo add catalog   # example domain module
+
+# run
+snapngo up
+snapngo health</pre>
+
+                <h2>What you get</h2>
                 <ul>
-                    <li>First approach or experiment.</li>
-                    <li>Second approach or measurement.</li>
-                    <li>What you rejected and why.</li>
+                    <li>Project spine (compose/env layout, defaults)</li>
+                    <li>Gateway + auth when those modules are added</li>
+                    <li>Domain modules with declared ports and env keys</li>
+                    <li>Health checks per service</li>
                 </ul>
 
+                <h2>Day-one checks</h2>
+                <pre style="font-family:var(--font-header); font-size:0.85rem; line-height:1.5; color:var(--highlight); border:1px solid var(--grid-color); padding:1.15rem; overflow-x:auto; background:#0a0a0c; margin-bottom:2rem;"># typical local ports (platform reference)
+# gateway :3000 / :3100   auth :3001 / :3101
+curl -s http://localhost:3100/health
+curl -s http://localhost:3101/health</pre>
+
                 <div class="case-callout">
-                    <strong>What stuck</strong>
-                    <p>{{TAKEAWAY}}</p>
+                    <strong>Next</strong>
+                    <p>
+                        After health is green, open the developer surface for module contract details and the
+                        white paper for topology.
+                    </p>
                 </div>
 
-                <h2>Links</h2>
-                <p>
-                    Point back to the hub and related deliverables so this log stays part of the project tree.
-                </p>
-
                 <nav class="case-actions" aria-label="Post navigation">
-                    <a href="../../work/{{HUB_SLUG}}.html" data-page-transition="rtl">&lt;&lt; PROJECT_HUB</a>
+                    <a href="./snapngo.html" data-page-transition="rtl">&lt;&lt; PROJECT_HUB</a>
+                    <a href="./Developer.html" data-page-transition="ltr">DEVELOPER &gt;&gt;</a>
+                    <a href="./white-paper.html" data-page-transition="ltr">WHITE_PAPER &gt;&gt;</a>
                     <a href="../" data-page-transition="rtl">BLOG_INDEX</a>
-                    <a href="../../#projects" data-page-transition="rtl">ALL_WORK</a>
                 </nav>
             </article>
         </section>

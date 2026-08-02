@@ -3,12 +3,11 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Project: Listia / AI Marketplace | stall.one</title>
-    <meta name="description" content="Agentic e-commerce automation — case study, agent architecture, and ClayUI product design." />
+    <title>Project: Listia | stall.one</title>
+    <meta name="description" content="Listia for small multi-channel sellers — photo to listing with AI, browser automation into marketplace UIs they already use, no marketplace developer APIs required." />
     <meta name="robots" content="index, follow" />
     <link rel="stylesheet" href="../../style.css" />
     <script src="../../page-transition.js"></script>
-    
 </head>
 <body>
     <header>
@@ -20,11 +19,11 @@
         <div class="menu-toggle" onclick="toggleMenu()">[MENU]</div>
         <nav id="navbar">
             <ul>
-                <li><a href="../#expertise" data-page-transition="rtl" onclick="toggleMenu()">01_SKILLS</a></li>
-                <li><a href="../#projects" data-page-transition="rtl" onclick="toggleMenu()">02_WORK</a></li>
-                <li><a href="../#certifications" data-page-transition="rtl" onclick="toggleMenu()">03_CERTS</a></li>
+                <li><a href="../../#expertise" data-page-transition="rtl" onclick="toggleMenu()">01_SKILLS</a></li>
+                <li><a href="../../#projects" data-page-transition="rtl" onclick="toggleMenu()">02_WORK</a></li>
+                <li><a href="../../#certifications" data-page-transition="rtl" onclick="toggleMenu()">03_CERTS</a></li>
                 <li><a href="../" data-page-transition="ltr" onclick="toggleMenu()">04_BLOG</a></li>
-                <li><a href="../#contact" data-page-transition="rtl" onclick="toggleMenu()">05_CONTACT</a></li>
+                <li><a href="../../#contact" data-page-transition="rtl" onclick="toggleMenu()">05_CONTACT</a></li>
             </ul>
         </nav>
     </header>
@@ -34,8 +33,12 @@
         <section>
             <article class="project-hub case-study">
                 <span class="project-hub-kicker">PROJECT_HUB // 02_WORK</span>
-                <h1>[ORCHESTRATOR: Listia]</h1>
-                <p class="project-hub-lede">Universal marketplace adapters via controlled DOM injection, plus multimodal AI that turns raw product photos into SEO-ready structured listings for eBay, Amazon, and Etsy — without waiting on incomplete APIs.</p>
+                <h1>[ORCHESTRATOR: LISTIA]</h1>
+                <p class="project-hub-lede">
+                    For small multi-channel sellers who are not ready for marketplace developer APIs or
+                    advanced sync tools: multimodal AI turns phone photos into structured listings, then
+                    browser automation fills the seller UIs they already use — with a human gate before publish.
+                </p>
 
                 <dl class="case-study-meta">
                     <div>
@@ -48,7 +51,7 @@
                     </div>
                     <div>
                         <dt>Domain</dt>
-                        <dd>E-commerce ops</dd>
+                        <dd>Small-seller e-commerce</dd>
                     </div>
                     <div>
                         <dt>Status</dt>
@@ -57,6 +60,7 @@
                 </dl>
 
                 <div class="tags" style="margin-bottom: 2rem; padding-top: 0;">
+                    <span class="tag">SMALL_SELLER</span>
                     <span class="tag">DOM_INJECTION</span>
                     <span class="tag">MULTIMODAL_AI</span>
                     <span class="tag">CLAYUI</span>
@@ -69,65 +73,79 @@
                         <div class="del-slot">01 · Case Study</div>
                         <h3>Business narrative</h3>
                         <div class="del-audience">Stakeholders · clients · ROI</div>
-                        <p>Problem, approach, and outcome in plain language. Hooks decision-makers who care about value delivered.</p>
+                        <p>Why small sellers need multi-channel without becoming integrators — problem, approach, outcome.</p>
                         <span class="del-cta">Read case study ↓</span>
                     </a>
-                    <a class="deliverable-card" href="../Listia/architecture.html" data-page-transition="ltr">
+                    <a class="deliverable-card" href="./architecture.html" data-page-transition="ltr">
                         <div class="del-slot">02 · White Paper</div>
                         <h3>System design</h3>
                         <div class="del-audience">Lead eng · architects</div>
-                        <p>Technical depth: boundaries, data flow, failure modes, and diagrams. Built for people who review systems.</p>
+                        <p>Chassis + catalog write model, two enrichment tracks, browser publish path, service cut lines.</p>
                         <span class="del-cta">Open architecture →</span>
                     </a>
-                    <a class="deliverable-card" href="../Listia/UX.html" data-page-transition="ltr">
+                    <a class="deliverable-card" href="./UX.html" data-page-transition="ltr">
                         <div class="del-slot">03 · Design Post</div>
                         <h3>UX + visual language</h3>
                         <div class="del-audience">PMs · UX · product</div>
-                        <p>Why the aesthetic pivot happened — palette psychology, hierarchy, and workflow — not “it looked cool.”</p>
+                        <p>ClayUI: light canvas, indigo action, short seller paths for multi-channel listing.</p>
                         <span class="del-cta">Open design →</span>
                     </a>
                 </div>
 
-                <p class="hub-section-label">AI agent extras</p>
+                <p class="hub-section-label">Product extras</p>
                 <div class="extras-grid">
                     <div class="extra-card">
-                        <h3>System architecture diagram</h3>
-                        <p>Vision → schema map → DOM adapter → human publish gate. Full map in the white paper.</p>
-                        <p><a href="../Listia/architecture.html" data-page-transition="ltr">Open architecture →</a></p>
+                        <h3>Browser execution</h3>
+                        <p>Publish through marketplace seller UIs — not eBay/Amazon/Etsy developer APIs. Built for sellers still listing by hand.</p>
+                        <p><a href="./broswerex.html" data-page-transition="ltr">Read field note →</a></p>
                     </div>
                     <div class="extra-card">
-                        <h3>Agent state visibility</h3>
-                        <p>Decision logs and confidence surfaces make the swarm auditable — not a black box that “just listed it.”</p>
+                        <h3>Agents</h3>
+                        <p>Metadata + photo asset gen into <code>aiContext</code>, then schema map and adapter — decision logs, human publish gate.</p>
+                        <p><a href="./AGENTS.html" data-page-transition="ltr">Read field note →</a></p>
                     </div>
                 </div>
 
                 <div id="case-study" class="case-study-block">
                     <p class="hub-section-label">Case study · business narrative</p>
                     <h2>Problem</h2>
-                    <p>Sellers juggle fragmented dashboards. APIs are incomplete, rate-limited, or unavailable. Listing creation still starts with a phone photo and ends in manual title/description/taxonomy work that does not scale.</p>
+                    <p>
+                        Small sellers list on several marketplaces by hand. They are not on developer APIs,
+                        inventory ERPs, or advanced multi-channel stacks — so every new channel means retyping
+                        titles, attributes, and photos. Phone-to-listing does not scale without turning them
+                        into integrators.
+                    </p>
                     <h2>Approach</h2>
                     <ul>
-                        <li>Universal adapter layer using controlled DOM injection to drive marketplace UIs programmatically.</li>
-                        <li>Multimodal model path: image → attributes → SEO-optimized JSON for channel-specific schemas.</li>
-                        <li>Zero-trust posture for credentials and session material — agents act with least privilege.</li>
-                        <li>Human-in-the-loop checkpoints before irreversible publish actions.</li>
+                        <li>Stay on the browser path: controlled DOM adapters drive seller UIs they already know — not marketplace public APIs.</li>
+                        <li>Two enrichments: product metadata (copy, tags, text) and photo gen (studio / lifestyle / social assets from a source shot + prompt).</li>
+                        <li>Catalog write model with channel overrides so one product can present differently per marketplace without full re-entry.</li>
+                        <li>Least privilege on sessions; human gate before irreversible publish; clear outgrow line when API-grade sync is the right next tool.</li>
                     </ul>
                     <div class="case-callout">
                         <strong>Outcome / ROI framing</strong>
-                        <p>An orchestrator that collapses photo → structured listing → multi-channel publish into a supervised agent workflow sellers can trust.</p>
+                        <p>
+                            Photo → structured listing → multi-channel entry without copy-paste and without
+                            forcing small sellers into developer programs or enterprise connectors.
+                        </p>
                     </div>
                     <h2>What shipped</h2>
-                    <p>Listia product narrative, ClayUI surfaces, adapter thesis, and case packaging for portfolio and demos.</p>
+                    <p>
+                        Product hub packaging: architecture white paper (chassis, catalog, enrichment, browser
+                        publish), ClayUI design post, browser-execution and agents field notes. Demos and
+                        narrative for portfolio — wedge fixed on small multi-channel sellers, not advanced ops.
+                    </p>
                 </div>
 
                 <h2>Technical logs</h2>
                 <div class="related-logs">
-                    <a href="../Listia/broswerex.html" data-page-transition="ltr"><span>PRODUCT</span>browser execution</a>
-                    <a href="../Listia/AGENTS.html" data-page-transition="ltr"><span>AGENTS</span>AI marketplace</a>
+                    <a href="./broswerex.html" data-page-transition="ltr"><span>PRODUCT</span>Browser execution</a>
+                    <a href="./AGENTS.html" data-page-transition="ltr"><span>AGENTS</span>Agent swarm</a>
+                    <a href="./architecture.html" data-page-transition="ltr"><span>WHITE_PAPER</span>Architecture</a>
                 </div>
 
                 <nav class="case-actions" aria-label="Project navigation">
-                    <a href="../" data-page-transition="rtl">&lt;&lt; BACK_TO_WORK</a>
+                    <a href="../../#projects" data-page-transition="rtl">&lt;&lt; BACK_TO_WORK</a>
                     <a href="../Taxbox/taxfort.html" data-page-transition="rtl">&lt;&lt; PREV</a>
                     <a href="../snapngo/snapngo.html" data-page-transition="ltr">NEXT &gt;&gt;</a>
                 </nav>

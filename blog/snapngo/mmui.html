@@ -3,16 +3,8 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <!--
-      STARTER: field note / technical log
-      Inspired by work/*.html project hubs (same shell + case-study language).
-
-      1. mkdir -p blog/YourProject
-      2. cp starters/blog.html blog/YourProject/your-note.html
-      3. Fill content; link from hub related-logs
-    -->
-    <title>{{TITLE}} | stall.one</title>
-    <meta name="description" content="{{LEDE}}" />
+    <title>MMUI | SnapNGo | stall.one</title>
+    <meta name="description" content="SnapNGo MMUI: microservices + micro-frontends + modular UI — one CLI-shaped chassis, independently deployable remotes and services." />
     <meta name="robots" content="index, follow" />
     <link rel="stylesheet" href="../../style.css" />
     <script src="../../page-transition.js"></script>
@@ -20,18 +12,18 @@
 <body>
     <header>
         <div class="logo-container">
-            <a href="../" data-page-transition="rtl" class="brand-link" aria-label="Back to home">
+            <a href="../../" data-page-transition="rtl" class="brand-link" aria-label="Back to home">
                 <span class="brand">STALL.ONE</span>
             </a>
         </div>
         <div class="menu-toggle" onclick="toggleMenu()">[MENU]</div>
         <nav id="navbar">
             <ul>
-                <li><a href="../#expertise" data-page-transition="rtl" onclick="toggleMenu()">01_SKILLS</a></li>
-                <li><a href="../#projects" data-page-transition="rtl" onclick="toggleMenu()">02_WORK</a></li>
-                <li><a href="../#certifications" data-page-transition="rtl" onclick="toggleMenu()">03_CERTS</a></li>
-                <li><a href="../blog/" data-page-transition="ltr" onclick="toggleMenu()">04_BLOG</a></li>
-                <li><a href="../#contact" data-page-transition="rtl" onclick="toggleMenu()">05_CONTACT</a></li>
+                <li><a href="../../#expertise" data-page-transition="rtl" onclick="toggleMenu()">01_SKILLS</a></li>
+                <li><a href="../../#projects" data-page-transition="rtl" onclick="toggleMenu()">02_WORK</a></li>
+                <li><a href="../../#certifications" data-page-transition="rtl" onclick="toggleMenu()">03_CERTS</a></li>
+                <li><a href="../" data-page-transition="ltr" onclick="toggleMenu()">04_BLOG</a></li>
+                <li><a href="../../#contact" data-page-transition="rtl" onclick="toggleMenu()">05_CONTACT</a></li>
             </ul>
         </nav>
     </header>
@@ -39,59 +31,81 @@
 
     <main class="container">
         <section>
-            <!-- Same vocabulary as project hubs: kicker, lede, meta, tags, // h2, callout, actions -->
+            <a href="./snapngo.html" class="project-link" data-page-transition="rtl" aria-label="Back to SnapNGo" style="margin-top:0; margin-bottom:1.5rem;">&lt;&lt; Back to SnapNGo</a>
             <article class="case-study">
-                <span class="case-study-kicker">LOG // {{PROJECT_TAG}} · {{YYYY-MM-DD}}</span>
-                <h1>{{TITLE}}</h1>
-                <p class="case-study-lede">{{LEDE}}</p>
+                <span class="case-study-kicker">LOG // SNAPNGO · DRAFT · MMUI</span>
+                <h1>Microservices + Micro-frontends + Modular UI</h1>
+                <p class="case-study-lede">
+                    Three layers the CLI scaffolds together: services own data, remotes own UI surfaces, host
+                    owns session and composition. SnapNGo keeps those cut lines aligned so adding a module
+                    does not fork the architecture.
+                </p>
 
                 <dl class="case-study-meta">
                     <div>
                         <dt>Project</dt>
-                        <dd>{{PROJECT_NAME}}</dd>
+                        <dd>SnapNGo</dd>
                     </div>
                     <div>
                         <dt>Type</dt>
-                        <dd>Field note</dd>
+                        <dd>Field note · draft</dd>
                     </div>
                     <div>
                         <dt>Audience</dt>
-                        <dd>{{AUDIENCE}}</dd>
+                        <dd>Builders · lead eng</dd>
                     </div>
                 </dl>
 
                 <div class="tags" style="margin-bottom: 2rem; padding-top: 0;">
-                    <span class="tag">{{TAG_1}}</span>
-                    <span class="tag">{{TAG_2}}</span>
+                    <span class="tag">MICROSERVICES</span>
+                    <span class="tag">MICRO_FRONTENDS</span>
+                    <span class="tag">MODULAR_UI</span>
+                    <span class="tag">MF</span>
                 </div>
 
-                <h2>Context</h2>
-                <p>
-                    What triggered this note — the concrete situation, constraint, or failure.
-                    Mirror the hub “Problem” tone: plain language, no marketing fog.
-                </p>
-
-                <h2>What we tried</h2>
+                <h2>Three cuts, one map</h2>
                 <ul>
-                    <li>First approach or experiment.</li>
-                    <li>Second approach or measurement.</li>
-                    <li>What you rejected and why.</li>
+                    <li><strong>Microservices</strong> — HTTP ownership boundaries (auth, billing, domain MS)</li>
+                    <li><strong>Micro-frontends</strong> — independently buildable remotes loaded by the host</li>
+                    <li><strong>Modular UI</strong> — shared tokens/components so remotes feel like one product</li>
                 </ul>
 
-                <div class="case-callout">
-                    <strong>What stuck</strong>
-                    <p>{{TAKEAWAY}}</p>
-                </div>
+                <p class="hub-section-label">Alignment</p>
+                <pre style="font-family:var(--font-header); font-size:0.8rem; line-height:1.45; color:var(--highlight); border:1px solid var(--grid-color); padding:1.15rem; overflow-x:auto; background:#0a0a0c; margin-bottom:2rem;">Host shell  ──loads──►  Auth MFE · Billing MFE · Domain MFE
+     │                         │
+     │                         ▼
+     │                    api-gateway
+     │                         │
+     └──────────────────►  matching MS (auth / billing / domain)
 
-                <h2>Links</h2>
+Shared: @snapngo/* contracts · product UI package</pre>
+
+                <h2>Why align the cuts</h2>
                 <p>
-                    Point back to the hub and related deliverables so this log stays part of the project tree.
+                    If the UI is a monolith but the backend is microservices (or the reverse), every feature
+                    crosses political and deploy boundaries. SnapNGo treats a “module” as optional UI remote
+                    + service + package surface that can ship together.
                 </p>
 
+                <h2>Lab path</h2>
+                <p>
+                    TanStack host + remotes against a real gateway/auth (and domain MS when present) —
+                    federation learning without fake backends for the happy path.
+                </p>
+
+                <div class="case-callout">
+                    <strong>Takeaway</strong>
+                    <p>
+                        Same names on both sides of the gateway: auth MFE → auth MS, catalog remote → catalog
+                        MS. Shared packages keep headers and error shapes aligned across remotes and services.
+                    </p>
+                </div>
+
                 <nav class="case-actions" aria-label="Post navigation">
-                    <a href="../../work/{{HUB_SLUG}}.html" data-page-transition="rtl">&lt;&lt; PROJECT_HUB</a>
+                    <a href="./snapngo.html" data-page-transition="rtl">&lt;&lt; PROJECT_HUB</a>
+                    <a href="./white-paper.html" data-page-transition="rtl">WHITE_PAPER &gt;&gt;</a>
+                    <a href="./modular-systems.html" data-page-transition="ltr">MODULAR_THESIS &gt;&gt;</a>
                     <a href="../" data-page-transition="rtl">BLOG_INDEX</a>
-                    <a href="../../#projects" data-page-transition="rtl">ALL_WORK</a>
                 </nav>
             </article>
         </section>

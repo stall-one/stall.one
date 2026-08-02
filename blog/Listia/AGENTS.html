@@ -3,16 +3,8 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <!--
-      STARTER: field note / technical log
-      Inspired by work/*.html project hubs (same shell + case-study language).
-
-      1. mkdir -p blog/YourProject
-      2. cp starters/blog.html blog/YourProject/your-note.html
-      3. Fill content; link from hub related-logs
-    -->
-    <title>{{TITLE}} | stall.one</title>
-    <meta name="description" content="{{LEDE}}" />
+    <title>Agents | Listia | stall.one</title>
+    <meta name="description" content="Listia agents for small multi-channel sellers: photo and metadata help, then browser listing — not marketplace API integrations." />
     <meta name="robots" content="index, follow" />
     <link rel="stylesheet" href="../../style.css" />
     <script src="../../page-transition.js"></script>
@@ -20,18 +12,18 @@
 <body>
     <header>
         <div class="logo-container">
-            <a href="../" data-page-transition="rtl" class="brand-link" aria-label="Back to home">
+            <a href="../../" data-page-transition="rtl" class="brand-link" aria-label="Back to home">
                 <span class="brand">STALL.ONE</span>
             </a>
         </div>
         <div class="menu-toggle" onclick="toggleMenu()">[MENU]</div>
         <nav id="navbar">
             <ul>
-                <li><a href="../#expertise" data-page-transition="rtl" onclick="toggleMenu()">01_SKILLS</a></li>
-                <li><a href="../#projects" data-page-transition="rtl" onclick="toggleMenu()">02_WORK</a></li>
-                <li><a href="../#certifications" data-page-transition="rtl" onclick="toggleMenu()">03_CERTS</a></li>
-                <li><a href="../blog/" data-page-transition="ltr" onclick="toggleMenu()">04_BLOG</a></li>
-                <li><a href="../#contact" data-page-transition="rtl" onclick="toggleMenu()">05_CONTACT</a></li>
+                <li><a href="../../#expertise" data-page-transition="rtl" onclick="toggleMenu()">01_SKILLS</a></li>
+                <li><a href="../../#projects" data-page-transition="rtl" onclick="toggleMenu()">02_WORK</a></li>
+                <li><a href="../../#certifications" data-page-transition="rtl" onclick="toggleMenu()">03_CERTS</a></li>
+                <li><a href="../" data-page-transition="ltr" onclick="toggleMenu()">04_BLOG</a></li>
+                <li><a href="../../#contact" data-page-transition="rtl" onclick="toggleMenu()">05_CONTACT</a></li>
             </ul>
         </nav>
     </header>
@@ -39,59 +31,115 @@
 
     <main class="container">
         <section>
-            <!-- Same vocabulary as project hubs: kicker, lede, meta, tags, // h2, callout, actions -->
+            <a href="./ai-marketplace.html" class="project-link" data-page-transition="rtl" aria-label="Back to Listia" style="margin-top:0; margin-bottom:1.5rem;">&lt;&lt; Back to Listia</a>
             <article class="case-study">
-                <span class="case-study-kicker">LOG // {{PROJECT_TAG}} · {{YYYY-MM-DD}}</span>
-                <h1>{{TITLE}}</h1>
-                <p class="case-study-lede">{{LEDE}}</p>
+                <span class="case-study-kicker">LOG // LISTIA · DRAFT · AGENTS</span>
+                <h1>Agents</h1>
+                <p class="case-study-lede">
+                    Agents take the busywork off small sellers — better copy, better photos, channel-ready
+                    fields — then hand a supervised path into the marketplace browser UI. Not a channel API
+                    integration product. Not “advanced” ops tooling.
+                </p>
 
                 <dl class="case-study-meta">
                     <div>
                         <dt>Project</dt>
-                        <dd>{{PROJECT_NAME}}</dd>
+                        <dd>Listia</dd>
                     </div>
                     <div>
                         <dt>Type</dt>
-                        <dd>Field note</dd>
+                        <dd>Field note · draft</dd>
                     </div>
                     <div>
                         <dt>Audience</dt>
-                        <dd>{{AUDIENCE}}</dd>
+                        <dd>Builders · operators</dd>
                     </div>
                 </dl>
 
                 <div class="tags" style="margin-bottom: 2rem; padding-top: 0;">
-                    <span class="tag">{{TAG_1}}</span>
-                    <span class="tag">{{TAG_2}}</span>
+                    <span class="tag">AGENTS</span>
+                    <span class="tag">SMALL_SELLER</span>
+                    <span class="tag">MULTIMODAL</span>
+                    <span class="tag">HITL</span>
                 </div>
 
-                <h2>Context</h2>
+                <h2>Product wedge</h2>
                 <p>
-                    What triggered this note — the concrete situation, constraint, or failure.
-                    Mirror the hub “Problem” tone: plain language, no marketing fog.
+                    Listia is for sellers who are <strong>not</strong> ready for marketplace developer programs,
+                    inventory sync platforms, or multi-channel ERPs. They retype listings by hand today.
+                    Agents remove that grind without requiring them to become integrators.
                 </p>
 
-                <h2>What we tried</h2>
+                <h2>Agent map</h2>
                 <ul>
-                    <li>First approach or experiment.</li>
-                    <li>Second approach or measurement.</li>
-                    <li>What you rejected and why.</li>
+                    <li>
+                        <strong>Metadata enrichment</strong> — saved product → SEO / channel-shaped copy, tags,
+                        text embeddings in <code>aiContext</code> (async; never block save).
+                    </li>
+                    <li>
+                        <strong>Photo enrichment</strong> — source photo + prompt → new studio / lifestyle /
+                        social assets; confirm before gallery attach.
+                    </li>
+                    <li>
+                        <strong>Vision / attributes</strong> — image → structured fields for the listing draft.
+                    </li>
+                    <li>
+                        <strong>Schema mapper</strong> — base product + overrides → per-channel listing shape
+                        (eBay / Amazon / Etsy forms of truth, not their public seller APIs).
+                    </li>
+                    <li>
+                        <strong>Adapter agent</strong> — hands payload to <em>browser execution</em> so the
+                        listing is entered the way the seller already works: in the channel UI.
+                    </li>
                 </ul>
+
+                <p class="hub-section-label">Swarm sketch</p>
+                <pre style="font-family:var(--font-header); font-size:0.8rem; line-height:1.45; color:var(--highlight); border:1px solid var(--grid-color); padding:1.15rem; overflow-x:auto; background:#0a0a0c; margin-bottom:2rem;">                 ┌─ metadata worker ──► aiContext (copy · tags)
+Product save ────┤
+                 └─ events ───────────► (later: search / facets)
+
+Source photo ──► gen AI ──► vision QC ──► confirm ──► media gallery
+
+Listing intent ──► schema map ──► browser DOM adapter ──► human gate ──► channel UI
+                                   (not marketplace seller APIs)</pre>
+
+                <h2>Boundaries</h2>
+                <ul>
+                    <li><strong>Human core fields</strong> — seller-owned title/SKU not silently overwritten</li>
+                    <li><strong><code>aiContext</code></strong> — candidates only until confirm</li>
+                    <li><strong>No channel API as the product path</strong> — publish path is browser execution</li>
+                    <li><strong>Publish stays gated</strong> — agents do not auto-click live on reputation-sensitive actions</li>
+                    <li><strong>Outgrow path</strong> — when a seller needs full API sync and warehouse tooling, Listia is not that product</li>
+                </ul>
+
+                <h2>Visibility</h2>
+                <p>
+                    Small sellers still need to trust the system. Runs should show what each agent proposed,
+                    what was accepted, and where browser steps stopped — not “it just listed it.”
+                </p>
 
                 <div class="case-callout">
                     <strong>What stuck</strong>
-                    <p>{{TAKEAWAY}}</p>
+                    <p>
+                        Split agents, isolated AI storage, short seller paths, and a hard publish gate.
+                        The swarm replaces copy-paste across marketplaces — not the need for a more advanced
+                        API-based stack later.
+                    </p>
                 </div>
 
-                <h2>Links</h2>
-                <p>
-                    Point back to the hub and related deliverables so this log stays part of the project tree.
-                </p>
+                <h2>Open questions (draft)</h2>
+                <ul>
+                    <li>How much agent UI a solo seller tolerates before it feels like “advanced software.”</li>
+                    <li>Default models and cost caps per small-org plan.</li>
+                    <li>Messaging when someone should graduate off Listia to channel APIs / sync tools.</li>
+                </ul>
 
                 <nav class="case-actions" aria-label="Post navigation">
-                    <a href="../../work/{{HUB_SLUG}}.html" data-page-transition="rtl">&lt;&lt; PROJECT_HUB</a>
+                    <a href="./ai-marketplace.html" data-page-transition="rtl">&lt;&lt; PROJECT_HUB</a>
+                    <a href="./broswerex.html" data-page-transition="rtl">&lt;&lt; BROWSER_EXEC</a>
+                    <a href="./architecture.html" data-page-transition="ltr">WHITE_PAPER &gt;&gt;</a>
+                    <a href="./UX.html" data-page-transition="ltr">UX_POST &gt;&gt;</a>
                     <a href="../" data-page-transition="rtl">BLOG_INDEX</a>
-                    <a href="../../#projects" data-page-transition="rtl">ALL_WORK</a>
                 </nav>
             </article>
         </section>

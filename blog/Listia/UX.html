@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>UX + visual language | TaxBox | stall.one</title>
-    <meta name="description" content="Why TaxBox uses a calm violet-on-slate system instead of terminal brutalism — operator psychology under tax-season load." />
+    <title>UX + visual language | Listia | stall.one</title>
+    <meta name="description" content="Listia ClayUI: light canvas, indigo action, short paths — multi-channel listing UX for solo sellers who start with a phone photo." />
     <meta name="robots" content="index, follow" />
     <link rel="stylesheet" href="../../style.css" />
     <script src="../../page-transition.js"></script>
@@ -31,19 +31,19 @@
 
     <main class="container">
         <section>
-            <a href="./taxfort.html" class="project-link" data-page-transition="rtl" aria-label="Back to TaxBox" style="margin-top:0; margin-bottom:1.5rem;">&lt;&lt; Back to TaxBox</a>
+            <a href="./ai-marketplace.html" class="project-link" data-page-transition="rtl" aria-label="Back to Listia" style="margin-top:0; margin-bottom:1.5rem;">&lt;&lt; Back to Listia</a>
             <article class="case-study">
                 <span class="case-study-kicker">DESIGN_POST // UX + VISUAL LANGUAGE</span>
                 <h1>UX + visual language</h1>
                 <p class="case-study-lede">
-                    Why TaxBox uses a calm violet-on-slate system instead of terminal brutalism — and how
-                    that choice maps to operator psychology under tax-season load.
+                    Light canvas, one indigo action, and paths short enough that photo → listing → channel
+                    does not feel like five dashboards. ClayUI is the product surface for multi-platform sellers.
                 </p>
 
                 <dl class="case-study-meta">
                     <div>
                         <dt>Project</dt>
-                        <dd>TaxBox</dd>
+                        <dd>Listia</dd>
                     </div>
                     <div>
                         <dt>Type</dt>
@@ -58,40 +58,43 @@
                 <div class="tags" style="margin-bottom: 2rem; padding-top: 0;">
                     <span class="tag">DESIGN</span>
                     <span class="tag">UX</span>
+                    <span class="tag">CLAYUI</span>
                     <span class="tag">VISUAL_LANGUAGE</span>
                 </div>
 
                 <h2>Target audience</h2>
                 <p>
-                    CPA firm staff in vaults and workspaces for long sessions: onboarding clients, uploading
-                    packets, reviewing labels under tax-season deadlines. Legibility and calm hierarchy
-                    matter more than visual drama when the queue is long.
+                    Solo and small-shop sellers on more than one marketplace — phone photos, no ops team, not
+                    ready for marketplace developer APIs or advanced multi-channel tools. They retype listings
+                    today. The UI makes multi-channel feel like one short flow, not three admin consoles and
+                    not an integrator dashboard.
                 </p>
 
                 <h2>Why this setup</h2>
                 <p>
-                    Light canvas, clear hierarchy, and one action violet. Primary controls should read as
-                    “do the next safe thing” under deadline load — not as a developer console. Contrast and
-                    spacing carry status; color is reserved for commitment, not decoration.
+                    Light canvas, clear hierarchy, one action indigo. Primary work stays in a short chain —
+                    target at most a handful of committed clicks from “upload” to “ready to publish” —
+                    so the seller always knows the next safe step. Soft clay surfaces and rounded cards
+                    lower visual stress; color is for commitment, not decoration on every chip.
                 </p>
 
                 <p class="hub-section-label">Palette</p>
                 <div class="swatches">
                     <div class="swatch">
-                        <i style="background:#f8fafc"></i>
-                        <span>Canvas<br>#f8fafc</span>
+                        <i style="background:#f0f4f8"></i>
+                        <span>Canvas<br>#f0f4f8</span>
                     </div>
                     <div class="swatch">
-                        <i style="background:#ffffff; border-color:#333"></i>
-                        <span>Panel<br>#ffffff</span>
+                        <i style="background:#f8fafc; border-color:#333"></i>
+                        <span>Panel<br>#f8fafc</span>
                     </div>
                     <div class="swatch">
-                        <i style="background:#5a3fff"></i>
-                        <span>Action<br>#5a3fff</span>
+                        <i style="background:#6366f1"></i>
+                        <span>Action<br>#6366f1</span>
                     </div>
                     <div class="swatch">
-                        <i style="background:#0f172a"></i>
-                        <span>Ink<br>#0f172a</span>
+                        <i style="background:#1e293b"></i>
+                        <span>Ink<br>#1e293b</span>
                     </div>
                     <div class="swatch">
                         <i style="background:#64748b"></i>
@@ -99,47 +102,49 @@
                     </div>
                 </div>
                 <p>
-                    Canvas and panel separate page chrome from working surfaces. Ink carries body and
-                    titles; muted handles secondary labels. Action is reserved for primary CTAs and focus —
-                    not decorative accents on every card.
+                    Canvas is the page field; panel is the working card. Ink carries titles and body;
+                    muted is secondary status and helper text. Action indigo is reserved for primary CTAs
+                    and focus — publish, generate, confirm — not every secondary control.
                 </p>
 
                 <h2>Goals</h2>
                 <ul>
-                    <li>Reduce cognitive load during peak filing — status and hierarchy before decoration.</li>
-                    <li>Make isolation legible in the UI (workspace context, vault scope), not only in the API.</li>
-                    <li>Keep one product language across host shell and Auth / Billing / Vault remotes via <code>@taxbox/ui</code>.</li>
-                    <li>Keep visual noise low during peak season — no chrome that competes with the packet in hand.</li>
+                    <li>Cut cognitive load with linear steps a seller can finish between packing orders.</li>
+                    <li>Clean layout that makes workflows obvious without a training deck.</li>
+                    <li>One product language across host app and browser-execution surfaces via <code>@listia/ui</code>.</li>
+                    <li>Prefer the fewest steps that still keep a human gate before irreversible publish.</li>
                 </ul>
 
                 <h2>Personas / workflow</h2>
                 <div class="persona-grid">
                     <div class="persona">
-                        <strong>Firm admin</strong>
-                        <p>Onboards staff, manages tenants, cares about isolation and audit.</p>
+                        <strong>Solo seller</strong>
+                        <p>Phone photos, multi-channel, zero ops team. Needs photo → structured listing in one pass.</p>
                     </div>
                     <div class="persona">
-                        <strong>Preparer</strong>
-                        <p>Uploads packets, needs fast classification and search under deadline.</p>
+                        <strong>Multi-channel reseller</strong>
+                        <p>Same SKU on eBay, Amazon, Etsy. Needs channel overrides without retyping the base product.</p>
                     </div>
                     <div class="persona">
-                        <strong>Reviewer</strong>
-                        <p>Overrides model labels; needs confidence scores and paper trail.</p>
+                        <strong>Small shop operator</strong>
+                        <p>A few people, shared catalog. Needs clear status, agent visibility, and a safe publish gate.</p>
                     </div>
                 </div>
 
                 <div class="case-callout">
                     <strong>Product maturity signal</strong>
                     <p>
-                        Design choices here are deliberate pivots with psychological and workflow reasoning —
-                        not whatever looked cool that day.
+                        ClayUI choices serve short seller paths and multi-channel reality — soft hierarchy
+                        for long sessions, one action color for commitment, human confirm before the adapter
+                        touches a live marketplace UI.
                     </p>
                 </div>
 
                 <nav class="case-actions" aria-label="Post navigation">
-                    <a href="./taxfort.html" data-page-transition="rtl">&lt;&lt; PROJECT_HUB</a>
+                    <a href="./ai-marketplace.html" data-page-transition="rtl">&lt;&lt; PROJECT_HUB</a>
                     <a href="./architecture.html" data-page-transition="rtl">WHITE_PAPER &gt;&gt;</a>
                     <a href="./design-systems.html" data-page-transition="ltr">DESIGN_SYSTEM &gt;&gt;</a>
+                    <a href="./broswerex.html" data-page-transition="ltr">BROWSER_EXEC &gt;&gt;</a>
                     <a href="../" data-page-transition="rtl">BLOG_INDEX</a>
                 </nav>
             </article>

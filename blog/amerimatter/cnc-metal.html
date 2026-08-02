@@ -3,16 +3,8 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <!--
-      STARTER: field note / technical log
-      Inspired by work/*.html project hubs (same shell + case-study language).
-
-      1. mkdir -p blog/YourProject
-      2. cp starters/blog.html blog/YourProject/your-note.html
-      3. Fill content; link from hub related-logs
-    -->
-    <title>{{TITLE}} | stall.one</title>
-    <meta name="description" content="{{LEDE}}" />
+    <title>CNC metal surfaces | Amerimatter | stall.one</title>
+    <meta name="description" content="Amerimatter CNC metal brand surfaces — catalog, product plate, forge cutter — steps that make the industrial catalog feel real." />
     <meta name="robots" content="index, follow" />
     <link rel="stylesheet" href="../../style.css" />
     <script src="../../page-transition.js"></script>
@@ -20,18 +12,18 @@
 <body>
     <header>
         <div class="logo-container">
-            <a href="../" data-page-transition="rtl" class="brand-link" aria-label="Back to home">
+            <a href="../../" data-page-transition="rtl" class="brand-link" aria-label="Back to home">
                 <span class="brand">STALL.ONE</span>
             </a>
         </div>
         <div class="menu-toggle" onclick="toggleMenu()">[MENU]</div>
         <nav id="navbar">
             <ul>
-                <li><a href="../#expertise" data-page-transition="rtl" onclick="toggleMenu()">01_SKILLS</a></li>
-                <li><a href="../#projects" data-page-transition="rtl" onclick="toggleMenu()">02_WORK</a></li>
-                <li><a href="../#certifications" data-page-transition="rtl" onclick="toggleMenu()">03_CERTS</a></li>
-                <li><a href="../blog/" data-page-transition="ltr" onclick="toggleMenu()">04_BLOG</a></li>
-                <li><a href="../#contact" data-page-transition="rtl" onclick="toggleMenu()">05_CONTACT</a></li>
+                <li><a href="../../#expertise" data-page-transition="rtl" onclick="toggleMenu()">01_SKILLS</a></li>
+                <li><a href="../../#projects" data-page-transition="rtl" onclick="toggleMenu()">02_WORK</a></li>
+                <li><a href="../../#certifications" data-page-transition="rtl" onclick="toggleMenu()">03_CERTS</a></li>
+                <li><a href="../" data-page-transition="ltr" onclick="toggleMenu()">04_BLOG</a></li>
+                <li><a href="../../#contact" data-page-transition="rtl" onclick="toggleMenu()">05_CONTACT</a></li>
             </ul>
         </nav>
     </header>
@@ -39,59 +31,73 @@
 
     <main class="container">
         <section>
-            <!-- Same vocabulary as project hubs: kicker, lede, meta, tags, // h2, callout, actions -->
+            <a href="./amerimatter-cnc.html" class="project-link" data-page-transition="rtl" aria-label="Back to Amerimatter" style="margin-top:0; margin-bottom:1.5rem;">&lt;&lt; Back to Amerimatter</a>
             <article class="case-study">
-                <span class="case-study-kicker">LOG // {{PROJECT_TAG}} · {{YYYY-MM-DD}}</span>
-                <h1>{{TITLE}}</h1>
-                <p class="case-study-lede">{{LEDE}}</p>
+                <span class="case-study-kicker">LOG // AMERIMATTER · DRAFT · SURFACE</span>
+                <h1>CNC metal surfaces</h1>
+                <p class="case-study-lede">
+                    Brand proof for precision metal supply: home, catalog, product plate, forge cutter, and
+                    guides — one print-industrial system through the buyer journey.
+                </p>
 
                 <dl class="case-study-meta">
                     <div>
                         <dt>Project</dt>
-                        <dd>{{PROJECT_NAME}}</dd>
+                        <dd>Amerimatter</dd>
                     </div>
                     <div>
                         <dt>Type</dt>
-                        <dd>Field note</dd>
+                        <dd>Surface note · draft</dd>
                     </div>
                     <div>
                         <dt>Audience</dt>
-                        <dd>{{AUDIENCE}}</dd>
+                        <dd>PMs · design · stakeholders</dd>
                     </div>
                 </dl>
 
                 <div class="tags" style="margin-bottom: 2rem; padding-top: 0;">
-                    <span class="tag">{{TAG_1}}</span>
-                    <span class="tag">{{TAG_2}}</span>
+                    <span class="tag">CNC</span>
+                    <span class="tag">CATALOG</span>
+                    <span class="tag">FORGE</span>
+                    <span class="tag">BRAND</span>
                 </div>
 
-                <h2>Context</h2>
+                <h2>Journey</h2>
+                <ol>
+                    <li><strong>Home</strong> — stock story and paths into catalog / forge / guides</li>
+                    <li><strong>Catalog</strong> — alloy plate, mill finish, CNC-ready SKUs</li>
+                    <li><strong>Product plate</strong> — size, price, 3D stock preview</li>
+                    <li><strong>Forge</strong> — 3D block cutter, kerf, part nesting</li>
+                    <li><strong>Guides</strong> — feeds, finishes, shop literacy</li>
+                </ol>
+
+                <h2>Design lock</h2>
                 <p>
-                    What triggered this note — the concrete situation, constraint, or failure.
-                    Mirror the hub “Problem” tone: plain language, no marketing fog.
+                    Paper field, ink structure, navy for primary controls, slate meta, vermilion for critical /
+                    material callouts. Oswald display, serif body, mono for data. Flat catalog UI — hard
+                    borders, no soft shadows.
                 </p>
 
-                <h2>What we tried</h2>
-                <ul>
-                    <li>First approach or experiment.</li>
-                    <li>Second approach or measurement.</li>
-                    <li>What you rejected and why.</li>
-                </ul>
+                <h2>Why demos</h2>
+                <p>
+                    Forge and product 3D make cut and stock tangible. They support the brand promise of craft
+                    and planning before the commerce stack takes a full order path.
+                </p>
 
                 <div class="case-callout">
-                    <strong>What stuck</strong>
-                    <p>{{TAKEAWAY}}</p>
+                    <strong>Takeaway</strong>
+                    <p>
+                        Surfaces sell the brand before the platform is finished. Catalog honesty plus craft
+                        demos give stakeholders something to touch while architecture defines orders and payment.
+                    </p>
                 </div>
 
-                <h2>Links</h2>
-                <p>
-                    Point back to the hub and related deliverables so this log stays part of the project tree.
-                </p>
-
                 <nav class="case-actions" aria-label="Post navigation">
-                    <a href="../../work/{{HUB_SLUG}}.html" data-page-transition="rtl">&lt;&lt; PROJECT_HUB</a>
+                    <a href="./amerimatter-cnc.html" data-page-transition="rtl">&lt;&lt; PROJECT_HUB</a>
+                    <a href="./brand-steps.html" data-page-transition="rtl">BRAND_STEPS &gt;&gt;</a>
+                    <a href="./mini-cnc.html" data-page-transition="ltr">MINI_CNC &gt;&gt;</a>
+                    <a href="./UX.html" data-page-transition="ltr">UX_POST &gt;&gt;</a>
                     <a href="../" data-page-transition="rtl">BLOG_INDEX</a>
-                    <a href="../../#projects" data-page-transition="rtl">ALL_WORK</a>
                 </nav>
             </article>
         </section>

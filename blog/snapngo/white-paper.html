@@ -3,17 +3,8 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <!--
-      STARTER: architecture white paper
-      Inspired by work/*.html — same stall.one shell + case-study structure,
-      deeper technical sections (the hub’s “02 · White Paper” deliverable).
-
-      1. mkdir -p blog/YourProject
-      2. cp starters/white-paper.html blog/YourProject/Architecture.html
-      3. Point hub deliverable-card at this file
-    -->
-    <title>{{TITLE}} | stall.one</title>
-    <meta name="description" content="{{LEDE}}" />
+    <title>SnapNGo Architecture | stall.one</title>
+    <meta name="description" content="SnapNGo system design: host shell, MFEs, API gateway, ownership-clear microservices, and shared packages — the chassis TaxBox and Listia sit on." />
     <meta name="robots" content="index, follow" />
     <link rel="stylesheet" href="../../style.css" />
     <script src="../../page-transition.js"></script>
@@ -21,18 +12,18 @@
 <body>
     <header>
         <div class="logo-container">
-            <a href="../" data-page-transition="rtl" class="brand-link" aria-label="Back to home">
+            <a href="../../" data-page-transition="rtl" class="brand-link" aria-label="Back to home">
                 <span class="brand">STALL.ONE</span>
             </a>
         </div>
         <div class="menu-toggle" onclick="toggleMenu()">[MENU]</div>
         <nav id="navbar">
             <ul>
-                <li><a href="../#expertise" data-page-transition="rtl" onclick="toggleMenu()">01_SKILLS</a></li>
-                <li><a href="../#projects" data-page-transition="rtl" onclick="toggleMenu()">02_WORK</a></li>
-                <li><a href="../#certifications" data-page-transition="rtl" onclick="toggleMenu()">03_CERTS</a></li>
-                <li><a href="../blog/" data-page-transition="ltr" onclick="toggleMenu()">04_BLOG</a></li>
-                <li><a href="../#contact" data-page-transition="rtl" onclick="toggleMenu()">05_CONTACT</a></li>
+                <li><a href="../../#expertise" data-page-transition="rtl" onclick="toggleMenu()">01_SKILLS</a></li>
+                <li><a href="../../#projects" data-page-transition="rtl" onclick="toggleMenu()">02_WORK</a></li>
+                <li><a href="../../#certifications" data-page-transition="rtl" onclick="toggleMenu()">03_CERTS</a></li>
+                <li><a href="../" data-page-transition="ltr" onclick="toggleMenu()">04_BLOG</a></li>
+                <li><a href="../../#contact" data-page-transition="rtl" onclick="toggleMenu()">05_CONTACT</a></li>
             </ul>
         </nav>
     </header>
@@ -40,76 +31,119 @@
 
     <main class="container">
         <section>
+            <a href="./snapngo.html" class="project-link" data-page-transition="rtl" aria-label="Back to SnapNGo" style="margin-top:0; margin-bottom:1.5rem;">&lt;&lt; Back to SnapNGo</a>
             <article class="case-study">
-                <span class="case-study-kicker">WHITE_PAPER // SYSTEM DESIGN</span>
-                <h1>{{TITLE}}</h1>
-                <p class="case-study-lede">{{LEDE}}</p>
+                <span class="case-study-kicker">WHITE_PAPER // DRAFT · SYSTEM DESIGN</span>
+                <h1>SnapNGo Architecture</h1>
+                <p class="case-study-lede">
+                    What the SnapNGo CLI builds: host shell + domain MFEs over a single API gateway to
+                    ownership-clear microservices. Shared packages carry contracts and telemetry. Modules
+                    attach without rewriting the spine.
+                </p>
 
                 <dl class="case-study-meta">
                     <div>
                         <dt>Project</dt>
-                        <dd>{{PROJECT_NAME}}</dd>
+                        <dd>SnapNGo</dd>
                     </div>
                     <div>
                         <dt>Audience</dt>
                         <dd>Lead eng · architects</dd>
                     </div>
                     <div>
-                        <dt>Depth</dt>
-                        <dd>System design</dd>
+                        <dt>Stack</dt>
+                        <dd>CLI · MFEs · Gateway · Microservices</dd>
                     </div>
                 </dl>
 
                 <div class="tags" style="margin-bottom: 2rem; padding-top: 0;">
                     <span class="tag">WHITE_PAPER</span>
-                    <span class="tag">SYSTEM_DESIGN</span>
-                    <span class="tag">{{TAG}}</span>
+                    <span class="tag">SNAPNGO</span>
+                    <span class="tag">MICROSERVICES</span>
+                    <span class="tag">MICRO_FRONTENDS</span>
                 </div>
 
-                <p class="hub-section-label">Architecture map</p>
-                <pre style="font-family:var(--font-header); font-size:0.8rem; line-height:1.45; color:var(--highlight); border:1px solid var(--grid-color); padding:1.15rem; overflow-x:auto; background:#0a0a0c; margin-bottom:2rem;">┌─────────────┐     ┌─────────────┐
-│  Client UI  │ ──► │  API / edge │
-└──────┬──────┘     └──────┬──────┘
-       │                   │
-       ▼                   ▼
-┌─────────────┐     ┌─────────────┐
-│   Storage   │ ◄─► │  Workers    │
-└─────────────┘     └─────────────┘</pre>
+                <p class="hub-section-label">System map</p>
+                <pre style="font-family:var(--font-header); font-size:0.8rem; line-height:1.45; color:var(--highlight); border:1px solid var(--grid-color); padding:1.15rem; overflow-x:auto; background:#0a0a0c; margin-bottom:2rem;">
+┌──────────────────────────────────────────────────┐
+│                    Host Shell                    │
+│              (auth context · MF load)            │
+│  ┌──────────┐ ┌───────────┐ ┌────────────┐       │
+│  │ Auth MFE │ │ Domain    │ │ Domain     │  …    │
+│  │          │ │ MFE …     │ │ MFE …      │       │
+│  └────┬─────┘ └─────┬─────┘ └─────┬──────┘       │
+└───────┼─────────────┼─────────────┼──────────────┘
+        │             │             │
+        └─────────┐   │   ┌─────────┘
+                  ▼   ▼   ▼
+┌──────────────────────────────────────────────────┐
+│                   API Gateway                    │
+│         JWT · rate-limit · x-user-* inject       │
+└───┬─────────┬──────────┬──────────┬──────────────┘
+    ▼         ▼          ▼          ▼
+  auth     billing    domain MS   domain MS …
+    │         │          │          │
+    └─────────┴──────────┴──────────┘
+              Postgres · Redis · object storage
 
-                <h2>Problem boundary</h2>
+packages (import, not deploy):
+  @snapngo/shared · @snapngo/observability
+  product UI packages per vertical (@taxbox/ui, @listia/ui, …)
+
+CLI:
+  snapngo init | add | up  →  spine + module compose / env / CI stubs
+</pre>
+
+                <h2>Spine vs modules</h2>
                 <p>
-                    Engineering problem statement — constraints, failure modes, and what “correct”
-                    means for this system. Expand the hub’s one-paragraph problem with depth.
+                    The <strong>spine</strong> holds identity defaults, networking, gateway, observability hooks,
+                    and org tenancy. <strong>Modules</strong> declare ports, env keys, lifecycle scripts, and
+                    optional UI remotes. Add or remove a module without rewriting auth or the host shell.
                 </p>
 
-                <h2>System shape</h2>
-                <p>
-                    Components, trust boundaries, and data flow. Keep boxes honest.
-                </p>
-
-                <h2>Critical paths</h2>
+                <h2>Gateway as trust boundary</h2>
                 <ul>
-                    <li>Happy path: request → process → persist → respond.</li>
-                    <li>Isolation / auth / policy rules.</li>
-                    <li>Degradation when a dependency fails.</li>
+                    <li>Single public HTTP door for browsers and remotes</li>
+                    <li>Verify JWT (or device token where used); inject <code>x-user-*</code> / active org</li>
+                    <li>Strip bearer after verify; proxy by path prefix</li>
+                    <li>Block service-internal routes from the public edge</li>
                 </ul>
 
-                <h2>Tradeoffs</h2>
+                <h2>Service ownership</h2>
+                <ul>
+                    <li><strong>auth</strong> — users, sessions, orgs, members, roles</li>
+                    <li><strong>billing</strong> — SaaS subscription entitlement (merchant pays platform)</li>
+                    <li><strong>domain MS</strong> — vault, catalog, inventory, … one write model each</li>
+                    <li><strong>gateway</strong> — no business source of truth</li>
+                </ul>
+
+                <h2>Shared packages</h2>
+                <ul>
+                    <li><code>@snapngo/shared</code> — errors, OpenAPI helpers, header names, ports</li>
+                    <li><code>@snapngo/observability</code> — Pino / OTEL middleware</li>
+                    <li>Product UI packages — tokens and components for host + remotes</li>
+                </ul>
+
+                <h2>CLI / generators</h2>
                 <p>
-                    What you accepted, deferred, or rejected — and why.
+                    Module registry, compose/env generators, idempotent apply. Engineers run
+                    <code>init</code> / <code>add</code> / <code>up</code>; the topology above is what gets
+                    emitted and run. Re-run configure to converge, not duplicate. Generated files stay owned
+                    by the tool until marked customized.
                 </p>
 
                 <div class="case-callout">
                     <strong>For architects</strong>
                     <p>
-                        Hub case study = business narrative. This page = technical depth.
-                        Design post = product visual language.
+                        Cut lines stay stable when modules change: gateway remains the public edge, auth owns
+                        membership, domain services own write models, packages carry cross-cutting contracts.
                     </p>
                 </div>
 
                 <nav class="case-actions" aria-label="Post navigation">
-                    <a href="../../work/{{HUB_SLUG}}.html" data-page-transition="rtl">&lt;&lt; PROJECT_HUB</a>
-                    <a href="./design.html" data-page-transition="ltr">DESIGN_POST &gt;&gt;</a>
+                    <a href="./snapngo.html" data-page-transition="rtl">&lt;&lt; PROJECT_HUB</a>
+                    <a href="./mmui.html" data-page-transition="ltr">MMUI &gt;&gt;</a>
+                    <a href="./Quick-start.html" data-page-transition="ltr">QUICK_START &gt;&gt;</a>
                     <a href="../" data-page-transition="rtl">BLOG_INDEX</a>
                 </nav>
             </article>
