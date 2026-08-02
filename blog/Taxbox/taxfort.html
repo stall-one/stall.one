@@ -3,12 +3,11 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Project: Taxbox / TaxFort | stall.one</title>
-    <meta name="description" content="Multi-tenant AI document engine — case study, architecture white paper, and product design for TaxFort." />
+    <title>Project: Taxbox | stall.one</title>
+    <meta name="description" content="Multi-tenant tax document platform on SnapNgo — case study, architecture white paper, and product design for TaxBox." />
     <meta name="robots" content="index, follow" />
     <link rel="stylesheet" href="../../style.css" />
     <script src="../../page-transition.js"></script>
-    
 </head>
 <body>
     <header>
@@ -20,11 +19,11 @@
         <div class="menu-toggle" onclick="toggleMenu()">[MENU]</div>
         <nav id="navbar">
             <ul>
-                <li><a href="../#expertise" data-page-transition="rtl" onclick="toggleMenu()">01_SKILLS</a></li>
-                <li><a href="../#projects" data-page-transition="rtl" onclick="toggleMenu()">02_WORK</a></li>
-                <li><a href="../#certifications" data-page-transition="rtl" onclick="toggleMenu()">03_CERTS</a></li>
-                <li><a href="../blog/" data-page-transition="ltr" onclick="toggleMenu()">04_BLOG</a></li>
-                <li><a href="../#contact" data-page-transition="rtl" onclick="toggleMenu()">05_CONTACT</a></li>
+                <li><a href="../../#expertise" data-page-transition="rtl" onclick="toggleMenu()">01_SKILLS</a></li>
+                <li><a href="../../#projects" data-page-transition="rtl" onclick="toggleMenu()">02_WORK</a></li>
+                <li><a href="../../#certifications" data-page-transition="rtl" onclick="toggleMenu()">03_CERTS</a></li>
+                <li><a href="../" data-page-transition="ltr" onclick="toggleMenu()">04_BLOG</a></li>
+                <li><a href="../../#contact" data-page-transition="rtl" onclick="toggleMenu()">05_CONTACT</a></li>
             </ul>
         </nav>
     </header>
@@ -34,8 +33,8 @@
         <section>
             <article class="project-hub case-study">
                 <span class="project-hub-kicker">PROJECT_HUB // 02_WORK</span>
-                <h1>[PLATFORM: TAXBOX / TAXFORT]</h1>
-                <p class="project-hub-lede">Production-grade multi-tenant SaaS for sensitive tax documents: isolation as a product constraint, RAG classification that respects firm boundaries, and a calm operator UI that reduces cognitive load under deadline pressure.</p>
+                <h1>[PLATFORM: TAXBOX]</h1>
+                <p class="project-hub-lede">Multi-tenant SaaS for sensitive tax documents on the SnapNgo system: host shell and domain MFEs over a gateway to auth, billing, and vault services — isolation as a product constraint, firm/client vaults, and a calm operator UI under deadline pressure.</p>
 
                 <dl class="case-study-meta">
                     <div>
@@ -44,7 +43,7 @@
                     </div>
                     <div>
                         <dt>Stack</dt>
-                        <dd>RAG · Turso · JuiceFS · Docling</dd>
+                        <dd>SnapNgo · Gateway · JuiceFS · Valkey</dd>
                     </div>
                     <div>
                         <dt>Domain</dt>
@@ -52,99 +51,87 @@
                     </div>
                     <div>
                         <dt>Status</dt>
-                        <dd>Live</dd>
-                    </div>
-                    <div>
-                        <dt>Live</dt>
-                        <dd><a href="https://tax.swenusa.com/" target="_blank" rel="noopener noreferrer">Demo</a></dd>
+                        <dd><a href="https://tax.swenusa.com/" target="_blank" rel="noopener noreferrer">Live →</a></dd>
                     </div>
                 </dl>
 
-                <p class="project-vibe-label">
-                    <span data-project-vibe-label>PROJECT_VIBE // …</span>
-                    <span class="pvl-hint" data-project-vibe-hint>product surface · still on stall.one</span>
-                </p>
-                <div class="project-vibe">
                 <div class="tags" style="margin-bottom: 2rem; padding-top: 0;">
                     <span class="tag">MULTI_TENANT</span>
-                    <span class="tag">RAG_PIPELINE</span>
+                    <span class="tag">SNAPNGO</span>
                     <span class="tag">JUICEFS</span>
                     <span class="tag">SAAS</span>
                 </div>
 
-            <p class="hub-section-label">Portfolio deliverables</p>
-            <div class="deliverables">
-                <a class="deliverable-card" href="#case-study">
-                    <div class="del-slot">01 · Case Study</div>
-                    <h3>Business narrative</h3>
-                    <div class="del-audience">Stakeholders · clients · ROI</div>
-                    <p>Problem, approach, and outcome in plain language. Hooks decision-makers who care about value delivered.</p>
-                    <span class="del-cta">Read case study ↓</span>
-                </a>
-                <a class="deliverable-card" href="../blog/Taxbox/Architecture.html" data-page-transition="ltr">
-                    <div class="del-slot">02 · White Paper</div>
-                    <h3>System design</h3>
-                    <div class="del-audience">Lead eng · architects</div>
-                    <p>Technical depth: boundaries, data flow, failure modes, and diagrams. Built for people who review systems.</p>
-                    <span class="del-cta">Open architecture →</span>
-                </a>
-                <a class="deliverable-card" href="../designsystem/taxds.html" data-page-transition="ltr">
-                    <div class="del-slot">03 · Design Post</div>
-                    <h3>UX + visual language</h3>
-                    <div class="del-audience">PMs · UX · product</div>
-                    <p>Why the aesthetic pivot happened — palette psychology, hierarchy, and workflow — not “it looked cool.”</p>
-                    <span class="del-cta">Open design →</span>
-                </a>
-            </div>
-
-
-            <p class="hub-section-label">Platform extras · SaaS</p>
-            <div class="extras-grid">
-                <div class="extra-card">
-                    <h3>Live sandbox</h3>
-                    <p>Click through the real product surface — modular workspaces beat screenshots.</p>
-                    <p><a href="https://tax.swenusa.com/" target="_blank" rel="noopener noreferrer">tax.swenusa.com →</a></p>
+                <p class="hub-section-label">Portfolio deliverables</p>
+                <div class="deliverables">
+                    <a class="deliverable-card" href="#case-study">
+                        <div class="del-slot">01 · Case Study</div>
+                        <h3>Business narrative</h3>
+                        <div class="del-audience">Stakeholders · clients · ROI</div>
+                        <p>Problem, approach, and outcome in plain language. Hooks decision-makers who care about value delivered.</p>
+                        <span class="del-cta">Read case study ↓</span>
+                    </a>
+                    <a class="deliverable-card" href="./architecture.html" data-page-transition="ltr">
+                        <div class="del-slot">02 · White Paper</div>
+                        <h3>System Architecture</h3>
+                        <div class="del-audience">Lead eng · architects</div>
+                        <p>Technical depth: SnapNgo layers, service ownership, data flow, and failure modes. Built for people who review systems.</p>
+                        <span class="del-cta">Open architecture →</span>
+                    </a>
+                    <a class="deliverable-card" href="./UX.html" data-page-transition="ltr">
+                        <div class="del-slot">03 · Design Post</div>
+                        <h3>UX + visual language</h3>
+                        <div class="del-audience">PMs · UX · product</div>
+                        <p>Why the aesthetic pivot happened — palette psychology, hierarchy, and workflow — not “it looked cool.”</p>
+                        <span class="del-cta">Open design →</span>
+                    </a>
                 </div>
-                <div class="extra-card">
-                    <h3>Personas / workflow</h3>
-                    <p>Admin → preparer → reviewer. Isolation and audit trail are first-class in the UX, not only in the API.</p>
-                    <p><a href="../blog/Taxbox/design.html" data-page-transition="ltr">Read design post →</a></p>
+
+                <p class="hub-section-label">Platform extras · SaaS</p>
+                <div class="extras-grid">
+                    <div class="extra-card">
+                        <h3>Live View</h3>
+                        <p>Click through the real product surface — workspaces, vaults, and billing beat screenshots.</p>
+                        <p><a href="https://usetaxbox.com/" target="_blank" rel="noopener noreferrer">usetaxbox →</a></p>
+                    </div>
+                    <div class="extra-card">
+                        <h3>Pair the desktop. Mount the vault.</h3>
+                        <p>How TaxFort gets files in without the browser UI: inbound webhooks to a vault inbox, and a Tauri desktop client that pairs to a user then mounts org-scoped storage with STS.</p>
+                        <p><a href="./desktop.html" data-page-transition="ltr">Read post →</a></p>
+                    </div>
                 </div>
-            </div>
-        
 
                 <div id="case-study" class="case-study-block">
                     <p class="hub-section-label">Case study · business narrative</p>
                     <h2>Problem</h2>
-                    <p>Tax and compliance teams drown in unstructured PDFs. Manual classification is slow, error-prone, and hard to audit. Multi-tenant products must isolate data hard — one wrong join is an incident, not a feature request.</p>
+                    <p>Tax and compliance teams drown in unstructured PDFs. Manual handling is slow, error-prone, and hard to audit. Multi-tenant products must isolate data hard — one wrong path across firm or client vaults is an incident, not a feature request.</p>
                     <h2>Approach</h2>
                     <ul>
-                    <li>Distributed storage with JuiceFS for large document blobs and predictable IO.</li>
-                    <li>Tenant-scoped metadata and vectors on Turso/SQLite for lightweight, portable tenancy.</li>
-                    <li>Docling + NVIDIA OpenShell for ingestion, prep, and model-backed classification.</li>
-                    <li>RAG retrieval gated by tenant policy so answers never cross customer boundaries.</li>
-                    <li>Desktop pairing path for firm machines that need local vault access without emailing PDFs.</li>
+                        <li>SnapNgo shape: host shell + Auth / Billing / Vault MFEs over a single API gateway.</li>
+                        <li>Ownership-clear services — auth (people + workspaces), billing (Stripe + entitlement), vault (presign / STS only if allowed).</li>
+                        <li>JuiceFS object prefixes <code>orgs/{organizationId}/…</code> so tenancy is structural, not a filter.</li>
+                        <li>Firm pool vs Client Pays vs personal vaults; seats and safe limits on the payer workspace.</li>
+                        <li>Inbox ingress (email / SMS / storage webhooks) into Valkey agent queue + Python worker.</li>
+                        <li>Desktop pairing: device → web approve → long-lived token → STS mount without emailing PDFs.</li>
                     </ul>
                     <div class="case-callout">
                         <strong>Outcome / ROI framing</strong>
-                        <p>Production SaaS path for sensitive documents: automated classification, searchable knowledge, and architecture that treats isolation as a first-class constraint — not a bolt-on filter.</p>
+                        <p>Production SaaS path for sensitive documents: firm and client vaults, paid capacity gates, and architecture that treats isolation as a first-class constraint — not a bolt-on filter.</p>
                     </div>
                     <h2>What shipped</h2>
-                    <p>End-to-end pipeline from upload → parse → embed → query, with operational hooks for monitoring and human review when the model is unsure.</p>
-                </div>
+                    <p>Gateway-fronted auth, billing, and vault; JuiceFS storage with org prefixes; dual Valkey (edge rate-limit vs agent jobs); inbound webhooks; desktop STS mount; firm-pool and Client Pays billing modes. White paper and design deliverables document the cut lines for review.</p>
                 </div>
 
                 <h2>Technical logs</h2>
                 <div class="related-logs">
-                <a href="../Taxbox/field-notes.html" data-page-transition="ltr"><span>LOG</span>Field notes</a>
-                <a href="../Taxbox/architecture.html" data-page-transition="ltr"><span>WHITE_PAPER</span>Architecture</a>
+                    <a href="./field-notes.html" data-page-transition="ltr"><span>LOG</span>Field notes</a>
+                    <a href="./architecture.html" data-page-transition="ltr"><span>WHITE_PAPER</span>Architecture</a>
                 </div>
 
                 <nav class="case-actions" aria-label="Project navigation">
-                    <a href="../#projects" data-page-transition="rtl">&lt;&lt; BACK_TO_WORK</a>
-                    <a href="https://tax.swenusa.com/" target="_blank" rel="noopener noreferrer">VIEW_LIVE_DEMO &gt;&gt;</a>
-                    <a href="./spatial-simulator.html" data-page-transition="rtl">&lt;&lt; PREV</a>
-                    <a href="./whitebox-bio.html" data-page-transition="ltr">NEXT &gt;&gt;</a>
+                    <a href="../../#projects" data-page-transition="rtl">&lt;&lt; BACK_TO_WORK</a>
+                    <a href="https://tax.swenusa.com/" target="_blank" rel="noopener noreferrer">VIEW_LIVE &gt;&gt;</a>
+                    <a href="../snapngo/snapngo.html" data-page-transition="ltr">SNAPNGO &gt;&gt;</a>
                 </nav>
             </article>
         </section>
