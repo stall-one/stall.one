@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!--
+      STARTER: field note / technical log
+      Inspired by work/*.html project hubs (same shell + case-study language).
+
+      1. mkdir -p blog/YourProject
+      2. cp starters/blog.html blog/YourProject/your-note.html
+      3. Fill content; link from hub related-logs
+    -->
+    <title>{{TITLE}} | stall.one</title>
+    <meta name="description" content="{{LEDE}}" />
+    <meta name="robots" content="index, follow" />
+    <link rel="stylesheet" href="../../style.css" />
+    <script src="../../page-transition.js"></script>
+</head>
+<body>
+    <header>
+        <div class="logo-container">
+            <a href="../../" data-page-transition="rtl" class="brand-link" aria-label="Back to home">
+                <span class="brand">STALL.ONE</span>
+            </a>
+        </div>
+        <div class="menu-toggle" onclick="toggleMenu()">[MENU]</div>
+        <nav id="navbar">
+            <ul>
+                <li><a href="../../#expertise" data-page-transition="rtl" onclick="toggleMenu()">01_SKILLS</a></li>
+                <li><a href="../../#projects" data-page-transition="rtl" onclick="toggleMenu()">02_WORK</a></li>
+                <li><a href="../../#certifications" data-page-transition="rtl" onclick="toggleMenu()">03_CERTS</a></li>
+                <li><a href="../../" data-page-transition="ltr" onclick="toggleMenu()">04_BLOG</a></li>
+                <li><a href="../../#contact" data-page-transition="rtl" onclick="toggleMenu()">05_CONTACT</a></li>
+            </ul>
+        </nav>
+    </header>
+    <div class="crt-overlay"></div>
+
+    <main class="container">
+        <section>
+            <!-- Same vocabulary as project hubs: kicker, lede, meta, tags, // h2, callout, actions -->
+            <article class="case-study">
+                <span class="case-study-kicker">LOG // {{PROJECT_TAG}} · {{YYYY-MM-DD}}</span>
+                <h1>{{TITLE}}</h1>
+                <p class="case-study-lede">{{LEDE}}</p>
+
+                <dl class="case-study-meta">
+                    <div>
+                        <dt>Project</dt>
+                        <dd>{{PROJECT_NAME}}</dd>
+                    </div>
+                    <div>
+                        <dt>Type</dt>
+                        <dd>Field note</dd>
+                    </div>
+                    <div>
+                        <dt>Audience</dt>
+                        <dd>{{AUDIENCE}}</dd>
+                    </div>
+                </dl>
+
+                <div class="tags" style="margin-bottom: 2rem; padding-top: 0;">
+                    <span class="tag">{{TAG_1}}</span>
+                    <span class="tag">{{TAG_2}}</span>
+                </div>
+
+                <h2>Context</h2>
+                <p>
+                    What triggered this note — the concrete situation, constraint, or failure.
+                    Mirror the hub “Problem” tone: plain language, no marketing fog.
+                </p>
+
+                <h2>What we tried</h2>
+                <ul>
+                    <li>First approach or experiment.</li>
+                    <li>Second approach or measurement.</li>
+                    <li>What you rejected and why.</li>
+                </ul>
+
+                <div class="case-callout">
+                    <strong>What stuck</strong>
+                    <p>{{TAKEAWAY}}</p>
+                </div>
+
+                <h2>Links</h2>
+                <p>
+                    Point back to the hub and related deliverables so this log stays part of the project tree.
+                </p>
+
+                <nav class="case-actions" aria-label="Post navigation">
+                    <a href="../../work/{{HUB_SLUG}}.html" data-page-transition="rtl">&lt;&lt; PROJECT_HUB</a>
+                    <a href="../" data-page-transition="rtl">BLOG_INDEX</a>
+                    <a href="../../#projects" data-page-transition="rtl">ALL_WORK</a>
+                </nav>
+            </article>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container" style="border:none; padding-top: 2rem; padding-bottom: 2rem; display:flex; justify-content:space-between; flex-wrap:wrap; gap:1rem;">
+            <div class="social-links">
+                <a href="https://github.com/stall-one">[GITHUB]</a>
+                <a href="https://x.com/gitstallone">[X / TWITTER]</a>
+            </div>
+            <span style="font-size: 0.8rem; opacity: 0.8;">// © 2025 SWEN_S_PECK</span>
+        </div>
+    </footer>
+    <script>function toggleMenu(){ document.getElementById("navbar").classList.toggle("open"); }</script>
+</body>
+</html>
