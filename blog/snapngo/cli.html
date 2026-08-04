@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SnapNGo CLI</title>
+    <meta name="description" content="SnapNGo CLI — init spine, add modules, up the stack. Tech brutalism command reference." />
+    <meta name="robots" content="index, follow" />
+    <style>
+        /* Tech Brutalism — not stall.one shell */
+        :root {
+            --bg: #050505;
+            --prime: #00ff41;
+            --prime-dim: rgba(0, 255, 65, 0.12);
+            --prime-line: rgba(0, 255, 65, 0.35);
+            --fg: #e8e8e8;
+            --muted: #6a6a6a;
+            --panel: #0a0a0a;
+            --danger: #ff3333;
+            --font: "IBM Plex Mono", "Consolas", "Courier New", ui-monospace, monospace;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background: var(--bg);
+            color: var(--fg);
+            font-family: var(--font);
+            font-size: 14px;
+            line-height: 1.55;
+            min-height: 100vh;
+            /* background-image:
+                linear-gradient(var(--prime-dim) 1px, transparent 1px),
+                linear-gradient(90deg, var(--prime-dim) 1px, transparent 1px); */
+            background-size: 48px 48px;
+            background-position: -1px -1px;
+        }
+
+        a {
+            color: var(--prime);
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+            text-underline-offset: 3px;
+        }
+
+        .wrap {
+            max-width: 880px;
+            margin: 0 auto;
+            padding: 2rem 1.25rem 4rem;
+            border-left: 1px solid var(--prime-line);
+            border-right: 1px solid var(--prime-line);
+            min-height: 100vh;
+            background: rgba(5, 5, 5, 0.92);
+        }
+
+        .top {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: baseline;
+            gap: 0.75rem 1.5rem;
+            padding-bottom: 1.25rem;
+            margin-bottom: 2rem;
+            border-bottom: 1px solid  var(--prime);
+        }
+
+        .top .mark {
+            font-weight: 700;
+            font-size: 0.75rem;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: var(--prime);
+        }
+
+        .top nav {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem 1.25rem;
+            font-size: 0.7rem;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+
+        .top nav a {
+            color: var(--muted);
+        }
+
+        .top nav a:hover {
+            color: var(--prime);
+        }
+
+        .kicker {
+            font-size: 0.65rem;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+            color: var(--prime);
+            margin-bottom: 0.75rem;
+        }
+
+        h1 {
+            font-size: clamp(1.75rem, 5vw, 2.5rem);
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            text-transform: uppercase;
+            color: var(--prime);
+            line-height: 1.1;
+            margin-bottom: 1rem;
+            border: 0;
+        }
+
+        h1 span {
+            color: var(--fg);
+        }
+
+        .lede {
+            color: var(--muted);
+            max-width: 52ch;
+            margin-bottom: 1.5rem;
+            font-size: 0.95rem;
+        }
+
+        .meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.4rem;
+            margin-bottom: 2.5rem;
+        }
+
+        .meta span {
+            border: 1px solid var(--prime-line);
+            color: var(--prime);
+            font-size: 0.6rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            padding: 0.3rem 0.55rem;
+            background: var(--prime-dim);
+        }
+
+        h2 {
+            font-size: 0.7rem;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: var(--prime);
+            margin: 2.25rem 0 0.85rem;
+            padding-top: 1.25rem;
+            border-top: 1px solid var(--prime-line);
+            font-weight: 700;
+        }
+
+        h2::before {
+            content: "// ";
+            opacity: 0.7;
+        }
+
+        p {
+            color: var(--muted);
+            margin-bottom: 0.85rem;
+            max-width: 62ch;
+        }
+
+        ul, ol {
+            margin: 0 0 1.25rem 1.15rem;
+            color: var(--muted);
+            max-width: 60ch;
+        }
+
+        li {
+            margin-bottom: 0.4rem;
+        }
+
+        strong {
+            color: var(--fg);
+            font-weight: 700;
+        }
+
+        code {
+            color: var(--prime);
+            background: var(--prime-dim);
+            padding: 0.05em 0.3em;
+            border: 1px solid transparent;
+            font-size: 0.9em;
+        }
+
+        .term {
+            border: 0px solid var(--prime);
+            background: var(--panel);
+            margin: 1rem 0 1.5rem;
+            overflow: hidden;
+        }
+
+        .term-bar {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.45rem 0.75rem;
+            border-bottom: 1px solid var(--prime-line);
+            background: #000;
+            font-size: 0.65rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--muted);
+        }
+
+        .term-bar i {
+            width: 8px;
+            height: 8px;
+            background: var(--prime);
+            display: inline-block;
+        }
+
+        .term pre {
+            margin: 0;
+            padding: 1.1rem 1.15rem;
+            overflow-x: auto;
+            font-size: 0.8rem;
+            line-height: 1.55;
+            color: var(--prime);
+            white-space: pre;
+        }
+
+        .term pre .c {
+            color: var(--muted);
+        }
+
+        .term pre .p {
+            color: var(--fg);
+        }
+
+        .grid2 {
+            display: grid;
+            gap: 1rem;
+            margin: 1rem 0 1.5rem;
+        }
+
+        @media (min-width: 640px) {
+            .grid2 {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        .block {
+            border: 1px solid var(--prime-line);
+            padding: 1rem 1.1rem;
+            background: var(--panel);
+        }
+
+        .block h3 {
+            font-size: 0.65rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--prime);
+            margin-bottom: 0.65rem;
+            font-weight: 700;
+        }
+
+        .block p,
+        .block li {
+            font-size: 0.85rem;
+            max-width: none;
+        }
+
+        .block ul {
+            margin-bottom: 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0 1.5rem;
+            font-size: 0.8rem;
+        }
+
+        th, td {
+            text-align: left;
+            padding: 0.55rem 0.4rem;
+            border-bottom: 1px solid var(--prime-line);
+            color: var(--muted);
+            vertical-align: top;
+        }
+
+        th {
+            font-size: 0.6rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--prime);
+        }
+
+        td:first-child {
+            color: var(--prime);
+            font-weight: 700;
+            white-space: nowrap;
+        }
+
+        .call {
+            border: 1px solid var(--prime);
+            padding: 1.1rem 1.2rem;
+            margin: 1.75rem 0;
+            background: var(--prime-dim);
+        }
+
+        .call strong {
+            display: block;
+            color: var(--prime);
+            font-size: 0.65rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            margin-bottom: 0.45rem;
+        }
+
+        .call p {
+            margin: 0;
+            color: var(--fg);
+            max-width: none;
+        }
+
+        .foot {
+            margin-top: 3rem;
+            padding-top: 1.25rem;
+            border-top: 1px solid var(--prime);
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem 1.5rem;
+            font-size: 0.7rem;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+
+        .foot a {
+            color: var(--prime);
+        }
+
+        .blink {
+            animation: blink 1.1s step-end infinite;
+        }
+
+        @keyframes blink {
+            50% { opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+    <div class="wrap">
+        <header class="top">
+            <div class="mark">SNAPNGO_CLI</div>
+            <nav>
+                <a href="./snapngo.html">Hub</a>
+                <a href="./Developer.html">Developer</a>
+                <a href="./white-paper.html">Architecture</a>
+                <a href="./Quick-start.html">Quick start</a>
+                <a href="../../">stall.one</a>
+            </nav>
+        </header>
+
+        <p class="kicker">CLI // TECH BRUTALISM // DRAFT</p>
+        <h1>SnapNGo <span>command line</span></h1>
+        <p class="lede">
+            Build modular systems from the terminal: scaffold a spine, add modules, generate compose and env,
+            bring services up. Commands below are the intended day-one surface.
+        </p>
+        <div class="meta">
+            <span>CLI</span>
+            <span>INIT</span>
+            <span>ADD</span>
+            <span>UP</span>
+            <span>HEALTH</span>
+        </div>
+
+        <h2>Install</h2>
+        <div class="term">
+            <div class="term-bar"><i></i> shell</div>
+            <pre><span class="c"># install (illustrative)</span>
+curl -fsSL https://stall.one/snapngo/install | sh
+
+<span class="c"># or package manager when published</span>
+<span class="c"># npm i -g @snapngo/cli</span></pre>
+        </div>
+
+        <h2>Scaffold &amp; run</h2>
+        <div class="term">
+            <div class="term-bar"><i></i> shell · my-stack</div>
+            <pre>snapngo init my-stack
+cd my-stack
+
+snapngo add auth
+snapngo add gateway
+snapngo add catalog
+
+snapngo up
+snapngo health<span class="blink">_</span></pre>
+        </div>
+
+        <h2>Command map</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Command</th>
+                    <th>What it does</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>init</td>
+                    <td>Create project spine: layout, defaults, base compose/env stubs</td>
+                </tr>
+                <tr>
+                    <td>add &lt;module&gt;</td>
+                    <td>Attach a module (service ± remote ± package surface)</td>
+                </tr>
+                <tr>
+                    <td>up</td>
+                    <td>Start the stack (compose or runtime equivalent)</td>
+                </tr>
+                <tr>
+                    <td>down</td>
+                    <td>Stop the stack</td>
+                </tr>
+                <tr>
+                    <td>health</td>
+                    <td>Hit health endpoints for declared services</td>
+                </tr>
+                <tr>
+                    <td>list</td>
+                    <td>Show installed modules and ports</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h2>What you get</h2>
+        <div class="grid2">
+            <div class="block">
+                <h3>Spine</h3>
+                <ul>
+                    <li>Project layout + env defaults</li>
+                    <li>Gateway + auth when added</li>
+                    <li>Observability hooks</li>
+                </ul>
+            </div>
+            <div class="block">
+                <h3>Modules</h3>
+                <ul>
+                    <li>Declared ports and env keys</li>
+                    <li>Optional MF remotes</li>
+                    <li>Lifecycle scripts</li>
+                </ul>
+            </div>
+        </div>
+
+        <h2>Health check</h2>
+        <div class="term">
+            <div class="term-bar"><i></i> shell</div>
+            <pre><span class="c"># typical local ports (reference)</span>
+curl -s http://localhost:3100/health
+curl -s http://localhost:3101/health
+
+<span class="c"># or</span>
+snapngo health</pre>
+        </div>
+
+        <h2>Module sketch</h2>
+        <div class="term">
+            <div class="term-bar"><i></i> module.json</div>
+            <pre>{
+  "name": "catalog",
+  "service": { "port": 3104, "health": "/health" },
+  "env": ["MONGODB_URL", "AUTH_SERVICE_URL"],
+  "remote": { "name": "catalog_remote", "port": 4180 },
+  "dependsOn": ["gateway", "auth"]
+}</pre>
+        </div>
+
+        <div class="call">
+            <strong>Day-one bar</strong>
+            <p>
+                From empty directory to green health should be a short command sequence. Topology and cut
+                lines live in the architecture note; module contracts live on the developer surface.
+            </p>
+        </div>
+
+        <footer class="foot">
+            <a href="./snapngo.html">← Project hub</a>
+            <a href="./Developer.html">Developer →</a>
+            <a href="./white-paper.html">Architecture →</a>
+            <a href="./Quick-start.html">Quick start →</a>
+        </footer>
+    </div>
+</body>
+</html>
